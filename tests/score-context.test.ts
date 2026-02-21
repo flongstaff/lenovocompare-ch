@@ -27,14 +27,7 @@ describe("getScoreContext", () => {
 
 describe("getInterpretation", () => {
   it("returns text for each dimension and score range", () => {
-    const dims = [
-      "cpu",
-      "gpu",
-      "memory",
-      "display",
-      "connectivity",
-      "portability",
-    ] as const;
+    const dims = ["cpu", "gpu", "memory", "display", "connectivity", "portability"] as const;
     for (const dim of dims) {
       for (const score of [90, 70, 50, 20]) {
         const text = getInterpretation(dim, score);

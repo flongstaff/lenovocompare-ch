@@ -123,11 +123,7 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
               <div className="h-2 w-24 shrink-0 rounded-full" style={{ background: "var(--surface)" }}>
                 <div className="h-full rounded-full" style={{ width: `${dim.score}%`, background: dim.color }} />
               </div>
-              <motion.div
-                animate={{ rotate: isOpen ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="shrink-0"
-              >
+              <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }} className="shrink-0">
                 <ChevronDown size={14} style={{ color: "var(--muted)" }} />
               </motion.div>
             </button>

@@ -9,13 +9,7 @@ import {
   getPortabilityScore,
 } from "./scoring";
 
-export type Dimension =
-  | "cpu"
-  | "gpu"
-  | "memory"
-  | "display"
-  | "connectivity"
-  | "portability";
+export type Dimension = "cpu" | "gpu" | "memory" | "display" | "connectivity" | "portability";
 
 interface ScoreContext {
   readonly average: number;
@@ -46,22 +40,14 @@ export const getScoreContext = (dim: Dimension, model: Laptop): ScoreContext => 
   const modelScore = getDimensionScore(dim, model);
 
   // Series group — fall back to lineup if series has < 3 models
-  const seriesModels = laptops.filter(
-    (m) => m.lineup === model.lineup && m.series === model.series,
-  );
+  const seriesModels = laptops.filter((m) => m.lineup === model.lineup && m.series === model.series);
   const useSeriesGroup = seriesModels.length >= 3;
 
-  const groupModels = useSeriesGroup
-    ? seriesModels
-    : laptops.filter((m) => m.lineup === model.lineup);
-  const groupLabel = useSeriesGroup
-    ? `${model.lineup} ${model.series}-series`
-    : `${model.lineup} lineup`;
+  const groupModels = useSeriesGroup ? seriesModels : laptops.filter((m) => m.lineup === model.lineup);
+  const groupLabel = useSeriesGroup ? `${model.lineup} ${model.series}-series` : `${model.lineup} lineup`;
 
   const groupScores = groupModels.map((m) => getDimensionScore(dim, m));
-  const average = Math.round(
-    groupScores.reduce((a, b) => a + b, 0) / groupScores.length,
-  );
+  const average = Math.round(groupScores.reduce((a, b) => a + b, 0) / groupScores.length);
 
   // Percentile
   const below = allScores.filter((s) => s < modelScore).length;
@@ -76,10 +62,7 @@ export const getScoreContext = (dim: Dimension, model: Laptop): ScoreContext => 
   return { average, groupLabel, percentile, comparisonText };
 };
 
-const interpretations: Record<
-  Dimension,
-  readonly [string, string, string, string]
-> = {
+const interpretations: Record<Dimension, readonly [string, string, string, string]> = {
   cpu: [
     "Heavy compilation, video encoding, and ML workloads",
     "Strong multitasking and moderate content creation",
