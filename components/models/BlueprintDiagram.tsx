@@ -10,8 +10,7 @@ interface BlueprintDiagramProps {
 const getDimensions = (displaySize: number, weight: number) => {
   const widthMm = Math.round(displaySize * 22.5);
   const depthMm = Math.round(displaySize * 15.8);
-  const heightMm =
-    weight < 1.3 ? 15 : weight < 1.8 ? 18 : weight < 2.5 ? 21 : 25;
+  const heightMm = weight < 1.3 ? 15 : weight < 1.8 ? 18 : weight < 2.5 ? 21 : 25;
   return { widthMm, depthMm, heightMm };
 };
 
@@ -22,11 +21,7 @@ const TRACKPOINT_RED = "#da1e28";
 const ACCENT = "var(--accent)";
 const FONT = "'IBM Plex Mono', 'Courier New', monospace";
 
-export const BlueprintDiagram = ({
-  displaySize,
-  weight,
-  lineup,
-}: BlueprintDiagramProps) => {
+export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagramProps) => {
   const { widthMm, depthMm, heightMm } = getDimensions(displaySize, weight);
 
   // SVG coordinate system
@@ -65,18 +60,13 @@ export const BlueprintDiagram = ({
     <svg
       viewBox={`0 0 ${viewW} ${viewH}`}
       xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-auto"
+      className="h-auto w-full"
       role="img"
       aria-label={`Blueprint diagram: ${widthMm}mm x ${depthMm}mm x ${heightMm}mm, ${weight}kg`}
     >
       {/* Grid dots for engineering feel */}
       <defs>
-        <pattern
-          id="blueprint-grid"
-          width="20"
-          height="20"
-          patternUnits="userSpaceOnUse"
-        >
+        <pattern id="blueprint-grid" width="20" height="20" patternUnits="userSpaceOnUse">
           <circle cx="10" cy="10" r="0.3" fill="#333333" />
         </pattern>
       </defs>
@@ -123,11 +113,7 @@ export const BlueprintDiagram = ({
       {lineup === "ThinkPad" && (
         <circle
           cx={chassisX + chassisW / 2}
-          cy={
-            screenY +
-            screenH +
-            (chassisY + chassisH - (screenY + screenH)) / 2
-          }
+          cy={screenY + screenH + (chassisY + chassisH - (screenY + screenH)) / 2}
           r={2.5}
           fill={TRACKPOINT_RED}
         />
@@ -302,13 +288,7 @@ export const BlueprintDiagram = ({
       </g>
 
       {/* Weight label (bottom-left) */}
-      <text
-        x={chassisX}
-        y={viewH - 10}
-        fontSize={9}
-        fontFamily={FONT}
-        fill={LINE_COLOR}
-      >
+      <text x={chassisX} y={viewH - 10} fontSize={9} fontFamily={FONT} fill={LINE_COLOR}>
         {weight} kg
       </text>
     </svg>

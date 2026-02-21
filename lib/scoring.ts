@@ -406,11 +406,7 @@ export const getGpuScoreBreakdown = (gpuName: string): GpuBreakdown => ({
 });
 
 /** Compute what % of models in the same lineup this score beats */
-export const getScorePercentile = (
-  score: number,
-  dimension: keyof PerformanceDimensions,
-  lineup: string,
-): number => {
+export const getScorePercentile = (score: number, dimension: keyof PerformanceDimensions, lineup: string): number => {
   const lineupModels = laptops.filter((m) => m.lineup === lineup);
   const allScores = lineupModels.map((m) => getPerformanceDimensions(m)[dimension]);
   const below = allScores.filter((s) => s < score).length;
@@ -418,10 +414,7 @@ export const getScorePercentile = (
 };
 
 /** Get the max score for a dimension within a lineup */
-export const getLineupMaxScore = (
-  dimension: keyof PerformanceDimensions,
-  lineup: string,
-): number => {
+export const getLineupMaxScore = (dimension: keyof PerformanceDimensions, lineup: string): number => {
   const lineupModels = laptops.filter((m) => m.lineup === lineup);
   const allScores = lineupModels.map((m) => getPerformanceDimensions(m)[dimension]);
   return Math.max(...allScores);

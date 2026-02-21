@@ -25,14 +25,7 @@ export const MiniRadar = ({ scores, color }: MiniRadarProps) => {
     <ResponsiveContainer width={80} height={80}>
       <RadarChart outerRadius="75%" data={data}>
         <PolarGrid stroke="#393939" />
-        <Radar
-          dataKey="value"
-          stroke={color}
-          fill={color}
-          fillOpacity={0.15}
-          strokeWidth={1.5}
-          dot={false}
-        />
+        <Radar dataKey="value" stroke={color} fill={color} fillOpacity={0.15} strokeWidth={1.5} dot={false} />
       </RadarChart>
     </ResponsiveContainer>
   );
