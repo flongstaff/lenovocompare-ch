@@ -13,6 +13,7 @@ npm run dev      # Start dev server (localhost:3000)
 npm run build    # Production build — run after major logic changes
 npm run lint     # ESLint
 npm test         # Vitest unit tests (formatters, scoring, data integrity)
+npm run validate # Data integrity validation (all 9 data files)
 npx prettier --check .  # Check formatting (auto-runs via hook on edits)
 docker compose up  # Dev server via Docker on :3000
 ```
@@ -42,18 +43,37 @@ Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and
 - Editing `.claude/settings.json` with grep patterns containing `(` breaks JSON validation in the Edit tool — use Write (full file) instead
 - `laptops.ts` array ends with `] as const;` (not `];`) — use `Read` on last 5 lines to find insertion point for new models
 - `.mcp.json` is gitignored (machine-specific) — MCP server config won't transfer via git clone
-- 26 skill/agent files in `.claude/` still reference `thinkpads.ts` and `thinkpadId` (pre-v0.2 names) — aliases work at runtime but use `laptops.ts` and `laptopId` in new/updated skill files. Run `/stale-ref-check` to audit
+- Use `laptops.ts` and `laptopId` in new/updated skill/agent files (not deprecated `thinkpads.ts`/`thinkpadId`). Run `/stale-ref-check` to audit
 - `x?.length > 0` fails TypeScript — optional chaining returns `number | undefined`, use `(x?.length ?? 0) > 0`
 - `Math.min(...[])` returns `Infinity` — always guard empty arrays before spread into min/max
 - recharts `ScatterChart` with `lineType="joint"` is preferred for sparse time-irregular data (e.g., price entries) over LineChart
 
 ## Claude Code Automations
 
-- **Skills**: `/add-laptop`, `/add-price`, `/add-model-year`, `/update-psref`, `/compare-specs`, `/visual-check`, `/new-component`, `/deploy-check`, `/validate-data`, `/e2e-check`, `/commit`, `/add-editorial` (add editorial entry), `/refresh-analysis` (audit auto-generated analysis), `/benchmark-update` (batch CPU/GPU benchmark updates), `/changelog` (generate release notes from git history), `/hardware-update` (add/update hardware guide entries for new CPUs/GPUs), `/data-sync-check` (cross-reference all data files for missing entries), `/gpu-update` (add/update GPU across benchmarks, hardware guide, and model gpuOptions), `/perf-audit` (Lighthouse performance audit + bundle size regression check), `/data-migration` (batch transform data files when adding/changing Laptop fields), `/accessibility-check` (axe-core a11y audit via Playwright on all routes), `/release` (version bump + changelog + git tag), `/stale-ref-check` (audit .claude/ files for deprecated names and stale paths), `/github-prep` (full pre-publication audit: security, docs freshness, code readability, data completeness, build, stale refs), `/add-benchmark` (add per-model chassis benchmark data from NotebookCheck reviews), `/regression-test` (snapshot data aggregates before/after bulk edits to catch silent value regressions), `/model-checklist` (verify single model completeness across all 9 data files), `/model-health` (end-to-end model check: data + page rendering + chart verification + price sanity), `/bulk-benchmark-verify` (batch-verify community-estimated benchmarks against NotebookCheck reviews), `/screenshot-diff` (before/after screenshot comparison using Playwright MCP), `/chart-audit` (screenshot chart-heavy pages and verify each chart type renders data correctly), `/price-import-test` (generate test payloads and verify pricing import/export flow), `/ingest-review` (extract benchmark data from laptop reviews into model-benchmarks.ts), `/run-tests` (run Vitest suite and diagnose failures)
-- **Agents**: `pricing-verifier`, `ui-reviewer`, `a11y-reviewer`, `perf-analyzer`, `data-reviewer`, `test-writer`, `component-test-writer` (React component tests with @testing-library/react), `editorial-reviewer` (cross-reference editorial vs specs), `upgrade-path-reviewer` (validate UpgradeSimulator paths vs PSREF), `scoring-auditor` (audit scoring distributions across all models), `hardware-guide-reviewer` (verify hardware guide claims against benchmark data), `gpu-data-reviewer` (cross-reference GPU data across benchmarks, hardware guide, and model gpuOptions), `bundle-analyzer` (analyze build output for bundle size regressions and optimization opportunities), `docs-reviewer` (cross-reference README/CONTRIBUTING against codebase state), `code-readability-auditor` (JSDoc coverage, magic number docs, comment quality), `benchmark-data-reviewer` (cross-reference model-benchmarks.ts coverage and validate data plausibility), `cross-lineup-comparator` (audit cross-lineup score range handling in compare UI), `price-trend-analyzer` (analyze price data for economic plausibility, trend anomalies, and chart data quality), `sustained-perf-analyzer` (cross-reference thermals, TDP, and battery performance for efficiency/throttle analysis), `dependency-auditor` (audit npm deps for vulnerabilities, unused packages, supply chain risks)
-- **Hooks**: SessionStart: clear port 3000, dependency health check, auto-start dev server, doc freshness check, community skills sync, stale .next cache detector, benchmark coverage counter, stale ref detector (skills + agents); PostToolUse: ESLint, tsc, Prettier (ts/tsx/css/json/md), data validation on data/type file edits, ScoreBar CSS var warning, GPU cross-reference reminder, laptops.ts data file cross-reference reminder, image size warning (>200KB in public/), chart height reminder, `as const` assertion guard on data files, recharts `"use client"` directive warning, Map/Set `for...of` iteration guard on chart/pricing files, duplicate key detector on data files, auto-run Vitest on test/lib edits, stale agent name detector, BenchmarkSource validation on model-benchmarks edits, npm audit on package.json edits; Stop: kill dev server on port 3000; PreToolUse: block lock files, block `.env`/`.pem`/`.key`, linter-maintained file warning, recharts import path reminder
-- **MCP**: context7 (live docs), playwright (visual testing), memory (cross-session persistence), fetch, github (disabled — needs GITHUB_PERSONAL_ACCESS_TOKEN), exa (disabled — needs EXA_API_KEY, structured web search for benchmark research) — all via Docker in `.mcp.json`
+- **Skills** (33): `/add-laptop`, `/add-price`, `/add-model-year`, `/update-psref`, `/compare-specs`, `/new-component`, `/deploy-check`, `/e2e-check`, `/commit` (with prefix validation), `/add-editorial`, `/refresh-analysis`, `/benchmark-update`, `/changelog`, `/hardware-update`, `/gpu-update`, `/data-migration`, `/accessibility-check`, `/release`, `/stale-ref-check`, `/github-prep`, `/add-benchmark`, `/bulk-benchmark-verify`, `/price-import-test`, `/ingest-review`, `/run-tests`, `/add-gpu`, `/add-linux-compat`, `/perf-budget` (bundle size regression check), `/sync-counts` (auto-update model counts in docs), `/visual-test` (screenshots, diffs, chart audit, regression), `/data-verify` (CLI validation, sync, regression snapshots), `/model-check` (data + rendering + charts + price sanity), `/audit perf|price|retailer|psref` (targeted subsystem audits)
+- **Agents** (21): `pricing-verifier`, `ui-reviewer`, `a11y-reviewer`, `perf-analyzer`, `test-writer`, `component-test-writer`, `editorial-reviewer`, `upgrade-path-reviewer`, `scoring-auditor`, `bundle-analyzer`, `docs-reviewer`, `code-readability-auditor`, `benchmark-data-reviewer`, `price-trend-analyzer`, `sustained-perf-analyzer`, `dependency-auditor`, `validation-reviewer`, `lighthouse-auditor` (Playwright-based performance + accessibility audit), `data-reviewer` (specs + completeness), `hardware-reviewer` (GPU data + guide content), `chart-reviewer` (chart quality + cross-lineup handling)
+- **Hooks** (26): SessionStart (8): clear port 3000 + auto-start dev server (combined), dependency health, doc freshness, community skills sync, stale .next cache, benchmark coverage, stale ref detector, skill freshness; PostToolUse (12): ESLint, tsc, Prettier, data validation (`npm run validate`), validate-data.ts meta-check, context reminders (ScoreBar/GPU/laptops.ts/chart height), image size warning, data file checks (as-const/duplicate keys/BenchmarkSource), chart checks (use-client/Map-Set guard), Vitest runner, stale agent name, npm audit + dep count warning; Stop (1): kill dev server; PreToolUse (5): security block (lock files + .env/.pem/.key), linter-maintained file warning, recharts import reminder, seed price sequential ID context, Exa cost warning
+- **MCP**: context7 (live docs), playwright (visual testing), memory (cross-session persistence), fetch, exa (structured web search — cost-managed, see policy below), github (disabled — needs GITHUB_PERSONAL_ACCESS_TOKEN) — all via Docker in `.mcp.json`
 - **CI/CD**: `.github/workflows/ci.yml` (lint + test + build), `.github/workflows/deploy.yml` (GitHub Pages deploy), `.github/workflows/codeql.yml` (CodeQL security analysis), `.github/dependabot.yml` (weekly dependency updates)
+
+### Exa Usage Policy (Cost Management)
+
+Exa is a paid API. **Always try free alternatives first**, only escalate to Exa when they fail:
+
+| Task | Try First (Free) | Exa Only If |
+|------|-------------------|-------------|
+| Library/framework docs | `context7` MCP | context7 has no entry |
+| General web lookup | `WebSearch` + `WebFetch` | Need structured/filtered results |
+| Benchmark scores (CPU/GPU) | `WebSearch` for "CPU_NAME cinebench geekbench site:notebookcheck.net" | Multiple sources needed or WebSearch returns stale data |
+| Laptop reviews | `WebFetch` on NotebookCheck/LaptopMedia URLs directly | Need to discover which reviews exist |
+| PSREF specs | `WebFetch` on psref.lenovo.com URLs directly | Never use Exa for this |
+| Price research | Never (user-contributed data only) | Never |
+
+**Rules**:
+- Maximum ~5 Exa calls per session unless user explicitly approves more
+- Batch queries: combine related searches into fewer, broader Exa calls
+- Cache results in memory MCP for reuse across sessions
+- For benchmark research: search NotebookCheck/Tom's Hardware/JarrodsTech via free WebSearch first
 
 ## Architecture
 
@@ -75,13 +95,7 @@ Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and
 - **`data/seed-prices.ts`** — ~205 curated Swiss prices in CHF covering all models (with priceType and note fields)
 - **`data/price-baselines.ts`** — Static price baselines (MSRP, typical retail, historical low) for all models
 - **`components/charts/`** — recharts-based: `PerformanceRadar`, `BenchmarkBar`, `FpsChart`, `CpuCompareChart`, `GpuCompareChart`, `PortabilityCompareChart`, `ThermalGauge`, `BatteryCompareBar` (Carbon dark themed)
-- **`components/`** — UI components organized by feature: `layout/`, `thinkpad/`, `filters/`, `compare/`, `pricing/`, `ui/`
-- **`components/filters/LineupFilter.tsx`** — Toggle pills for ThinkPad / IdeaPad Pro / Legion lineup filter
-- **`components/thinkpad/UpgradeSimulator.tsx`** — RAM/storage upgrade simulator with memory score comparison
-- **`components/thinkpad/ConfigSelector.tsx`** — Processor/display/GPU/RAM/storage option selector on model detail page
-- **`components/thinkpad/ChipDetailCard.tsx`** — Expandable chip analysis card with `compact` prop
-- **`components/thinkpad/HardwareGuide.tsx`** — Model detail page wrapper for CPU/GPU guide lookup
-- **`components/thinkpad/BenchmarksSection.tsx`** — Per-model benchmark display (CPU raw, thermals, battery, SSD, display, content creation) — self-hides when no data
+- **`components/`** — UI components organized by feature: `layout/`, `models/` (LaptopCard, ConfigSelector, UpgradeSimulator, BenchmarksSection, ChipDetailCard, HardwareGuide), `filters/` (LineupFilter, SeriesFilter), `compare/`, `pricing/`, `ui/` (ScoreBar, Toast, ErrorBoundary, LinuxBadge, Skeleton)
 - **`tests/`** — Vitest unit tests: `formatters.test.ts` (CHF/weight/date/storage/shortName), `scoring.test.ts` (CPU/GPU/portability scores), `data-integrity.test.ts` (ID uniqueness, benchmark coverage, source validation, thermal plausibility)
 
 ## Key Patterns
@@ -96,7 +110,7 @@ Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and
 - Core type: `Laptop` in `lib/types.ts` with `ThinkPad` as deprecated alias
 - Swiss pricing uses CHF with `de-CH` locale formatting
 - CSS uses IBM Carbon Design System classes (`.carbon-card`, `.carbon-btn`, `.carbon-input`, `.carbon-select`, `.carbon-chip`)
-- Components use default exports (ThinkPadCard, Header, CompareTable) or named exports
+- Components use default exports (LaptopCard, Header, CompareTable) or named exports
 - All user data stored in localStorage via `useLocalStorage` hook (keys: `lenovocompare-prices`, `lenovocompare-compare`; auto-migrates from `thinkcompare-*`)
 - framer-motion for card stagger animations + AnimatePresence for filter transitions
 - Pages use server/client split: `page.tsx` exports metadata, renders `*Client.tsx` component
@@ -106,8 +120,8 @@ Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and
 - Model detail page (`ModelDetailClient`): full-width layout with ConfigSelector (if options exist), 3-column dashboard strip (Scores, Swiss Prices, Value Calculator), then stacked cards: 2-column Specs, UpgradeSimulator, Performance Overview (compact radar + 6 dimension score cards), BenchmarksSection (with thermal/noise context labels), GamingSection, HardwareGuide, side-by-side UseCaseScenarios + LinuxSection, ModelAnalysisCard, EditorialCard, compact row DeepDive + PriceCheck (horizontal button rows)
 - Compare page: PerformanceRadar + CpuCompareChart + GpuCompareChart + PortabilityCompareChart (desktop), MobileCompareCards with per-card radar (mobile)
 - `ScoreBar` has `size` prop: `"sm"` (default, compact) and `"md"` (taller bar, wider labels) — cards/compare use `"md"`
-- ThinkPadCard shows 3 scores (Perf, Display, Memory); CompareTable/MobileCompareCards show 6 (+ Connectivity, Portability, Value)
-- `UpgradeSimulator` in `components/thinkpad/` — spread readonly `Laptop` to create mutable sim copy for score comparison
+- LaptopCard shows 4 scores (Perf, Display, Memory, GPU with iGPU/dGPU label); CompareTable/MobileCompareCards show 6 (+ Connectivity, Portability, Value)
+- `UpgradeSimulator` in `components/models/` — spread readonly `Laptop` to create mutable sim copy for score comparison
 - `gpuOptions` on Laptop models: only needed when `processorOptions` span CPU families with different iGPUs. CPU-to-GPU mapping defined in `.claude/skills/gpu-update/SKILL.md`
 - **Scoring is absolute** (not per-lineup normalized) — Legion dGPUs naturally score 55–92, ThinkPad iGPUs 8–40. This is correct for cross-lineup comparison.
 - Compare charts scale with model count: `barSize` shrinks for 4 models (10px) vs 2 models (16px); chart height uses `models.length * N + offset`

@@ -6,7 +6,7 @@
  * lineup-aware context for each model's positioning.
  */
 import type { Laptop, ModelAnalysis, UseCase, UseCaseScenario, ScenarioVerdict } from "./types";
-import { getPerformanceScore, getGpuScore, getGamingTier, getMemoryScore } from "./scoring";
+import { getPerformanceScore, getGpuScore, getGamingTier, getMemoryScore, getDisplayScore } from "./scoring";
 
 const SERIES_DESCRIPTIONS: Record<string, string> = {
   // ThinkPad
@@ -258,7 +258,7 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
   // Weighted scores per scenario. Base offsets set the floor (e.g. +40 for office = most laptops pass).
   // Office: 30% CPU + 30% memory + 40 base
   const officeScore = perfScore * 0.3 + memScore * 0.3 + 40;
-  const officeVerdict = verdictFor(officeScore, [30, 50, 65, 85]);
+  const officeVerdict = verdictFor(officeScore, [40, 52, 65, 85]);
   scenarios.push({
     scenario: "Office / Productivity",
     verdict: officeVerdict,
@@ -274,9 +274,10 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
               : "May struggle with heavy multitasking",
   });
 
-  // Dev: 35% CPU + 35% memory + screen size bonus (15" earns 15 pts, 14" earns 10)
+  // Dev: 35% CPU + 35% memory + display quality bonus (10% of display score + size bonus)
+  const displayScore = getDisplayScore(model);
   const devScore =
-    perfScore * 0.35 + memScore * 0.35 + (model.display.size >= 15 ? 15 : model.display.size >= 14 ? 10 : 5);
+    perfScore * 0.35 + memScore * 0.35 + displayScore * 0.1 + (model.display.size >= 15 ? 5 : 0);
   const devVerdict = verdictFor(devScore, [25, 40, 55, 75]);
   scenarios.push({
     scenario: "Software Development",
@@ -293,26 +294,23 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
               : "Insufficient RAM or CPU for development",
   });
 
-  // Gaming
-  const gamingVerdict: ScenarioVerdict =
-    gamingTier === "Heavy"
-      ? "excellent"
-      : gamingTier === "Medium"
-        ? "good"
-        : gamingTier === "Light"
-          ? "marginal"
-          : "insufficient";
+  // Gaming: GPU tier base + CPU/memory modifier for bottleneck awareness
+  const gamingTierBase = gamingTier === "Heavy" ? 75 : gamingTier === "Medium" ? 50 : gamingTier === "Light" ? 25 : 0;
+  const gamingScore = gamingTierBase + perfScore * 0.15 + memScore * 0.1;
+  const gamingVerdict = verdictFor(gamingScore, [15, 30, 50, 75]);
   scenarios.push({
     scenario: "Gaming",
     verdict: gamingVerdict,
     explanation:
-      gamingTier === "Heavy"
-        ? "Can handle AAA titles at 1080p medium-high settings"
-        : gamingTier === "Medium"
-          ? "Playable in many titles at 720p\u20131080p low-medium"
-          : gamingTier === "Light"
-            ? "Limited to esports and indie titles at low settings"
-            : "Not suitable for gaming beyond very basic 2D titles",
+      gamingVerdict === "overkill"
+        ? "More than enough for AAA titles at 1080p high settings"
+        : gamingVerdict === "excellent"
+          ? "Can handle AAA titles at 1080p medium-high settings"
+          : gamingVerdict === "good"
+            ? "Playable in many titles at 720p\u20131080p low-medium"
+            : gamingVerdict === "marginal"
+              ? "Limited to esports and indie titles at low settings"
+              : "Not suitable for gaming beyond very basic 2D titles",
   });
 
   // Video Editing
@@ -333,8 +331,9 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
               : "Insufficient for video editing",
   });
 
-  // Data Science / ML
-  const mlScore = perfScore * 0.25 + gpuScore * 0.35 + memScore * 0.25 + (model.ram.size >= 32 ? 10 : 0);
+  // Data Science / ML — VRAM bonus for dedicated GPUs with >= 8GB
+  const vramBonus = model.gpu.vram && model.gpu.vram >= 8 ? 8 : 0;
+  const mlScore = perfScore * 0.25 + gpuScore * 0.35 + memScore * 0.25 + (model.ram.size >= 32 ? 10 : 0) + vramBonus;
   const mlVerdict = verdictFor(mlScore, [20, 35, 50, 70]);
   scenarios.push({
     scenario: "Data Science / ML",

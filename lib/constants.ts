@@ -68,8 +68,11 @@ export const USE_CASE_COLORS: Record<UseCase, { bg: string; text: string }> = {
   "Light Gaming": { bg: "bg-orange-900/30", text: "text-orange-400" },
 };
 
-/** IBM Carbon palette colors assigned to each model slot in multi-model comparison charts */
-export const COMPARE_COLORS = ["#4589ff", "#ee5396", "#42be65", "#f1c21b"] as const;
+/** Color-blind safe palette for multi-model comparison charts (passes Protanopia/Deuteranopia/Tritanopia) */
+export const COMPARE_COLORS = ["#4589ff", "#d4437a", "#009d9a", "#f1c21b"] as const;
+
+/** Stroke dash patterns for additional differentiation in charts (matches COMPARE_COLORS order) */
+export const COMPARE_DASHES = ["", "8 4", "4 4", "12 4 4 4"] as const;
 
 export const MAX_COMPARE = 4;
 

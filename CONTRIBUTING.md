@@ -42,7 +42,7 @@ Always run this before submitting a PR.
 ### Components
 
 - Functional components only (no class components except ErrorBoundary)
-- Default exports for most components (ThinkPadCard, Header, CompareTable)
+- Default exports for most components (LaptopCard, Header, CompareTable)
 - Named exports where noted (Footer: `export const Footer`)
 - Components using recharts, framer-motion, or browser APIs must have `"use client"` directive
 - `useSearchParams()` requires a `<Suspense>` boundary wrapping the component

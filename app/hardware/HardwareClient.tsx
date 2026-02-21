@@ -5,7 +5,7 @@ import { Search, Cpu, Monitor } from "lucide-react";
 import { cpuGuide, gpuGuide } from "@/data/hardware-guide";
 import { cpuBenchmarks } from "@/data/cpu-benchmarks";
 import { gpuBenchmarks } from "@/data/gpu-benchmarks";
-import ChipDetailCard from "@/components/thinkpad/ChipDetailCard";
+import ChipDetailCard from "@/components/models/ChipDetailCard";
 import { ScoreBar } from "@/components/ui/ScoreBar";
 
 type Tab = "cpu" | "gpu";

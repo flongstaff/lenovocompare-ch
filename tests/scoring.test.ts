@@ -50,7 +50,7 @@ describe("getPortabilityScore", () => {
 
   it("scores heavy laptop low", () => {
     const score = getPortabilityScore(makeLaptop(2.8, 80));
-    expect(score).toBeLessThan(40);
+    expect(score).toBeLessThan(50);
   });
 
   it("returns value between 0 and 100", () => {

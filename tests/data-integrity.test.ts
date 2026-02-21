@@ -1,8 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { laptops } from "@/data/laptops";
-import { cpuBenchmarks } from "@/data/cpu-benchmarks";
+import { cpuBenchmarks, cpuBenchmarksExpanded } from "@/data/cpu-benchmarks";
 import { gpuBenchmarks } from "@/data/gpu-benchmarks";
 import { modelBenchmarks } from "@/data/model-benchmarks";
+import { linuxCompat } from "@/data/linux-compat";
+import { modelEditorial } from "@/data/model-editorial";
+import { priceBaselines } from "@/data/price-baselines";
+import { seedPrices } from "@/data/seed-prices";
 
 describe("data integrity", () => {
   it("has no duplicate laptop IDs", () => {
@@ -11,14 +15,26 @@ describe("data integrity", () => {
     expect(unique.size).toBe(ids.length);
   });
 
-  it("every laptop has a CPU benchmark entry", () => {
-    const missing = laptops.filter((l) => !cpuBenchmarks[l.processor.name]);
-    expect(missing.map((l) => `${l.id}: ${l.processor.name}`)).toEqual([]);
+  it("every laptop CPU (base + options) has a benchmark entry", () => {
+    const missing: string[] = [];
+    for (const l of laptops) {
+      const allCpus = [l.processor.name, ...(l.processorOptions?.map((p) => p.name) ?? [])];
+      for (const cpu of allCpus) {
+        if (!cpuBenchmarks[cpu]) missing.push(`${l.id}: ${cpu}`);
+      }
+    }
+    expect(missing).toEqual([]);
   });
 
-  it("every laptop has a GPU benchmark entry", () => {
-    const missing = laptops.filter((l) => !gpuBenchmarks[l.gpu.name]);
-    expect(missing.map((l) => `${l.id}: ${l.gpu.name}`)).toEqual([]);
+  it("every laptop GPU (base + options) has a benchmark entry", () => {
+    const missing: string[] = [];
+    for (const l of laptops) {
+      const allGpus = [l.gpu.name, ...(l.gpuOptions?.map((g) => g.name) ?? [])];
+      for (const gpu of allGpus) {
+        if (!gpuBenchmarks[gpu]) missing.push(`${l.id}: ${gpu}`);
+      }
+    }
+    expect(missing).toEqual([]);
   });
 
   it("every model-benchmarks key matches a laptop ID", () => {
@@ -47,6 +63,43 @@ describe("data integrity", () => {
       }
     }
     expect(invalid).toEqual([]);
+  });
+
+  it("every laptop CPU option has expanded benchmark data (single/multi core)", () => {
+    const missing: string[] = [];
+    for (const l of laptops) {
+      const allCpus = [l.processor.name, ...(l.processorOptions?.map((p) => p.name) ?? [])];
+      for (const cpu of allCpus) {
+        if (!cpuBenchmarksExpanded[cpu]) missing.push(`${l.id}: ${cpu}`);
+      }
+    }
+    expect(missing).toEqual([]);
+  });
+
+  it("every laptop has a model-benchmarks entry", () => {
+    const missing = laptops.filter((l) => !modelBenchmarks[l.id]);
+    expect(missing.map((l) => l.id)).toEqual([]);
+  });
+
+  it("every laptop has a linux-compat entry", () => {
+    const missing = laptops.filter((l) => !linuxCompat[l.id]);
+    expect(missing.map((l) => l.id)).toEqual([]);
+  });
+
+  it("every laptop has an editorial entry", () => {
+    const missing = laptops.filter((l) => !modelEditorial[l.id]);
+    expect(missing.map((l) => l.id)).toEqual([]);
+  });
+
+  it("every laptop has a price-baseline entry", () => {
+    const missing = laptops.filter((l) => !priceBaselines[l.id]);
+    expect(missing.map((l) => l.id)).toEqual([]);
+  });
+
+  it("every laptop has at least one seed price", () => {
+    const priced = new Set(seedPrices.map((p) => p.laptopId));
+    const missing = laptops.filter((l) => !priced.has(l.id));
+    expect(missing.map((l) => l.id)).toEqual([]);
   });
 
   it("thermal values are plausible", () => {

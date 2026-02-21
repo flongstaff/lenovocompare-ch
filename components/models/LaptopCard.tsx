@@ -8,11 +8,11 @@ import { ScoreBar } from "@/components/ui/ScoreBar";
 import { LinuxBadge } from "@/components/ui/LinuxBadge";
 import { formatCHF, formatWeight, formatStorage } from "@/lib/formatters";
 import { getModelScores } from "@/lib/scoring";
-import { GamingTierBadge } from "@/components/thinkpad/GamingTierBadge";
+import { GamingTierBadge } from "@/components/models/GamingTierBadge";
 import { modelEditorial } from "@/data/model-editorial";
 import { priceBaselines } from "@/data/price-baselines";
 
-interface ThinkPadCardProps {
+interface LaptopCardProps {
   readonly model: Laptop;
   readonly prices: readonly SwissPrice[];
   readonly isCompareSelected: boolean;
@@ -57,7 +57,7 @@ const isBestValue = (modelId: string, lowestPrice: number | null): boolean => {
   return lowestPrice <= baseline.historicalLow * 1.05;
 };
 
-const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index = 0 }: ThinkPadCardProps) => {
+const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index = 0 }: LaptopCardProps) => {
   const scores = getModelScores(model, prices);
   const accent = SERIES_ACCENT[model.series] ?? "#4589ff";
   const snippet = getEditorialSnippet(model.id);
@@ -211,7 +211,7 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
 };
 
 export default memo(
-  ThinkPadCard,
+  LaptopCard,
   (prev, next) =>
     prev.model.id === next.model.id && prev.isCompareSelected === next.isCompareSelected && prev.prices === next.prices,
 );

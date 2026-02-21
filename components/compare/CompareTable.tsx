@@ -1,8 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { Laptop, SwissPrice } from "@/lib/types";
 import { ScoreBar } from "@/components/ui/ScoreBar";
 import { formatCHF, formatWeight, formatStorage } from "@/lib/formatters";
@@ -123,7 +123,22 @@ const SPEC_ROWS: readonly SpecRow[] = [
   { label: "Recommended Kernel", getValue: (m) => linuxCompat[m.id]?.recommendedKernel ?? "—" },
 ] as const;
 
+/** Sections shown by default in "Quick Compare" mode */
+const QUICK_SECTIONS = new Set(["Pricing", "Performance", "Display", "Chassis"]);
+
 const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
+  const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
+  const [showAll, setShowAll] = useState(false);
+
+  const toggleSection = (section: string) => {
+    setCollapsedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(section)) next.delete(section);
+      else next.add(section);
+      return next;
+    });
+  };
+
   const getBest = (row: SpecRow): number | null => {
     if (!row.getNumeric || !row.highlight) return null;
     const vals = models.map((m) => row.getNumeric!(m));
@@ -168,6 +183,9 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
             {SPEC_ROWS.map((row, i) => {
               const best = getBest(row);
               const isPriceRow = row.label === "Best Price";
+              const currentSection = row.section ?? SPEC_ROWS.slice(0, i).findLast((r) => r.section)?.section ?? "";
+              const isHidden = !showAll && !QUICK_SECTIONS.has(currentSection);
+              const isCollapsed = collapsedSections.has(currentSection);
 
               return (
                 <React.Fragment key={row.label}>
@@ -175,12 +193,21 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                     <tr>
                       <td
                         colSpan={models.length + 1}
-                        className="border-t border-carbon-500 bg-carbon-600 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-carbon-200"
+                        className="cursor-pointer select-none border-t border-carbon-500 bg-carbon-600 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-carbon-200 transition-colors hover:bg-carbon-500"
+                        onClick={() => toggleSection(row.section!)}
                       >
-                        {row.section}
+                        <span className="flex items-center justify-between">
+                          {row.section}
+                          {collapsedSections.has(row.section) ? (
+                            <ChevronDown size={12} />
+                          ) : (
+                            <ChevronUp size={12} />
+                          )}
+                        </span>
                       </td>
                     </tr>
                   )}
+                  {(isHidden || isCollapsed) ? null : (
                   <tr className={i % 2 === 0 ? "bg-carbon-800" : "bg-carbon-700"}>
                     <td
                       className="sticky left-0 z-10 border-t border-carbon-600 px-4 py-3 font-medium text-carbon-200"
@@ -248,6 +275,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                       );
                     })}
                   </tr>
+                  )}
                 </React.Fragment>
               );
             })}
@@ -335,6 +363,24 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
           </tbody>
         </table>
       </div>
+      {!showAll && (
+        <button
+          onClick={() => setShowAll(true)}
+          className="carbon-btn-ghost mt-3 w-full justify-center text-sm"
+        >
+          Show all sections (Memory, Connectivity, Linux)
+          <ChevronDown size={14} />
+        </button>
+      )}
+      {showAll && (
+        <button
+          onClick={() => setShowAll(false)}
+          className="carbon-btn-ghost mt-3 w-full justify-center text-sm"
+        >
+          Show quick compare only
+          <ChevronUp size={14} />
+        </button>
+      )}
     </motion.div>
   );
 };

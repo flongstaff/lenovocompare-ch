@@ -38,13 +38,13 @@ export const getValueScore = (model: Laptop, prices: readonly SwissPrice[]): num
   if (matching.length === 0) return null;
 
   const lowestPrice = Math.min(...matching.map((p) => p.price));
-  // Performance per 1000 CHF, with 1.2x scaling so a mid-range model at typical price ≈ 50
-  return Math.round((perf / (lowestPrice / 1000)) * 1.2);
+  // Performance per 1000 CHF, with 1.5x scaling so a mid-range model at typical price ≈ 50
+  return Math.round((perf / (lowestPrice / 1000)) * 1.5);
 };
 
 export const getPortabilityScore = (model: Laptop): number => {
-  // 0.8 kg = floor (lightest ultraportable); 50 = sensitivity (2 kg over floor = 0 score)
-  const weightScore = Math.max(0, 100 - (model.weight - 0.8) * 50);
+  // 0.8 kg = floor (lightest ultraportable); 40 = sensitivity (softened from 50 for better mid-range differentiation)
+  const weightScore = Math.max(0, 100 - (model.weight - 0.8) * 40);
   // 100 Whr = ceiling for full battery score
   const batteryScore = Math.min(100, (model.battery.whr / 100) * 100);
   // 60/40 split: weight matters more than battery for portability
@@ -56,7 +56,7 @@ export const getPortabilityScore = (model: Laptop): number => {
  * - Resolution: 0–30 (ceiling: 3840x2400 / 4K+)
  * - Panel type: 5–25 (OLED > IPS > TN)
  * - Brightness: 0–15 (ceiling: 600 nits)
- * - Refresh rate: 0–15 (60 Hz base, ceiling: 120 Hz)
+ * - Refresh rate: 0–15 (60 Hz base, ceiling: 165 Hz)
  * - Touch: 0 or 10
  * - Size: 0–5 (13" base, ceiling: 16")
  */
@@ -69,7 +69,7 @@ export const getDisplayScore = (model: Laptop): number => {
   const resScore = Math.min(30, (pixels / (3840 * 2400)) * 30);
   const panelScore = d.panel === "OLED" ? 25 : d.panel === "IPS" ? 15 : 5;
   const brightnessScore = Math.min(15, (d.nits / 600) * 15);
-  const refreshScore = Math.min(15, ((d.refreshRate - 60) / 60) * 15);
+  const refreshScore = Math.min(15, ((d.refreshRate - 60) / 105) * 15);
   const touchScore = d.touchscreen ? 10 : 0;
   const sizeScore = Math.min(5, ((d.size - 13) / 3) * 5);
 

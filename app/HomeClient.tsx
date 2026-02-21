@@ -11,7 +11,7 @@ import { usePrices } from "@/lib/hooks/usePrices";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useCompare } from "@/lib/hooks/useCompare";
 import { FilterBar } from "@/components/filters/FilterBar";
-import ThinkPadCard from "@/components/thinkpad/ThinkPadCard";
+import LaptopCard from "@/components/models/LaptopCard";
 import { CompareFloatingBar } from "@/components/compare/CompareFloatingBar";
 import { SkeletonGrid } from "@/components/ui/Skeleton";
 
@@ -250,7 +250,7 @@ const HomeClient = () => {
         <>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {visible.map((model, i) => (
-              <ThinkPadCard
+              <LaptopCard
                 key={model.id}
                 model={model}
                 prices={allPrices}

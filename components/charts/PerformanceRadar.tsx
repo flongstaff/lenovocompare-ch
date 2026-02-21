@@ -2,7 +2,7 @@
 
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from "recharts";
 import type { PerformanceDimensions } from "@/lib/types";
-import { COMPARE_COLORS } from "@/lib/constants";
+import { COMPARE_COLORS, COMPARE_DASHES } from "@/lib/constants";
 import { shortName } from "@/lib/formatters";
 
 interface ModelData {
@@ -101,6 +101,7 @@ const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
                 fill={COMPARE_COLORS[i % COMPARE_COLORS.length]}
                 fillOpacity={0.12}
                 strokeWidth={2}
+                strokeDasharray={models.length > 1 ? COMPARE_DASHES[i % COMPARE_DASHES.length] : undefined}
               />
             ))}
           </RadarChart>

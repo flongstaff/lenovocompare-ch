@@ -18,16 +18,16 @@ import {
 import type { Laptop } from "@/lib/types";
 import { laptops } from "@/data/laptops";
 import { usePrices } from "@/lib/hooks/usePrices";
-import { SeriesBadge } from "@/components/thinkpad/SeriesBadge";
+import { SeriesBadge } from "@/components/models/SeriesBadge";
 import { ScoreBar } from "@/components/ui/ScoreBar";
 import { LinuxBadge } from "@/components/ui/LinuxBadge";
 import { PriceCheck } from "@/components/pricing/PriceCheck";
 import { ValueScoring } from "@/components/pricing/ValueScoring";
 import PriceHistoryCard from "@/components/pricing/PriceHistoryCard";
-import { DeepDive } from "@/components/thinkpad/DeepDive";
-import ModelAnalysisCard from "@/components/thinkpad/ModelAnalysisCard";
-import EditorialCard from "@/components/thinkpad/EditorialCard";
-import UpgradeSimulator from "@/components/thinkpad/UpgradeSimulator";
+import { DeepDive } from "@/components/models/DeepDive";
+import ModelAnalysisCard from "@/components/models/ModelAnalysisCard";
+import EditorialCard from "@/components/models/EditorialCard";
+import UpgradeSimulator from "@/components/models/UpgradeSimulator";
 import { formatCHF, formatWeight, formatStorage, formatDate } from "@/lib/formatters";
 import { getModelScores, getPricesForModel } from "@/lib/scoring";
 import { generateAnalysis } from "@/lib/analysis";
@@ -38,12 +38,12 @@ import dynamic from "next/dynamic";
 
 const PerformanceRadar = dynamic(() => import("@/components/charts/PerformanceRadar"), { ssr: false });
 const BenchmarkBar = dynamic(() => import("@/components/charts/BenchmarkBar"), { ssr: false });
-const GamingSection = dynamic(() => import("@/components/thinkpad/GamingSection"), { ssr: false });
-const BenchmarksSection = dynamic(() => import("@/components/thinkpad/BenchmarksSection"), { ssr: false });
-import UseCaseScenarios from "@/components/thinkpad/UseCaseScenarios";
-import LinuxSection from "@/components/thinkpad/LinuxSection";
-import HardwareGuide from "@/components/thinkpad/HardwareGuide";
-import ConfigSelector from "@/components/thinkpad/ConfigSelector";
+const GamingSection = dynamic(() => import("@/components/models/GamingSection"), { ssr: false });
+const BenchmarksSection = dynamic(() => import("@/components/models/BenchmarksSection"), { ssr: false });
+import UseCaseScenarios from "@/components/models/UseCaseScenarios";
+import LinuxSection from "@/components/models/LinuxSection";
+import HardwareGuide from "@/components/models/HardwareGuide";
+import ConfigSelector from "@/components/models/ConfigSelector";
 
 const SpecRow = ({
   label,

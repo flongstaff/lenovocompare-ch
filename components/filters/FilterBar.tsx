@@ -73,7 +73,7 @@ export const FilterBar = ({
         <LineupFilter selected={filters.lineup} onToggle={onToggleLineup} />
         <div className="flex items-center justify-between">
           <SeriesFilter selected={filters.series} selectedLineups={filters.lineup} onToggle={onToggleSeries} />
-          <span className="hidden text-sm sm:block" style={{ color: "var(--muted)" }}>
+          <span className="text-sm" style={{ color: "var(--muted)" }}>
             {resultCount} model{resultCount !== 1 ? "s" : ""}
           </span>
         </div>
