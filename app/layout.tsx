@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en">
-    <body className="bg-carbon-900 text-carbon-50 flex min-h-screen flex-col font-sans antialiased">
+    <body className="flex min-h-screen flex-col bg-carbon-900 font-sans text-carbon-50 antialiased">
       <Header />
       <ErrorBoundary>
         <main className="flex-1">{children}</main>

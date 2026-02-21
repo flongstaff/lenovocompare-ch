@@ -18,13 +18,13 @@ export const CompareSelector = ({ models, excludeIds, onSelect }: CompareSelecto
         <button
           key={m.id}
           onClick={() => onSelect(m.id)}
-          className="carbon-card hover:border-accent group p-3 text-left transition-colors"
+          className="carbon-card group p-3 text-left transition-colors hover:border-accent"
         >
           <div className="flex items-center gap-2">
-            <Plus size={14} className="text-carbon-400 group-hover:text-accent shrink-0" />
+            <Plus size={14} className="shrink-0 text-carbon-400 group-hover:text-accent" />
             <div>
-              <p className="text-carbon-100 text-sm font-medium">{m.name}</p>
-              <p className="text-carbon-400 text-xs">
+              <p className="text-sm font-medium text-carbon-100">{m.name}</p>
+              <p className="text-xs text-carbon-400">
                 {m.year} &middot; {m.series} Series
               </p>
             </div>

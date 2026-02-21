@@ -39,7 +39,7 @@ export const PriceCheck = ({ model }: PriceCheckProps) => {
 
   return (
     <div className="space-y-1">
-      <p className="text-carbon-200 text-[10px] font-bold uppercase tracking-widest">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-carbon-200">
         <ShoppingCart size={10} className="mr-1 inline" />
         Check Prices
       </p>

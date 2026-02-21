@@ -150,7 +150,7 @@ const ComparePageContent = () => {
 };
 
 const CompareClient = () => (
-  <Suspense fallback={<div className="text-carbon-400 py-16 text-center">Loading...</div>}>
+  <Suspense fallback={<div className="py-16 text-center text-carbon-400">Loading...</div>}>
     <ComparePageContent />
   </Suspense>
 );

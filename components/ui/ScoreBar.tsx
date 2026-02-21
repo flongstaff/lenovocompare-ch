@@ -27,12 +27,12 @@ export const ScoreBar = ({
     <div className="flex items-center gap-2">
       {label && (
         <span
-          className={`${isMd ? "w-20 text-[11px]" : "w-16 text-[10px]"} text-carbon-500 shrink-0 font-mono uppercase tracking-wider`}
+          className={`${isMd ? "w-20 text-[11px]" : "w-16 text-[10px]"} shrink-0 font-mono uppercase tracking-wider text-carbon-500`}
         >
           {label}
         </span>
       )}
-      <div className={`flex-1 ${isMd ? "h-2.5" : "h-1.5"} bg-carbon-600/50 overflow-hidden rounded-full`}>
+      <div className={`flex-1 ${isMd ? "h-2.5" : "h-1.5"} overflow-hidden rounded-full bg-carbon-600/50`}>
         <div
           className="score-shine h-full rounded-full transition-all duration-700 ease-out"
           style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${color}90, ${color})` }}
@@ -40,7 +40,7 @@ export const ScoreBar = ({
       </div>
       {showValue && (
         <span
-          className={`${isMd ? "text-[11px]" : "text-[10px]"} text-carbon-400 w-7 text-right font-mono tabular-nums`}
+          className={`${isMd ? "text-[11px]" : "text-[10px]"} w-7 text-right font-mono tabular-nums text-carbon-400`}
         >
           {Math.round(score)}
         </span>

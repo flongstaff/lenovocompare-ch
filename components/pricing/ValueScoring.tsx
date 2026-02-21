@@ -67,7 +67,7 @@ export const ValueScoring = ({ model }: ValueScoringProps) => {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
-        <span className="text-carbon-400 font-mono text-sm">CHF</span>
+        <span className="font-mono text-sm text-carbon-400">CHF</span>
         <input
           type="number"
           value={price}
@@ -94,7 +94,7 @@ export const ValueScoring = ({ model }: ValueScoringProps) => {
       )}
 
       {isValid && (
-        <p className="text-carbon-400 text-[10px]">
+        <p className="text-[10px] text-carbon-400">
           Based on {formatCHF(numPrice)} for {model.processor.cores} cores, {model.ram.size}GB RAM, {model.weight}kg
         </p>
       )}

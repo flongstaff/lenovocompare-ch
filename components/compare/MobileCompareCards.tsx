@@ -68,7 +68,7 @@ export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileComp
             <button
               key={m.id}
               onClick={() => setActiveIndex(i)}
-              className={`h-2 rounded-full transition-all ${i === clampedIndex ? "bg-accent w-6" : "bg-carbon-500 w-2"}`}
+              className={`h-2 rounded-full transition-all ${i === clampedIndex ? "w-6 bg-accent" : "w-2 bg-carbon-500"}`}
               aria-label={`View ${m.name}`}
             />
           ))}

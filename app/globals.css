@@ -27,31 +27,31 @@ body {
 /* IBM Carbon component classes */
 @layer components {
   .carbon-card {
-    @apply border-carbon-700 bg-carbon-800 border;
+    @apply border border-carbon-700 bg-carbon-800;
   }
 
   .carbon-btn {
-    @apply bg-accent hover:bg-accent/90 inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white transition-colors;
+    @apply inline-flex items-center justify-center gap-2 bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent/90;
   }
 
   .carbon-btn-ghost {
-    @apply text-carbon-300 hover:bg-carbon-700 hover:text-carbon-100 inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium transition-colors;
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-carbon-300 transition-colors hover:bg-carbon-700 hover:text-carbon-100;
   }
 
   .carbon-input {
-    @apply border-carbon-600 bg-carbon-800 text-carbon-100 placeholder:text-carbon-500 w-full border px-3 py-2 text-sm transition-colors focus:border-accent focus:outline-none;
+    @apply w-full border border-carbon-600 bg-carbon-800 px-3 py-2 text-sm text-carbon-100 transition-colors placeholder:text-carbon-500 focus:border-accent focus:outline-none;
   }
 
   .carbon-select {
-    @apply border-carbon-600 bg-carbon-800 text-carbon-100 border px-3 py-2 text-sm transition-colors focus:border-accent focus:outline-none;
+    @apply border border-carbon-600 bg-carbon-800 px-3 py-2 text-sm text-carbon-100 transition-colors focus:border-accent focus:outline-none;
   }
 
   .carbon-chip {
-    @apply border-carbon-600 text-carbon-300 inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    @apply inline-flex items-center border border-carbon-600 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-carbon-300;
   }
 
   .carbon-chip-success {
-    @apply border-green-700 text-green-400 inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    @apply inline-flex items-center border border-green-700 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-green-400;
   }
 }
 

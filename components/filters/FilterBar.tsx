@@ -82,7 +82,7 @@ export const FilterBar = ({
       {expanded && (
         <fieldset
           id="filter-panel"
-          className="carbon-card animate-slide-up grid grid-cols-2 gap-4 rounded-lg border-0 p-4 sm:grid-cols-3 lg:grid-cols-6"
+          className="carbon-card grid animate-slide-up grid-cols-2 gap-4 rounded-lg border-0 p-4 sm:grid-cols-3 lg:grid-cols-6"
         >
           <div>
             <label htmlFor="filter-min-price" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>

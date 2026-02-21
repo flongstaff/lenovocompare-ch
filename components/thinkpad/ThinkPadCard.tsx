@@ -67,12 +67,12 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
             >
               {model.lineup !== "ThinkPad" ? `${model.lineup} ${model.series}` : `${model.series} Series`}
             </span>
-            <h3 className="text-carbon-50 mt-2 text-[15px] font-semibold leading-tight">
-              <Link href={`/model/${model.id}`} className="hover:text-accent-light transition-colors duration-200">
+            <h3 className="mt-2 text-[15px] font-semibold leading-tight text-carbon-50">
+              <Link href={`/model/${model.id}`} className="transition-colors duration-200 hover:text-accent-light">
                 {model.name}
               </Link>
             </h3>
-            <p className="text-carbon-400 mt-0.5 font-mono text-xs">{model.year}</p>
+            <p className="mt-0.5 font-mono text-xs text-carbon-400">{model.year}</p>
             <div className="mt-1.5 flex flex-wrap gap-1">
               {model.linuxStatus && model.linuxStatus !== "unknown" && <LinuxBadge status={model.linuxStatus} />}
               <GamingTierBadge tier={scores.gamingTier} />
@@ -84,7 +84,7 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
             className={`shrink-0 p-2 transition-all duration-200 ${
               isCompareSelected
                 ? "bg-accent text-white shadow-[0_0_12px_rgba(15,98,254,0.3)]"
-                : "border-carbon-500 text-carbon-400 hover:border-accent hover:text-accent border hover:shadow-[0_0_8px_rgba(15,98,254,0.15)]"
+                : "border border-carbon-500 text-carbon-400 hover:border-accent hover:text-accent hover:shadow-[0_0_8px_rgba(15,98,254,0.15)]"
             }`}
             aria-label={isCompareSelected ? `Remove ${model.name} from comparison` : `Add ${model.name} to comparison`}
             aria-pressed={isCompareSelected}
@@ -96,12 +96,12 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
         {/* Specs */}
         <div className="flex-1 space-y-2.5 text-sm">
           <div className="flex items-center gap-2.5">
-            <Cpu size={13} className="text-carbon-500 shrink-0" />
-            <span className="text-carbon-200 truncate text-[13px]">{model.processor.name}</span>
+            <Cpu size={13} className="shrink-0 text-carbon-500" />
+            <span className="truncate text-[13px] text-carbon-200">{model.processor.name}</span>
           </div>
           <div className="flex items-center gap-2.5">
-            <Monitor size={13} className="text-carbon-500 shrink-0" />
-            <span className="text-carbon-200 text-[13px]">
+            <Monitor size={13} className="shrink-0 text-carbon-500" />
+            <span className="text-[13px] text-carbon-200">
               {model.display.size}&quot; {model.display.resolutionLabel}
               {model.display.panel === "OLED" && (
                 <span className="ml-1.5 border border-purple-700/50 bg-purple-900/40 px-1 py-0.5 font-mono text-[9px] uppercase text-purple-300">
@@ -111,24 +111,24 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
             </span>
           </div>
           <div className="flex items-center gap-2.5">
-            <HardDrive size={13} className="text-carbon-500 shrink-0" />
-            <span className="text-carbon-200 text-[13px]">
+            <HardDrive size={13} className="shrink-0 text-carbon-500" />
+            <span className="text-[13px] text-carbon-200">
               {model.ram.size}GB {model.ram.type} · {formatStorage(model.storage.size)}
             </span>
           </div>
           <div className="flex items-center gap-2.5">
-            <Weight size={13} className="text-carbon-500 shrink-0" />
-            <span className="text-carbon-200 text-[13px]">{formatWeight(model.weight)}</span>
+            <Weight size={13} className="shrink-0 text-carbon-500" />
+            <span className="text-[13px] text-carbon-200">{formatWeight(model.weight)}</span>
           </div>
           <div className="flex items-center gap-2.5">
-            <Battery size={13} className="text-carbon-500 shrink-0" />
-            <span className="text-carbon-200 text-[13px]">{model.battery.whr} Wh</span>
+            <Battery size={13} className="shrink-0 text-carbon-500" />
+            <span className="text-[13px] text-carbon-200">{model.battery.whr} Wh</span>
           </div>
         </div>
 
         {/* Scores */}
         {scores.perf > 0 && (
-          <div className="border-carbon-600/60 mt-4 space-y-1.5 border-t pt-3">
+          <div className="mt-4 space-y-1.5 border-t border-carbon-600/60 pt-3">
             <ScoreBar score={scores.perf} label="Perf" color={accent} size="md" />
             <ScoreBar score={scores.display} label="Display" color="#ee5396" size="md" />
             <ScoreBar score={scores.memory} label="Memory" color="#be95ff" size="md" />
@@ -136,17 +136,17 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
         )}
 
         {/* Price + Action */}
-        <div className="border-carbon-600/60 mt-4 flex items-end justify-between border-t pt-3">
+        <div className="mt-4 flex items-end justify-between border-t border-carbon-600/60 pt-3">
           <div>
             {scores.lowestPrice !== null ? (
               <>
-                <p className="text-carbon-500 font-mono text-[10px] uppercase tracking-wider">From</p>
-                <p className="text-carbon-50 font-mono text-xl font-semibold tracking-tight">
+                <p className="font-mono text-[10px] uppercase tracking-wider text-carbon-500">From</p>
+                <p className="font-mono text-xl font-semibold tracking-tight text-carbon-50">
                   {formatCHF(scores.lowestPrice)}
                 </p>
               </>
             ) : (
-              <p className="text-carbon-500 text-sm italic">No price yet</p>
+              <p className="text-sm italic text-carbon-500">No price yet</p>
             )}
           </div>
           <Link
