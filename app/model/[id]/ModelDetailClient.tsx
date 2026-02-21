@@ -182,7 +182,7 @@ const ModelDetailClient = () => {
         {/* Scores card */}
         <div className="carbon-card rounded-lg p-4">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+            <h2 className="text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
               Scores
             </h2>
             <div className="flex gap-2 font-mono text-[9px] uppercase tracking-wider">
@@ -206,7 +206,7 @@ const ModelDetailClient = () => {
 
         {/* Swiss Prices card */}
         <div className="carbon-card rounded-lg p-4">
-          <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+          <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Swiss Prices
           </h2>
           {modelPrices.length > 0 ? (
@@ -308,7 +308,7 @@ const ModelDetailClient = () => {
 
         {/* Value Calculator card */}
         <div className="carbon-card rounded-lg p-4">
-          <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+          <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Value Calculator
           </h2>
           <ValueScoring model={model} />
@@ -322,7 +322,7 @@ const ModelDetailClient = () => {
       <div className="space-y-6">
         {/* Specifications — 2-column on large screens */}
         <div id="specs" className="carbon-card scroll-mt-14 rounded-lg p-4">
-          <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+          <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Specifications
           </h2>
           <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-2">
@@ -382,7 +382,7 @@ const ModelDetailClient = () => {
 
         {/* Performance Overview */}
         <div id="performance" className="carbon-card scroll-mt-14 rounded-lg p-4">
-          <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+          <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Performance Overview
           </h2>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">

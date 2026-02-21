@@ -1,7 +1,7 @@
 "use client";
 import { memo } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+
 import Link from "next/link";
 import { Cpu, Monitor, HardDrive, Weight, Battery, GitCompareArrows } from "lucide-react";
 import { Laptop, SwissPrice } from "@/lib/types";
@@ -20,12 +20,6 @@ interface LaptopCardProps {
   readonly onToggleCompare: (id: string) => void;
   readonly index?: number;
 }
-
-const LINEUP_SILHOUETTE: Record<string, string> = {
-  ThinkPad: "/silhouettes/thinkpad.svg",
-  "IdeaPad Pro": "/silhouettes/ideapad.svg",
-  Legion: "/silhouettes/legion.svg",
-};
 
 /** Series-specific accent colors for ScoreBar gradients. Must be raw hex — see ScoreBar color prop constraint. */
 const SERIES_ACCENT: Record<string, string> = {
@@ -78,21 +72,11 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
     >
       {/* Series accent bar with gradient fade */}
       <div
-        className="h-[2px]"
+        className="h-[3px]"
         style={{ background: `linear-gradient(90deg, ${accent}, ${accent}80 60%, transparent)` }}
       />
 
       <div className="relative flex flex-1 flex-col p-5">
-        {LINEUP_SILHOUETTE[model.lineup] && (
-          <Image
-            src={LINEUP_SILHOUETTE[model.lineup]}
-            alt=""
-            width={60}
-            height={60}
-            className="pointer-events-none absolute right-3 top-3 h-[60px] w-auto select-none"
-            style={{ opacity: 0.06 }}
-          />
-        )}
         {/* Header */}
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
@@ -102,7 +86,7 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
             >
               {model.lineup !== "ThinkPad" ? `${model.lineup} ${model.series}` : `${model.series} Series`}
             </span>
-            <h3 className="mt-2 text-[15px] font-semibold leading-tight text-carbon-50">
+            <h3 className="mt-2 text-[17px] font-semibold leading-tight text-carbon-50">
               <Link href={`/model/${model.id}`} className="transition-colors duration-200 hover:text-accent-light">
                 {model.name}
               </Link>
