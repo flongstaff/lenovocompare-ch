@@ -1,0 +1,1596 @@
+{
+  "scrapedAt": "2026-02-21T13:42:29.799Z",
+  "totalModels": 30,
+  "successCount": 11,
+  "failCount": 19,
+  "warningCount": 8,
+  "models": {
+    "x1-carbon-gen12": {
+      "id": "x1-carbon-gen12",
+      "name": "ThinkPad X1 Carbon Gen 12",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Carbon_Gen_12?MT=21KC",
+      "scrapedAt": "2026-02-21T13:42:29.800Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 125H",
+          "rawName": "Core Ultra 5 125H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.2,
+          "boostClock": 4.5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 125U",
+          "rawName": "Core Ultra 5 125U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.3,
+          "boostClock": 4.3,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135U",
+          "rawName": "Core Ultra 5 135U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.6,
+          "boostClock": 4.4,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155H",
+          "rawName": "Core Ultra 7 155H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155U",
+          "rawName": "Core Ultra 7 155U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165H",
+          "rawName": "Core Ultra 7 165H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165U",
+          "rawName": "Core Ultra 7 165U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.9,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": false
+        },
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": true
+        },
+        {
+          "size": 14,
+          "resolution": "2880x1800",
+          "resolutionLabel": "2.8K OLED",
+          "panel": "OLED",
+          "refreshRate": 120,
+          "nits": 400,
+          "touchscreen": false
+        },
+        {
+          "size": 14,
+          "resolution": "2880x1800",
+          "resolutionLabel": "2.8K OLED",
+          "panel": "OLED",
+          "refreshRate": 120,
+          "nits": 400,
+          "touchscreen": true
+        }
+      ],
+      "rams": [
+        {
+          "size": 16,
+          "type": "LPDDR5x",
+          "speed": 6400,
+          "maxSize": 64,
+          "slots": 0,
+          "soldered": true
+        },
+        {
+          "size": 32,
+          "type": "LPDDR5x",
+          "speed": 6400,
+          "maxSize": 64,
+          "slots": 0,
+          "soldered": true
+        },
+        {
+          "size": 64,
+          "type": "LPDDR5x",
+          "speed": 6400,
+          "maxSize": 64,
+          "slots": 0,
+          "soldered": true
+        }
+      ],
+      "storages": [
+        {
+          "type": "NVMe",
+          "size": 256,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 512,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 1024,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 2048,
+          "slots": 1
+        }
+      ],
+      "gpus": [
+        {
+          "name": "Intel Arc Graphics",
+          "rawName": "Intel Arc Graphics",
+          "integrated": true,
+          "inBenchmarks": true
+        }
+      ],
+      "warnings": []
+    },
+    "x1-carbon-gen11": {
+      "id": "x1-carbon-gen11",
+      "name": "ThinkPad X1 Carbon Gen 11",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Carbon_Gen_11?MT=21HM",
+      "scrapedAt": "2026-02-21T13:43:23.461Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "x1-yoga-gen9": {
+      "id": "x1-yoga-gen9",
+      "name": "ThinkPad X1 Yoga Gen 9",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Yoga_Gen_9?MT=21MF",
+      "scrapedAt": "2026-02-21T13:43:43.876Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Redirected to homepage — product URL may be invalid"
+    },
+    "x1-nano-gen3": {
+      "id": "x1-nano-gen3",
+      "name": "ThinkPad X1 Nano Gen 3",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Nano_Gen_3?MT=21K1",
+      "scrapedAt": "2026-02-21T13:44:04.181Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "t14s-gen5-intel": {
+      "id": "t14s-gen5-intel",
+      "name": "ThinkPad T14s Gen 5 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14s_Gen_5_Intel?MT=21LS",
+      "scrapedAt": "2026-02-21T13:44:53.848Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Redirected to homepage — product URL may be invalid"
+    },
+    "t14s-gen5-amd": {
+      "id": "t14s-gen5-amd",
+      "name": "ThinkPad T14s Gen 5 (AMD)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14s_Gen_5_AMD?MT=21LT",
+      "scrapedAt": "2026-02-21T13:45:13.057Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Redirected to homepage — product URL may be invalid"
+    },
+    "t14-gen5-intel": {
+      "id": "t14-gen5-intel",
+      "name": "ThinkPad T14 Gen 5 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14_Gen_5_Intel?MT=21ML",
+      "scrapedAt": "2026-02-21T13:45:34.396Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 125H",
+          "rawName": "Core Ultra 5 125H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.2,
+          "boostClock": 4.5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 125U",
+          "rawName": "Core Ultra 5 125U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.3,
+          "boostClock": 4.3,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135H",
+          "rawName": "Core Ultra 5 135H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.7,
+          "boostClock": 4.6,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135U",
+          "rawName": "Core Ultra 5 135U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.6,
+          "boostClock": 4.4,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155H",
+          "rawName": "Core Ultra 7 155H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155U",
+          "rawName": "Core Ultra 7 155U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165H",
+          "rawName": "Core Ultra 7 165H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165U",
+          "rawName": "Core Ultra 7 165U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.9,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": false
+        },
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": true
+        },
+        {
+          "size": 14,
+          "resolution": "2240x1400",
+          "resolutionLabel": "2240x1400 IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": false
+        },
+        {
+          "size": 14,
+          "resolution": "2880x1800",
+          "resolutionLabel": "2.8K OLED",
+          "panel": "OLED",
+          "refreshRate": 120,
+          "nits": 400,
+          "touchscreen": false
+        }
+      ],
+      "rams": [
+        {
+          "size": 64,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 64,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [
+        {
+          "type": "NVMe",
+          "size": 256,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 512,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 1024,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 2048,
+          "slots": 1
+        }
+      ],
+      "gpus": [
+        {
+          "name": "Intel Arc Graphics",
+          "rawName": "Intel Arc Graphics",
+          "integrated": true,
+          "inBenchmarks": true
+        }
+      ],
+      "warnings": []
+    },
+    "t14-gen5-amd": {
+      "id": "t14-gen5-amd",
+      "name": "ThinkPad T14 Gen 5 (AMD)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14_Gen_5_AMD?MT=21MC",
+      "scrapedAt": "2026-02-21T13:45:59.573Z",
+      "processors": [
+        {
+          "name": "AMD Ryzen 5 PRO 8540U",
+          "rawName": "AMD Ryzen 5 PRO 8540U",
+          "cores": 6,
+          "threads": 12,
+          "baseClock": 3.2,
+          "boostClock": 4.9,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "AMD Ryzen 7 PRO 8840U",
+          "rawName": "AMD Ryzen 7 PRO 8840U",
+          "cores": 8,
+          "threads": 16,
+          "baseClock": 3.3,
+          "boostClock": 5.1,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": false
+        },
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": true
+        },
+        {
+          "size": 14,
+          "resolution": "2880x1800",
+          "resolutionLabel": "2.8K OLED",
+          "panel": "OLED",
+          "refreshRate": 120,
+          "nits": 400,
+          "touchscreen": false
+        }
+      ],
+      "rams": [
+        {
+          "size": 64,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 64,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [
+        {
+          "type": "NVMe",
+          "size": 256,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 512,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 1024,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 2048,
+          "slots": 1
+        }
+      ],
+      "gpus": [
+        {
+          "name": "AMD Radeon 740M",
+          "rawName": "AMD Radeon 740M",
+          "integrated": true,
+          "inBenchmarks": true
+        },
+        {
+          "name": "AMD Radeon 780M",
+          "rawName": "AMD Radeon 780M",
+          "integrated": true,
+          "inBenchmarks": true
+        }
+      ],
+      "warnings": []
+    },
+    "t16-gen3-intel": {
+      "id": "t16-gen3-intel",
+      "name": "ThinkPad T16 Gen 3 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T16_Gen_3_Intel?MT=21MN",
+      "scrapedAt": "2026-02-21T13:46:21.471Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Redirected to homepage — product URL may be invalid"
+    },
+    "t480": {
+      "id": "t480",
+      "name": "ThinkPad T480",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T480?MT=20L5",
+      "scrapedAt": "2026-02-21T13:47:13.107Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "p16s-gen3-intel": {
+      "id": "p16s-gen3-intel",
+      "name": "ThinkPad P16s Gen 3 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_P16s_Gen_3_Intel?MT=21KS",
+      "scrapedAt": "2026-02-21T13:47:50.561Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 125H",
+          "rawName": "Core Ultra 5 125H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.2,
+          "boostClock": 4.5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135H",
+          "rawName": "Core Ultra 5 135H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.7,
+          "boostClock": 4.6,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155H",
+          "rawName": "Core Ultra 7 155H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165H",
+          "rawName": "Core Ultra 7 165H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 9 185H",
+          "rawName": "Core Ultra 9 185H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 2.3,
+          "boostClock": 5.1,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 16,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": true
+        }
+      ],
+      "rams": [
+        {
+          "size": 96,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 96,
+          "slots": 5,
+          "soldered": false
+        },
+        {
+          "size": 48,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 96,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [],
+      "gpus": [],
+      "warnings": []
+    },
+    "p14s-gen5-intel": {
+      "id": "p14s-gen5-intel",
+      "name": "ThinkPad P14s Gen 5 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_P14s_Gen_5_Intel?MT=21G2",
+      "scrapedAt": "2026-02-21T13:47:59.445Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 125H",
+          "rawName": "Core Ultra 5 125H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.2,
+          "boostClock": 4.5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135H",
+          "rawName": "Core Ultra 5 135H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.7,
+          "boostClock": 4.6,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155H",
+          "rawName": "Core Ultra 7 155H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165H",
+          "rawName": "Core Ultra 7 165H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 9 185H",
+          "rawName": "Core Ultra 9 185H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 2.3,
+          "boostClock": 5.1,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 14.5,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": false
+        }
+      ],
+      "rams": [
+        {
+          "size": 96,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 96,
+          "slots": 5,
+          "soldered": false
+        },
+        {
+          "size": 48,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 96,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [],
+      "gpus": [],
+      "warnings": []
+    },
+    "p1-gen7": {
+      "id": "p1-gen7",
+      "name": "ThinkPad P1 Gen 7",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_P1_Gen_7?MT=21KV",
+      "scrapedAt": "2026-02-21T13:48:08.741Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 135H",
+          "rawName": "Core Ultra 5 135H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.7,
+          "boostClock": 4.6,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155H",
+          "rawName": "Core Ultra 7 155H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165H",
+          "rawName": "Core Ultra 7 165H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 9 185H",
+          "rawName": "Core Ultra 9 185H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 2.3,
+          "boostClock": 5.1,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 16,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": false
+        }
+      ],
+      "rams": [
+        {
+          "size": 64,
+          "type": "LPDDR5x",
+          "speed": 7500,
+          "maxSize": 64,
+          "slots": 4,
+          "soldered": false
+        }
+      ],
+      "storages": [],
+      "gpus": [],
+      "warnings": []
+    },
+    "l14-gen5-intel": {
+      "id": "l14-gen5-intel",
+      "name": "ThinkPad L14 Gen 5 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L14_Gen_5_Intel?MT=21L1",
+      "scrapedAt": "2026-02-21T13:48:17.842Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 125H",
+          "rawName": "Core Ultra 5 125H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.2,
+          "boostClock": 4.5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 125U",
+          "rawName": "Core Ultra 5 125U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.3,
+          "boostClock": 4.3,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135H",
+          "rawName": "Core Ultra 5 135H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.7,
+          "boostClock": 4.6,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135U",
+          "rawName": "Core Ultra 5 135U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.6,
+          "boostClock": 4.4,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155H",
+          "rawName": "Core Ultra 7 155H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155U",
+          "rawName": "Core Ultra 7 155U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165U",
+          "rawName": "Core Ultra 7 165U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.9,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": false
+        },
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": true
+        }
+      ],
+      "rams": [
+        {
+          "size": 64,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 64,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [
+        {
+          "type": "NVMe",
+          "size": 256,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 512,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 1024,
+          "slots": 1
+        },
+        {
+          "type": "NVMe",
+          "size": 2048,
+          "slots": 1
+        }
+      ],
+      "gpus": [
+        {
+          "name": "Intel Arc Graphics",
+          "rawName": "Intel Arc Graphics",
+          "integrated": true,
+          "inBenchmarks": true
+        }
+      ],
+      "warnings": []
+    },
+    "l14-gen5-amd": {
+      "id": "l14-gen5-amd",
+      "name": "ThinkPad L14 Gen 5 (AMD)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L14_Gen_5_AMD?MT=21L7",
+      "scrapedAt": "2026-02-21T13:49:10.761Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Page too short (1100 chars) — may not have loaded"
+    },
+    "l16-gen3-intel": {
+      "id": "l16-gen3-intel",
+      "name": "ThinkPad L16 Gen 3 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L16_Gen_3_Intel",
+      "scrapedAt": "2026-02-21T13:49:45.659Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Redirected to homepage — product URL may be invalid"
+    },
+    "e14-gen6-intel": {
+      "id": "e14-gen6-intel",
+      "name": "ThinkPad E14 Gen 6 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_E14_Gen_6_Intel?MT=21M7",
+      "scrapedAt": "2026-02-21T13:50:07.073Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 125H",
+          "rawName": "Core Ultra 5 125H",
+          "cores": 14,
+          "threads": 18,
+          "baseClock": 1.2,
+          "boostClock": 4.5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 125U",
+          "rawName": "Core Ultra 5 125U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.3,
+          "boostClock": 4.3,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135U",
+          "rawName": "Core Ultra 5 135U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.6,
+          "boostClock": 4.4,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155H",
+          "rawName": "Core Ultra 7 155H",
+          "cores": 16,
+          "threads": 22,
+          "baseClock": 1.4,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155U",
+          "rawName": "Core Ultra 7 155U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165U",
+          "rawName": "Core Ultra 7 165U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.9,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": false
+        },
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": true
+        },
+        {
+          "size": 14,
+          "resolution": "2240x1400",
+          "resolutionLabel": "2240x1400 IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": false
+        }
+      ],
+      "rams": [
+        {
+          "size": 64,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 64,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [
+        {
+          "type": "NVMe",
+          "size": 256,
+          "slots": 2
+        },
+        {
+          "type": "NVMe",
+          "size": 512,
+          "slots": 2
+        },
+        {
+          "type": "NVMe",
+          "size": 1024,
+          "slots": 2
+        }
+      ],
+      "gpus": [
+        {
+          "name": "Intel Arc Graphics",
+          "rawName": "Intel Arc Graphics",
+          "integrated": true,
+          "inBenchmarks": true
+        }
+      ],
+      "warnings": []
+    },
+    "e16-gen2-amd": {
+      "id": "e16-gen2-amd",
+      "name": "ThinkPad E16 Gen 2 (AMD)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_E16_Gen_2_AMD?MT=21M6",
+      "scrapedAt": "2026-02-21T13:50:15.552Z",
+      "processors": [
+        {
+          "name": "AMD Ryzen 3 7335U",
+          "rawName": "AMD Ryzen 3 7335U",
+          "cores": 4,
+          "threads": 8,
+          "baseClock": 3,
+          "boostClock": 4.3,
+          "tdp": 0,
+          "inBenchmarks": false
+        },
+        {
+          "name": "AMD Ryzen 5 150",
+          "rawName": "AMD Ryzen 5 150",
+          "cores": 6,
+          "threads": 12,
+          "baseClock": 3.3,
+          "boostClock": 4.55,
+          "tdp": 0,
+          "inBenchmarks": false
+        },
+        {
+          "name": "AMD Ryzen 5 7535HS",
+          "rawName": "AMD Ryzen 5 7535HS",
+          "cores": 6,
+          "threads": 12,
+          "baseClock": 3.3,
+          "boostClock": 4.55,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "AMD Ryzen 5 7535U",
+          "rawName": "AMD Ryzen 5 7535U",
+          "cores": 6,
+          "threads": 12,
+          "baseClock": 2.9,
+          "boostClock": 4.55,
+          "tdp": 0,
+          "inBenchmarks": false
+        },
+        {
+          "name": "AMD Ryzen 7 170",
+          "rawName": "AMD Ryzen 7 170",
+          "cores": 8,
+          "threads": 16,
+          "baseClock": 3.2,
+          "boostClock": 4.75,
+          "tdp": 0,
+          "inBenchmarks": false
+        },
+        {
+          "name": "AMD Ryzen 7 7735HS",
+          "rawName": "AMD Ryzen 7 7735HS",
+          "cores": 8,
+          "threads": 16,
+          "baseClock": 3.2,
+          "boostClock": 4.75,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "AMD Ryzen 7 7735U",
+          "rawName": "AMD Ryzen 7 7735U",
+          "cores": 8,
+          "threads": 16,
+          "baseClock": 2.7,
+          "boostClock": 4.75,
+          "tdp": 0,
+          "inBenchmarks": false
+        }
+      ],
+      "displays": [
+        {
+          "size": 16,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": true
+        },
+        {
+          "size": 16,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": false
+        },
+        {
+          "size": 16,
+          "resolution": "2560x1600",
+          "resolutionLabel": "WQXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": false
+        }
+      ],
+      "rams": [
+        {
+          "size": 64,
+          "type": "DDR5",
+          "speed": 4800,
+          "maxSize": 64,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [
+        {
+          "type": "NVMe",
+          "size": 256,
+          "slots": 2
+        },
+        {
+          "type": "NVMe",
+          "size": 512,
+          "slots": 2
+        },
+        {
+          "type": "NVMe",
+          "size": 1024,
+          "slots": 2
+        }
+      ],
+      "gpus": [
+        {
+          "name": "AMD Radeon 660M",
+          "rawName": "AMD Radeon 660M",
+          "integrated": true,
+          "inBenchmarks": true
+        },
+        {
+          "name": "AMD Radeon 680M",
+          "rawName": "AMD Radeon 680M",
+          "integrated": true,
+          "inBenchmarks": true
+        }
+      ],
+      "warnings": [
+        "Unknown CPU: \"AMD Ryzen 3 7335U\" (raw: \"AMD Ryzen 3 7335U\")",
+        "Unknown CPU: \"AMD Ryzen 5 150\" (raw: \"AMD Ryzen 5 150\")",
+        "Unknown CPU: \"AMD Ryzen 5 7535U\" (raw: \"AMD Ryzen 5 7535U\")",
+        "Unknown CPU: \"AMD Ryzen 7 170\" (raw: \"AMD Ryzen 7 170\")",
+        "Unknown CPU: \"AMD Ryzen 7 7735U\" (raw: \"AMD Ryzen 7 7735U\")"
+      ]
+    },
+    "x13-gen4-intel": {
+      "id": "x13-gen4-intel",
+      "name": "ThinkPad X13 Gen 4 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X13_Gen_4_Intel?MT=21EX",
+      "scrapedAt": "2026-02-21T13:51:09.831Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "p16-gen2": {
+      "id": "p16-gen2",
+      "name": "ThinkPad P16 Gen 2",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_P16_Gen_2?MT=21FA",
+      "scrapedAt": "2026-02-21T13:51:16.720Z",
+      "processors": [
+        {
+          "name": "Intel Core i5-13600HX",
+          "rawName": "Core i5-13600HX",
+          "cores": 14,
+          "threads": 20,
+          "baseClock": 2.6,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": false
+        },
+        {
+          "name": "Intel Core i7-13700HX",
+          "rawName": "Core i7-13700HX",
+          "cores": 16,
+          "threads": 24,
+          "baseClock": 2.1,
+          "boostClock": 5,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core i7-13850HX",
+          "rawName": "Core i7-13850HX",
+          "cores": 20,
+          "threads": 28,
+          "baseClock": 2.1,
+          "boostClock": 5.3,
+          "tdp": 0,
+          "inBenchmarks": false
+        },
+        {
+          "name": "Intel Core i9-13950HX",
+          "rawName": "Core i9-13950HX",
+          "cores": 24,
+          "threads": 32,
+          "baseClock": 2.2,
+          "boostClock": 5.5,
+          "tdp": 0,
+          "inBenchmarks": false
+        },
+        {
+          "name": "Intel Core i9-13980HX",
+          "rawName": "Core i9-13980HX",
+          "cores": 24,
+          "threads": 32,
+          "baseClock": 2.2,
+          "boostClock": 5.6,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core i7-14700HX",
+          "rawName": "Core i7-14700HX",
+          "cores": 20,
+          "threads": 28,
+          "baseClock": 2.1,
+          "boostClock": 5.5,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 16,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 300,
+          "touchscreen": false
+        }
+      ],
+      "rams": [
+        {
+          "size": 128,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 192,
+          "slots": 5,
+          "soldered": false
+        },
+        {
+          "size": 32,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 192,
+          "slots": 5,
+          "soldered": false
+        },
+        {
+          "size": 192,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 192,
+          "slots": 5,
+          "soldered": false
+        },
+        {
+          "size": 48,
+          "type": "DDR5",
+          "speed": 5600,
+          "maxSize": 192,
+          "slots": 5,
+          "soldered": false
+        }
+      ],
+      "storages": [],
+      "gpus": [],
+      "warnings": [
+        "Unknown CPU: \"Intel Core i5-13600HX\" (raw: \"Core i5-13600HX\")",
+        "Unknown CPU: \"Intel Core i7-13850HX\" (raw: \"Core i7-13850HX\")",
+        "Unknown CPU: \"Intel Core i9-13950HX\" (raw: \"Core i9-13950HX\")"
+      ]
+    },
+    "x1-carbon-gen13": {
+      "id": "x1-carbon-gen13",
+      "name": "ThinkPad X1 Carbon Gen 13",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Carbon_Gen_13",
+      "scrapedAt": "2026-02-21T13:52:08.722Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Redirected to homepage — product URL may be invalid"
+    },
+    "t14s-gen6-amd": {
+      "id": "t14s-gen6-amd",
+      "name": "ThinkPad T14s Gen 6 (AMD)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14s_Gen_6_AMD",
+      "scrapedAt": "2026-02-21T13:53:23.200Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Page too short (974 chars) — may not have loaded"
+    },
+    "x1-2in1-gen9": {
+      "id": "x1-2in1-gen9",
+      "name": "ThinkPad X1 2-in-1 Gen 9",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_2_in_1_Gen_9?MT=21KE",
+      "scrapedAt": "2026-02-21T13:54:00.622Z",
+      "processors": [
+        {
+          "name": "Intel Core Ultra 5 125U",
+          "rawName": "Core Ultra 5 125U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.3,
+          "boostClock": 4.3,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 5 135U",
+          "rawName": "Core Ultra 5 135U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.6,
+          "boostClock": 4.4,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 155U",
+          "rawName": "Core Ultra 7 155U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.8,
+          "tdp": 0,
+          "inBenchmarks": true
+        },
+        {
+          "name": "Intel Core Ultra 7 165U",
+          "rawName": "Core Ultra 7 165U",
+          "cores": 12,
+          "threads": 14,
+          "baseClock": 1.7,
+          "boostClock": 4.9,
+          "tdp": 0,
+          "inBenchmarks": true
+        }
+      ],
+      "displays": [
+        {
+          "size": 14,
+          "resolution": "1920x1200",
+          "resolutionLabel": "WUXGA IPS",
+          "panel": "IPS",
+          "refreshRate": 60,
+          "nits": 400,
+          "touchscreen": true
+        },
+        {
+          "size": 14,
+          "resolution": "2880x1800",
+          "resolutionLabel": "2.8K OLED",
+          "panel": "OLED",
+          "refreshRate": 120,
+          "nits": 400,
+          "touchscreen": true
+        }
+      ],
+      "rams": [
+        {
+          "size": 16,
+          "type": "LPDDR5x",
+          "speed": 6400,
+          "maxSize": 64,
+          "slots": 0,
+          "soldered": true
+        },
+        {
+          "size": 32,
+          "type": "LPDDR5x",
+          "speed": 6400,
+          "maxSize": 64,
+          "slots": 0,
+          "soldered": true
+        },
+        {
+          "size": 64,
+          "type": "LPDDR5x",
+          "speed": 6400,
+          "maxSize": 64,
+          "slots": 0,
+          "soldered": true
+        }
+      ],
+      "storages": [],
+      "gpus": [],
+      "warnings": []
+    },
+    "t480s": {
+      "id": "t480s",
+      "name": "ThinkPad T480s",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T480s?MT=20L7",
+      "scrapedAt": "2026-02-21T13:54:33.358Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "x1-carbon-gen10": {
+      "id": "x1-carbon-gen10",
+      "name": "ThinkPad X1 Carbon Gen 10",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Carbon_Gen_10?MT=21CB",
+      "scrapedAt": "2026-02-21T13:54:55.230Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "t14-gen4-amd": {
+      "id": "t14-gen4-amd",
+      "name": "ThinkPad T14 Gen 4 (AMD)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14_Gen_4_AMD?MT=21HD",
+      "scrapedAt": "2026-02-21T13:55:20.805Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "page.waitForFunction: Timeout 30000ms exceeded."
+    },
+    "x1-yoga-gen7": {
+      "id": "x1-yoga-gen7",
+      "name": "ThinkPad X1 Yoga Gen 7",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Yoga_Gen_7",
+      "scrapedAt": "2026-02-21T13:57:05.671Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "x1-nano-gen2": {
+      "id": "x1-nano-gen2",
+      "name": "ThinkPad X1 Nano Gen 2",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Nano_Gen_2",
+      "scrapedAt": "2026-02-21T13:58:39.957Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "t14-gen3-intel": {
+      "id": "t14-gen3-intel",
+      "name": "ThinkPad T14 Gen 3 (Intel)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14_Gen_3_Intel",
+      "scrapedAt": "2026-02-21T13:59:01.955Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    },
+    "t14-gen3-amd": {
+      "id": "t14-gen3-amd",
+      "name": "ThinkPad T14 Gen 3 (AMD)",
+      "psrefUrl": "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_T14_Gen_3_AMD",
+      "scrapedAt": "2026-02-21T13:59:30.841Z",
+      "processors": [],
+      "displays": [],
+      "rams": [],
+      "storages": [],
+      "gpus": [],
+      "warnings": [],
+      "error": "Product withdrawn from PSREF (WDProduct redirect)"
+    }
+  }
+}
