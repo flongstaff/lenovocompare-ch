@@ -1,16 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  ScatterChart,
-  Scatter,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 interface ScatterDataPoint {
   readonly id: string;
@@ -40,10 +31,7 @@ const CustomTooltip = ({
   if (!active || !payload || payload.length === 0) return null;
   const d = payload[0].payload;
   return (
-    <div
-      className="rounded border px-3 py-2 text-xs"
-      style={{ background: "#262626", borderColor: "#525252" }}
-    >
+    <div className="rounded border px-3 py-2 text-xs" style={{ background: "#262626", borderColor: "#525252" }}>
       <p className="mb-1 font-medium text-carbon-100">{d.name}</p>
       <p className="text-carbon-400">
         CHF {d.price.toLocaleString("de-CH")} · Score {d.perf}
@@ -52,9 +40,7 @@ const CustomTooltip = ({
   );
 };
 
-export const PricePerformanceScatter = ({
-  models,
-}: PricePerformanceScatterProps) => {
+export const PricePerformanceScatter = ({ models }: PricePerformanceScatterProps) => {
   const router = useRouter();
 
   const handleClick = (entry: ScatterDataPoint) => {
@@ -94,10 +80,7 @@ export const PricePerformanceScatter = ({
               fontSize: 11,
             }}
           />
-          <Tooltip
-            content={<CustomTooltip />}
-            cursor={{ strokeDasharray: "3 3", stroke: "#525252" }}
-          />
+          <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: "3 3", stroke: "#525252" }} />
           <Scatter
             data={models as ScatterDataPoint[]}
             onClick={(data: { payload?: ScatterDataPoint }) => {
@@ -106,10 +89,7 @@ export const PricePerformanceScatter = ({
             cursor="pointer"
           >
             {models.map((entry) => (
-              <Cell
-                key={entry.id}
-                fill={LINEUP_COLORS[entry.lineup] ?? "#a8a8a8"}
-              />
+              <Cell key={entry.id} fill={LINEUP_COLORS[entry.lineup] ?? "#a8a8a8"} />
             ))}
           </Scatter>
         </ScatterChart>
@@ -119,10 +99,7 @@ export const PricePerformanceScatter = ({
       <div className="mt-2 flex items-center justify-center gap-4">
         {Object.entries(LINEUP_COLORS).map(([lineup, color]) => (
           <div key={lineup} className="flex items-center gap-1.5">
-            <span
-              className="inline-block h-2.5 w-2.5 rounded-full"
-              style={{ background: color }}
-            />
+            <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: color }} />
             <span className="text-[10px] text-carbon-400">{lineup}</span>
           </div>
         ))}

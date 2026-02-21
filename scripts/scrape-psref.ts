@@ -809,12 +809,47 @@ const navigateToProduct = async (
     return { ok: false, reason: "withdrawn" };
   }
 
-  const pageText = await page.evaluate(() => document.body?.innerText || "");
-  if (pageText.length < 2000) {
-    return { ok: false, reason: `page-too-short (${pageText.length} chars)` };
+  const getPageText = () => page.evaluate(() => document.body?.innerText || "");
+
+  const initialText = await getPageText();
+  if (initialText.length >= 2000) {
+    return { ok: true, text: initialText, finalUrl: currentUrl };
   }
 
-  return { ok: true, text: pageText, finalUrl: currentUrl };
+  // SPA may need the Specifications tab clicked to render full content
+  try {
+    // Look for Specifications tab link — PSREF uses various selectors
+    const specTab = page
+      .locator('a:has-text("Specifications"), [data-tab="spec"], .tab-spec, a[href*="tab=spec"]')
+      .first();
+    if (await specTab.isVisible({ timeout: 3000 }).catch(() => false)) {
+      await specTab.click();
+      await page.waitForTimeout(3000);
+      const afterClick = await getPageText();
+      if (afterClick.length >= 2000) {
+        return { ok: true, text: afterClick, finalUrl: page.url() };
+      }
+    }
+  } catch {
+    // Tab click failed, continue to URL-based approach
+  }
+
+  // Try appending ?tab=spec to the URL
+  if (!currentUrl.includes("tab=")) {
+    try {
+      const specUrl = currentUrl + (currentUrl.includes("?") ? "&tab=spec" : "?tab=spec");
+      await page.goto(specUrl, { waitUntil: "load", timeout: 30000 });
+      await page.waitForTimeout(5000);
+      const afterNav = await getPageText();
+      if (afterNav.length >= 2000) {
+        return { ok: true, text: afterNav, finalUrl: page.url() };
+      }
+    } catch {
+      // URL approach failed
+    }
+  }
+
+  return { ok: false, reason: `page-too-short (${initialText.length} chars)` };
 };
 
 const scrapePsrefPage = async (
@@ -859,8 +894,70 @@ const scrapePsrefPage = async (
         .replace(/^(ThinkPad|IdeaPad Pro|Legion)\s+/i, "")
         .toLowerCase()
         .trim();
-      // Try exact match, then with platform suffix
-      const listingUrl = listingMap.get(modelKey);
+
+      // Strategy 1: Exact match on normalized name
+      let listingUrl = listingMap.get(modelKey);
+
+      // Strategy 2: Strip "i" suffix (PSREF often omits it — "5i" → "5")
+      if (!listingUrl) {
+        const noI = modelKey.replace(/(\d)i\b/g, "$1");
+        if (noI !== modelKey) listingUrl = listingMap.get(noI);
+      }
+
+      // Strategy 3: Series + screen size + generation fuzzy match
+      // Our name: "5i 14IRH9" → series "5", screen "14", gen suffix digit "9"
+      // PSREF key: "pro 5 14imh9" → series "pro 5", screen "14", gen suffix digit "9"
+      if (!listingUrl) {
+        const ourMatch = modelKey.match(/^(.+?)\s+(\d{2})([a-z]{2,5})(\d{1,2})([a-z]?)$/i);
+        if (ourMatch) {
+          const ourSeries = ourMatch[1].replace(/i$/i, "").trim(); // "5i" → "5"
+          const ourScreen = ourMatch[2]; // "14"
+          const ourGen = ourMatch[4]; // "9" (generation digit from suffix)
+          const isProModel = laptop.lineup === "IdeaPad Pro";
+
+          for (const [k, v] of listingMap.entries()) {
+            const kMatch = k.match(/^(.+?)\s+(\d{2})([a-z]{2,5})(\d{1,2})([a-z]?)$/i);
+            if (!kMatch) continue;
+            const kSeries = kMatch[1].replace(/i$/i, "").trim();
+            const kScreen = kMatch[2];
+            const kGen = kMatch[4];
+            if (kScreen !== ourScreen || kGen !== ourGen) continue;
+
+            // For IdeaPad Pro: PSREF key has "pro" prefix (e.g., "pro 5 14imh9")
+            const expectedSeries = isProModel ? `pro ${ourSeries}` : ourSeries;
+            if (kSeries === expectedSeries) {
+              listingUrl = v;
+              break;
+            }
+          }
+        }
+      }
+
+      // Strategy 4: Screen size + generation match within same family URL path
+      if (!listingUrl) {
+        const screenMatch = modelKey.match(/(\d{2})[a-z]{2,5}(\d{1,2})/i);
+        if (screenMatch) {
+          const screen = screenMatch[1];
+          const gen = screenMatch[2];
+          const familyKeyword =
+            laptop.lineup === "IdeaPad Pro" ? "Pro" : laptop.lineup === "Legion" ? "Legion" : "ThinkPad";
+
+          for (const [k, v] of listingMap.entries()) {
+            const kScreenMatch = k.match(/(\d{2})[a-z]{2,5}(\d{1,2})/i);
+            if (!kScreenMatch || kScreenMatch[1] !== screen || kScreenMatch[2] !== gen) continue;
+            if (v.includes(familyKeyword)) {
+              // Check series number matches too (avoid matching "5" to "7")
+              const ourSeriesNum = modelKey.match(/^(\d)/)?.[1];
+              const kSeriesNum = k.match(/(\d)\s+\d{2}/)?.[1];
+              if (ourSeriesNum && kSeriesNum && ourSeriesNum === kSeriesNum) {
+                listingUrl = v;
+                break;
+              }
+            }
+          }
+        }
+      }
+
       if (listingUrl) {
         console.log(`  ${DIM}Listing lookup: ${modelKey} → .../${listingUrl.split("/").pop()}${RESET}`);
         targetUrl = listingUrl;
