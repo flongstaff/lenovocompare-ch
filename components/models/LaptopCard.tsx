@@ -36,7 +36,7 @@ const SERIES_ACCENT: Record<string, string> = {
   // Legion
   "5": "#ff832b",
   "5i": "#fa4d56",
-  "7": "#da1e28",
+  "7": "#fa4d56",
   "7i": "#d12771",
   Pro: "#f1c21b",
   Slim: "#08bdba",

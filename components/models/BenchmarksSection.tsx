@@ -180,13 +180,13 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     style={{
                       background:
                         chassisBench.thermals.keyboardMaxC > thermalT.hot
-                          ? "#da1e2820"
+                          ? "#ff832b20"
                           : chassisBench.thermals.keyboardMaxC > thermalT.warm
                             ? "#f1c21b20"
                             : "#42be6520",
                       color:
                         chassisBench.thermals.keyboardMaxC > thermalT.hot
-                          ? "#da1e28"
+                          ? "#ff832b"
                           : chassisBench.thermals.keyboardMaxC > thermalT.warm
                             ? "#f1c21b"
                             : "#42be65",
@@ -214,7 +214,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   unit="dB"
                   color={
                     chassisBench.fanNoise > noiseT.loud
-                      ? "#da1e28"
+                      ? "#ff832b"
                       : chassisBench.fanNoise > noiseT.moderate
                         ? "#f1c21b"
                         : "#42be65"
@@ -226,13 +226,13 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     style={{
                       background:
                         chassisBench.fanNoise > noiseT.loud
-                          ? "#da1e2820"
+                          ? "#ff832b20"
                           : chassisBench.fanNoise > noiseT.moderate
                             ? "#f1c21b20"
                             : "#42be6520",
                       color:
                         chassisBench.fanNoise > noiseT.loud
-                          ? "#da1e28"
+                          ? "#ff832b"
                           : chassisBench.fanNoise > noiseT.moderate
                             ? "#f1c21b"
                             : "#42be65",

@@ -21,7 +21,7 @@ interface FpsChartProps {
 const getBarColor = (fps: number): string => {
   if (fps >= 60) return "#42be65";
   if (fps >= 30) return "#f1c21b";
-  return "#da1e28";
+  return "#ff832b";
 };
 
 const abbreviateRes = (res: string): string => {
@@ -55,10 +55,10 @@ const FpsChart = ({ estimates }: FpsChartProps) => {
           <YAxis type="category" dataKey="name" width={180} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#525252" />
           <ReferenceLine
             x={30}
-            stroke="#da1e28"
+            stroke="#ff832b"
             strokeDasharray="4 4"
             strokeWidth={1.5}
-            label={{ value: "30", fill: "#da1e28", fontSize: 10, position: "top" }}
+            label={{ value: "30", fill: "#ff832b", fontSize: 10, position: "top" }}
           />
           <ReferenceLine
             x={60}
@@ -108,7 +108,7 @@ const FpsChart = ({ estimates }: FpsChartProps) => {
       </ResponsiveContainer>
       <div className="mt-1 flex items-center gap-4 text-[10px]" style={{ color: "#a8a8a8" }}>
         <span className="flex items-center gap-1">
-          <span className="inline-block h-2 w-2 rounded-sm bg-red-600" /> &lt;30 FPS
+          <span className="inline-block h-2 w-2 rounded-sm bg-orange-500" /> &lt;30 FPS
         </span>
         <span className="flex items-center gap-1">
           <span className="inline-block h-2 w-2 rounded-sm bg-yellow-500" /> 30-59 FPS
