@@ -30,6 +30,16 @@ body {
     @apply border border-carbon-700 bg-carbon-800;
   }
 
+  .carbon-card-scores {
+    @apply border border-carbon-700 bg-carbon-800;
+    border-left: 2px solid var(--accent);
+  }
+
+  .carbon-card-editorial {
+    @apply border border-carbon-700 bg-carbon-800;
+    border-top: 4px solid var(--accent);
+  }
+
   .carbon-btn {
     @apply inline-flex items-center justify-center gap-2 bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent/90;
   }

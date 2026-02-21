@@ -180,7 +180,7 @@ const ModelDetailClient = () => {
         className="grid scroll-mt-14 grid-cols-1 gap-4 border-b border-carbon-600/60 pb-6 md:grid-cols-3"
       >
         {/* Scores card */}
-        <div className="carbon-card rounded-lg p-4">
+        <div className="carbon-card-scores rounded-lg p-4">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
               Scores
@@ -482,7 +482,7 @@ const ModelDetailClient = () => {
         <ModelAnalysisCard analysis={analysis} />
 
         {editorial && (
-          <div id="editorial" className="scroll-mt-14">
+          <div id="editorial" className="carbon-card-editorial scroll-mt-14 rounded-lg p-4">
             <EditorialCard editorial={editorial} linuxStatus={model.linuxStatus} />
           </div>
         )}
