@@ -20,9 +20,11 @@ import { gpuBenchmarks } from "@/data/gpu-benchmarks";
 import { usePrices } from "@/lib/hooks/usePrices";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useCompare } from "@/lib/hooks/useCompare";
+import { getModelScores } from "@/lib/scoring";
 import { FilterBar } from "@/components/filters/FilterBar";
 import LaptopCard from "@/components/models/LaptopCard";
 import { CompareFloatingBar } from "@/components/compare/CompareFloatingBar";
+import { PricePerformanceScatter } from "@/components/charts/PricePerformanceScatter";
 import { SkeletonGrid } from "@/components/ui/Skeleton";
 
 /** Animate a number from 0 to target over ~800ms */
@@ -129,11 +131,25 @@ const HomeClient = () => {
   );
   const { selectedIds, toggleCompare, clearCompare } = useCompare();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [showScatter, setShowScatter] = useState(false);
   const cpuCount = useMemo(() => Object.keys(cpuBenchmarksExpanded).length, []);
   const gpuCount = useMemo(() => Object.keys(gpuBenchmarks).length, []);
   const modelCounter = useCounter(models.length);
   const cpuCounter = useCounter(cpuCount);
   const gpuCounter = useCounter(gpuCount);
+
+  const scatterData = useMemo(
+    () =>
+      filtered
+        .map((m) => {
+          const s = getModelScores(m, allPrices);
+          return s.lowestPrice
+            ? { id: m.id, name: m.name, lineup: m.lineup, price: s.lowestPrice, perf: s.perf }
+            : null;
+        })
+        .filter((d): d is NonNullable<typeof d> => d !== null),
+    [filtered, allPrices],
+  );
 
   const filterKey = useMemo(() => JSON.stringify(filters), [filters]);
 
@@ -259,6 +275,24 @@ const HomeClient = () => {
         onReset={resetFilters}
         onUpdateFilter={updateFilter}
       />
+
+      <div className="flex items-center justify-end">
+        <button
+          onClick={() => setShowScatter(!showScatter)}
+          className="carbon-btn-ghost !px-3 !py-1.5 !text-xs"
+        >
+          {showScatter ? "Hide" : "Show"} Price Map
+        </button>
+      </div>
+
+      {showScatter && scatterData.length > 0 && (
+        <div className="carbon-card mb-4 rounded-lg p-4">
+          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-carbon-400">
+            Price vs Performance
+          </h3>
+          <PricePerformanceScatter models={scatterData} />
+        </div>
+      )}
 
       {filtered.length > 0 ? (
         <>
