@@ -159,9 +159,10 @@ const HomeClient = () => {
       <div className="relative py-10 sm:py-14">
         {/* Dot grid background */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
           style={{
-            backgroundImage: "radial-gradient(circle, var(--foreground) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(var(--border-subtle) 1px, transparent 1px), linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
@@ -201,7 +202,7 @@ const HomeClient = () => {
             <div key={stat.label} className="flex items-center gap-6 sm:gap-8">
               {i > 0 && <div className="h-8 w-px bg-carbon-600" />}
               <div>
-                <p className="font-mono text-2xl font-bold tabular-nums text-carbon-100 sm:text-3xl">
+                <p className="font-mono text-3xl font-bold tabular-nums text-carbon-100 sm:text-4xl">
                   {stat.value}
                   {stat.suffix}
                 </p>
