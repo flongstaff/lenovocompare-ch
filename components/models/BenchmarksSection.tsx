@@ -2,6 +2,7 @@
 
 import type { Laptop } from "@/lib/types";
 import { getModelBenchmarks, getCpuRawBenchmarks, getGpuBenchmark } from "@/lib/scoring";
+import { ThermalProfileBar } from "@/components/models/ThermalProfileBar";
 import dynamic from "next/dynamic";
 
 const ThermalGauge = dynamic(() => import("@/components/charts/ThermalGauge"), { ssr: false });
@@ -170,6 +171,11 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
             </div>
             {chassisBench?.thermals && (
               <>
+                <ThermalProfileBar
+                  keyboardMaxC={chassisBench.thermals.keyboardMaxC}
+                  fanNoiseDbA={chassisBench?.fanNoise}
+                  lineup={model.lineup}
+                />
                 <ThermalGauge
                   keyboardMaxC={chassisBench.thermals.keyboardMaxC}
                   undersideMaxC={chassisBench.thermals.undersideMaxC}
