@@ -34,6 +34,7 @@ export const Footer = () => (
               { href: "https://www.geekbench.com", label: "Geekbench 6", desc: "CPU benchmarks" },
               { href: "https://www.3dmark.com", label: "3DMark Time Spy", desc: "GPU benchmarks" },
               { href: "https://www.notebookcheck.net", label: "NotebookCheck", desc: "Chassis benchmarks" },
+              { href: "https://www.pugetsystems.com/pugetbench/", label: "PugetBench", desc: "Content creation" },
             ].map((src) => (
               <li key={src.href}>
                 <a
@@ -89,8 +90,8 @@ export const Footer = () => (
         </p>
         <p className="max-w-2xl text-[10px] leading-relaxed text-carbon-600">
           ThinkPad, IdeaPad, and Legion are trademarks of Lenovo. Cinebench is a trademark of Maxon. Geekbench is a
-          trademark of Primate Labs. 3DMark is a trademark of UL. Game titles are trademarks of their respective
-          publishers.
+          trademark of Primate Labs. 3DMark is a trademark of UL. PugetBench is a trademark of Puget Systems. Game
+          titles are trademarks of their respective publishers.
         </p>
       </div>
     </div>

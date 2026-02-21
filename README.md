@@ -116,6 +116,8 @@ All data comes from publicly available sources. We gratefully acknowledge the or
 - **GPU benchmarks**: [3DMark Time Spy](https://www.3dmark.com) (UL Solutions) — publicly available aggregate scores
 - **FPS estimates**: Game titles including Cyberpunk 2077 (CD Projekt Red), CS2 (Valve), and others — approximate FPS from public benchmark databases
 - **Chassis benchmarks**: [NotebookCheck](https://www.notebookcheck.net) reviews — thermals, fan noise, battery, display brightness (linked, not scraped)
+- **Content creation benchmarks**: [PugetBench](https://www.pugetsystems.com/pugetbench/) (Puget Systems) — Premiere Pro and DaVinci Resolve scores
+- **Review data**: [JarrodsTech](https://jarrods.tech) and [JustJosh](https://www.youtube.com/@JustJoshTech) — supplementary benchmark data
 - **Linux compatibility**: [Lenovo Linux certification](https://support.lenovo.com/solutions/pd031426), [Ubuntu Certified Hardware](https://ubuntu.com/certified), [Red Hat Ecosystem Catalog](https://catalog.redhat.com), and community reports
 - **TDP data**: [Intel ARK](https://ark.intel.com) and [AMD product pages](https://www.amd.com/en/products/specifications/processors)
 - **Pricing**: User-contributed via the app's pricing interface

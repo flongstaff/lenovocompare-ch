@@ -5,8 +5,12 @@ import type { ModelBenchmarks } from "@/lib/types";
  * Keyed by laptopId. Sources:
  *   "notebookcheck" — Data from in-house NotebookCheck review (verified or closely derived)
  *   "community"     — Estimated from specs, related models, and community data
- *   "jarrodtech"    — Data from JarrodsTech review
+ *   "jarrodtech"    — Data from JarrodsTech (https://jarrods.tech) review
+ *   "justjoshtech"  — Data from JustJosh (https://www.youtube.com/@JustJoshTech) review
  * See BenchmarkSource type in lib/types.ts for all valid sources.
+ *
+ * Content creation fields (pugetPremiere, pugetDavinci) sourced from
+ * PugetBench (https://www.pugetsystems.com/pugetbench/) by Puget Systems.
  */
 export const modelBenchmarks: Record<string, ModelBenchmarks> = {
   // ============================================================
