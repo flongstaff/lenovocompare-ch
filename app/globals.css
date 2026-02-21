@@ -55,30 +55,18 @@ body {
   }
 }
 
-/* Score bar shine effect */
-.score-shine {
-  position: relative;
-  overflow: hidden;
+/* Score bar one-shot fill animation */
+.score-fill {
+  transform-origin: left;
+  animation: scoreFillIn 0.8s ease-out forwards;
 }
 
-.score-shine::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-  animation: shine 2s ease-in-out infinite;
-}
-
-@keyframes shine {
-  0% {
-    left: -100%;
+@keyframes scoreFillIn {
+  from {
+    transform: scaleX(0);
   }
-  50%,
-  100% {
-    left: 100%;
+  to {
+    transform: scaleX(1);
   }
 }
 

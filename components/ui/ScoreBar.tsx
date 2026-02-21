@@ -13,6 +13,7 @@ const getScoreLabel = (score: number): { text: string; color: string } => {
 interface ScoreBarProps {
   readonly score: number;
   readonly max?: number;
+  readonly maxRef?: number;
   readonly label?: string;
   readonly color?: string;
   readonly showValue?: boolean;
@@ -23,6 +24,7 @@ interface ScoreBarProps {
 export const ScoreBar = ({
   score,
   max = 100,
+  maxRef,
   label,
   color = "#0f62fe",
   showValue = true,
@@ -42,18 +44,29 @@ export const ScoreBar = ({
           {label}
         </span>
       )}
-      <div className={`flex-1 ${isMd ? "h-2.5" : "h-1.5"} overflow-hidden rounded-full bg-carbon-600/50`}>
+      <div className={`relative flex-1 ${isMd ? "h-2.5" : "h-1.5"} rounded-full bg-carbon-600/50`}>
         <div
-          className="score-shine h-full rounded-full transition-all duration-700 ease-out"
+          className="score-fill h-full overflow-hidden rounded-full transition-all duration-700 ease-out"
           style={{
             width: `${Math.max(pct, 8)}%`,
             background: `linear-gradient(90deg, ${color}90, ${color})`,
           }}
         />
+        {maxRef !== undefined && maxRef > 0 && (
+          <div
+            className="absolute top-0 h-full w-px"
+            style={{
+              left: `${Math.min(99.5, (maxRef / max) * 100)}%`,
+              background: "var(--muted)",
+              opacity: 0.4,
+            }}
+          />
+        )}
       </div>
       {showValue && (
         <span
-          className={`${isMd ? "text-[11px]" : "text-[10px]"} w-7 text-right font-mono tabular-nums text-carbon-400`}
+          className={`${isMd ? "text-[11px]" : "text-[10px]"} w-7 text-right font-mono tabular-nums`}
+          style={{ color: getScoreLabel(score).color }}
         >
           {Math.round(score)}
         </span>
