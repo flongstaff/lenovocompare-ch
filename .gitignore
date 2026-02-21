@@ -39,6 +39,9 @@ yarn-error.log*
 .claude/plans/
 .claude/memory/
 
+# Plan docs (session artifacts, not project code)
+docs/plans/
+
 # MCP config (machine-specific)
 .mcp.json
 
