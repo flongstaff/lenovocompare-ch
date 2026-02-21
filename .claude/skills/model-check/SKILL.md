@@ -1,17 +1,17 @@
 ---
-name: model-checklist
-description: Check a single model's completeness across all 9 data files
+name: model-check
+description: Full health check for a single model — data completeness, page rendering, chart verification, price sanity
 ---
 
-# Model Checklist
+# Model Check
 
-Verify that a single laptop model has complete entries across all 9 data files. Use after `/add-laptop` or when debugging a specific model.
+End-to-end health check for a single laptop model. Verifies data completeness across all 9 files, page rendering, chart data, and price sanity.
 
 ## Arguments
 
-`/model-checklist {model-id}` — e.g., `/model-checklist t14s-gen6-amd`
+`/model-check {model-id}` — e.g., `/model-check t14s-gen6-amd`
 
-## Checks
+## Phase 1: Data Completeness
 
 For the given model ID, verify:
 
@@ -32,37 +32,68 @@ For the given model ID, verify:
 | 13  | `data/hardware-guide.ts`   | Each `gpuOptions[].name` has entry in `gpuGuide`             | Yes      |
 | 14  | `data/model-benchmarks.ts` | Model ID has entry (optional — coverage tracked)             | No       |
 
-## Additional Checks
+### Additional Checks
 
 - `psrefUrl` starts with `https://psref.lenovo.com/`
 - `lineup` and `series` are a valid combination
-- If `processorOptions` span different CPU families (e.g., Intel + AMD), verify `gpuOptions` is also set
+- If `processorOptions` span different CPU families, verify `gpuOptions` is set
 - Seed price `priceType` values are valid
 - Price baseline ordering: `msrp > typicalRetail > historicalLow`
+
+## Phase 2: Page Rendering
+
+1. Ensure dev server is running on localhost:3000
+2. `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/model/{model-id}` — expect 200
+3. If 404/500, report the error and stop
+
+## Phase 3: Chart Verification
+
+Check that the model's data produces valid chart inputs:
+
+| Chart              | Requirement                                                |
+| ------------------ | ---------------------------------------------------------- |
+| PerformanceRadar   | `getPerformanceDimensions()` returns 6 non-zero dimensions |
+| BenchmarkBar       | CPU single/multi scores > 0; GPU score > 0                 |
+| PriceTimelineChart | At least 2 seed prices (for chart to render)               |
+| FpsChart           | GPU has FPS estimates (only if discrete GPU)               |
+
+## Phase 4: Price Sanity
+
+- Baseline ordering: `msrp >= typicalRetail >= historicalLow`
+- No seed price exceeds MSRP by >20%
+- At least one seed price within 15% of `typicalRetail`
 
 ## Output
 
 ```
-Model Checklist: ThinkPad T14s Gen 6 (AMD) [t14s-gen6-amd]
-============================================================
+Model Check: ThinkPad T14s Gen 6 (AMD) [t14s-gen6-amd]
+=======================================================
 
+DATA COMPLETENESS: 13/13 required ✅
  1. ✅ laptops.ts          — Found (ThinkPad / T series / 2025)
  2. ✅ cpu-benchmarks.ts   — AMD Ryzen 7 PRO 8840HS (score: 72)
- 3. ✅ cpu-benchmarks.ts   — processorOptions: AMD Ryzen 5 PRO 8640HS (score: 61)
+ 3. ✅ cpu-benchmarks.ts   — processorOptions: AMD Ryzen 5 PRO 8640HS
  4. ✅ gpu-benchmarks.ts   — AMD Radeon 780M (score: 18)
  5. — gpu-benchmarks.ts   — No gpuOptions (not required)
- 6. ✅ linux-compat.ts     — 3 certified distros, 6 driver notes
- 7. ✅ model-editorial.ts  — Editorial present (editorialNotes, linuxNotes)
+ 6. ✅ linux-compat.ts     — 3 certified distros
+ 7. ✅ model-editorial.ts  — Editorial present
  8. ✅ seed-prices.ts      — 3 prices (retail: 2, sale: 1)
  9. ✅ price-baselines.ts  — MSRP: 1749 > Typical: 1549 > Low: 1299 ✅
-10. ✅ hardware-guide.ts   — CPU guide: AMD Ryzen 7 PRO 8840HS
-11. ✅ hardware-guide.ts   — GPU guide: AMD Radeon 780M
-12. ✅ hardware-guide.ts   — CPU guide (option): AMD Ryzen 5 PRO 8640HS
+10. ✅ hardware-guide.ts   — CPU guide present
+11. ✅ hardware-guide.ts   — GPU guide present
+12. ✅ hardware-guide.ts   — CPU option guide present
 13. — hardware-guide.ts   — No gpuOptions to check
 14. ⚠️ model-benchmarks.ts — No entry (optional)
 
-Result: 12/13 required ✅, 1 optional missing
-Status: COMPLETE ✅
+PAGE RENDERING:    HTTP 200 ✅
+CHARTS:
+  PerformanceRadar  — 6 dimensions ✅
+  BenchmarkBar      — CPU: 72/68, GPU: 18 ✅
+  PriceTimeline     — 3 prices (chart renders) ✅
+  FpsChart          — iGPU (skipped) —
+PRICE SANITY:      All checks pass ✅
+
+Overall: HEALTHY ✅
 ```
 
 ## Workflow
@@ -71,4 +102,14 @@ Status: COMPLETE ✅
 2. If not found, list similar IDs and exit
 3. Extract CPU/GPU names including all options
 4. Cross-reference each file in order
-5. Print the checklist report
+5. Check page rendering
+6. Verify chart data requirements
+7. Run price sanity checks
+8. Print the full report
+
+## When to Use
+
+- After `/add-laptop` to verify the full pipeline
+- After editing seed prices or baselines for a model
+- When a user reports a model page looks wrong
+- Periodic spot-checks on random models

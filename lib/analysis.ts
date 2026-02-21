@@ -276,8 +276,7 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
 
   // Dev: 35% CPU + 35% memory + display quality bonus (10% of display score + size bonus)
   const displayScore = getDisplayScore(model);
-  const devScore =
-    perfScore * 0.35 + memScore * 0.35 + displayScore * 0.1 + (model.display.size >= 15 ? 5 : 0);
+  const devScore = perfScore * 0.35 + memScore * 0.35 + displayScore * 0.1 + (model.display.size >= 15 ? 5 : 0);
   const devVerdict = verdictFor(devScore, [25, 40, 55, 75]);
   scenarios.push({
     scenario: "Software Development",

@@ -59,10 +59,7 @@ export const ScoreBar = ({
         </span>
       )}
       {scoreLabel && (
-        <span
-          className="w-14 text-[9px] font-mono uppercase tracking-wider"
-          style={{ color: scoreLabel.color }}
-        >
+        <span className="w-14 font-mono text-[9px] uppercase tracking-wider" style={{ color: scoreLabel.color }}>
           {scoreLabel.text}
         </span>
       )}

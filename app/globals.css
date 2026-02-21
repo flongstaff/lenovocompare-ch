@@ -84,11 +84,15 @@ body {
 
 /* Card glow on hover */
 .card-glow {
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .card-glow:hover {
-  box-shadow: 0 4px 20px rgba(15, 98, 254, 0.2), 0 0 12px rgba(15, 98, 254, 0.1);
+  box-shadow:
+    0 4px 20px rgba(15, 98, 254, 0.2),
+    0 0 12px rgba(15, 98, 254, 0.1);
   transform: translateY(-2px);
 }
 
@@ -110,8 +114,13 @@ body {
 }
 
 @keyframes shimmer {
-  0% { left: -100%; }
-  50%, 100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
 }
 
 /* Custom thin scrollbar */

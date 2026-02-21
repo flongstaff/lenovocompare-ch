@@ -111,15 +111,18 @@ tests/                  # Vitest unit tests
 
 ## Data Sources
 
-All data comes from publicly available sources:
+All data comes from publicly available sources. We gratefully acknowledge the original creators:
 
-- **Specs**: [Lenovo PSREF](https://psref.lenovo.com) (public product reference)
-- **CPU benchmarks**: Publicly available aggregate benchmark data
-- **GPU benchmarks**: Publicly available aggregate benchmark data
-- **Chassis benchmarks**: [NotebookCheck](https://www.notebookcheck.net) reviews (linked, not scraped)
+- **Specifications**: [Lenovo PSREF](https://psref.lenovo.com) — public product reference data
+- **CPU benchmarks**: [Cinebench 2024](https://www.maxon.net/en/cinebench) (Maxon) and [Geekbench 6](https://www.geekbench.com) (Primate Labs) — publicly available aggregate scores
+- **GPU benchmarks**: [3DMark Time Spy](https://www.3dmark.com) (UL Solutions) — publicly available aggregate scores
+- **FPS estimates**: Game titles including Cyberpunk 2077 (CD Projekt Red), CS2 (Valve), and others — approximate FPS from public benchmark databases
+- **Chassis benchmarks**: [NotebookCheck](https://www.notebookcheck.net) reviews — thermals, fan noise, battery, display brightness (linked, not scraped)
+- **Linux compatibility**: [Lenovo Linux certification](https://support.lenovo.com/solutions/pd031426), [Ubuntu Certified Hardware](https://ubuntu.com/certified), [Red Hat Ecosystem Catalog](https://catalog.redhat.com), and community reports
+- **TDP data**: [Intel ARK](https://ark.intel.com) and [AMD product pages](https://www.amd.com/en/products/specifications/processors)
 - **Pricing**: User-contributed via the app's pricing interface
 
-No retailer websites are scraped. Review links are outbound only.
+All game titles, benchmark tools, and product names are trademarks of their respective owners. No retailer websites are scraped. Review links are outbound only.
 
 ## Contributing
 

@@ -28,18 +28,28 @@ export const Footer = () => (
         <div>
           <h3 className="mb-3 font-mono text-[10px] uppercase tracking-wider text-carbon-400">Data Sources</h3>
           <ul className="space-y-1.5">
-            <li>
-              <a
-                href="https://psref.lenovo.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm text-carbon-300 transition-colors hover:text-accent-light"
-              >
-                Lenovo PSREF <ExternalLink size={10} className="opacity-50" />
-              </a>
-            </li>
-            <li className="text-xs leading-relaxed text-carbon-500">
-              Scores derived from public benchmark aggregates. Pricing is user-contributed.
+            {[
+              { href: "https://psref.lenovo.com", label: "Lenovo PSREF", desc: "Specifications" },
+              { href: "https://www.maxon.net/en/cinebench", label: "Cinebench 2024", desc: "CPU benchmarks" },
+              { href: "https://www.geekbench.com", label: "Geekbench 6", desc: "CPU benchmarks" },
+              { href: "https://www.3dmark.com", label: "3DMark Time Spy", desc: "GPU benchmarks" },
+              { href: "https://www.notebookcheck.net", label: "NotebookCheck", desc: "Chassis benchmarks" },
+            ].map((src) => (
+              <li key={src.href}>
+                <a
+                  href={src.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm text-carbon-300 transition-colors hover:text-accent-light"
+                >
+                  {src.label} <ExternalLink size={10} className="opacity-50" />
+                </a>
+                <span className="ml-1 text-[10px] text-carbon-500">— {src.desc}</span>
+              </li>
+            ))}
+            <li className="mt-1 text-[10px] leading-relaxed text-carbon-500">
+              Benchmark scores derived from publicly available data. FPS estimates approximate. Pricing is
+              user-contributed. Linux compatibility based on Lenovo certification lists and community reports.
             </li>
           </ul>
         </div>

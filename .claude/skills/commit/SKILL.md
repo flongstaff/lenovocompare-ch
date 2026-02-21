@@ -14,14 +14,22 @@ Create a standardized git commit for the current working changes.
 
 2. **Group related changes**: If changes span multiple concerns, suggest splitting into separate commits. Ask the user which group to commit first.
 
-3. **Determine commit type** from the changes:
-   - `feat:` — New feature or capability
-   - `fix:` — Bug fix
-   - `data:` — ThinkPad data additions/corrections
-   - `style:` — CSS/UI changes with no logic change
-   - `refactor:` — Code restructuring without behavior change
-   - `chore:` — Build config, dependencies, tooling
-   - `docs:` — Documentation only
+3. **Determine commit type** from the changes using this decision tree:
+   - `feat:` — New feature or capability (new components, new pages, new skills/agents/hooks)
+   - `fix:` — Bug fix (correcting broken behavior, fixing errors)
+   - `data:` — Laptop/benchmark data additions or corrections (laptops.ts, cpu-benchmarks.ts, gpu-benchmarks.ts, model-benchmarks.ts, etc.)
+   - `style:` — CSS/UI changes with no logic change (colors, spacing, animations)
+   - `refactor:` — Code restructuring without behavior change (renaming, extracting functions)
+   - `chore:` — Build config, dependencies, tooling, CI/CD, .claude/ config changes
+   - `docs:` — Documentation only (README, CONTRIBUTING, CLAUDE.md, comments)
+
+   **Prefix validation rules**:
+   - Every commit MUST have a prefix — never commit without one
+   - If changes span multiple types, use the dominant one (e.g., a feature that includes a CSS change → `feat:`)
+   - Data-only changes (laptops.ts, benchmarks, editorial, prices) → always `data:`
+   - .claude/ config changes (settings.json, skills, agents) → `chore:`
+   - Pure documentation edits → `docs:`
+   - If unsure between `feat:` and `fix:`, ask: "Did this work before?" Yes → `fix:`, No → `feat:`
 
 4. **Draft the commit message**:
    - First line: `type: short summary` (under 72 chars, imperative mood)

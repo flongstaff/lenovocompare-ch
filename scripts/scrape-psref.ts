@@ -76,6 +76,7 @@ interface ScrapedModel {
   id: string;
   name: string;
   psrefUrl: string;
+  originalUrl?: string;
   scrapedAt: string;
   processors: ScrapedProcessor[];
   displays: ScrapedDisplay[];
@@ -124,6 +125,226 @@ const CYAN = "\x1b[36m";
 const DIM = "\x1b[2m";
 const BOLD = "\x1b[1m";
 const RESET = "\x1b[0m";
+
+// ── Known-withdrawn models (skip immediately to save time) ─────────────────
+
+const WITHDRAWN_IDS = new Set([
+  "x1-carbon-gen11",
+  "x1-nano-gen3",
+  "t480",
+  "x13-gen4-intel",
+  "t480s",
+  "x1-carbon-gen10",
+  "t14-gen4-amd",
+  "x1-yoga-gen7",
+  "x1-nano-gen2",
+  "t14-gen3-intel",
+  "t14-gen3-amd",
+  "t14s-gen3-intel",
+  "t14s-gen3-amd",
+  "t16-gen1-intel",
+  "l14-gen3-intel",
+  "e14-gen4",
+  "x1-yoga-gen8",
+  "t14-gen4-intel",
+  "t14s-gen4-intel",
+  "t16-gen2-intel",
+  "l14-gen4-intel",
+  "e14-gen5",
+]);
+
+// ── URL normalization ──────────────────────────────────────────────────────
+
+/**
+ * Strip `Lenovo_` prefix from PSREF product URLs.
+ * PSREF canonical URLs use `ThinkPad_X1_Carbon_Gen_12`, not `Lenovo_ThinkPad_X1_Carbon_Gen_12`.
+ * Same for IdeaPad and Legion lineups.
+ */
+const normalizeProductUrl = (url: string): string => {
+  return url.replace(/\/Product\/(ThinkPad|IdeaPad|Legion)\/Lenovo_(ThinkPad|IdeaPad|Legion)/, "/Product/$1/$2");
+};
+
+// ── PSREF search discovery ─────────────────────────────────────────────────
+
+/**
+ * Use PSREF's in-page search (input.home_search) to discover the correct product URL.
+ * Types the model name, waits for AJAX suggestions, extracts product link from results.
+ * Validates that the found result actually matches the target lineup and model name.
+ */
+const discoverProductUrl = async (page: Page, modelName: string, lineup: string): Promise<string | null> => {
+  try {
+    // Navigate to PSREF homepage
+    await page.goto("https://psref.lenovo.com/", { waitUntil: "load", timeout: 30000 });
+    await page.waitForTimeout(2000);
+
+    // Build search terms — try progressively shorter terms
+    // "ThinkPad X1 Carbon Gen 13" → ["X1 Carbon Gen 13", "X1 Carbon Gen13"]
+    const stripped = modelName.replace(/^(ThinkPad|IdeaPad Pro|Legion)\s+/i, "").trim();
+    const searchTerms = [stripped];
+
+    // Also try with lineup prefix for better matching
+    if (lineup === "ThinkPad") searchTerms.unshift(`ThinkPad ${stripped}`);
+    else if (lineup === "IdeaPad Pro") searchTerms.unshift(`IdeaPad Pro ${stripped}`);
+    else if (lineup === "Legion") searchTerms.unshift(`Legion ${stripped}`);
+
+    const lineupLower = lineup.toLowerCase();
+
+    for (const searchTerm of searchTerms) {
+      // Type into PSREF's search input (class: home_search)
+      const searchInput = page.locator("input.home_search").first();
+      const inputVisible = await searchInput.isVisible().catch(() => false);
+      if (!inputVisible) {
+        console.log(`  ${DIM}Search input not found on PSREF homepage${RESET}`);
+        return null;
+      }
+
+      await searchInput.click();
+      await searchInput.fill("");
+      await page.waitForTimeout(200);
+      await searchInput.type(searchTerm, { delay: 30 });
+
+      // Wait for suggestions
+      try {
+        await page.waitForSelector("#home_suggestions .global_suggestions_array_item", { timeout: 5000 });
+      } catch {
+        continue; // Try next search term
+      }
+
+      await page.waitForTimeout(500);
+
+      // Extract product URL — validate it matches our lineup
+      const productUrl = await page.evaluate(
+        ({ targetLineup }: { targetLineup: string }) => {
+          const items = document.querySelectorAll("#home_suggestions .global_suggestions_array_item");
+          for (const item of items) {
+            const href = (item as HTMLElement).dataset.href || "";
+            const text = (item as HTMLElement).textContent?.toLowerCase() || "";
+
+            // Must be a Product link matching our lineup
+            if (!href.includes("/Product/")) continue;
+            const lineupMatch = href.toLowerCase().includes(`/product/${targetLineup}/`);
+            if (!lineupMatch) continue;
+
+            return href.startsWith("http") ? href : `https://psref.lenovo.com${href}`;
+          }
+
+          // Try MT data attributes as fallback
+          const mtItems = document.querySelectorAll("#home_suggestions .global_suggestion_mt");
+          for (const mt of mtItems) {
+            const attr = mt.getAttribute("data") || "";
+            if (attr.includes("/Product/") && attr.toLowerCase().includes(`/${targetLineup}/`)) {
+              return `https://psref.lenovo.com${attr}`;
+            }
+          }
+
+          return null;
+        },
+        { targetLineup: lineupLower === "ideapad pro" ? "ideapad" : lineupLower },
+      );
+
+      if (productUrl) return productUrl;
+    }
+
+    return null;
+  } catch (err) {
+    console.log(`  ${DIM}Search discovery failed: ${err instanceof Error ? err.message : String(err)}${RESET}`);
+    return null;
+  }
+};
+
+/**
+ * Scrape the product listing page for a lineup to build a URL lookup table.
+ * PSREF listings lazy-load on scroll; we scroll 15 times to load all products.
+ * Returns a Map of normalized model name → PSREF product URL.
+ */
+const scrapeProductListing = async (
+  page: Page,
+  lineup: "ThinkPad" | "IdeaPad" | "Legion",
+): Promise<Map<string, string>> => {
+  const urlMap = new Map<string, string>();
+  const listingUrl = `https://psref.lenovo.com/Product/${lineup}`;
+
+  try {
+    await page.goto(listingUrl, { waitUntil: "load", timeout: 30000 });
+    await page.waitForTimeout(5000);
+
+    // Scroll to load all products (lazy-loaded)
+    for (let i = 0; i < 15; i++) {
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(1000);
+    }
+
+    // Extract product links — prefer URLs WITH ?MT= (they load reliably)
+    // The listing shows: "ThinkPad X1 Carbon Gen 12" link + MT links like "21KC", "21KD"
+    const products = await page.evaluate((lineupPath: string) => {
+      const results: Array<{ name: string; baseUrl: string; mtUrl: string }> = [];
+      const anchors = Array.from(document.querySelectorAll("a"));
+
+      // Group links: base product URL + first MT variant
+      let currentName = "";
+      let currentBase = "";
+      let currentMt = "";
+
+      for (const a of anchors) {
+        const href = a.href;
+        if (!href.includes(`/Product/${lineupPath}/`)) continue;
+
+        const text = a.textContent?.trim() || "";
+
+        if (!href.includes("?MT=")) {
+          // This is a base product link (e.g., "ThinkPad X1 Carbon Gen 12")
+          if (currentName && currentBase) {
+            results.push({ name: currentName, baseUrl: currentBase, mtUrl: currentMt || currentBase });
+          }
+          currentName = text;
+          currentBase = href;
+          currentMt = "";
+        } else if (currentBase && href.startsWith(currentBase.split("?")[0])) {
+          // This is a ?MT= variant of the current product — take the first one
+          if (!currentMt) {
+            currentMt = href;
+          }
+        }
+      }
+      // Don't forget the last product
+      if (currentName && currentBase) {
+        results.push({ name: currentName, baseUrl: currentBase, mtUrl: currentMt || currentBase });
+      }
+
+      return results;
+    }, lineup);
+
+    for (const p of products) {
+      // Use the MT URL (loads reliably), fall back to base URL
+      const url = p.mtUrl || p.baseUrl;
+
+      // Normalize: "ThinkPad X1 Carbon Gen 12" → "x1 carbon gen 12"
+      const key = p.name
+        .replace(/^(Lenovo\s+)?(ThinkPad|IdeaPad\s+Pro|IdeaPad|Legion)\s+/i, "")
+        .replace(/\s*\(.*?\)\s*/g, " ")
+        .toLowerCase()
+        .trim();
+      urlMap.set(key, url);
+
+      // Also store with (AMD)/(Intel) for platform-specific matching
+      const keyWithPlatform = p.name
+        .replace(/^(Lenovo\s+)?(ThinkPad|IdeaPad\s+Pro|IdeaPad|Legion)\s+/i, "")
+        .toLowerCase()
+        .trim();
+      if (keyWithPlatform !== key) {
+        urlMap.set(keyWithPlatform, url);
+      }
+    }
+
+    console.log(`  ${DIM}Found ${products.length} products in ${lineup} listing${RESET}`);
+  } catch (err) {
+    console.log(
+      `  ${DIM}Could not scrape ${lineup} listing: ${err instanceof Error ? err.message : String(err)}${RESET}`,
+    );
+  }
+
+  return urlMap;
+};
 
 // ── Known benchmark keys (for cross-reference) ────────────────────────────
 
@@ -362,8 +583,17 @@ const parseSpecsMemory = (text: string): ScrapedRam[] => {
 
   // Soldered or slots
   const soldered = /soldered/i.test(text) && /no slots/i.test(text);
-  const slotMatch = text.match(/(\d+)\s*x?\s*(?:SO-?DIMM|DIMM|slot)/i);
-  const slots = soldered ? 0 : slotMatch ? parseInt(slotMatch[1]) : 2;
+  // Match "2x SO-DIMM" or "Two DDR5 SODIMM slots" — avoid matching DDR5 in "DDR5 SODIMM"
+  const slotDigitMatch = text.match(/(\d+)\s*x\s*(?:SO-?DIMM|DIMM|slot)/i);
+  const slotWordMatch = text.match(/(one|two|three|four)\s+(?:DDR\d\s+)?(?:SO-?DIMM|DIMM)\s+slot/i);
+  const wordToNum: Record<string, number> = { one: 1, two: 2, three: 3, four: 4 };
+  const slots = soldered
+    ? 0
+    : slotDigitMatch
+      ? parseInt(slotDigitMatch[1])
+      : slotWordMatch
+        ? wordToNum[slotWordMatch[1].toLowerCase()] || 2
+        : 2;
 
   // Extract max memory sizes from "Max Memory" section (may have footnote like "Max Memory[1]")
   const maxMemSection = text.match(/Max Memory(?:\[\d+\])?\n([\s\S]*?)(?:Memory Slots|Memory Type|Storage|$)/i);
@@ -557,12 +787,47 @@ const extractSpecsFromPage = async (
   };
 };
 
-const scrapePsrefPage = async (page: Page, laptop: (typeof laptops)[number]): Promise<ScrapedModel> => {
+/**
+ * Navigate to a PSREF product URL and check if it loaded successfully.
+ * Returns the page text if successful, or an error string if not.
+ */
+const navigateToProduct = async (
+  page: Page,
+  url: string,
+  waitMs: number = 3000,
+): Promise<{ ok: true; text: string; finalUrl: string } | { ok: false; reason: string }> => {
+  await page.goto(url, { waitUntil: "load", timeout: PAGE_TIMEOUT });
+  await page.waitForFunction(() => (document.body?.innerText || "").length > 200, { timeout: 30000 });
+  await page.waitForTimeout(waitMs);
+
+  const currentUrl = page.url();
+  if (currentUrl === "https://psref.lenovo.com/" || currentUrl === "https://psref.lenovo.com") {
+    return { ok: false, reason: "homepage-redirect" };
+  }
+  if (currentUrl.includes("/WDProduct/")) {
+    return { ok: false, reason: "withdrawn" };
+  }
+
+  const pageText = await page.evaluate(() => document.body?.innerText || "");
+  if (pageText.length < 2000) {
+    return { ok: false, reason: `page-too-short (${pageText.length} chars)` };
+  }
+
+  return { ok: true, text: pageText, finalUrl: currentUrl };
+};
+
+const scrapePsrefPage = async (
+  page: Page,
+  laptop: (typeof laptops)[number],
+  listingMap?: Map<string, string>,
+): Promise<ScrapedModel> => {
   const warnings: string[] = [];
+  const originalUrl = laptop.psrefUrl || "";
   const model: ScrapedModel = {
     id: laptop.id,
     name: laptop.name,
-    psrefUrl: laptop.psrefUrl || "",
+    psrefUrl: originalUrl,
+    originalUrl,
     scrapedAt: new Date().toISOString(),
     processors: [],
     displays: [],
@@ -578,31 +843,81 @@ const scrapePsrefPage = async (page: Page, laptop: (typeof laptops)[number]): Pr
   }
 
   try {
-    await page.goto(laptop.psrefUrl, {
-      waitUntil: "load",
-      timeout: PAGE_TIMEOUT,
-    });
-
-    // Wait for page to have some content
-    await page.waitForFunction(() => (document.body?.innerText || "").length > 200, { timeout: 30000 });
-    await page.waitForTimeout(3000);
-
-    // Detect homepage redirect or withdrawn product
-    const currentUrl = page.url();
-    if (currentUrl === "https://psref.lenovo.com/" || currentUrl === "https://psref.lenovo.com") {
-      model.error = "Redirected to homepage — product URL may be invalid";
-      return model;
-    }
-    if (currentUrl.includes("/WDProduct/")) {
-      model.error = "Product withdrawn from PSREF (WDProduct redirect)";
-      return model;
+    // Phase 1: Normalize URL (strip Lenovo_ prefix)
+    let targetUrl = normalizeProductUrl(laptop.psrefUrl);
+    const urlChanged = targetUrl !== laptop.psrefUrl;
+    if (urlChanged) {
+      console.log(
+        `  ${DIM}URL normalized: .../${laptop.psrefUrl.split("/").pop()} → .../${targetUrl.split("/").pop()}${RESET}`,
+      );
     }
 
-    // Verify product page loaded (has product content, not just nav)
-    const pageText = await page.evaluate(() => document.body?.innerText || "");
-    if (pageText.length < 2000) {
-      model.error = `Page too short (${pageText.length} chars) — may not have loaded`;
+    // Phase 1b: Listing lookup — try to find the correct URL from PSREF listing
+    if (listingMap && listingMap.size > 0) {
+      const modelKey = laptop.name
+        .replace(/^(ThinkPad|IdeaPad Pro|Legion)\s+/i, "")
+        .toLowerCase()
+        .trim();
+      // Try exact match, then with platform suffix
+      const listingUrl = listingMap.get(modelKey);
+      if (listingUrl) {
+        console.log(`  ${DIM}Listing lookup: ${modelKey} → .../${listingUrl.split("/").pop()}${RESET}`);
+        targetUrl = listingUrl;
+      }
+    }
+
+    const getFailReason = (r: { ok: boolean; reason?: string }): string =>
+      "reason" in r && typeof r.reason === "string" ? r.reason : "";
+
+    // Try target URL first
+    let nav = await navigateToProduct(page, targetUrl);
+    let lastFailReason = getFailReason(nav);
+
+    // Phase 2: If normalized URL fails, try search discovery
+    if (!nav.ok) {
+      console.log(`  ${DIM}Direct navigation failed (${lastFailReason}), trying search discovery...${RESET}`);
+
+      const discoveredUrl = await discoverProductUrl(page, laptop.name, laptop.lineup);
+      if (discoveredUrl) {
+        console.log(`  ${DIM}Discovered URL: ${discoveredUrl}${RESET}`);
+        nav = await navigateToProduct(page, discoveredUrl, 5000);
+        lastFailReason = getFailReason(nav);
+
+        if (nav.ok) {
+          // Store discovered URL for later URL patching
+          model.psrefUrl = nav.finalUrl;
+          warnings.push(`URL discovered via search (was: ${laptop.psrefUrl})`);
+        }
+      }
+    }
+
+    // Phase 3: Extended wait retry for page-too-short
+    if (!nav.ok && lastFailReason.startsWith("page-too-short")) {
+      console.log(`  ${DIM}Retrying with extended wait (8s)...${RESET}`);
+      nav = await navigateToProduct(page, targetUrl, 8000);
+      lastFailReason = getFailReason(nav);
+    }
+
+    // Final failure
+    if (!nav.ok) {
+      if (lastFailReason === "withdrawn") {
+        model.error = "Product withdrawn from PSREF (WDProduct redirect)";
+      } else if (lastFailReason === "homepage-redirect") {
+        model.error = "Redirected to homepage — product URL may be invalid";
+      } else {
+        model.error = `Page too short — may not have loaded`;
+      }
       return model;
+    }
+
+    // Update model URL if we ended up at a different URL
+    if (nav.finalUrl !== laptop.psrefUrl) {
+      model.psrefUrl = nav.finalUrl;
+      if (!warnings.some((w) => w.includes("URL discovered")) && !warnings.some((w) => w.includes("URL differs"))) {
+        warnings.push(`Final URL differs: ${nav.finalUrl}`);
+      }
+    } else if (targetUrl !== laptop.psrefUrl) {
+      model.psrefUrl = targetUrl;
     }
 
     const rawSpecs = await extractSpecsFromPage(page);
@@ -674,6 +989,17 @@ const main = async () => {
     models = models.filter((l) => !l.processorOptions && !l.displayOptions);
   }
 
+  // Skip known-withdrawn models
+  const skipWithdrawn = hasFlag("--include-withdrawn") ? false : true;
+  if (skipWithdrawn) {
+    const beforeCount = models.length;
+    models = models.filter((l) => !WITHDRAWN_IDS.has(l.id));
+    const skipped = beforeCount - models.length;
+    if (skipped > 0) {
+      console.log(`${DIM}Skipping ${skipped} known-withdrawn models (use --include-withdrawn to include)${RESET}`);
+    }
+  }
+
   // Load existing data if resuming
   let existing: ScrapeResult | null = null;
   if (resume && fs.existsSync(OUTPUT_PATH)) {
@@ -725,6 +1051,17 @@ const main = async () => {
     models: {},
   };
 
+  // Pre-scrape product listings to build URL lookup tables
+  console.log(`${DIM}Building product listing lookup...${RESET}`);
+  const lineups = Array.from(new Set(models.map((m) => m.lineup))) as Array<"ThinkPad" | "IdeaPad Pro" | "Legion">;
+  const listingMaps = new Map<string, Map<string, string>>();
+  for (const lineup of lineups) {
+    // Map lineup to PSREF URL path
+    const psrefLineup = lineup === "IdeaPad Pro" ? "IdeaPad" : lineup;
+    const map = await scrapeProductListing(page, psrefLineup as "ThinkPad" | "IdeaPad" | "Legion");
+    listingMaps.set(lineup, map);
+  }
+
   let successCount = 0;
   let failCount = 0;
   let warningCount = 0;
@@ -736,8 +1073,15 @@ const main = async () => {
     let scraped: ScrapedModel | null = null;
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
       try {
-        scraped = await scrapePsrefPage(page, laptop);
+        scraped = await scrapePsrefPage(page, laptop, listingMaps.get(laptop.lineup));
         if (!scraped.error) break;
+        // Don't retry deterministic failures — discovery already ran inside scrapePsrefPage
+        if (
+          scraped.error.includes("homepage") ||
+          scraped.error.includes("withdrawn") ||
+          scraped.error.includes("No psrefUrl")
+        )
+          break;
         if (attempt < MAX_RETRIES) {
           console.log(`  ${DIM}Retry ${attempt + 1}/${MAX_RETRIES}...${RESET}`);
           await page.waitForTimeout(DELAY_MS);

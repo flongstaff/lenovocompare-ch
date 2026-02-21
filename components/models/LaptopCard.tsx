@@ -20,7 +20,11 @@ interface LaptopCardProps {
   readonly index?: number;
 }
 
-const LINEUP_SILHOUETTE: Record<string, string> = { ThinkPad: "/silhouettes/thinkpad.svg", "IdeaPad Pro": "/silhouettes/ideapad.svg", Legion: "/silhouettes/legion.svg" };
+const LINEUP_SILHOUETTE: Record<string, string> = {
+  ThinkPad: "/silhouettes/thinkpad.svg",
+  "IdeaPad Pro": "/silhouettes/ideapad.svg",
+  Legion: "/silhouettes/legion.svg",
+};
 
 /** Series-specific accent colors for ScoreBar gradients. Must be raw hex — see ScoreBar color prop constraint. */
 const SERIES_ACCENT: Record<string, string> = {
@@ -79,7 +83,14 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
 
       <div className="relative flex flex-1 flex-col p-5">
         {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG silhouette, no optimization needed */}
-        {LINEUP_SILHOUETTE[model.lineup] && <img src={LINEUP_SILHOUETTE[model.lineup]} alt="" className="pointer-events-none absolute right-3 top-3 h-[60px] w-auto select-none" style={{ opacity: 0.06 }} />}
+        {LINEUP_SILHOUETTE[model.lineup] && (
+          <img
+            src={LINEUP_SILHOUETTE[model.lineup]}
+            alt=""
+            className="pointer-events-none absolute right-3 top-3 h-[60px] w-auto select-none"
+            style={{ opacity: 0.06 }}
+          />
+        )}
         {/* Header */}
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
@@ -110,7 +121,7 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
               <GamingTierBadge tier={scores.gamingTier} />
             </div>
             {snippet && (
-              <p className="mt-1.5 text-[11px] italic leading-snug text-carbon-400 line-clamp-1">{snippet}</p>
+              <p className="mt-1.5 line-clamp-1 text-[11px] italic leading-snug text-carbon-400">{snippet}</p>
             )}
           </div>
 
@@ -176,7 +187,7 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
                 <div className="flex-1">
                   <ScoreBar score={scores.gpu} label="GPU" color="#42be65" size="md" showLabel />
                 </div>
-                <span className="text-[8px] font-mono uppercase tracking-wider text-carbon-500">
+                <span className="font-mono text-[8px] uppercase tracking-wider text-carbon-500">
                   {model.gpu.integrated ? "iGPU" : "dGPU"}
                 </span>
               </div>

@@ -67,7 +67,7 @@ Add all new laptop models for a given release year across all three lineups: **T
    npm run validate    # Data integrity
    npm run build       # Full build
    ```
-   Then run `/data-sync-check` for cross-reference completeness.
+   Then run `/data-verify --sync` for cross-reference completeness.
 
 ## Series Mapping
 

@@ -3,6 +3,14 @@ import type { GpuBenchmarkEntry } from "@/lib/types";
 /**
  * GPU benchmark data for all integrated/discrete GPUs across all laptop lineups.
  * Scores are 0-100 relative. FPS estimates are approximate at stated resolution/settings.
+ *
+ * Sources:
+ *   - 3DMark Time Spy (UL Solutions) — GPU benchmark scores for discrete GPUs
+ *   - Cyberpunk 2077 (CD Projekt Red) — FPS estimates at 1080p Ultra settings
+ *   - NotebookCheck GPU reviews — integrated GPU performance baselines
+ *
+ * All benchmark data is from publicly available aggregate databases.
+ * Game titles referenced are trademarks of their respective owners.
  */
 export const gpuBenchmarks: Record<string, GpuBenchmarkEntry> = {
   "Intel UHD 620": {

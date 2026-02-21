@@ -2,7 +2,13 @@ import { LinuxCompatEntry } from "@/lib/types";
 
 /**
  * Per-model Linux compatibility data.
- * Based on publicly available Lenovo certification lists, community wikis, and kernel changelogs.
+ *
+ * Sources:
+ *   - Lenovo Linux certification lists (https://support.lenovo.com/solutions/pd031426)
+ *   - Ubuntu Certified Hardware (https://ubuntu.com/certified)
+ *   - Red Hat Ecosystem Catalog (https://catalog.redhat.com)
+ *   - ArchWiki, Fedora Wiki, and community reports
+ *   - Linux kernel changelogs for driver support timelines
  */
 export const linuxCompat: Record<string, LinuxCompatEntry> = {
   // === 2025 models ===

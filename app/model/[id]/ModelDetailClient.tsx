@@ -146,7 +146,10 @@ const ModelDetailClient = () => {
       <ConfigSelector model={model} onConfigChange={handleConfigChange} />
 
       {/* Jump-to navigation */}
-      <nav className="scrollbar-thin sticky top-0 z-20 -mx-4 flex gap-1 overflow-x-auto bg-carbon-900/95 px-4 py-2 backdrop-blur-sm sm:gap-2" aria-label="Page sections">
+      <nav
+        className="scrollbar-thin sticky top-0 z-20 -mx-4 flex gap-1 overflow-x-auto bg-carbon-900/95 px-4 py-2 backdrop-blur-sm sm:gap-2"
+        aria-label="Page sections"
+      >
         {[
           { id: "scores", label: "Scores" },
           { id: "specs", label: "Specs" },
@@ -167,14 +170,17 @@ const ModelDetailClient = () => {
       </nav>
 
       {/* Dashboard strip */}
-      <div id="scores" className="grid scroll-mt-14 grid-cols-1 gap-4 border-b border-carbon-600/60 pb-6 md:grid-cols-3">
+      <div
+        id="scores"
+        className="grid scroll-mt-14 grid-cols-1 gap-4 border-b border-carbon-600/60 pb-6 md:grid-cols-3"
+      >
         {/* Scores card */}
         <div className="carbon-card rounded-lg p-4">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
               Scores
             </h2>
-            <div className="flex gap-2 text-[9px] font-mono uppercase tracking-wider">
+            <div className="flex gap-2 font-mono text-[9px] uppercase tracking-wider">
               <span style={{ color: "#42be65" }}>80+ Excellent</span>
               <span style={{ color: "#4589ff" }}>60+ Good</span>
               <span style={{ color: "#f1c21b" }}>40+ Fair</span>

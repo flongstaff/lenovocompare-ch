@@ -849,6 +849,11 @@ export const laptops: readonly Laptop[] = [
       { type: "NVMe", size: 512, slots: 1 },
       { type: "NVMe", size: 2048, slots: 1 },
     ],
+
+    ramOptions: [
+      { size: 96, type: "DDR5", speed: 5600, maxSize: 96, slots: 2, soldered: false },
+      { size: 48, type: "DDR5", speed: 5600, maxSize: 96, slots: 2, soldered: false },
+    ],
   },
   {
     id: "p1-gen7",
@@ -3168,7 +3173,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 3", "2x USB-A 3.0", "HDMI 1.4", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 5", "Bluetooth 4.1"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X1_Yoga_3rd_Gen",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Yoga_3rd_Gen",
     linuxStatus: "certified",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [{ name: "Intel Core i5-8250U", cores: 4, threads: 8, baseClock: 1.6, boostClock: 3.4, tdp: 15 }],
@@ -3221,7 +3226,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 3", "2x USB-A 3.1", "HDMI 1.4", "3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.0"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X1_Yoga_4th_Gen",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Yoga_4th_Gen",
     linuxStatus: "certified",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3278,7 +3283,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 3", "2x USB-A 3.2", "HDMI 2.0", "3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.1"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X1_Yoga_Gen_5",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Yoga_Gen_5",
     linuxStatus: "certified",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3326,7 +3331,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "2x USB-A 3.2", "HDMI 2.0", "3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.2"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X1_Yoga_Gen_6",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Yoga_Gen_6",
     linuxStatus: "certified",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3380,7 +3385,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.2"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X1_Titanium_Yoga",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X1_Titanium_Yoga",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row compact", trackpoint: true },
     processorOptions: [
@@ -3472,7 +3477,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["Thunderbolt 3", "USB-C 3.2", "USB-A 3.2", "HDMI 2.0", "3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.0"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X13_Yoga_Gen_1",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X13_Yoga_Gen_1",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3518,7 +3523,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "USB-A 3.2", "HDMI 2.0", "3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.2"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X13_Yoga_Gen_2",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X13_Yoga_Gen_2",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3568,7 +3573,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "USB-A 3.2", "HDMI 2.0", "3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X13_Yoga_Gen_3",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X13_Yoga_Gen_3",
     linuxStatus: "certified",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3618,7 +3623,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "USB-A 3.2", "HDMI 2.0", "3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_X13_Yoga_Gen_4",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_X13_Yoga_Gen_4",
     linuxStatus: "certified",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3680,7 +3685,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 1.4", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.0"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_Yoga",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_Yoga",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3715,7 +3720,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2 (Thunderbolt 4)", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.0", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.2"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_Yoga_Gen_2",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_Yoga_Gen_2",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3750,7 +3755,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.0", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.2"],
     os: "Windows 10 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_Yoga_Gen_2_AMD",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_Yoga_Gen_2_AMD",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3785,7 +3790,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2 (Thunderbolt 4)", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.0", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_Yoga_Gen_3",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_Yoga_Gen_3",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3820,7 +3825,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.0", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_Yoga_Gen_3_AMD",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_Yoga_Gen_3_AMD",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3855,7 +3860,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2 (Thunderbolt 4)", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.0", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_Yoga_Gen_4",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_Yoga_Gen_4",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3890,7 +3895,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.0", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_Yoga_Gen_4_AMD",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_Yoga_Gen_4_AMD",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3927,7 +3932,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2 (Thunderbolt 4)", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.1", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_2_in_1_Gen_5",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_2_in_1_Gen_5",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3962,7 +3967,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2 (Thunderbolt 4)", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.1", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_2_in_1_Gen_6",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_2_in_1_Gen_6",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -3999,7 +4004,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["USB-C 3.2", "USB-C 3.2", "USB-A 3.2", "USB-A 3.2", "HDMI 2.1", "3.5mm", "microSD"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Pro",
-    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_L13_2_in_1_Gen_6_AMD",
+    psrefUrl: "https://psref.lenovo.com/Product/ThinkPad/ThinkPad_L13_2_in_1_Gen_6_AMD",
     linuxStatus: "community",
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
@@ -4040,7 +4045,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5_14ARP9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14ARP9",
     processorOptions: [
       { name: "AMD Ryzen 5 8645HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 45 },
       { name: "AMD Ryzen 7 8845HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -4082,7 +4087,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5_16ARP9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16ARP9",
     processorOptions: [
       { name: "AMD Ryzen 5 8645HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 45 },
       { name: "AMD Ryzen 7 8845HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -4126,7 +4131,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5i_14IRH9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_14IRH9",
     processorOptions: [
       { name: "Intel Core Ultra 5 125H", cores: 14, threads: 18, baseClock: 1.2, boostClock: 4.5, tdp: 28 },
       { name: "Intel Core Ultra 7 155H", cores: 16, threads: 22, baseClock: 1.4, boostClock: 4.8, tdp: 28 },
@@ -4169,7 +4174,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5i_16IRH9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_16IRH9",
     processorOptions: [
       { name: "Intel Core Ultra 5 125H", cores: 14, threads: 18, baseClock: 1.2, boostClock: 4.5, tdp: 28 },
       { name: "Intel Core Ultra 7 155H", cores: 16, threads: 22, baseClock: 1.4, boostClock: 4.8, tdp: 28 },
@@ -4214,7 +4219,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5_14ARP8",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14ARP8",
     processorOptions: [
       { name: "AMD Ryzen 5 7640HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 35 },
       { name: "AMD Ryzen 7 7840HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -4272,7 +4277,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5_16ARP8",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16ARP8",
     processorOptions: [
       { name: "AMD Ryzen 5 7640HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 35 },
       { name: "AMD Ryzen 7 7840HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -4313,7 +4318,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.0", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5i_14IRH8",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_14IRH8",
     processorOptions: [
       { name: "Intel Core i5-13500H", cores: 12, threads: 16, baseClock: 2.6, boostClock: 4.7, tdp: 45 },
       { name: "Intel Core i7-13700H", cores: 14, threads: 20, baseClock: 2.4, boostClock: 5.0, tdp: 45 },
@@ -4351,7 +4356,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.0", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5i_16IRH8",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_16IRH8",
     processorOptions: [
       { name: "Intel Core i5-13500H", cores: 12, threads: 16, baseClock: 2.6, boostClock: 4.7, tdp: 45 },
       { name: "Intel Core i7-13700H", cores: 14, threads: 20, baseClock: 2.4, boostClock: 5.0, tdp: 45 },
@@ -4391,7 +4396,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x USB-C (USB 4)", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5_14AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14AHP10",
     processorOptions: [
       { name: "AMD Ryzen AI 5 340", cores: 6, threads: 12, baseClock: 2.0, boostClock: 4.8, tdp: 28 },
       { name: "AMD Ryzen AI 7 350", cores: 8, threads: 16, baseClock: 2.0, boostClock: 5.0, tdp: 28 },
@@ -4449,7 +4454,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x USB-C (USB 4)", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5_16AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16AHP10",
     processorOptions: [
       { name: "AMD Ryzen AI 5 340", cores: 6, threads: 12, baseClock: 2.0, boostClock: 4.8, tdp: 28 },
       { name: "AMD Ryzen AI 7 350", cores: 8, threads: 16, baseClock: 2.0, boostClock: 5.0, tdp: 28 },
@@ -4507,7 +4512,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5i_14AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_14AHP10",
     processorOptions: [
       { name: "Intel Core Ultra 5 225H", cores: 12, threads: 14, baseClock: 1.8, boostClock: 4.9, tdp: 28 },
       { name: "Intel Core Ultra 7 255H", cores: 16, threads: 16, baseClock: 2.1, boostClock: 5.1, tdp: 28 },
@@ -4566,7 +4571,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_5i_16AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_16AHP10",
     processorOptions: [
       { name: "Intel Core Ultra 5 225H", cores: 12, threads: 14, baseClock: 1.8, boostClock: 4.9, tdp: 28 },
       { name: "Intel Core Ultra 7 255H", cores: 16, threads: 16, baseClock: 2.1, boostClock: 5.1, tdp: 28 },
@@ -4627,7 +4632,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-C 3.2", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD Express 7.0"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_7_14ASP9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_7_14ASP9",
     processorOptions: [
       { name: "Intel Core Ultra 7 155H", cores: 16, threads: 22, baseClock: 1.4, boostClock: 4.8, tdp: 28 },
       { name: "Intel Core Ultra 9 185H", cores: 16, threads: 22, baseClock: 2.3, boostClock: 5.1, tdp: 45 },
@@ -4661,7 +4666,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-C 3.2", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD Express 7.0"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_7_16ASP9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_7_16ASP9",
     processorOptions: [
       { name: "Intel Core Ultra 7 155H", cores: 16, threads: 22, baseClock: 1.4, boostClock: 4.8, tdp: 28 },
       { name: "Intel Core Ultra 9 185H", cores: 16, threads: 22, baseClock: 2.3, boostClock: 5.1, tdp: 45 },
@@ -4701,7 +4706,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_5_16AHP9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5_16AHP9",
     processorOptions: [
       { name: "AMD Ryzen 5 8645HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 45 },
       { name: "AMD Ryzen 7 8845HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -4735,7 +4740,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_5i_16IRX9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5i_16IRX9",
     processorOptions: [
       { name: "Intel Core i5-14500HX", cores: 14, threads: 20, baseClock: 2.5, boostClock: 5.0, tdp: 55 },
       { name: "Intel Core i7-14650HX", cores: 16, threads: 24, baseClock: 2.2, boostClock: 5.2, tdp: 55 },
@@ -4810,7 +4815,7 @@ export const laptops: readonly Laptop[] = [
     ],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_7i_16IRX9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_7i_16IRX9",
     gpuOptions: [
       { name: "NVIDIA GeForce RTX 4070 Laptop", vram: 8, integrated: false },
       { name: "NVIDIA GeForce RTX 4080 Laptop", vram: 12, integrated: false },
@@ -4879,7 +4884,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2 (DP)", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_Pro_5_16ARP9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Pro_5_16ARP9",
     processorOptions: [
       { name: "AMD Ryzen 7 8845HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
       { name: "AMD Ryzen 9 8945HS", cores: 8, threads: 16, baseClock: 4.0, boostClock: 5.2, tdp: 45 },
@@ -4913,7 +4918,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2 (DP)", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_Pro_5i_16IRX9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Pro_5i_16IRX9",
     processorOptions: [
       { name: "Intel Core i5-14500HX", cores: 14, threads: 20, baseClock: 2.5, boostClock: 5.0, tdp: 55 },
       { name: "Intel Core i7-14650HX", cores: 16, threads: 24, baseClock: 2.2, boostClock: 5.2, tdp: 55 },
@@ -4960,7 +4965,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_Slim_5_14AHP9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Slim_5_14AHP9",
     processorOptions: [
       { name: "AMD Ryzen 5 8645HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 45 },
       { name: "AMD Ryzen 7 8845HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -4994,7 +4999,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_Slim_5_16AHP9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Slim_5_16AHP9",
     processorOptions: [
       { name: "AMD Ryzen 5 8645HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 45 },
       { name: "AMD Ryzen 7 8845HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -5030,7 +5035,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_5_15ARP8",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5_15ARP8",
     processorOptions: [
       { name: "AMD Ryzen 5 7640HS", cores: 6, threads: 12, baseClock: 4.3, boostClock: 5.0, tdp: 35 },
       { name: "AMD Ryzen 7 7840HS", cores: 8, threads: 16, baseClock: 3.8, boostClock: 5.1, tdp: 45 },
@@ -5072,7 +5077,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_5i_16IRX8",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5i_16IRX8",
     processorOptions: [
       { name: "Intel Core i5-13500H", cores: 12, threads: 16, baseClock: 2.6, boostClock: 4.7, tdp: 45 },
       { name: "Intel Core i7-13700H", cores: 14, threads: 20, baseClock: 2.4, boostClock: 5.0, tdp: 45 },
@@ -5116,7 +5121,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2 (DP)", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_Pro_5i_16IRX8",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Pro_5i_16IRX8",
     processorOptions: [
       { name: "Intel Core i7-13700HX", cores: 16, threads: 24, baseClock: 2.1, boostClock: 5.0, tdp: 55 },
       { name: "Intel Core i9-13900HX", cores: 24, threads: 32, baseClock: 2.2, boostClock: 5.4, tdp: 55 },
@@ -5161,7 +5166,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x USB-C (USB 4)", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.1"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_5_15ACH6A",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5_15ACH6A",
     gpuOptions: [
       { name: "NVIDIA GeForce RTX 3060 Laptop", vram: 6, integrated: false },
       { name: "NVIDIA GeForce RTX 3070 Laptop", vram: 8, integrated: false },
@@ -5199,7 +5204,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.1"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Lenovo_Legion_5i_15IAH7",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5i_15IAH7",
     processorOptions: [
       { name: "Intel Core i5-12500H", cores: 12, threads: 16, baseClock: 2.5, boostClock: 4.5, tdp: 45 },
       { name: "Intel Core i7-12700H", cores: 14, threads: 20, baseClock: 2.3, boostClock: 4.7, tdp: 45 },

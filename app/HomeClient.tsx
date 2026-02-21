@@ -2,7 +2,17 @@
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
-import { Laptop as LaptopIcon, ChevronDown, GraduationCap, Feather, Code2, Palette, Gamepad2, PiggyBank, Search } from "lucide-react";
+import {
+  Laptop as LaptopIcon,
+  ChevronDown,
+  GraduationCap,
+  Feather,
+  Code2,
+  Palette,
+  Gamepad2,
+  PiggyBank,
+  Search,
+} from "lucide-react";
 import type { FilterState } from "@/lib/types";
 import { useLaptops } from "@/lib/hooks/useLaptops";
 import { cpuBenchmarksExpanded } from "@/data/cpu-benchmarks";
@@ -180,17 +190,20 @@ const HomeClient = () => {
 
         {/* Stats row */}
         <div className="mt-6 flex items-center gap-6 sm:gap-8">
-          {([
-            { value: modelCounter, label: "Models", suffix: "+" },
-            { value: cpuCounter, label: "CPUs", suffix: "+" },
-            { value: gpuCounter, label: "GPUs", suffix: "+" },
-            { value: 3, label: "Lineups", suffix: "" },
-          ] as const).map((stat, i) => (
+          {(
+            [
+              { value: modelCounter, label: "Models", suffix: "+" },
+              { value: cpuCounter, label: "CPUs", suffix: "+" },
+              { value: gpuCounter, label: "GPUs", suffix: "+" },
+              { value: 3, label: "Lineups", suffix: "" },
+            ] as const
+          ).map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-6 sm:gap-8">
               {i > 0 && <div className="h-8 w-px bg-carbon-600" />}
               <div>
                 <p className="font-mono text-2xl font-bold tabular-nums text-carbon-100 sm:text-3xl">
-                  {stat.value}{stat.suffix}
+                  {stat.value}
+                  {stat.suffix}
                 </p>
                 <p className="font-mono text-[10px] uppercase tracking-wider text-carbon-500">{stat.label}</p>
               </div>
@@ -212,7 +225,7 @@ const HomeClient = () => {
       </div>
 
       {/* Quick Picks */}
-      <div className="scrollbar-thin -mx-1 flex gap-3 overflow-x-auto px-1 pb-2 snap-x snap-mandatory">
+      <div className="scrollbar-thin -mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-2">
         {QUICK_PICKS.map((pick) => {
           const Icon = pick.icon;
           return (

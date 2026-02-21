@@ -198,83 +198,81 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                       >
                         <span className="flex items-center justify-between">
                           {row.section}
-                          {collapsedSections.has(row.section) ? (
-                            <ChevronDown size={12} />
-                          ) : (
-                            <ChevronUp size={12} />
-                          )}
+                          {collapsedSections.has(row.section) ? <ChevronDown size={12} /> : <ChevronUp size={12} />}
                         </span>
                       </td>
                     </tr>
                   )}
-                  {(isHidden || isCollapsed) ? null : (
-                  <tr className={i % 2 === 0 ? "bg-carbon-800" : "bg-carbon-700"}>
-                    <td
-                      className="sticky left-0 z-10 border-t border-carbon-600 px-4 py-3 font-medium text-carbon-200"
-                      style={{ background: i % 2 === 0 ? "#161616" : "#262626" }}
-                    >
-                      {row.label}
-                    </td>
-                    {models.map((m) => {
-                      if (isPriceRow) {
-                        const p = getLowestPrice(m.id, prices);
-                        const lowestAll = models.map((x) => getLowestPrice(x.id, prices) ?? Infinity);
-                        const isLowest = p !== null && p === Math.min(...lowestAll);
-                        const bl = priceBaselines[m.id];
-                        const pctOff = bl && p ? Math.round(((bl.msrp - p) / bl.msrp) * 100) : 0;
-                        const pctClass =
-                          pctOff >= 25
-                            ? "bg-green-900/40 text-green-400 border-green-700"
-                            : pctOff >= 10
-                              ? "bg-yellow-900/40 text-yellow-400 border-yellow-700"
-                              : "bg-red-900/40 text-red-400 border-red-700";
+                  {isHidden || isCollapsed ? null : (
+                    <tr className={i % 2 === 0 ? "bg-carbon-800" : "bg-carbon-700"}>
+                      <td
+                        className="sticky left-0 z-10 border-t border-carbon-600 px-4 py-3 font-medium text-carbon-200"
+                        style={{ background: i % 2 === 0 ? "#161616" : "#262626" }}
+                      >
+                        {row.label}
+                      </td>
+                      {models.map((m) => {
+                        if (isPriceRow) {
+                          const p = getLowestPrice(m.id, prices);
+                          const lowestAll = models.map((x) => getLowestPrice(x.id, prices) ?? Infinity);
+                          const isLowest = p !== null && p === Math.min(...lowestAll);
+                          const bl = priceBaselines[m.id];
+                          const pctOff = bl && p ? Math.round(((bl.msrp - p) / bl.msrp) * 100) : 0;
+                          const pctClass =
+                            pctOff >= 25
+                              ? "bg-green-900/40 text-green-400 border-green-700"
+                              : pctOff >= 10
+                                ? "bg-yellow-900/40 text-yellow-400 border-yellow-700"
+                                : "bg-red-900/40 text-red-400 border-red-700";
+                          return (
+                            <td
+                              key={m.id}
+                              className={`border-t border-carbon-600 px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-green-400" : "text-carbon-50"}`}
+                            >
+                              {p !== null ? formatCHF(p) : "—"}
+                              {isLowest && (
+                                <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
+                                  Best
+                                </span>
+                              )}
+                              {p !== null && pctOff > 0 && (
+                                <span className={`ml-1.5 border px-1 py-0.5 text-[10px] ${pctClass}`}>
+                                  {pctOff}% off
+                                </span>
+                              )}
+                            </td>
+                          );
+                        }
+
+                        const val = row.getValue(m);
+                        const numVal = row.getNumeric?.(m);
+                        const isBest = best !== null && numVal === best;
+
                         return (
                           <td
                             key={m.id}
-                            className={`border-t border-carbon-600 px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-green-400" : "text-carbon-50"}`}
+                            className={`break-words border-t border-carbon-600 px-4 py-3 ${isBest ? "font-semibold text-green-400" : "text-carbon-50"}`}
                           >
-                            {p !== null ? formatCHF(p) : "—"}
-                            {isLowest && (
+                            {row.wrapLong ? (
+                              <div className="space-y-0.5">
+                                {val.split(", ").map((item, idx) => (
+                                  <div key={idx} className="text-[13px]">
+                                    {item}
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <span className="line-clamp-2">{val}</span>
+                            )}
+                            {isBest && (
                               <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
                                 Best
                               </span>
                             )}
-                            {p !== null && pctOff > 0 && (
-                              <span className={`ml-1.5 border px-1 py-0.5 text-[10px] ${pctClass}`}>{pctOff}% off</span>
-                            )}
                           </td>
                         );
-                      }
-
-                      const val = row.getValue(m);
-                      const numVal = row.getNumeric?.(m);
-                      const isBest = best !== null && numVal === best;
-
-                      return (
-                        <td
-                          key={m.id}
-                          className={`break-words border-t border-carbon-600 px-4 py-3 ${isBest ? "font-semibold text-green-400" : "text-carbon-50"}`}
-                        >
-                          {row.wrapLong ? (
-                            <div className="space-y-0.5">
-                              {val.split(", ").map((item, idx) => (
-                                <div key={idx} className="text-[13px]">
-                                  {item}
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <span className="line-clamp-2">{val}</span>
-                          )}
-                          {isBest && (
-                            <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
-                              Best
-                            </span>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
+                      })}
+                    </tr>
                   )}
                 </React.Fragment>
               );
@@ -364,19 +362,13 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
         </table>
       </div>
       {!showAll && (
-        <button
-          onClick={() => setShowAll(true)}
-          className="carbon-btn-ghost mt-3 w-full justify-center text-sm"
-        >
+        <button onClick={() => setShowAll(true)} className="carbon-btn-ghost mt-3 w-full justify-center text-sm">
           Show all sections (Memory, Connectivity, Linux)
           <ChevronDown size={14} />
         </button>
       )}
       {showAll && (
-        <button
-          onClick={() => setShowAll(false)}
-          className="carbon-btn-ghost mt-3 w-full justify-center text-sm"
-        >
+        <button onClick={() => setShowAll(false)} className="carbon-btn-ghost mt-3 w-full justify-center text-sm">
           Show quick compare only
           <ChevronUp size={14} />
         </button>

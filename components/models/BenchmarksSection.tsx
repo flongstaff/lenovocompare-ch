@@ -212,7 +212,13 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   label="Fan Noise (Max Load)"
                   value={chassisBench.fanNoise}
                   unit="dB"
-                  color={chassisBench.fanNoise > noiseT.loud ? "#da1e28" : chassisBench.fanNoise > noiseT.moderate ? "#f1c21b" : "#42be65"}
+                  color={
+                    chassisBench.fanNoise > noiseT.loud
+                      ? "#da1e28"
+                      : chassisBench.fanNoise > noiseT.moderate
+                        ? "#f1c21b"
+                        : "#42be65"
+                  }
                 />
                 <div className="mt-1">
                   <span
@@ -225,7 +231,11 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                             ? "#f1c21b20"
                             : "#42be6520",
                       color:
-                        chassisBench.fanNoise > noiseT.loud ? "#da1e28" : chassisBench.fanNoise > noiseT.moderate ? "#f1c21b" : "#42be65",
+                        chassisBench.fanNoise > noiseT.loud
+                          ? "#da1e28"
+                          : chassisBench.fanNoise > noiseT.moderate
+                            ? "#f1c21b"
+                            : "#42be65",
                     }}
                   >
                     {chassisBench.fanNoise > noiseT.loud

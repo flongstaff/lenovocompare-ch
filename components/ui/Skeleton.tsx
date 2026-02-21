@@ -7,7 +7,10 @@ export const SkeletonCard = ({ index = 0 }: { index?: number }) => {
 
   return (
     <div className="carbon-card flex animate-pulse flex-col overflow-hidden">
-      <div className="skeleton-accent h-[2px]" style={{ background: `linear-gradient(90deg, ${accentColor}, ${accentColor}60 60%, transparent)` }} />
+      <div
+        className="skeleton-accent h-[2px]"
+        style={{ background: `linear-gradient(90deg, ${accentColor}, ${accentColor}60 60%, transparent)` }}
+      />
       <div className="space-y-4 p-5">
         <div className="flex items-start justify-between">
           <div className="flex-1 space-y-2">

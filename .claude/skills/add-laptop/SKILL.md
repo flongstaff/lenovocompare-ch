@@ -136,7 +136,7 @@ npm run validate           # Data validation
 npm run build              # Full build (includes validation gate)
 ```
 
-Then run `/data-sync-check` to verify cross-reference completeness.
+Then run `/data-verify --sync` to verify cross-reference completeness.
 
 ## Series Mapping
 

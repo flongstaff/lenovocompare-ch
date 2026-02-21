@@ -1,6 +1,16 @@
 import type { CpuBenchmarkData } from "@/lib/types";
 
-/** Expanded CPU benchmark data with single-core and multi-core scores (0-100) plus raw benchmarks */
+/**
+ * CPU benchmark data with single-core and multi-core scores (0-100) plus raw benchmarks.
+ *
+ * Sources:
+ *   - Cinebench 2024 (Maxon) — single-core and multi-core scores
+ *   - Geekbench 6 (Primate Labs) — single-core and multi-core scores
+ *   - TDP values from Intel ARK / AMD product pages
+ *
+ * Composite scores are derived from weighted aggregation of the above.
+ * All benchmark data is from publicly available aggregate databases.
+ */
 export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
   // Intel Core Ultra Series 1 (Meteor Lake) — 28W PBP
   "Intel Core Ultra 9 185H": {

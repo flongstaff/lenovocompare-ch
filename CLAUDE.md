@@ -60,16 +60,17 @@ Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and
 
 Exa is a paid API. **Always try free alternatives first**, only escalate to Exa when they fail:
 
-| Task | Try First (Free) | Exa Only If |
-|------|-------------------|-------------|
-| Library/framework docs | `context7` MCP | context7 has no entry |
-| General web lookup | `WebSearch` + `WebFetch` | Need structured/filtered results |
+| Task                       | Try First (Free)                                                      | Exa Only If                                             |
+| -------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------- |
+| Library/framework docs     | `context7` MCP                                                        | context7 has no entry                                   |
+| General web lookup         | `WebSearch` + `WebFetch`                                              | Need structured/filtered results                        |
 | Benchmark scores (CPU/GPU) | `WebSearch` for "CPU_NAME cinebench geekbench site:notebookcheck.net" | Multiple sources needed or WebSearch returns stale data |
-| Laptop reviews | `WebFetch` on NotebookCheck/LaptopMedia URLs directly | Need to discover which reviews exist |
-| PSREF specs | `WebFetch` on psref.lenovo.com URLs directly | Never use Exa for this |
-| Price research | Never (user-contributed data only) | Never |
+| Laptop reviews             | `WebFetch` on NotebookCheck/LaptopMedia URLs directly                 | Need to discover which reviews exist                    |
+| PSREF specs                | `WebFetch` on psref.lenovo.com URLs directly                          | Never use Exa for this                                  |
+| Price research             | Never (user-contributed data only)                                    | Never                                                   |
 
 **Rules**:
+
 - Maximum ~5 Exa calls per session unless user explicitly approves more
 - Batch queries: combine related searches into fewer, broader Exa calls
 - Cache results in memory MCP for reuse across sessions
