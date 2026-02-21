@@ -10,6 +10,7 @@ import { LinuxBadge } from "@/components/ui/LinuxBadge";
 import { formatCHF, formatWeight, formatStorage } from "@/lib/formatters";
 import { getModelScores } from "@/lib/scoring";
 import { GamingTierBadge } from "@/components/models/GamingTierBadge";
+import { MiniRadar } from "@/components/models/MiniRadar";
 import { modelEditorial } from "@/data/model-editorial";
 import { priceBaselines } from "@/data/price-baselines";
 
@@ -165,6 +166,18 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
         {/* Scores */}
         {scores.perf > 0 && (
           <div className="mt-4 space-y-1.5 border-t border-carbon-600/60 pt-3">
+            <div className="mb-2 flex justify-center">
+              <MiniRadar
+                scores={{
+                  perf: scores.perf,
+                  display: scores.display,
+                  memory: scores.memory,
+                  gpu: scores.gpu,
+                  portability: scores.portability,
+                }}
+                color={accent}
+              />
+            </div>
             <ScoreBar score={scores.perf} label="Perf" color={accent} size="md" showLabel />
             <ScoreBar score={scores.display} label="Display" color="#ee5396" size="md" showLabel />
             <ScoreBar score={scores.memory} label="Memory" color="#be95ff" size="md" showLabel />
