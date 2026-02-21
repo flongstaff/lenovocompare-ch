@@ -26,10 +26,26 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env
+.env.*
+
+# keys
+*.key
+
+# Claude Code
+.claude/settings.local.json
+.claude/.DS_Store
+.claude/plans/
+.claude/memory/
+
+# MCP config (machine-specific)
+.mcp.json
 
 # vercel
 .vercel
+
+# PSREF scraper output
+scripts/psref-data.json
 
 # typescript
 *.tsbuildinfo
