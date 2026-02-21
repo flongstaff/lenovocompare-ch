@@ -3,6 +3,10 @@ import type { HardwareGuideEntry } from "@/lib/types";
 /**
  * Curated CPU hardware guide — keyed by exact CPU name strings from cpu-benchmarks.ts.
  * Each entry provides qualitative analysis to help users understand when/why to choose a chip.
+ *
+ * Architecture details sourced from Intel ARK (https://ark.intel.com) and
+ * AMD product pages (https://www.amd.com/en/products/specifications/processors).
+ * Performance context informed by Cinebench 2024, Geekbench 6, and NotebookCheck reviews.
  */
 export const cpuGuide: Record<string, HardwareGuideEntry> = {
   // Intel Core Ultra (Meteor Lake / Lunar Lake)

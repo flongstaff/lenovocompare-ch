@@ -110,6 +110,7 @@ const filterLineup = getArg("--lineup");
 const missingOnly = hasFlag("--missing-only");
 const resume = hasFlag("--resume");
 const headful = hasFlag("--headful");
+const noDiscovery = hasFlag("--no-discovery");
 
 // ── Constants ──────────────────────────────────────────────────────────────
 
@@ -266,12 +267,12 @@ const scrapeProductListing = async (
 
   try {
     await page.goto(listingUrl, { waitUntil: "load", timeout: 30000 });
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(3000);
 
-    // Scroll to load all products (lazy-loaded)
-    for (let i = 0; i < 15; i++) {
+    // Scroll to load all products (lazy-loaded) — 10 scrolls should be enough
+    for (let i = 0; i < 10; i++) {
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(800);
     }
 
     // Extract product links — prefer URLs WITH ?MT= (they load reliably)
@@ -873,8 +874,8 @@ const scrapePsrefPage = async (
     let nav = await navigateToProduct(page, targetUrl);
     let lastFailReason = getFailReason(nav);
 
-    // Phase 2: If normalized URL fails, try search discovery
-    if (!nav.ok) {
+    // Phase 2: If normalized URL fails, try search discovery (skip with --no-discovery)
+    if (!nav.ok && !noDiscovery) {
       console.log(`  ${DIM}Direct navigation failed (${lastFailReason}), trying search discovery...${RESET}`);
 
       const discoveredUrl = await discoverProductUrl(page, laptop.name, laptop.lineup);
@@ -1051,15 +1052,26 @@ const main = async () => {
     models: {},
   };
 
-  // Pre-scrape product listings to build URL lookup tables
-  console.log(`${DIM}Building product listing lookup...${RESET}`);
-  const lineups = Array.from(new Set(models.map((m) => m.lineup))) as Array<"ThinkPad" | "IdeaPad Pro" | "Legion">;
+  // Pre-scrape product listings to build URL lookup tables (skip with --no-listing)
   const listingMaps = new Map<string, Map<string, string>>();
-  for (const lineup of lineups) {
-    // Map lineup to PSREF URL path
-    const psrefLineup = lineup === "IdeaPad Pro" ? "IdeaPad" : lineup;
-    const map = await scrapeProductListing(page, psrefLineup as "ThinkPad" | "IdeaPad" | "Legion");
-    listingMaps.set(lineup, map);
+  if (!hasFlag("--no-listing")) {
+    console.log(`${DIM}Building product listing lookup...${RESET}`);
+    const lineups = Array.from(new Set(models.map((m) => m.lineup))) as Array<"ThinkPad" | "IdeaPad Pro" | "Legion">;
+    for (const lineup of lineups) {
+      const psrefLineup = lineup === "IdeaPad Pro" ? "IdeaPad" : lineup;
+      try {
+        const map = await Promise.race([
+          scrapeProductListing(page, psrefLineup as "ThinkPad" | "IdeaPad" | "Legion"),
+          new Promise<Map<string, string>>((_, reject) => setTimeout(() => reject(new Error("timeout")), 45000)),
+        ]);
+        listingMaps.set(lineup, map);
+      } catch {
+        console.log(`  ${DIM}Listing scrape timed out for ${lineup}, skipping${RESET}`);
+        listingMaps.set(lineup, new Map());
+      }
+    }
+  } else {
+    console.log(`${DIM}Skipping product listing lookup (--no-listing)${RESET}`);
   }
 
   let successCount = 0;

@@ -295,7 +295,21 @@ const PriceTimelineChart = ({
 };
 
 const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => {
-  if (!baseline && priceHistory.length === 0) return null;
+  if (!baseline && priceHistory.length === 0) {
+    return (
+      <div className="carbon-card rounded-lg p-4">
+        <h2 className="mb-2 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+          Price History
+        </h2>
+        <p className="text-sm" style={{ color: "var(--muted)" }}>
+          No price history yet.
+        </p>
+        <p className="mt-1 text-xs" style={{ color: "var(--border-subtle)" }}>
+          Add prices on the Pricing page to build history for this model.
+        </p>
+      </div>
+    );
+  }
 
   const lowestCurrent = priceHistory.length > 0 ? Math.min(...priceHistory.map((p) => p.price)) : null;
 

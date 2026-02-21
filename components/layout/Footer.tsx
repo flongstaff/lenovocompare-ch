@@ -82,10 +82,15 @@ export const Footer = () => (
         </div>
       </div>
 
-      <div className="mt-6 border-t border-carbon-600/50 pt-4">
+      <div className="mt-6 border-t border-carbon-600/50 pt-4 space-y-2">
         <p className="max-w-2xl text-xs leading-relaxed text-carbon-500">
           Prices are user-input or externally linked. Always verify the final CHF price including VAT and vRG on the
           retailer&apos;s site. Not affiliated with Lenovo.
+        </p>
+        <p className="max-w-2xl text-[10px] leading-relaxed text-carbon-600">
+          ThinkPad, IdeaPad, and Legion are trademarks of Lenovo. Cinebench is a trademark of Maxon.
+          Geekbench is a trademark of Primate Labs. 3DMark is a trademark of UL. Game titles are
+          trademarks of their respective publishers.
         </p>
       </div>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 import { memo } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { Cpu, Monitor, HardDrive, Weight, Battery, GitCompareArrows } from "lucide-react";
 import { Laptop, SwissPrice } from "@/lib/types";
@@ -82,11 +83,12 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
       />
 
       <div className="relative flex flex-1 flex-col p-5">
-        {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG silhouette, no optimization needed */}
         {LINEUP_SILHOUETTE[model.lineup] && (
-          <img
+          <Image
             src={LINEUP_SILHOUETTE[model.lineup]}
             alt=""
+            width={60}
+            height={60}
             className="pointer-events-none absolute right-3 top-3 h-[60px] w-auto select-none"
             style={{ opacity: 0.06 }}
           />
