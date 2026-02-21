@@ -6,6 +6,7 @@ import type { ModelBenchmarks } from "@/lib/types";
  *   "notebookcheck" — Data from in-house NotebookCheck review (verified or closely derived)
  *   "community"     — Estimated from specs, related models, and community data
  *   "jarrodtech"    — Data from JarrodsTech review
+ * See BenchmarkSource type in lib/types.ts for all valid sources.
  */
 export const modelBenchmarks: Record<string, ModelBenchmarks> = {
   // ============================================================

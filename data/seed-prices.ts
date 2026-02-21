@@ -1,6 +1,6 @@
 import type { SwissPrice } from "@/lib/types";
 
-/** Curated Swiss retail prices — realistic baseline data for all ThinkPad models */
+/** Curated Swiss retail prices — realistic baseline data for all laptop models */
 export const seedPrices: readonly SwissPrice[] = [
   // === 2025 models ===
   {

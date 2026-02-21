@@ -1,7 +1,7 @@
 import type { GpuBenchmarkEntry } from "@/lib/types";
 
 /**
- * GPU benchmark data for all integrated/discrete GPUs across ThinkPad models.
+ * GPU benchmark data for all integrated/discrete GPUs across all laptop lineups.
  * Scores are 0-100 relative. FPS estimates are approximate at stated resolution/settings.
  */
 export const gpuBenchmarks: Record<string, GpuBenchmarkEntry> = {

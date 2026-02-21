@@ -16,7 +16,7 @@ export const ScoreBar = ({
   score,
   max = 100,
   label,
-  color = "var(--accent)",
+  color = "#0f62fe",
   showValue = true,
   size = "sm",
 }: ScoreBarProps) => {

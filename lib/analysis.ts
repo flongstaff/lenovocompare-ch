@@ -237,7 +237,7 @@ const deriveUpgradePath = (model: Laptop, allModels: readonly Laptop[]): { id: s
   return { id: candidates[0].id, name: candidates[0].name };
 };
 
-/** Maps a score to a verdict using 4 ascending thresholds: [insufficient, marginal, good, overkill] */
+/** Maps a score to a verdict using 4 ascending thresholds creating 5 ranges: insufficient < marginal < good < excellent < overkill */
 const verdictFor = (score: number, thresholds: readonly [number, number, number, number]): ScenarioVerdict => {
   const [insuf, marg, good, exc] = thresholds;
   if (score >= exc) return "overkill";
