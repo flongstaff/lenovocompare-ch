@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
-import { Laptop, ChevronDown } from "lucide-react";
+import { Laptop as LaptopIcon, ChevronDown, GraduationCap, Feather, Code2, Palette, Gamepad2, PiggyBank, Search } from "lucide-react";
+import type { FilterState } from "@/lib/types";
 import { useLaptops } from "@/lib/hooks/useLaptops";
+import { cpuBenchmarksExpanded } from "@/data/cpu-benchmarks";
+import { gpuBenchmarks } from "@/data/gpu-benchmarks";
 import { usePrices } from "@/lib/hooks/usePrices";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useCompare } from "@/lib/hooks/useCompare";
@@ -12,8 +15,100 @@ import ThinkPadCard from "@/components/thinkpad/ThinkPadCard";
 import { CompareFloatingBar } from "@/components/compare/CompareFloatingBar";
 import { SkeletonGrid } from "@/components/ui/Skeleton";
 
+/** Animate a number from 0 to target over ~800ms */
+const useCounter = (target: number) => {
+  const [value, setValue] = useState(0);
+  const targetRef = useRef(target);
+  targetRef.current = target;
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (hasRun.current || target === 0) return;
+    hasRun.current = true;
+    const duration = 800;
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * targetRef.current));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [target]);
+
+  return value;
+};
+
 /** Cards shown per page — 12 = 3 rows of 4 on desktop grid, loaded incrementally */
 const PAGE_SIZE = 12;
+
+const QUICK_PICKS = [
+  {
+    id: "student",
+    label: "Best for Students",
+    desc: "Affordable & reliable",
+    icon: GraduationCap,
+    color: "#42be65",
+    apply: (update: <K extends keyof FilterState>(k: K, v: FilterState[K]) => void) => {
+      update("maxPrice", 1200);
+    },
+  },
+  {
+    id: "ultraportable",
+    label: "Ultraportable",
+    desc: "Under 1.3 kg",
+    icon: Feather,
+    color: "#4589ff",
+    apply: (update: <K extends keyof FilterState>(k: K, v: FilterState[K]) => void) => {
+      update("maxWeight", 1.3);
+    },
+  },
+  {
+    id: "developer",
+    label: "Developer",
+    desc: "32 GB+ RAM, fast CPU",
+    icon: Code2,
+    color: "#ee5396",
+    apply: (update: <K extends keyof FilterState>(k: K, v: FilterState[K]) => void) => {
+      update("ramMin", 32);
+    },
+  },
+  {
+    id: "creative",
+    label: "Creative Work",
+    desc: "OLED & color accuracy",
+    icon: Palette,
+    color: "#be95ff",
+    apply: (update: <K extends keyof FilterState>(k: K, v: FilterState[K]) => void) => {
+      update("minScreenSize", 14);
+    },
+  },
+  {
+    id: "gaming",
+    label: "Gaming",
+    desc: "Discrete GPU power",
+    icon: Gamepad2,
+    color: "#ff832b",
+    apply: (
+      update: <K extends keyof FilterState>(k: K, v: FilterState[K]) => void,
+      toggleLineup: (l: "ThinkPad" | "IdeaPad Pro" | "Legion") => void,
+      resetFilters: () => void,
+    ) => {
+      resetFilters();
+      toggleLineup("Legion");
+    },
+  },
+  {
+    id: "budget",
+    label: "Budget",
+    desc: "Under CHF 900",
+    icon: PiggyBank,
+    color: "#f1c21b",
+    apply: (update: <K extends keyof FilterState>(k: K, v: FilterState[K]) => void) => {
+      update("maxPrice", 900);
+    },
+  },
+] as const;
 
 const HomeClient = () => {
   const models = useLaptops();
@@ -24,6 +119,11 @@ const HomeClient = () => {
   );
   const { selectedIds, toggleCompare, clearCompare } = useCompare();
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const cpuCount = useMemo(() => Object.keys(cpuBenchmarksExpanded).length, []);
+  const gpuCount = useMemo(() => Object.keys(gpuBenchmarks).length, []);
+  const modelCounter = useCounter(models.length);
+  const cpuCounter = useCounter(cpuCount);
+  const gpuCounter = useCounter(gpuCount);
 
   const filterKey = useMemo(() => JSON.stringify(filters), [filters]);
 
@@ -47,6 +147,14 @@ const HomeClient = () => {
   return (
     <div className="space-y-6">
       <div className="relative py-10 sm:py-14">
+        {/* Dot grid background */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "radial-gradient(circle, var(--foreground) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
         <div
           className="pointer-events-none absolute -left-16 -top-8 h-64 w-64 rounded-full opacity-[0.04] blur-3xl"
           style={{ background: "var(--accent)" }}
@@ -67,10 +175,64 @@ const HomeClient = () => {
           </span>
         </h1>
         <p className="mt-3 max-w-lg text-sm leading-relaxed text-carbon-400">
-          Compare specs and Swiss pricing for{" "}
-          <span className="font-medium text-carbon-200">{models.length} models</span> across ThinkPad, IdeaPad Pro, and
-          Legion
+          Compare specs and Swiss pricing across ThinkPad, IdeaPad Pro, and Legion
         </p>
+
+        {/* Stats row */}
+        <div className="mt-6 flex items-center gap-6 sm:gap-8">
+          {([
+            { value: modelCounter, label: "Models", suffix: "+" },
+            { value: cpuCounter, label: "CPUs", suffix: "+" },
+            { value: gpuCounter, label: "GPUs", suffix: "+" },
+            { value: 3, label: "Lineups", suffix: "" },
+          ] as const).map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-6 sm:gap-8">
+              {i > 0 && <div className="h-8 w-px bg-carbon-600" />}
+              <div>
+                <p className="font-mono text-2xl font-bold tabular-nums text-carbon-100 sm:text-3xl">
+                  {stat.value}{stat.suffix}
+                </p>
+                <p className="font-mono text-[10px] uppercase tracking-wider text-carbon-500">{stat.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Hero search bar */}
+        <div className="relative mt-6 max-w-md">
+          <Search size={16} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-carbon-500" />
+          <input
+            type="text"
+            placeholder="Search models, CPUs, features..."
+            value={filters.search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="carbon-input !py-3 !pl-10 !pr-4 !text-sm"
+          />
+        </div>
+      </div>
+
+      {/* Quick Picks */}
+      <div className="scrollbar-thin -mx-1 flex gap-3 overflow-x-auto px-1 pb-2 snap-x snap-mandatory">
+        {QUICK_PICKS.map((pick) => {
+          const Icon = pick.icon;
+          return (
+            <button
+              key={pick.id}
+              onClick={() => {
+                resetFilters();
+                pick.apply(updateFilter, toggleLineup, resetFilters);
+              }}
+              className="carbon-card group flex min-w-[140px] shrink-0 snap-start items-start gap-3 p-3 transition-all hover:bg-carbon-700/50"
+              style={{ borderLeft: `2px solid ${pick.color}` }}
+            >
+              <Icon size={16} style={{ color: pick.color }} className="mt-0.5 shrink-0" />
+              <div className="min-w-0 text-left">
+                <p className="text-[12px] font-medium text-carbon-100">{pick.label}</p>
+                <p className="text-[10px] text-carbon-400">{pick.desc}</p>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
       <FilterBar
@@ -128,7 +290,7 @@ const HomeClient = () => {
         </>
       ) : (
         <div className="py-16 text-center">
-          <Laptop size={48} className="mx-auto mb-4 text-carbon-500" />
+          <LaptopIcon size={48} className="mx-auto mb-4 text-carbon-500" />
           <p className="text-lg font-medium text-carbon-100">No models found</p>
           <p className="mt-1 text-sm text-carbon-400">Try adjusting your filters</p>
           <button onClick={resetFilters} className="carbon-btn mt-4">

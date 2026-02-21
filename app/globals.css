@@ -21,7 +21,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
 /* IBM Carbon component classes */
@@ -84,11 +84,34 @@ body {
 
 /* Card glow on hover */
 .card-glow {
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .card-glow:hover {
-  box-shadow: 0 0 12px rgba(15, 98, 254, 0.15);
+  box-shadow: 0 4px 20px rgba(15, 98, 254, 0.2), 0 0 12px rgba(15, 98, 254, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Skeleton accent shimmer */
+.skeleton-accent {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-accent::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
 }
 
 /* Custom thin scrollbar */

@@ -145,13 +145,41 @@ const ModelDetailClient = () => {
 
       <ConfigSelector model={model} onConfigChange={handleConfigChange} />
 
+      {/* Jump-to navigation */}
+      <nav className="scrollbar-thin sticky top-0 z-20 -mx-4 flex gap-1 overflow-x-auto bg-carbon-900/95 px-4 py-2 backdrop-blur-sm sm:gap-2" aria-label="Page sections">
+        {[
+          { id: "scores", label: "Scores" },
+          { id: "specs", label: "Specs" },
+          { id: "performance", label: "Performance" },
+          { id: "benchmarks", label: "Benchmarks" },
+          { id: "gaming", label: "Gaming" },
+          { id: "use-cases", label: "Use Cases" },
+          { id: "editorial", label: "Editorial" },
+        ].map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className="shrink-0 border border-carbon-600 px-2.5 py-1 text-[11px] font-medium text-carbon-400 transition-colors hover:border-accent hover:text-accent-light"
+          >
+            {s.label}
+          </a>
+        ))}
+      </nav>
+
       {/* Dashboard strip */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div id="scores" className="grid scroll-mt-14 grid-cols-1 gap-4 border-b border-carbon-600/60 pb-6 md:grid-cols-3">
         {/* Scores card */}
         <div className="carbon-card rounded-lg p-4">
-          <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
-            Scores
-          </h2>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+              Scores
+            </h2>
+            <div className="flex gap-2 text-[9px] font-mono uppercase tracking-wider">
+              <span style={{ color: "#42be65" }}>80+ Excellent</span>
+              <span style={{ color: "#4589ff" }}>60+ Good</span>
+              <span style={{ color: "#f1c21b" }}>40+ Fair</span>
+            </div>
+          </div>
           <div className="space-y-2.5">
             {sc.perf > 0 && <ScoreBar score={sc.perf} label="Perf" color="#0f62fe" size="md" />}
             {sc.singleCore > 0 && <ScoreBar score={sc.singleCore} label="Single" color="#4589ff" size="md" />}
@@ -200,7 +228,19 @@ const ModelDetailClient = () => {
                       )}
                     </div>
                     <span className="text-xs" style={{ color: "var(--muted)" }}>
-                      {formatDate(p.dateAdded)}
+                      <span
+                        className="font-medium"
+                        style={{
+                          color:
+                            Date.now() - new Date(p.dateAdded).getTime() < 7 * 86400000
+                              ? "#42be65"
+                              : Date.now() - new Date(p.dateAdded).getTime() < 30 * 86400000
+                                ? "#f1c21b"
+                                : "var(--muted)",
+                        }}
+                      >
+                        {formatDate(p.dateAdded)}
+                      </span>
                       {p.note && <span className="ml-1.5">· {p.note}</span>}
                     </span>
                   </div>
@@ -247,7 +287,7 @@ const ModelDetailClient = () => {
       {/* Full-width stacked sections */}
       <div className="space-y-6">
         {/* Specifications — 2-column on large screens */}
-        <div className="carbon-card rounded-lg p-4">
+        <div id="specs" className="carbon-card scroll-mt-14 rounded-lg p-4">
           <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
             Specifications
           </h2>
@@ -307,7 +347,7 @@ const ModelDetailClient = () => {
         </div>
 
         {/* Performance Overview */}
-        <div className="carbon-card rounded-lg p-4">
+        <div id="performance" className="carbon-card scroll-mt-14 rounded-lg p-4">
           <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
             Performance Overview
           </h2>
@@ -414,11 +454,11 @@ const ModelDetailClient = () => {
           )}
         </div>
 
-        <div className="carbon-card rounded-lg p-4">
+        <div id="benchmarks" className="carbon-card scroll-mt-14 rounded-lg p-4">
           <BenchmarksSection model={configuredModel} />
         </div>
 
-        <div className="carbon-card rounded-lg p-4">
+        <div id="gaming" className="carbon-card scroll-mt-14 rounded-lg p-4">
           <GamingSection gpuName={configuredModel.gpu.name} gamingTier={sc.gamingTier} benchmark={sc.gpuBenchmark} />
         </div>
 
@@ -428,7 +468,7 @@ const ModelDetailClient = () => {
 
         {/* Use Case + Linux — side by side on desktop */}
         {((analysis.scenarios?.length ?? 0) > 0 || linux) && (
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div id="use-cases" className="grid scroll-mt-14 grid-cols-1 gap-4 lg:grid-cols-2">
             {analysis.scenarios && analysis.scenarios.length > 0 && (
               <div className="carbon-card rounded-lg p-4">
                 <UseCaseScenarios scenarios={analysis.scenarios} />
@@ -444,7 +484,11 @@ const ModelDetailClient = () => {
 
         <ModelAnalysisCard analysis={analysis} />
 
-        {editorial && <EditorialCard editorial={editorial} linuxStatus={model.linuxStatus} />}
+        {editorial && (
+          <div id="editorial" className="scroll-mt-14">
+            <EditorialCard editorial={editorial} linuxStatus={model.linuxStatus} />
+          </div>
+        )}
 
         {/* Deep Dive + Price Check — compact row */}
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">

@@ -11,6 +11,23 @@ interface BenchmarksSectionProps {
   readonly model: Laptop;
 }
 
+/**
+ * Lineup-aware thermal thresholds — workstations (P series) and gaming (Legion) run hotter by design.
+ * Returns { warm, hot } keyboard temp thresholds in °C.
+ */
+const getThermalThresholds = (model: Laptop): { warm: number; hot: number } => {
+  if (model.lineup === "Legion") return { warm: 44, hot: 50 };
+  if (model.series === "P") return { warm: 42, hot: 48 };
+  return { warm: 40, hot: 44 };
+};
+
+/** Lineup-aware fan noise thresholds in dB */
+const getNoiseThresholds = (model: Laptop): { moderate: number; loud: number } => {
+  if (model.lineup === "Legion") return { moderate: 42, loud: 50 };
+  if (model.series === "P") return { moderate: 40, loud: 48 };
+  return { moderate: 38, loud: 45 };
+};
+
 const StatBox = ({
   label,
   value,
@@ -86,6 +103,10 @@ const SOURCE_DISPLAY: Record<string, string> = {
 };
 
 const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in JSX conditionals below
+  const thermalT = getThermalThresholds(model);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in JSX conditionals below
+  const noiseT = getNoiseThresholds(model);
   const chassisBench = getModelBenchmarks(model.id);
   const cpuRaw = getCpuRawBenchmarks(model.processor.name);
   const gpuBench = getGpuBenchmark(model.gpu.name);
@@ -158,24 +179,29 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     className="rounded px-1 py-0.5 text-[10px]"
                     style={{
                       background:
-                        chassisBench.thermals.keyboardMaxC > 44
+                        chassisBench.thermals.keyboardMaxC > thermalT.hot
                           ? "#da1e2820"
-                          : chassisBench.thermals.keyboardMaxC > 40
+                          : chassisBench.thermals.keyboardMaxC > thermalT.warm
                             ? "#f1c21b20"
                             : "#42be6520",
                       color:
-                        chassisBench.thermals.keyboardMaxC > 44
+                        chassisBench.thermals.keyboardMaxC > thermalT.hot
                           ? "#da1e28"
-                          : chassisBench.thermals.keyboardMaxC > 40
+                          : chassisBench.thermals.keyboardMaxC > thermalT.warm
                             ? "#f1c21b"
                             : "#42be65",
                     }}
                   >
-                    {chassisBench.thermals.keyboardMaxC > 44
+                    {chassisBench.thermals.keyboardMaxC > thermalT.hot
                       ? "Hot under load"
-                      : chassisBench.thermals.keyboardMaxC > 40
+                      : chassisBench.thermals.keyboardMaxC > thermalT.warm
                         ? "Warm under load"
                         : "Cool under load"}
+                    {(model.lineup === "Legion" || model.series === "P") && (
+                      <span className="ml-1 text-[9px] opacity-70">
+                        (normal for {model.lineup === "Legion" ? "gaming" : "workstation"})
+                      </span>
+                    )}
                   </span>
                 </div>
               </>
@@ -186,25 +212,25 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   label="Fan Noise (Max Load)"
                   value={chassisBench.fanNoise}
                   unit="dB"
-                  color={chassisBench.fanNoise > 45 ? "#da1e28" : chassisBench.fanNoise > 38 ? "#f1c21b" : "#42be65"}
+                  color={chassisBench.fanNoise > noiseT.loud ? "#da1e28" : chassisBench.fanNoise > noiseT.moderate ? "#f1c21b" : "#42be65"}
                 />
                 <div className="mt-1">
                   <span
                     className="rounded px-1 py-0.5 text-[10px]"
                     style={{
                       background:
-                        chassisBench.fanNoise > 45
+                        chassisBench.fanNoise > noiseT.loud
                           ? "#da1e2820"
-                          : chassisBench.fanNoise > 38
+                          : chassisBench.fanNoise > noiseT.moderate
                             ? "#f1c21b20"
                             : "#42be6520",
                       color:
-                        chassisBench.fanNoise > 45 ? "#da1e28" : chassisBench.fanNoise > 38 ? "#f1c21b" : "#42be65",
+                        chassisBench.fanNoise > noiseT.loud ? "#da1e28" : chassisBench.fanNoise > noiseT.moderate ? "#f1c21b" : "#42be65",
                     }}
                   >
-                    {chassisBench.fanNoise > 45
+                    {chassisBench.fanNoise > noiseT.loud
                       ? "Loud — noticeable in quiet rooms"
-                      : chassisBench.fanNoise > 38
+                      : chassisBench.fanNoise > noiseT.moderate
                         ? "Moderate — audible under load"
                         : "Quiet — barely noticeable"}
                   </span>

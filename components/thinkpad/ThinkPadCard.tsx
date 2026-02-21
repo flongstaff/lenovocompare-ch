@@ -9,6 +9,8 @@ import { LinuxBadge } from "@/components/ui/LinuxBadge";
 import { formatCHF, formatWeight, formatStorage } from "@/lib/formatters";
 import { getModelScores } from "@/lib/scoring";
 import { GamingTierBadge } from "@/components/thinkpad/GamingTierBadge";
+import { modelEditorial } from "@/data/model-editorial";
+import { priceBaselines } from "@/data/price-baselines";
 
 interface ThinkPadCardProps {
   readonly model: Laptop;
@@ -17,6 +19,8 @@ interface ThinkPadCardProps {
   readonly onToggleCompare: (id: string) => void;
   readonly index?: number;
 }
+
+const LINEUP_SILHOUETTE: Record<string, string> = { ThinkPad: "/silhouettes/thinkpad.svg", "IdeaPad Pro": "/silhouettes/ideapad.svg", Legion: "/silhouettes/legion.svg" };
 
 /** Series-specific accent colors for ScoreBar gradients. Must be raw hex — see ScoreBar color prop constraint. */
 const SERIES_ACCENT: Record<string, string> = {
@@ -39,9 +43,25 @@ const SERIES_ACCENT: Record<string, string> = {
   Slim: "#08bdba",
 };
 
+const getEditorialSnippet = (modelId: string): string | null => {
+  const editorial = modelEditorial[modelId];
+  if (!editorial?.editorialNotes) return null;
+  const firstSentence = editorial.editorialNotes.split(". ")[0];
+  return firstSentence.length > 80 ? firstSentence.slice(0, 77) + "..." : firstSentence + ".";
+};
+
+const isBestValue = (modelId: string, lowestPrice: number | null): boolean => {
+  if (lowestPrice === null) return false;
+  const baseline = priceBaselines[modelId];
+  if (!baseline?.historicalLow) return false;
+  return lowestPrice <= baseline.historicalLow * 1.05;
+};
+
 const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index = 0 }: ThinkPadCardProps) => {
   const scores = getModelScores(model, prices);
   const accent = SERIES_ACCENT[model.series] ?? "#4589ff";
+  const snippet = getEditorialSnippet(model.id);
+  const showBestValue = isBestValue(model.id, scores.lowestPrice);
 
   return (
     <motion.div
@@ -57,7 +77,9 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
         style={{ background: `linear-gradient(90deg, ${accent}, ${accent}80 60%, transparent)` }}
       />
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className="relative flex flex-1 flex-col p-5">
+        {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG silhouette, no optimization needed */}
+        {LINEUP_SILHOUETTE[model.lineup] && <img src={LINEUP_SILHOUETTE[model.lineup]} alt="" className="pointer-events-none absolute right-3 top-3 h-[60px] w-auto select-none" style={{ opacity: 0.06 }} />}
         {/* Header */}
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
@@ -74,22 +96,36 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
             </h3>
             <p className="mt-0.5 font-mono text-xs text-carbon-400">{model.year}</p>
             <div className="mt-1.5 flex flex-wrap gap-1">
+              {model.year >= 2025 && (
+                <span className="inline-flex items-center border border-accent/40 bg-accent/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-accent-light">
+                  {model.year}
+                </span>
+              )}
+              {showBestValue && (
+                <span className="inline-flex items-center border border-green-700 bg-green-900/30 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-green-400">
+                  Best Value
+                </span>
+              )}
               {model.linuxStatus && model.linuxStatus !== "unknown" && <LinuxBadge status={model.linuxStatus} />}
               <GamingTierBadge tier={scores.gamingTier} />
             </div>
+            {snippet && (
+              <p className="mt-1.5 text-[11px] italic leading-snug text-carbon-400 line-clamp-1">{snippet}</p>
+            )}
           </div>
 
           <button
             onClick={() => onToggleCompare(model.id)}
-            className={`shrink-0 p-2 transition-all duration-200 ${
+            title={isCompareSelected ? "Remove from compare" : "Add to compare"}
+            className={`group/cmp shrink-0 p-2 transition-all duration-200 ${
               isCompareSelected
                 ? "bg-accent text-white shadow-[0_0_12px_rgba(15,98,254,0.3)]"
-                : "border border-carbon-500 text-carbon-400 hover:border-accent hover:text-accent hover:shadow-[0_0_8px_rgba(15,98,254,0.15)]"
+                : "border border-carbon-500 text-carbon-400 hover:border-accent hover:bg-accent/10 hover:text-accent hover:shadow-[0_0_8px_rgba(15,98,254,0.15)]"
             }`}
             aria-label={isCompareSelected ? `Remove ${model.name} from comparison` : `Add ${model.name} to comparison`}
             aria-pressed={isCompareSelected}
           >
-            <GitCompareArrows size={16} />
+            <GitCompareArrows size={16} className="transition-transform duration-200 group-hover/cmp:scale-110" />
           </button>
         </div>
 
@@ -102,7 +138,10 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
           <div className="flex items-center gap-2.5">
             <Monitor size={13} className="shrink-0 text-carbon-500" />
             <span className="text-[13px] text-carbon-200">
-              {model.display.size}&quot; {model.display.resolutionLabel}
+              {model.display.size}&quot;{" "}
+              {model.display.panel === "OLED"
+                ? model.display.resolutionLabel.replace(/\s*OLED\s*/gi, " ").trim()
+                : model.display.resolutionLabel}
               {model.display.panel === "OLED" && (
                 <span className="ml-1.5 border border-purple-700/50 bg-purple-900/40 px-1 py-0.5 font-mono text-[9px] uppercase text-purple-300">
                   OLED
@@ -129,9 +168,19 @@ const ThinkPadCard = ({ model, prices, isCompareSelected, onToggleCompare, index
         {/* Scores */}
         {scores.perf > 0 && (
           <div className="mt-4 space-y-1.5 border-t border-carbon-600/60 pt-3">
-            <ScoreBar score={scores.perf} label="Perf" color={accent} size="md" />
-            <ScoreBar score={scores.display} label="Display" color="#ee5396" size="md" />
-            <ScoreBar score={scores.memory} label="Memory" color="#be95ff" size="md" />
+            <ScoreBar score={scores.perf} label="Perf" color={accent} size="md" showLabel />
+            <ScoreBar score={scores.display} label="Display" color="#ee5396" size="md" showLabel />
+            <ScoreBar score={scores.memory} label="Memory" color="#be95ff" size="md" showLabel />
+            {scores.gpu > 0 && (
+              <div className="flex items-center gap-1">
+                <div className="flex-1">
+                  <ScoreBar score={scores.gpu} label="GPU" color="#42be65" size="md" showLabel />
+                </div>
+                <span className="text-[8px] font-mono uppercase tracking-wider text-carbon-500">
+                  {model.gpu.integrated ? "iGPU" : "dGPU"}
+                </span>
+              </div>
+            )}
           </div>
         )}
 
