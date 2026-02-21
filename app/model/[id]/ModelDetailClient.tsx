@@ -43,6 +43,7 @@ const PerformanceRadar = dynamic(() => import("@/components/charts/PerformanceRa
 const BenchmarkBar = dynamic(() => import("@/components/charts/BenchmarkBar"), { ssr: false });
 const GamingSection = dynamic(() => import("@/components/models/GamingSection"), { ssr: false });
 const BenchmarksSection = dynamic(() => import("@/components/models/BenchmarksSection"), { ssr: false });
+const ScoreCardExpanded = dynamic(() => import("@/components/models/ScoreCardExpanded"), { ssr: false });
 import UseCaseScenarios from "@/components/models/UseCaseScenarios";
 import LinuxSection from "@/components/models/LinuxSection";
 import HardwareGuide from "@/components/models/HardwareGuide";
@@ -388,8 +389,9 @@ const ModelDetailClient = () => {
             <PerformanceRadar models={[{ name: model.name, dimensions: sc.dimensions }]} />
             <div className="space-y-2">
               {/* Dimension score cards */}
-              {(
-                [
+              <ScoreCardExpanded
+                model={configuredModel}
+                dimensions={[
                   {
                     key: "cpu",
                     label: "CPU",
@@ -432,46 +434,8 @@ const ModelDetailClient = () => {
                     color: "#42be65",
                     detail: `${formatWeight(model.weight)} · ${model.battery.whr} Wh`,
                   },
-                ] as const
-              ).map((dim) => (
-                <div
-                  key={dim.key}
-                  className="flex items-center gap-3 py-1.5"
-                  style={{ borderBottom: "1px solid var(--border-subtle)" }}
-                >
-                  <span className="w-8 text-right font-mono text-lg font-bold" style={{ color: dim.color }}>
-                    {dim.score}
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-xs font-semibold" style={{ color: "var(--foreground)" }}>
-                        {dim.label}
-                      </span>
-                      <span
-                        className="text-[10px] font-medium"
-                        style={{
-                          color:
-                            dim.score >= 80
-                              ? "#42be65"
-                              : dim.score >= 60
-                                ? "#4589ff"
-                                : dim.score >= 40
-                                  ? "#f1c21b"
-                                  : "#a8a8a8",
-                        }}
-                      >
-                        {dim.score >= 80 ? "Excellent" : dim.score >= 60 ? "Good" : dim.score >= 40 ? "Fair" : "Low"}
-                      </span>
-                    </div>
-                    <div className="truncate text-[10px]" style={{ color: "var(--muted)" }}>
-                      {dim.detail}
-                    </div>
-                  </div>
-                  <div className="h-2 w-24 shrink-0 rounded-full" style={{ background: "var(--surface)" }}>
-                    <div className="h-full rounded-full" style={{ width: `${dim.score}%`, background: dim.color }} />
-                  </div>
-                </div>
-              ))}
+                ]}
+              />
             </div>
           </div>
           {(sc.singleCore > 0 || sc.multiCore > 0 || sc.gpu > 0) && (
