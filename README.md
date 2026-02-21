@@ -25,16 +25,16 @@ Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are ha
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript 5 |
-| Styling | Tailwind CSS 3 + IBM Carbon dark theme |
-| Charts | recharts |
-| Animations | framer-motion |
-| Icons | lucide-react |
-| Testing | Vitest |
-| CI/CD | GitHub Actions (lint, test, build, CodeQL, GitHub Pages deploy) |
+| Layer      | Technology                                                      |
+| ---------- | --------------------------------------------------------------- |
+| Framework  | Next.js 14 (App Router)                                         |
+| Language   | TypeScript 5                                                    |
+| Styling    | Tailwind CSS 3 + IBM Carbon dark theme                          |
+| Charts     | recharts                                                        |
+| Animations | framer-motion                                                   |
+| Icons      | lucide-react                                                    |
+| Testing    | Vitest                                                          |
+| CI/CD      | GitHub Actions (lint, test, build, CodeQL, GitHub Pages deploy) |
 
 ## Getting Started
 
