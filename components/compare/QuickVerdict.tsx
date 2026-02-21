@@ -164,8 +164,8 @@ export const QuickVerdict = ({ models, prices }: QuickVerdictProps) => {
                 Tied
               </span>
               <span className="ml-2 text-xs" style={{ color: "var(--muted)" }}>
-                {overall.tiedModels.map((t) => shortName(t.model.name)).join(" & ")} — {overall.wins} of{" "}
-                {overall.total} categories each
+                {overall.tiedModels.map((t) => shortName(t.model.name)).join(" & ")} — {overall.wins} of {overall.total}{" "}
+                categories each
               </span>
             </>
           ) : (

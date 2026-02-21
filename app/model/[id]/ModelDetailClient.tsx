@@ -277,27 +277,29 @@ const ModelDetailClient = () => {
               No prices available yet.
             </p>
           )}
-          {modelPrices.length > 0 && baseline && (() => {
-            const lowest = Math.min(...modelPrices.map((p) => p.price));
-            const nearLow = lowest <= baseline.historicalLow * 1.05;
-            const belowMsrp = lowest < baseline.msrp;
-            const aboveTypical = lowest > baseline.typicalRetail;
-            const TrendIcon = nearLow ? TrendingDown : aboveTypical ? TrendingUp : Minus;
-            const trendColor = nearLow ? "#42be65" : aboveTypical ? "#da1e28" : belowMsrp ? "#f1c21b" : "#6f6f6f";
-            const trendText = nearLow
-              ? "Near historical low"
-              : aboveTypical
-                ? "Above typical retail"
-                : belowMsrp
-                  ? "Below MSRP"
-                  : "At typical price";
-            return (
-              <div className="mt-2 flex items-center gap-1.5 text-[11px]" style={{ color: trendColor }}>
-                <TrendIcon size={12} />
-                <span>{trendText}</span>
-              </div>
-            );
-          })()}
+          {modelPrices.length > 0 &&
+            baseline &&
+            (() => {
+              const lowest = Math.min(...modelPrices.map((p) => p.price));
+              const nearLow = lowest <= baseline.historicalLow * 1.05;
+              const belowMsrp = lowest < baseline.msrp;
+              const aboveTypical = lowest > baseline.typicalRetail;
+              const TrendIcon = nearLow ? TrendingDown : aboveTypical ? TrendingUp : Minus;
+              const trendColor = nearLow ? "#42be65" : aboveTypical ? "#da1e28" : belowMsrp ? "#f1c21b" : "#6f6f6f";
+              const trendText = nearLow
+                ? "Near historical low"
+                : aboveTypical
+                  ? "Above typical retail"
+                  : belowMsrp
+                    ? "Below MSRP"
+                    : "At typical price";
+              return (
+                <div className="mt-2 flex items-center gap-1.5 text-[11px]" style={{ color: trendColor }}>
+                  <TrendIcon size={12} />
+                  <span>{trendText}</span>
+                </div>
+              );
+            })()}
           <Link href="/pricing" className="carbon-btn mt-3 w-full text-sm">
             Add Price
           </Link>

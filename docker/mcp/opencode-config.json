@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "opencode": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "opencode/mcp-server"],
+      "disabled": false,
+      "_note": "Opencode MCP server for enhanced development experience"
+    }
+  }
+}
