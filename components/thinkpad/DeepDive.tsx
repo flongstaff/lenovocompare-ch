@@ -47,7 +47,7 @@ const links = (model: Laptop) => [
 export const DeepDive = ({ model }: DeepDiveProps) => {
   return (
     <div className="space-y-2">
-      <p className="text-[10px] font-bold uppercase tracking-widest text-carbon-200">
+      <p className="text-carbon-200 text-[10px] font-bold uppercase tracking-widest">
         <BookOpen size={10} className="mr-1 inline" />
         Deep Dive
       </p>

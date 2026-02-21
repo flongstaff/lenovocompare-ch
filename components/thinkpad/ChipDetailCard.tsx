@@ -30,7 +30,7 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
       {/* Header */}
       <button
         onClick={() => setExpanded((prev) => !prev)}
-        className="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-carbon-600/20"
+        className="hover:bg-carbon-600/20 flex w-full items-center justify-between p-4 text-left transition-colors"
       >
         <div className="flex min-w-0 items-center gap-3">
           <div

@@ -9,6 +9,8 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+export const generateStaticParams = () => laptops.map((m) => ({ id: m.id }));
+
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { id } = await params;
   const model = laptops.find((m) => m.id === id);

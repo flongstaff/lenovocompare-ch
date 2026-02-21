@@ -20,7 +20,7 @@ const LinuxSection = ({ compat }: LinuxSectionProps) => (
       <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
         Linux Compatibility
       </h2>
-      <code className="bg-carbon-700 px-1.5 py-0.5 text-[10px] text-carbon-200">
+      <code className="bg-carbon-700 text-carbon-200 px-1.5 py-0.5 text-[10px]">
         Kernel {compat.recommendedKernel}+
       </code>
     </div>

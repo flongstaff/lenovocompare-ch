@@ -29,8 +29,7 @@ const isValidPrice = (item: unknown): item is SwissPrice => {
 };
 
 export const usePrices = () => {
-  const isSwissPriceArray = (v: unknown): v is SwissPrice[] =>
-    Array.isArray(v) && v.every(isValidPrice);
+  const isSwissPriceArray = (v: unknown): v is SwissPrice[] => Array.isArray(v) && v.every(isValidPrice);
 
   const [userPrices, setUserPrices] = useLocalStorage<SwissPrice[]>(STORAGE_KEYS.prices, [], isSwissPriceArray);
 

@@ -470,7 +470,10 @@ const extractGpusFromProcessorTable = (procLines: string[]): Array<Omit<ScrapedG
     const cols = line.split("\t");
     // GPU column is typically at index 6 (after Name, Cores, Threads, BaseFrq, MaxFrq, Cache)
     for (let i = 5; i < cols.length; i++) {
-      const col = cols[i].replace(/[®™©]/g, "").replace(/\[\d+\]/g, "").trim();
+      const col = cols[i]
+        .replace(/[®™©]/g, "")
+        .replace(/\[\d+\]/g, "")
+        .trim();
       if (/Intel.*Graphics|Radeon|GeForce|RTX|GPU/i.test(col) && col.length > 3) {
         const name = normalizeGpuName(col);
         if (!seen.has(name)) {
@@ -536,7 +539,8 @@ const extractSpecsFromPage = async (
   // If no "Storage Type**", look for "Storage Slot" + nearby content
   const storSlotMarker = storTypeMarker < 0 ? fullText.indexOf("Storage Slot", searchFrom) : -1;
   const storageStart = storTypeMarker >= 0 ? storTypeMarker - 200 : storSlotMarker >= 0 ? storSlotMarker - 200 : -1;
-  const storageText = storageStart >= 0 ? fullText.substring(Math.max(searchFrom, storageStart), storageStart + 2000) : "";
+  const storageText =
+    storageStart >= 0 ? fullText.substring(Math.max(searchFrom, storageStart), storageStart + 2000) : "";
 
   // GPU: if no Graphics** section, extract from processor table GPU column
   let gpus = parseSpecsGpus(gfxLines);

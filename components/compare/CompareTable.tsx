@@ -133,13 +133,13 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-      <div className="scrollbar-thin overflow-x-auto border border-carbon-500">
+      <div className="scrollbar-thin border-carbon-500 overflow-x-auto border">
         <table className="w-full min-w-[600px] table-fixed border-collapse text-sm">
           <thead>
             <tr className="bg-accent">
               <th
                 scope="col"
-                className="sticky left-0 z-10 w-36 min-w-[144px] bg-accent px-4 py-3 text-left font-medium text-white"
+                className="bg-accent sticky left-0 z-10 w-36 min-w-[144px] px-4 py-3 text-left font-medium text-white"
               >
                 Spec
               </th>
@@ -175,7 +175,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                     <tr>
                       <td
                         colSpan={models.length + 1}
-                        className="border-t border-carbon-500 bg-carbon-600 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-carbon-200"
+                        className="border-carbon-500 bg-carbon-600 text-carbon-200 border-t px-4 py-2 text-[10px] font-bold uppercase tracking-widest"
                       >
                         {row.section}
                       </td>
@@ -183,7 +183,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                   )}
                   <tr className={i % 2 === 0 ? "bg-carbon-800" : "bg-carbon-700"}>
                     <td
-                      className="sticky left-0 z-10 border-t border-carbon-600 px-4 py-3 font-medium text-carbon-200"
+                      className="border-carbon-600 text-carbon-200 sticky left-0 z-10 border-t px-4 py-3 font-medium"
                       style={{ background: i % 2 === 0 ? "#161616" : "#262626" }}
                     >
                       {row.label}
@@ -204,7 +204,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                         return (
                           <td
                             key={m.id}
-                            className={`border-t border-carbon-600 px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-green-400" : "text-carbon-50"}`}
+                            className={`border-carbon-600 border-t px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-green-400" : "text-carbon-50"}`}
                           >
                             {p !== null ? formatCHF(p) : "—"}
                             {isLowest && (
@@ -226,7 +226,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                       return (
                         <td
                           key={m.id}
-                          className={`break-words border-t border-carbon-600 px-4 py-3 ${isBest ? "font-semibold text-green-400" : "text-carbon-50"}`}
+                          className={`border-carbon-600 break-words border-t px-4 py-3 ${isBest ? "font-semibold text-green-400" : "text-carbon-50"}`}
                         >
                           {row.wrapLong ? (
                             <div className="space-y-0.5">
@@ -256,7 +256,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
             <tr>
               <td
                 colSpan={models.length + 1}
-                className="border-t border-carbon-500 bg-carbon-600 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-carbon-200"
+                className="border-carbon-500 bg-carbon-600 text-carbon-200 border-t px-4 py-2 text-[10px] font-bold uppercase tracking-widest"
               >
                 Scores
               </td>
@@ -279,13 +279,13 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
               };
               return (
                 <tr className="bg-carbon-800">
-                  <td className="sticky left-0 z-10 border-t border-carbon-600 bg-carbon-800 px-4 py-3 font-medium text-carbon-200">
+                  <td className="border-carbon-600 bg-carbon-800 text-carbon-200 sticky left-0 z-10 border-t px-4 py-3 font-medium">
                     Ratings
                   </td>
                   {models.map((m, mi) => {
                     const s = allScores[mi];
                     return (
-                      <td key={m.id} className="border-t border-carbon-600 px-4 py-3">
+                      <td key={m.id} className="border-carbon-600 border-t px-4 py-3">
                         <div className="space-y-2">
                           <div className="flex items-center">
                             <div className="flex-1">

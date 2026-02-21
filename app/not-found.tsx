@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 const NotFound = () => (
   <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-    <p className="mb-2 text-6xl font-bold text-trackpoint">404</p>
-    <h1 className="mb-2 text-xl font-semibold text-carbon-100">Page not found</h1>
-    <p className="mb-6 max-w-md text-sm text-carbon-400">
+    <p className="text-trackpoint mb-2 text-6xl font-bold">404</p>
+    <h1 className="text-carbon-100 mb-2 text-xl font-semibold">Page not found</h1>
+    <p className="text-carbon-400 mb-6 max-w-md text-sm">
       The page you&apos;re looking for doesn&apos;t exist or the model ID is invalid.
     </p>
     <Link href="/" className="carbon-btn text-sm">

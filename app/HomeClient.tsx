@@ -56,19 +56,19 @@ const HomeClient = () => {
           style={{ background: "var(--trackpoint)" }}
         />
 
-        <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-carbon-400">
+        <p className="text-carbon-400 mb-3 font-mono text-xs uppercase tracking-[0.3em]">
           Swiss Lenovo Laptop Registry
         </p>
-        <h1 className="text-4xl font-bold leading-[1.1] text-carbon-50 sm:text-5xl">
+        <h1 className="text-carbon-50 text-4xl font-bold leading-[1.1] sm:text-5xl">
           Find Your{" "}
           <span className="relative inline-block">
             <span className="text-trackpoint">Lenovo</span>
-            <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-trackpoint/40" />
+            <span className="bg-trackpoint/40 absolute -bottom-1 left-0 right-0 h-[3px]" />
           </span>
         </h1>
-        <p className="mt-3 max-w-lg text-sm leading-relaxed text-carbon-400">
+        <p className="text-carbon-400 mt-3 max-w-lg text-sm leading-relaxed">
           Compare specs and Swiss pricing for{" "}
-          <span className="font-medium text-carbon-200">{models.length} models</span> across ThinkPad, IdeaPad Pro, and
+          <span className="text-carbon-200 font-medium">{models.length} models</span> across ThinkPad, IdeaPad Pro, and
           Legion
         </p>
       </div>
@@ -105,12 +105,12 @@ const HomeClient = () => {
               animate={{ opacity: 1 }}
               className="flex flex-col items-center gap-3 pb-2 pt-4"
             >
-              <div className="flex items-center gap-3 font-mono text-xs text-carbon-500">
-                <span className="h-px w-16 flex-1 bg-carbon-600" />
+              <div className="text-carbon-500 flex items-center gap-3 font-mono text-xs">
+                <span className="bg-carbon-600 h-px w-16 flex-1" />
                 <span>
                   {visibleCount} of {filtered.length} models
                 </span>
-                <span className="h-px w-16 flex-1 bg-carbon-600" />
+                <span className="bg-carbon-600 h-px w-16 flex-1" />
               </div>
               <button
                 onClick={loadMore}
@@ -123,14 +123,14 @@ const HomeClient = () => {
           )}
 
           {!hasMore && filtered.length > PAGE_SIZE && (
-            <p className="pt-2 text-center font-mono text-xs text-carbon-500">All {filtered.length} models shown</p>
+            <p className="text-carbon-500 pt-2 text-center font-mono text-xs">All {filtered.length} models shown</p>
           )}
         </>
       ) : (
         <div className="py-16 text-center">
-          <Laptop size={48} className="mx-auto mb-4 text-carbon-500" />
-          <p className="text-lg font-medium text-carbon-100">No models found</p>
-          <p className="mt-1 text-sm text-carbon-400">Try adjusting your filters</p>
+          <Laptop size={48} className="text-carbon-500 mx-auto mb-4" />
+          <p className="text-carbon-100 text-lg font-medium">No models found</p>
+          <p className="text-carbon-400 mt-1 text-sm">Try adjusting your filters</p>
           <button onClick={resetFilters} className="carbon-btn mt-4">
             Reset Filters
           </button>

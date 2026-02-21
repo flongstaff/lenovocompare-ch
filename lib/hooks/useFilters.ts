@@ -60,17 +60,13 @@ const parseFiltersFromUrl = (): Partial<MutableFilterState> => {
 
   const lineup = p.get("lineup");
   if (lineup) {
-    const valid = lineup
-      .split(",")
-      .filter((l): l is Lineup => (VALID_LINEUPS as readonly string[]).includes(l));
+    const valid = lineup.split(",").filter((l): l is Lineup => (VALID_LINEUPS as readonly string[]).includes(l));
     if (valid.length > 0) result.lineup = valid;
   }
 
   const series = p.get("series");
   if (series) {
-    const valid = series
-      .split(",")
-      .filter((s): s is Series => (VALID_SERIES as readonly string[]).includes(s));
+    const valid = series.split(",").filter((s): s is Series => (VALID_SERIES as readonly string[]).includes(s));
     if (valid.length > 0) result.series = valid;
   }
 

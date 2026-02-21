@@ -59,7 +59,7 @@ export const PriceDisplay = ({ price, model, onRemove }: PriceDisplayProps) => (
       {price.isUserAdded && onRemove && (
         <button
           onClick={() => onRemove(price.id)}
-          className="text-carbon-400 transition-colors hover:text-trackpoint"
+          className="text-carbon-400 hover:text-trackpoint transition-colors"
           aria-label="Remove price"
         >
           <Trash2 size={14} />
