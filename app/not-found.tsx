@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Page Not Found — LenovoCompare CH",
+  title: "Page Not Found",
   description: "The page you're looking for doesn't exist or the model ID is invalid.",
 };
 

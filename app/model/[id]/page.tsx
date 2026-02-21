@@ -15,14 +15,14 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> => 
   const { id } = await params;
   const model = laptops.find((m) => m.id === id);
   if (!model) {
-    return { title: "Model Not Found — LenovoCompare CH" };
+    return { title: "Model Not Found" };
   }
   return {
-    title: `${model.name} — LenovoCompare CH`,
+    title: model.name,
     description: `${model.name} (${model.year}) specs, Swiss pricing, and scores. ${model.processor.name}, ${model.ram.size}GB ${model.ram.type}, ${model.display.size}" ${model.display.resolutionLabel}.`,
     alternates: { canonical: `/model/${id}` },
     openGraph: {
-      title: `${model.name} — LenovoCompare CH`,
+      title: model.name,
       description: `${model.name} (${model.year}) — ${model.processor.name}, ${model.ram.size}GB ${model.ram.type}, ${model.display.size}" ${model.display.resolutionLabel}.`,
     },
   };
