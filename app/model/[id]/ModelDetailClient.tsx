@@ -32,7 +32,7 @@ import ModelAnalysisCard from "@/components/models/ModelAnalysisCard";
 import EditorialCard from "@/components/models/EditorialCard";
 import UpgradeSimulator from "@/components/models/UpgradeSimulator";
 import { formatCHF, formatWeight, formatStorage, formatDate } from "@/lib/formatters";
-import { getModelScores, getPricesForModel } from "@/lib/scoring";
+import { getModelScores, getPricesForModel, getScorePercentile, getLineupMaxScore } from "@/lib/scoring";
 import { generateAnalysis } from "@/lib/analysis";
 import { getPsrefSearchUrl } from "@/lib/retailers";
 import { modelEditorial } from "@/data/model-editorial";
@@ -192,14 +192,48 @@ const ModelDetailClient = () => {
             </div>
           </div>
           <div className="space-y-2.5">
-            {sc.perf > 0 && <ScoreBar score={sc.perf} label="Perf" color="#0f62fe" size="md" />}
+            {sc.perf > 0 && (
+              <>
+                <ScoreBar score={sc.perf} label="Perf" color="#0f62fe" size="md" maxRef={getLineupMaxScore("cpu", model.lineup)} />
+                <div className="pl-20 font-mono text-[9px] text-carbon-500">
+                  Top {100 - getScorePercentile(sc.perf, "cpu", model.lineup)}% of {model.lineup}
+                </div>
+              </>
+            )}
             {sc.singleCore > 0 && <ScoreBar score={sc.singleCore} label="Single" color="#4589ff" size="md" />}
             {sc.multiCore > 0 && <ScoreBar score={sc.multiCore} label="Multi" color="#ee5396" size="md" />}
-            {sc.gpu > 0 && <ScoreBar score={sc.gpu} label="GPU" color="#42be65" size="md" />}
-            <ScoreBar score={sc.display} label="Display" color="#ee5396" size="md" />
-            <ScoreBar score={sc.memory} label="Memory" color="#be95ff" size="md" />
-            <ScoreBar score={sc.connectivity} label="Connect" color="#08bdba" size="md" />
-            <ScoreBar score={sc.portability} label="Port" color="#42be65" size="md" />
+            {sc.gpu > 0 && (
+              <>
+                <ScoreBar score={sc.gpu} label="GPU" color="#42be65" size="md" maxRef={getLineupMaxScore("gpu", model.lineup)} />
+                <div className="pl-20 font-mono text-[9px] text-carbon-500">
+                  Top {100 - getScorePercentile(sc.gpu, "gpu", model.lineup)}% of {model.lineup}
+                </div>
+              </>
+            )}
+            <>
+              <ScoreBar score={sc.display} label="Display" color="#ee5396" size="md" maxRef={getLineupMaxScore("display", model.lineup)} />
+              <div className="pl-20 font-mono text-[9px] text-carbon-500">
+                Top {100 - getScorePercentile(sc.display, "display", model.lineup)}% of {model.lineup}
+              </div>
+            </>
+            <>
+              <ScoreBar score={sc.memory} label="Memory" color="#be95ff" size="md" maxRef={getLineupMaxScore("memory", model.lineup)} />
+              <div className="pl-20 font-mono text-[9px] text-carbon-500">
+                Top {100 - getScorePercentile(sc.memory, "memory", model.lineup)}% of {model.lineup}
+              </div>
+            </>
+            <>
+              <ScoreBar score={sc.connectivity} label="Connect" color="#08bdba" size="md" maxRef={getLineupMaxScore("connectivity", model.lineup)} />
+              <div className="pl-20 font-mono text-[9px] text-carbon-500">
+                Top {100 - getScorePercentile(sc.connectivity, "connectivity", model.lineup)}% of {model.lineup}
+              </div>
+            </>
+            <>
+              <ScoreBar score={sc.portability} label="Port" color="#42be65" size="md" maxRef={getLineupMaxScore("portability", model.lineup)} />
+              <div className="pl-20 font-mono text-[9px] text-carbon-500">
+                Top {100 - getScorePercentile(sc.portability, "portability", model.lineup)}% of {model.lineup}
+              </div>
+            </>
             {valScore !== null && <ScoreBar score={Math.min(100, valScore)} label="Value" color="#f1c21b" size="md" />}
           </div>
         </div>

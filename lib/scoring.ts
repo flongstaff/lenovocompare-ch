@@ -14,6 +14,7 @@ import type {
   ModelBenchmarks,
   CpuBenchmarkData,
 } from "./types";
+import { laptops } from "@/data/laptops";
 import { cpuBenchmarks, cpuBenchmarksExpanded } from "@/data/cpu-benchmarks";
 import { gpuBenchmarks } from "@/data/gpu-benchmarks";
 import { modelBenchmarks } from "@/data/model-benchmarks";
@@ -403,3 +404,25 @@ export const getGpuScoreBreakdown = (gpuName: string): GpuBreakdown => ({
   score: getGpuScore(gpuName),
   tier: getGamingTier(gpuName),
 });
+
+/** Compute what % of models in the same lineup this score beats */
+export const getScorePercentile = (
+  score: number,
+  dimension: keyof PerformanceDimensions,
+  lineup: string,
+): number => {
+  const lineupModels = laptops.filter((m) => m.lineup === lineup);
+  const allScores = lineupModels.map((m) => getPerformanceDimensions(m)[dimension]);
+  const below = allScores.filter((s) => s < score).length;
+  return Math.round((below / allScores.length) * 100);
+};
+
+/** Get the max score for a dimension within a lineup */
+export const getLineupMaxScore = (
+  dimension: keyof PerformanceDimensions,
+  lineup: string,
+): number => {
+  const lineupModels = laptops.filter((m) => m.lineup === lineup);
+  const allScores = lineupModels.map((m) => getPerformanceDimensions(m)[dimension]);
+  return Math.max(...allScores);
+};
