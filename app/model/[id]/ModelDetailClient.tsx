@@ -48,6 +48,7 @@ import UseCaseScenarios from "@/components/models/UseCaseScenarios";
 import LinuxSection from "@/components/models/LinuxSection";
 import HardwareGuide from "@/components/models/HardwareGuide";
 import ConfigSelector from "@/components/models/ConfigSelector";
+import { BlueprintDiagram } from "@/components/models/BlueprintDiagram";
 
 const SpecRow = ({
   label,
@@ -157,6 +158,7 @@ const ModelDetailClient = () => {
         {[
           { id: "scores", label: "Scores" },
           { id: "specs", label: "Specs" },
+          { id: "form-factor", label: "Form Factor" },
           { id: "performance", label: "Performance" },
           { id: "benchmarks", label: "Benchmarks" },
           { id: "gaming", label: "Gaming" },
@@ -403,6 +405,21 @@ const ModelDetailClient = () => {
                 />
               )}
             </div>
+          </div>
+        </div>
+
+        {/* Form Factor */}
+        <div id="form-factor" className="carbon-card scroll-mt-14 rounded-lg p-4">
+          <h2 className="text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
+            Form Factor
+          </h2>
+          <div className="mt-3 flex justify-center">
+            <BlueprintDiagram
+              displaySize={configuredModel.display.size}
+              weight={configuredModel.weight}
+              lineup={configuredModel.lineup}
+              series={configuredModel.series}
+            />
           </div>
         </div>
 
