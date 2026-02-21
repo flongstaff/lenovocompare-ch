@@ -87,7 +87,7 @@ const makeModel = (overrides: Partial<Laptop> = {}): Laptop =>
 
 ## Priority Components
 
-1. `components/thinkpad/ThinkPadCard.tsx` — model card rendering, score display, compare toggle
+1. `components/models/LaptopCard.tsx` — model card rendering, score display, compare toggle
 2. `components/filters/LineupFilter.tsx` — lineup pill toggle behavior
 3. `components/filters/SeriesFilter.tsx` — lineup-aware series filtering
 4. `components/ui/ScoreBar.tsx` — score bar width calculation, color handling

@@ -39,7 +39,7 @@ Audit these file groups in order of priority:
 - `components/compare/CompareTable.tsx` — SPEC_ROWS field explanations
 - `components/compare/QuickVerdict.tsx` — winner algorithm
 - `components/pricing/ValueScoring.tsx` — quality thresholds
-- `components/thinkpad/ThinkPadCard.tsx` — SERIES_ACCENT purpose
+- `components/models/LaptopCard.tsx` — SERIES_ACCENT purpose
 - `app/HomeClient.tsx` — PAGE_SIZE rationale
 
 ## What to Check

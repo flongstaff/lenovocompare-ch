@@ -5,7 +5,7 @@ Validate UpgradeSimulator upgrade paths against PSREF specs for all laptop model
 ## Instructions
 
 1. Read `data/laptops.ts` to get all models with their RAM and storage specs.
-2. Read `components/thinkpad/UpgradeSimulator.tsx` to understand the upgrade options presented.
+2. Read `components/models/UpgradeSimulator.tsx` to understand the upgrade options presented.
 3. Read `lib/scoring.ts` (`getMemoryScore`) to understand how upgrades affect scoring.
 
 ## Checks

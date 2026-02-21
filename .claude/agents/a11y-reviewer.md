@@ -45,7 +45,7 @@ For each component in `components/`:
 - **CompareFloatingBar**: Announced to screen readers when it appears
 - **FilterBar**: Search input has label, sort select has label
 - **SeriesFilter**: Chip toggles communicate selected/deselected state
-- **ThinkPadCard**: Compare checkbox/button has accessible name including model name
+- **LaptopCard**: Compare checkbox/button has accessible name including model name
 - **CompareTable**: Column headers identify each model, row headers identify each spec
 - **ScoreBar**: Score values are available as text, not just visual width
 

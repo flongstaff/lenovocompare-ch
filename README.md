@@ -4,11 +4,9 @@ A local-first Swiss-market Lenovo laptop comparison tool covering **98+ models**
 
 Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are hardcoded from public [PSREF](https://psref.lenovo.com) data — no scraping, no external APIs, no tracking.
 
-<!-- TODO: Add screenshots
 ![Home grid](public/screenshots/home.png)
 ![Model detail](public/screenshots/detail.png)
 ![Compare view](public/screenshots/compare.png)
--->
 
 ## Features
 
@@ -46,8 +44,8 @@ Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are ha
 ### Install & Run
 
 ```bash
-git clone https://github.com/flong/lenovocompare-ch.git
-cd thinkcompare-ch
+git clone https://github.com/flongstaff/lenovocompare-ch.git
+cd lenovocompare-ch
 npm install
 npm run dev
 ```
@@ -84,7 +82,7 @@ components/
   compare/              # Compare table, mobile cards
   filters/              # Lineup, series, sort filters
   pricing/              # Price input, import/export
-  thinkpad/             # Model detail components
+  models/               # Model detail components
   ui/                   # Shared UI (ScoreBar, Toast, ErrorBoundary)
   layout/               # Header, Footer
 data/
