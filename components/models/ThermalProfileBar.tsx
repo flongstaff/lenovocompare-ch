@@ -2,8 +2,6 @@
 
 interface ThermalProfileBarProps {
   readonly keyboardMaxC: number;
-  readonly fanNoiseDbA?: number;
-  readonly lineup: string; // reserved for lineup-aware thresholds
 }
 
 const getTempColor = (temp: number): string => {

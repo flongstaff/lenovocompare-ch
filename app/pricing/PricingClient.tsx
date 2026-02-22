@@ -8,7 +8,7 @@ import { useToast } from "@/lib/hooks/useToast";
 import { PriceEntryForm } from "@/components/pricing/PriceEntryForm";
 import { PriceDisplay } from "@/components/pricing/PriceDisplay";
 import { Toast } from "@/components/ui/Toast";
-import { formatCHF } from "@/lib/formatters";
+import { formatCHF, getPriceDiscount } from "@/lib/formatters";
 import type { SwissPrice, Laptop, PriceBaseline } from "@/lib/types";
 
 /** Tiny inline SVG sparkline showing price trend over time */
@@ -60,7 +60,7 @@ const PriceSparkline = ({ prices }: { readonly prices: readonly SwissPrice[] }) 
 };
 
 const BaselineStrip = ({ baseline, bestPrice }: { baseline: PriceBaseline; bestPrice: number | null }) => {
-  const pctOff = bestPrice ? Math.round(((baseline.msrp - bestPrice) / baseline.msrp) * 100) : null;
+  const pctOff = bestPrice ? getPriceDiscount(bestPrice, baseline.msrp) : null;
   return (
     <div
       className="flex flex-wrap gap-x-4 gap-y-1 px-3 py-2 text-xs"

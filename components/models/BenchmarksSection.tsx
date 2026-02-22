@@ -63,7 +63,10 @@ const StatBox = ({
   unit?: string;
   color?: string;
 }) => (
-  <div className="rounded-md border px-3 py-2.5" style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}>
+  <div
+    className="rounded-md border px-3 py-2.5"
+    style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
+  >
     <div className="mb-0.5 text-xs tracking-wide" style={{ color: "var(--muted)" }}>
       {label}
     </div>
@@ -103,7 +106,7 @@ const MiniBar = ({
           {unit && ` ${unit}`}
         </span>
       </div>
-      <div className="h-1.5 rounded-full" style={{ background: "#1e1e1e" }}>
+      <div className="h-1.5 rounded-full" style={{ background: "var(--surface-inset)" }}>
         <div
           className="h-full rounded-full transition-all"
           style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${color}66, ${color})` }}
@@ -135,7 +138,7 @@ const SubSection = ({ title, accent, children }: { title: string; accent: string
 const Divider = ({ label }: { label: string }) => (
   <div className="flex items-center gap-3 px-1">
     <div className="h-px flex-1" style={{ background: "var(--border-subtle)" }} />
-    <span className="text-[10px] font-medium uppercase tracking-[0.15em]" style={{ color: "#6f6f6f" }}>
+    <span className="text-[10px] font-medium uppercase tracking-[0.15em]" style={{ color: "var(--muted)" }}>
       {label}
     </span>
     <div className="h-px flex-1" style={{ background: "var(--border-subtle)" }} />
@@ -146,7 +149,7 @@ const InsightRow = ({ label, value, color }: { label: string; value: string; col
   <div className="flex items-start gap-2 py-0.5">
     <span
       className="shrink-0 text-[10px] font-semibold uppercase tracking-wide"
-      style={{ color: color ?? "#6f6f6f", minWidth: 60 }}
+      style={{ color: color ?? "var(--muted)", minWidth: 60 }}
     >
       {label}
     </span>
@@ -160,7 +163,7 @@ const NoiseScale = ({ dbValue }: { dbValue: number }) => {
   const pct = Math.min(100, Math.max(0, ((dbValue - 20) / 40) * 100));
   return (
     <div className="space-y-1">
-      <div className="relative h-2 rounded-full" style={{ background: "#1e1e1e" }}>
+      <div className="relative h-2 rounded-full" style={{ background: "var(--surface-inset)" }}>
         <div
           className="absolute inset-y-0 left-0 rounded-full"
           style={{
@@ -185,7 +188,7 @@ const NoiseScale = ({ dbValue }: { dbValue: number }) => {
             key={ref.db}
             className="text-[9px]"
             style={{
-              color: Math.abs(dbValue - ref.db) < 5 ? "var(--foreground)" : "#525252",
+              color: Math.abs(dbValue - ref.db) < 5 ? "var(--foreground)" : "var(--icon-muted)",
               fontWeight: Math.abs(dbValue - ref.db) < 5 ? 600 : 400,
             }}
           >
@@ -374,11 +377,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
               </div>
               {chassisBench?.thermals && (
                 <div className="space-y-2">
-                  <ThermalProfileBar
-                    keyboardMaxC={chassisBench.thermals.keyboardMaxC}
-                    fanNoiseDbA={chassisBench?.fanNoise}
-                    lineup={model.lineup}
-                  />
+                  <ThermalProfileBar keyboardMaxC={chassisBench.thermals.keyboardMaxC} />
                   <ThermalGauge
                     keyboardMaxC={chassisBench.thermals.keyboardMaxC}
                     undersideMaxC={chassisBench.thermals.undersideMaxC}
@@ -434,7 +433,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     label="Idle (est.)"
                     value={chassisBench.fanNoise <= 33 ? "Silent" : `~${Math.round(chassisBench.fanNoise * 0.7)}`}
                     unit={chassisBench.fanNoise <= 33 ? "" : "dB"}
-                    color="#525252"
+                    color="var(--icon-muted)"
                   />
                 </div>
                 <NoiseScale dbValue={chassisBench.fanNoise} />

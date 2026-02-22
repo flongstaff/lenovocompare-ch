@@ -83,13 +83,21 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="carbon-card space-y-4 rounded-lg p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="carbon-card space-y-4 rounded-lg p-4"
+      aria-describedby={error ? "price-form-error" : undefined}
+    >
       <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
         Add Price
       </h2>
 
       {error && (
-        <div role="alert" className="rounded border border-red-700 bg-red-900/30 px-3 py-2 text-sm text-red-400">
+        <div
+          id="price-form-error"
+          role="alert"
+          className="rounded border border-red-700 bg-red-900/30 px-3 py-2 text-sm text-red-400"
+        >
           {error}
         </div>
       )}
@@ -105,6 +113,7 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
             onChange={(e) => setLaptopId(e.target.value)}
             className="carbon-select"
             required
+            aria-required="true"
           >
             <option value="">Select model...</option>
             {models.map((m) => (
@@ -148,6 +157,7 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
             placeholder="1499"
             className="carbon-input"
             required
+            aria-required="true"
           />
         </div>
 

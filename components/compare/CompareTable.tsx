@@ -5,7 +5,7 @@ import Link from "next/link";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { Laptop, SwissPrice } from "@/lib/types";
 import { ScoreBar } from "@/components/ui/ScoreBar";
-import { formatCHF, formatWeight, formatStorage } from "@/lib/formatters";
+import { formatCHF, formatWeight, formatStorage, getPriceDiscount, getPriceDiscountClasses } from "@/lib/formatters";
 import {
   getModelScores,
   getLowestPrice,
@@ -31,6 +31,12 @@ interface SpecRow {
   readonly highlight?: "min" | "max";
   readonly wrapLong?: boolean;
 }
+
+const Delta = ({ score, bestScore }: { score: number; bestScore: number }) => {
+  const diff = score - bestScore;
+  if (diff === 0) return <span className="ml-1 text-[10px] text-green-400">Best</span>;
+  return <span className="ml-1 text-[10px] text-red-400">{diff}</span>;
+};
 
 /**
  * Spec row definitions for the compare table.
@@ -217,13 +223,8 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                           const lowestAll = models.map((x) => getLowestPrice(x.id, prices) ?? Infinity);
                           const isLowest = p !== null && p === Math.min(...lowestAll);
                           const bl = priceBaselines[m.id];
-                          const pctOff = bl && p ? Math.round(((bl.msrp - p) / bl.msrp) * 100) : 0;
-                          const pctClass =
-                            pctOff >= 25
-                              ? "bg-green-900/40 text-green-400 border-green-700"
-                              : pctOff >= 10
-                                ? "bg-yellow-900/40 text-yellow-400 border-yellow-700"
-                                : "bg-red-900/40 text-red-400 border-red-700";
+                          const pctOff = bl && p ? getPriceDiscount(p, bl.msrp) : 0;
+                          const pctClass = getPriceDiscountClasses(pctOff);
                           return (
                             <td
                               key={m.id}
@@ -297,11 +298,6 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                 connectivity: Math.max(...allScores.map((s) => s.connectivity)),
                 port: Math.max(...allScores.map((s) => s.portability)),
                 value: Math.max(...allScores.map((s) => s.value ?? 0)),
-              };
-              const Delta = ({ score, bestScore }: { score: number; bestScore: number }) => {
-                const diff = score - bestScore;
-                if (diff === 0) return <span className="ml-1 text-[10px] text-green-400">Best</span>;
-                return <span className="ml-1 text-[10px] text-red-400">{diff}</span>;
               };
               return (
                 <tr className="bg-carbon-800">

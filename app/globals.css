@@ -16,6 +16,8 @@
   --success: #42be65;
   --warning: #f1c21b;
   --trackpoint: #da1e28;
+  --surface-inset: #1e1e1e;
+  --icon-muted: #525252;
 }
 
 body {

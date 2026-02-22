@@ -3,7 +3,7 @@
  * IMPORTANT: `color` must be a raw hex value (e.g. "#0f62fe"), NOT a CSS variable.
  * The "90" suffix is appended to create hex opacity for the gradient start color.
  */
-const getScoreLabel = (score: number): { text: string; color: string } => {
+export const getScoreLabel = (score: number): { text: string; color: string } => {
   if (score >= 80) return { text: "Excellent", color: "#42be65" };
   if (score >= 60) return { text: "Good", color: "#4589ff" };
   if (score >= 40) return { text: "Fair", color: "#f1c21b" };

@@ -4,6 +4,7 @@ import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Tool
 import type { PerformanceDimensions } from "@/lib/types";
 import { COMPARE_COLORS, COMPARE_DASHES } from "@/lib/constants";
 import { shortName } from "@/lib/formatters";
+import { ChartTooltip } from "@/components/charts/ChartTooltip";
 
 interface ModelData {
   readonly name: string;
@@ -43,15 +44,7 @@ const CustomTooltip = ({
 }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div
-      style={{
-        background: "#262626",
-        border: "1px solid #525252",
-        borderRadius: 6,
-        padding: "8px 12px",
-        boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
-      }}
-    >
+    <ChartTooltip>
       <p style={{ color: "#f4f4f4", fontSize: 12, fontWeight: 600, marginBottom: 4 }}>{label}</p>
       {payload.map((p) => (
         <div
@@ -65,7 +58,7 @@ const CustomTooltip = ({
           </span>
         </div>
       ))}
-    </div>
+    </ChartTooltip>
   );
 };
 

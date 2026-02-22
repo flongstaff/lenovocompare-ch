@@ -66,6 +66,7 @@ const Header = () => {
             className="text-carbon-300 hover:text-carbon-100 md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

@@ -28,3 +28,20 @@ export const formatStorage = (gb: number): string => (gb >= 1024 ? `${(gb / 1024
 
 /** Strip lineup prefix for compact chart labels (works for all three lineups) */
 export const shortName = (name: string) => name.replace(/^(ThinkPad|IdeaPad Pro|Legion) /, "");
+
+/** Calculate percentage discount off MSRP (rounded integer) */
+export const getPriceDiscount = (price: number, msrp: number): number => Math.round(((msrp - price) / msrp) * 100);
+
+/** Color for a price discount percentage: green (>=25%), yellow (>=10%), red (<10%) */
+export const getPriceDiscountColor = (discountPct: number): string => {
+  if (discountPct >= 25) return "#42be65";
+  if (discountPct >= 10) return "#f1c21b";
+  return "#da1e28";
+};
+
+/** Tailwind class set for a price discount badge: green/yellow/red */
+export const getPriceDiscountClasses = (discountPct: number): string => {
+  if (discountPct >= 25) return "bg-green-900/40 text-green-400 border-green-700";
+  if (discountPct >= 10) return "bg-yellow-900/40 text-yellow-400 border-yellow-700";
+  return "bg-red-900/40 text-red-400 border-red-700";
+};

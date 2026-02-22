@@ -12,32 +12,27 @@ import {
   CartesianGrid,
 } from "recharts";
 import type { SwissPrice, PriceBaseline } from "@/lib/types";
-import { formatCHF, formatDate } from "@/lib/formatters";
+import {
+  formatCHF,
+  formatDate,
+  getPriceDiscount,
+  getPriceDiscountColor,
+  getPriceDiscountClasses,
+} from "@/lib/formatters";
+import { ChartTooltip } from "@/components/charts/ChartTooltip";
 
 interface PriceHistoryCardProps {
   readonly baseline: PriceBaseline | null;
   readonly priceHistory: readonly SwissPrice[];
 }
 
-const getPriceColor = (price: number, baseline: PriceBaseline): string => {
-  const pctOff = ((baseline.msrp - price) / baseline.msrp) * 100;
-  if (pctOff >= 25) return "var(--green, #42be65)";
-  if (pctOff >= 10) return "var(--yellow, #f1c21b)";
-  return "var(--red, #da1e28)";
-};
-
 const getPriceBadge = (price: number, baseline: PriceBaseline) => {
-  const pctOff = Math.round(((baseline.msrp - price) / baseline.msrp) * 100);
+  const pctOff = getPriceDiscount(price, baseline.msrp);
   if (pctOff <= 0) return null;
 
-  const color = pctOff >= 25 ? "green" : pctOff >= 10 ? "yellow" : "red";
-  const bgMap = {
-    green: "bg-green-900/40 text-green-400 border-green-700",
-    yellow: "bg-yellow-900/40 text-yellow-400 border-yellow-700",
-    red: "bg-red-900/40 text-red-400 border-red-700",
-  };
-
-  return <span className={`border px-1.5 py-0.5 text-[10px] ${bgMap[color]}`}>{pctOff}% off MSRP</span>;
+  return (
+    <span className={`border px-1.5 py-0.5 text-[10px] ${getPriceDiscountClasses(pctOff)}`}>{pctOff}% off MSRP</span>
+  );
 };
 
 const PriceTypeLabel = ({ type }: { type?: string }) => {
@@ -177,15 +172,7 @@ const PriceTimelineChart = ({
                 const ts = (items[0].payload as Record<string, unknown>).timestamp as number;
                 const dateLabel = formatDate(new Date(ts).toISOString().split("T")[0]);
                 return (
-                  <div
-                    style={{
-                      background: "#262626",
-                      border: "1px solid #525252",
-                      borderRadius: 6,
-                      padding: "8px 12px",
-                      boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
-                    }}
-                  >
+                  <ChartTooltip>
                     <p style={{ color: "#a8a8a8", fontSize: 11, marginBottom: 4 }}>{dateLabel}</p>
                     {items.map((item) => {
                       const price = item.value as number;
@@ -223,7 +210,7 @@ const PriceTimelineChart = ({
                         </div>
                       );
                     })}
-                  </div>
+                  </ChartTooltip>
                 );
               }}
             />
@@ -346,7 +333,11 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
                 </div>
                 <span
                   className="font-mono text-lg font-bold leading-tight"
-                  style={{ color: baseline ? getPriceColor(lowestCurrent, baseline) : "var(--foreground)" }}
+                  style={{
+                    color: baseline
+                      ? getPriceDiscountColor(getPriceDiscount(lowestCurrent, baseline.msrp))
+                      : "var(--foreground)",
+                  }}
                 >
                   {formatCHF(lowestCurrent)}
                 </span>
@@ -424,7 +415,11 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
                 </span>
                 <span
                   className="font-mono text-sm font-semibold"
-                  style={{ color: baseline ? getPriceColor(p.price, baseline) : "var(--foreground)" }}
+                  style={{
+                    color: baseline
+                      ? getPriceDiscountColor(getPriceDiscount(p.price, baseline.msrp))
+                      : "var(--foreground)",
+                  }}
                 >
                   {formatCHF(p.price)}
                 </span>

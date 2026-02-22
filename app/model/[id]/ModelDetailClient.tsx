@@ -39,12 +39,28 @@ import { modelEditorial } from "@/data/model-editorial";
 import { linuxCompat } from "@/data/linux-compat";
 import dynamic from "next/dynamic";
 
-const PerformanceRadar = dynamic(() => import("@/components/charts/PerformanceRadar"), { ssr: false });
-const BenchmarkBar = dynamic(() => import("@/components/charts/BenchmarkBar"), { ssr: false });
-const GamingSection = dynamic(() => import("@/components/models/GamingSection"), { ssr: false });
-const BenchmarksSection = dynamic(() => import("@/components/models/BenchmarksSection"), { ssr: false });
-const ScoreCardExpanded = dynamic(() => import("@/components/models/ScoreCardExpanded"), { ssr: false });
-const AiDevReadiness = dynamic(() => import("@/components/models/AiDevReadiness"), { ssr: false });
+const ChartSkeleton = () => <div className="carbon-card animate-pulse rounded-lg" style={{ height: 200 }} />;
+const PerformanceRadar = dynamic(() => import("@/components/charts/PerformanceRadar"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
+const BenchmarkBar = dynamic(() => import("@/components/charts/BenchmarkBar"), { ssr: false, loading: ChartSkeleton });
+const GamingSection = dynamic(() => import("@/components/models/GamingSection"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
+const BenchmarksSection = dynamic(() => import("@/components/models/BenchmarksSection"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
+const ScoreCardExpanded = dynamic(() => import("@/components/models/ScoreCardExpanded"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
+const AiDevReadiness = dynamic(() => import("@/components/models/AiDevReadiness"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
 import UseCaseScenarios from "@/components/models/UseCaseScenarios";
 import LinuxSection from "@/components/models/LinuxSection";
 import HardwareGuide from "@/components/models/HardwareGuide";
@@ -62,11 +78,14 @@ const SpecRow = ({
   icon?: React.ComponentType<{ size?: string | number; className?: string; style?: React.CSSProperties }>;
   even?: boolean;
 }) => (
-  <div className="flex items-start gap-3 rounded px-2 py-2" style={{ background: even ? "#1e1e1e" : "transparent" }}>
-    {Icon && <Icon size={15} style={{ color: "#525252" }} className="mt-0.5 shrink-0" />}
+  <div
+    className="flex items-start gap-3 rounded px-2 py-2"
+    style={{ background: even ? "var(--surface-inset)" : "transparent" }}
+  >
+    {Icon && <Icon size={15} style={{ color: "var(--icon-muted)" }} className="mt-0.5 shrink-0" />}
     <span
       className="w-20 shrink-0 font-mono text-[11px] font-medium uppercase tracking-wider"
-      style={{ color: "#6f6f6f" }}
+      style={{ color: "var(--muted)" }}
     >
       {label}
     </span>
@@ -119,6 +138,112 @@ const PhysicalStat = ({ label, value, unit }: { label: string; value: string; un
     </span>
   </div>
 );
+
+const FormFactorConnectivity = ({
+  model,
+  configuredModel,
+}: {
+  readonly model: Laptop;
+  readonly configuredModel: Laptop;
+}) => {
+  const portInfo = parsePortBreakdown(model.ports);
+  const totalPorts = model.ports.reduce((sum, p) => {
+    const match = p.match(/^(\d+)x\s/);
+    return sum + (match ? parseInt(match[1], 10) : 1);
+  }, 0);
+
+  return (
+    <div id="form-factor" className="carbon-card scroll-mt-14 rounded-lg p-4">
+      <h2 className="mb-3 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
+        Form Factor
+      </h2>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {/* Blueprint diagram */}
+        <div className="flex items-center justify-center">
+          <BlueprintDiagram
+            displaySize={configuredModel.display.size}
+            weight={configuredModel.weight}
+            lineup={configuredModel.lineup}
+            series={configuredModel.series}
+          />
+        </div>
+
+        {/* Physical build context — unique info not in Specs */}
+        <div className="flex flex-col justify-between gap-3">
+          {/* Quick physical stats — 2x2 grid */}
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <div
+              className="rounded-md border px-2.5 py-2"
+              style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
+            >
+              <PhysicalStat label="Weight" value={formatWeight(model.weight)} />
+            </div>
+            <div
+              className="rounded-md border px-2.5 py-2"
+              style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
+            >
+              <PhysicalStat label="Battery" value={`${model.battery.whr}`} unit="Wh" />
+            </div>
+            <div
+              className="rounded-md border px-2.5 py-2"
+              style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
+            >
+              <PhysicalStat label="Screen" value={`${configuredModel.display.size}"`} />
+            </div>
+            <div
+              className="rounded-md border px-2.5 py-2"
+              style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
+            >
+              <PhysicalStat label="Total I/O" value={`${totalPorts}`} unit="ports" />
+            </div>
+          </div>
+
+          {/* Port breakdown */}
+          <div className="space-y-1.5">
+            <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+              I/O Breakdown
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {portInfo.tb.map((p) => (
+                <PortChip key={p} label={p} accent="#0f62fe" />
+              ))}
+              {portInfo.usbC.map((p) => (
+                <PortChip key={p} label={p} accent="#08bdba" />
+              ))}
+              {portInfo.usbA.map((p) => (
+                <PortChip key={p} label={p} accent="#be95ff" />
+              ))}
+              {portInfo.video.map((p) => (
+                <PortChip key={p} label={p} accent="#f1c21b" />
+              ))}
+              {portInfo.other.map((p) => (
+                <PortChip key={p} label={p} accent="#6f6f6f" />
+              ))}
+            </div>
+          </div>
+
+          {/* Connectivity + build details */}
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs" style={{ color: "var(--muted)" }}>
+            {model.wireless.map((w) => (
+              <span key={w}>
+                <Wifi size={11} className="mr-1 inline" style={{ color: "var(--muted)" }} />
+                {w}
+              </span>
+            ))}
+            {model.keyboard && (
+              <span>
+                <KeyboardIcon size={11} className="mr-1 inline" style={{ color: "var(--muted)" }} />
+                {model.keyboard.layout}
+                {model.keyboard.backlit ? " · Backlit" : ""}
+                {model.keyboard.trackpoint ? " · TrackPoint" : ""}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const ModelDetailClient = () => {
   const params = useParams();
@@ -217,9 +342,9 @@ const ModelDetailClient = () => {
           <div
             key={d.label}
             className="flex items-center gap-1.5 rounded border px-2 py-1"
-            style={{ borderColor: "#393939", background: "#1e1e1e" }}
+            style={{ borderColor: "#393939", background: "var(--surface-inset)" }}
           >
-            <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "#6f6f6f" }}>
+            <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
               {d.label}
             </span>
             <span className="font-mono text-sm font-semibold" style={{ color: d.color }}>
@@ -365,67 +490,70 @@ const ModelDetailClient = () => {
           </h2>
           {modelPrices.length > 0 ? (
             <div className="space-y-2">
-              {modelPrices.map((p) => (
-                <div
-                  key={p.id}
-                  className="flex items-center justify-between py-1.5"
-                  style={{ borderBottom: "1px solid var(--border-subtle)" }}
-                >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-medium" style={{ color: "var(--foreground)" }}>
-                        {p.retailer}
-                      </span>
-                      {p.priceType && (
-                        <span
-                          className={`border px-1 py-0.5 text-[9px] uppercase tracking-wider ${
-                            p.priceType === "sale"
-                              ? "border-green-700 bg-green-900/30 text-green-400"
-                              : p.priceType === "msrp"
-                                ? "border-blue-700 bg-blue-900/30 text-blue-400"
-                                : p.priceType === "used"
-                                  ? "border-amber-700 bg-amber-900/30 text-amber-400"
-                                  : "border-slate-600 bg-slate-700/30 text-slate-300"
-                          }`}
-                        >
-                          {p.priceType}
+              {(() => {
+                const now = Date.now();
+                return modelPrices.map((p) => (
+                  <div
+                    key={p.id}
+                    className="flex items-center justify-between py-1.5"
+                    style={{ borderBottom: "1px solid var(--border-subtle)" }}
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-sm font-medium" style={{ color: "var(--foreground)" }}>
+                          {p.retailer}
                         </span>
+                        {p.priceType && (
+                          <span
+                            className={`border px-1 py-0.5 text-[9px] uppercase tracking-wider ${
+                              p.priceType === "sale"
+                                ? "border-green-700 bg-green-900/30 text-green-400"
+                                : p.priceType === "msrp"
+                                  ? "border-blue-700 bg-blue-900/30 text-blue-400"
+                                  : p.priceType === "used"
+                                    ? "border-amber-700 bg-amber-900/30 text-amber-400"
+                                    : "border-slate-600 bg-slate-700/30 text-slate-300"
+                            }`}
+                          >
+                            {p.priceType}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-xs" style={{ color: "var(--muted)" }}>
+                        <span
+                          className="font-medium"
+                          style={{
+                            color:
+                              now - new Date(p.dateAdded).getTime() < 7 * 86400000
+                                ? "#42be65"
+                                : now - new Date(p.dateAdded).getTime() < 30 * 86400000
+                                  ? "#f1c21b"
+                                  : "var(--muted)",
+                          }}
+                        >
+                          {formatDate(p.dateAdded)}
+                        </span>
+                        {p.note && <span className="ml-1.5">· {p.note}</span>}
+                      </span>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <span className="font-semibold" style={{ color: "var(--foreground)" }}>
+                        {formatCHF(p.price)}
+                      </span>
+                      {p.url && (
+                        <a
+                          href={p.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: "var(--accent-light)" }}
+                        >
+                          <ExternalLink size={12} />
+                        </a>
                       )}
                     </div>
-                    <span className="text-xs" style={{ color: "var(--muted)" }}>
-                      <span
-                        className="font-medium"
-                        style={{
-                          color:
-                            Date.now() - new Date(p.dateAdded).getTime() < 7 * 86400000
-                              ? "#42be65"
-                              : Date.now() - new Date(p.dateAdded).getTime() < 30 * 86400000
-                                ? "#f1c21b"
-                                : "var(--muted)",
-                        }}
-                      >
-                        {formatDate(p.dateAdded)}
-                      </span>
-                      {p.note && <span className="ml-1.5">· {p.note}</span>}
-                    </span>
                   </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    <span className="font-semibold" style={{ color: "var(--foreground)" }}>
-                      {formatCHF(p.price)}
-                    </span>
-                    {p.url && (
-                      <a
-                        href={p.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "var(--accent-light)" }}
-                      >
-                        <ExternalLink size={12} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              ))}
+                ));
+              })()}
             </div>
           ) : (
             <p className="text-sm" style={{ color: "var(--muted)" }}>
@@ -532,108 +660,7 @@ const ModelDetailClient = () => {
         </div>
 
         {/* Form Factor */}
-        {(() => {
-          const portInfo = parsePortBreakdown(model.ports);
-          const totalPorts = model.ports.reduce((sum, p) => {
-            const match = p.match(/^(\d+)x\s/);
-            return sum + (match ? parseInt(match[1]) : 1);
-          }, 0);
-
-          return (
-            <div id="form-factor" className="carbon-card scroll-mt-14 rounded-lg p-4">
-              <h2 className="mb-3 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
-                Form Factor
-              </h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {/* Blueprint diagram */}
-                <div className="flex items-center justify-center">
-                  <BlueprintDiagram
-                    displaySize={configuredModel.display.size}
-                    weight={configuredModel.weight}
-                    lineup={configuredModel.lineup}
-                    series={configuredModel.series}
-                  />
-                </div>
-
-                {/* Physical build context — unique info not in Specs */}
-                <div className="flex flex-col justify-between gap-3">
-                  {/* Quick physical stats — 2×2 grid */}
-                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                    <div
-                      className="rounded-md border px-2.5 py-2"
-                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
-                    >
-                      <PhysicalStat label="Weight" value={formatWeight(model.weight)} />
-                    </div>
-                    <div
-                      className="rounded-md border px-2.5 py-2"
-                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
-                    >
-                      <PhysicalStat label="Battery" value={`${model.battery.whr}`} unit="Wh" />
-                    </div>
-                    <div
-                      className="rounded-md border px-2.5 py-2"
-                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
-                    >
-                      <PhysicalStat label="Screen" value={`${configuredModel.display.size}"`} />
-                    </div>
-                    <div
-                      className="rounded-md border px-2.5 py-2"
-                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
-                    >
-                      <PhysicalStat label="Total I/O" value={`${totalPorts}`} unit="ports" />
-                    </div>
-                  </div>
-
-                  {/* Port breakdown */}
-                  <div className="space-y-1.5">
-                    <span
-                      className="text-[10px] font-medium uppercase tracking-widest"
-                      style={{ color: "var(--muted)" }}
-                    >
-                      I/O Breakdown
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {portInfo.tb.map((p) => (
-                        <PortChip key={p} label={p} accent="#0f62fe" />
-                      ))}
-                      {portInfo.usbC.map((p) => (
-                        <PortChip key={p} label={p} accent="#08bdba" />
-                      ))}
-                      {portInfo.usbA.map((p) => (
-                        <PortChip key={p} label={p} accent="#be95ff" />
-                      ))}
-                      {portInfo.video.map((p) => (
-                        <PortChip key={p} label={p} accent="#f1c21b" />
-                      ))}
-                      {portInfo.other.map((p) => (
-                        <PortChip key={p} label={p} accent="#6f6f6f" />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Connectivity + build details */}
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs" style={{ color: "var(--muted)" }}>
-                    {model.wireless.map((w) => (
-                      <span key={w}>
-                        <Wifi size={11} className="mr-1 inline" style={{ color: "var(--muted)" }} />
-                        {w}
-                      </span>
-                    ))}
-                    {model.keyboard && (
-                      <span>
-                        <KeyboardIcon size={11} className="mr-1 inline" style={{ color: "var(--muted)" }} />
-                        {model.keyboard.layout}
-                        {model.keyboard.backlit ? " · Backlit" : ""}
-                        {model.keyboard.trackpoint ? " · TrackPoint" : ""}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })()}
+        <FormFactorConnectivity model={model} configuredModel={configuredModel} />
 
         {/* Upgrade Simulator */}
         <div className="carbon-card rounded-lg p-4">

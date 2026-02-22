@@ -13,8 +13,13 @@ import {
   getDisplayScore,
   getMemoryScore,
   getConnectivityScore,
+  getValueScore,
+  getModelScores,
+  getModelBenchmarks,
+  getCpuRawBenchmarks,
 } from "@/lib/scoring";
-import type { Laptop } from "@/lib/types";
+import type { Laptop, SwissPrice } from "@/lib/types";
+import { laptops } from "@/data/laptops";
 
 describe("getPerformanceScore", () => {
   it("returns score for known CPU", () => {

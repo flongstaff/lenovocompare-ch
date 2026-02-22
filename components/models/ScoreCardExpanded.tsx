@@ -14,6 +14,7 @@ import {
   getGpuScoreBreakdown,
 } from "@/lib/scoring";
 import { getScoreContext, getInterpretation } from "@/lib/score-context";
+import { getScoreLabel } from "@/components/ui/ScoreBar";
 
 type Dimension = "cpu" | "gpu" | "memory" | "display" | "connectivity" | "portability";
 
@@ -100,20 +101,8 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                   <span className="text-xs font-semibold" style={{ color: "var(--foreground)" }}>
                     {dim.label}
                   </span>
-                  <span
-                    className="text-xs font-medium"
-                    style={{
-                      color:
-                        dim.score >= 80
-                          ? "#42be65"
-                          : dim.score >= 60
-                            ? "#4589ff"
-                            : dim.score >= 40
-                              ? "#f1c21b"
-                              : "#a8a8a8",
-                    }}
-                  >
-                    {dim.score >= 80 ? "Excellent" : dim.score >= 60 ? "Good" : dim.score >= 40 ? "Fair" : "Low"}
+                  <span className="text-xs font-medium" style={{ color: getScoreLabel(dim.score).color }}>
+                    {getScoreLabel(dim.score).text}
                   </span>
                 </div>
                 <div className="truncate text-xs" style={{ color: "var(--muted)" }}>
