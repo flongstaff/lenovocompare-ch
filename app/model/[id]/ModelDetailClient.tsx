@@ -44,6 +44,7 @@ const BenchmarkBar = dynamic(() => import("@/components/charts/BenchmarkBar"), {
 const GamingSection = dynamic(() => import("@/components/models/GamingSection"), { ssr: false });
 const BenchmarksSection = dynamic(() => import("@/components/models/BenchmarksSection"), { ssr: false });
 const ScoreCardExpanded = dynamic(() => import("@/components/models/ScoreCardExpanded"), { ssr: false });
+const AiDevReadiness = dynamic(() => import("@/components/models/AiDevReadiness"), { ssr: false });
 import UseCaseScenarios from "@/components/models/UseCaseScenarios";
 import LinuxSection from "@/components/models/LinuxSection";
 import HardwareGuide from "@/components/models/HardwareGuide";
@@ -473,7 +474,14 @@ const ModelDetailClient = () => {
             Performance Overview
           </h2>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <PerformanceRadar models={[{ name: model.name, dimensions: sc.dimensions }]} />
+            <div className="space-y-4">
+              <PerformanceRadar models={[{ name: model.name, dimensions: sc.dimensions }]} />
+              <AiDevReadiness
+                ramGb={configuredModel.ram.size}
+                cores={configuredModel.processor.cores}
+                threads={configuredModel.processor.threads}
+              />
+            </div>
             <div className="space-y-2">
               {/* Dimension score cards */}
               <ScoreCardExpanded
