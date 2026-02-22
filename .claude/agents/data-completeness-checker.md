@@ -21,17 +21,21 @@ Verify every laptop model has complete data coverage across all 9 data files in 
 ## Output Format
 
 ### Coverage Matrix
-| Model ID | CPU | GPU | Benchmarks | Linux | Editorial | Prices | Baselines | Hardware |
-|----------|-----|-----|------------|-------|-----------|--------|-----------|----------|
-| x1-carbon-gen12 | ok | ok | ok | ok | ok | ok | ok | ok |
+
+| Model ID        | CPU | GPU | Benchmarks | Linux | Editorial | Prices | Baselines | Hardware |
+| --------------- | --- | --- | ---------- | ----- | --------- | ------ | --------- | -------- |
+| x1-carbon-gen12 | ok  | ok  | ok         | ok    | ok        | ok     | ok        | ok       |
 
 ### Gaps Found
+
 List models with missing entries and which files need updates.
 
 ### Orphaned Entries
+
 List entries in support files that don't match any current laptop model.
 
 ## Data File Paths
+
 - `data/laptops.ts` — main model registry
 - `data/cpu-benchmarks.ts` — CPU scores (keyed by CPU name string)
 - `data/gpu-benchmarks.ts` — GPU scores (keyed by GPU name string)

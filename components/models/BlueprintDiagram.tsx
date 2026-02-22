@@ -65,25 +65,12 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
   const sideProfileH = Math.round((heightMm / 25) * sideProfileMaxH);
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      {/* Dimension chips — prominent above the diagram */}
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        <DimensionChip label="Width" value={`${widthMm}`} unit="mm" />
-        <span className="text-xs" style={{ color: "#525252" }}>
-          ×
-        </span>
-        <DimensionChip label="Depth" value={`${depthMm}`} unit="mm" />
-        <span className="text-xs" style={{ color: "#525252" }}>
-          ×
-        </span>
-        <DimensionChip label="Height" value={`${heightMm}`} unit="mm" />
-      </div>
-
+    <div className="flex flex-col items-center gap-2">
       {/* Blueprint SVG — compact */}
       <svg
         viewBox={`0 0 ${viewW} ${viewH}`}
         xmlns="http://www.w3.org/2000/svg"
-        className="h-auto w-full max-w-xs"
+        className="h-auto w-full max-w-[240px]"
         role="img"
         aria-label={`Blueprint: ${widthMm} × ${depthMm} × ${heightMm} mm, ${weight} kg`}
       >
@@ -301,31 +288,21 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
         </g>
       </svg>
 
-      {/* Summary row — weight + volume */}
-      <div className="flex items-center gap-3 font-mono text-xs" style={{ color: "var(--muted)" }}>
+      {/* Summary row — weight + dimensions + volume */}
+      <div
+        className="flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 font-mono text-xs"
+        style={{ color: "var(--muted)" }}
+      >
         <span className="font-medium" style={{ color: "var(--foreground)" }}>
           {weight} kg
         </span>
         <span style={{ color: "#393939" }}>|</span>
-        <span>{volumeL} L volume</span>
+        <span>
+          {widthMm} × {depthMm} × {heightMm} mm
+        </span>
+        <span style={{ color: "#393939" }}>|</span>
+        <span>{volumeL} L</span>
       </div>
     </div>
   );
 };
-
-const DimensionChip = ({ label, value, unit }: { label: string; value: string; unit: string }) => (
-  <div
-    className="flex items-baseline gap-1.5 rounded-md border px-2.5 py-1.5"
-    style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
-  >
-    <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-      {label}
-    </span>
-    <span className="font-mono text-sm font-semibold" style={{ color: "var(--foreground)" }}>
-      {value}
-    </span>
-    <span className="text-[10px]" style={{ color: "var(--muted)" }}>
-      {unit}
-    </span>
-  </div>
-);

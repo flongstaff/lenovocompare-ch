@@ -107,7 +107,7 @@ test.describe("Grid Flow", () => {
   test("selects models for compare", async ({ page }) => {
     // Click compare checkbox/button on first two cards
     const compareButtons = page.locator(
-      '[class*="carbon-card"] button[aria-label*="compare" i], [class*="carbon-card"] input[type="checkbox"]'
+      '[class*="carbon-card"] button[aria-label*="compare" i], [class*="carbon-card"] input[type="checkbox"]',
     );
     if ((await compareButtons.count()) >= 2) {
       await compareButtons.nth(0).click();
@@ -146,15 +146,11 @@ test.describe("Model Detail", () => {
 
   test("renders the performance overview section", async ({ page }) => {
     // Performance radar chart or score cards
-    await expect(
-      page.getByText(/performance/i).first()
-    ).toBeVisible();
+    await expect(page.getByText(/performance/i).first()).toBeVisible();
   });
 
   test("renders the benchmarks section", async ({ page }) => {
-    await expect(
-      page.getByText(/benchmark/i).first()
-    ).toBeVisible();
+    await expect(page.getByText(/benchmark/i).first()).toBeVisible();
   });
 
   test("renders the gaming section if applicable", async ({ page }) => {
@@ -165,15 +161,11 @@ test.describe("Model Detail", () => {
   });
 
   test("renders the linux compatibility section", async ({ page }) => {
-    await expect(
-      page.getByText(/linux/i).first()
-    ).toBeVisible();
+    await expect(page.getByText(/linux/i).first()).toBeVisible();
   });
 
   test("renders the editorial section", async ({ page }) => {
-    await expect(
-      page.getByText(/editorial|verdict|summary/i).first()
-    ).toBeVisible();
+    await expect(page.getByText(/editorial|verdict|summary/i).first()).toBeVisible();
   });
 
   test("navigating from grid to model detail works", async ({ page }) => {
@@ -199,10 +191,7 @@ test.describe("Compare Flow", () => {
     // Seed compare state via localStorage before navigating
     await page.goto("/");
     await page.evaluate(() => {
-      localStorage.setItem(
-        "lenovocompare-compare",
-        JSON.stringify(["t14-gen5-intel", "t14s-gen5-amd"])
-      );
+      localStorage.setItem("lenovocompare-compare", JSON.stringify(["t14-gen5-intel", "t14s-gen5-amd"]));
     });
     await page.goto("/compare");
 
@@ -212,19 +201,12 @@ test.describe("Compare Flow", () => {
     });
   });
 
-  test("compare page with 4 models renders all model columns", async ({
-    page,
-  }) => {
+  test("compare page with 4 models renders all model columns", async ({ page }) => {
     await page.goto("/");
     await page.evaluate(() => {
       localStorage.setItem(
         "lenovocompare-compare",
-        JSON.stringify([
-          "t14-gen5-intel",
-          "t14s-gen5-amd",
-          "x1-carbon-gen12",
-          "p1-gen7",
-        ])
+        JSON.stringify(["t14-gen5-intel", "t14s-gen5-amd", "x1-carbon-gen12", "p1-gen7"]),
       );
     });
     await page.goto("/compare");
@@ -240,10 +222,7 @@ test.describe("Compare Flow", () => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/");
     await page.evaluate(() => {
-      localStorage.setItem(
-        "lenovocompare-compare",
-        JSON.stringify(["t14-gen5-intel", "t14s-gen5-amd"])
-      );
+      localStorage.setItem("lenovocompare-compare", JSON.stringify(["t14-gen5-intel", "t14s-gen5-amd"]));
     });
     await page.goto("/compare");
 
@@ -259,9 +238,7 @@ test.describe("Compare Flow", () => {
     await page.goto("/compare");
 
     // Should show a prompt to select models
-    await expect(
-      page.getByText(/select|add|choose|no models/i).first()
-    ).toBeVisible();
+    await expect(page.getByText(/select|add|choose|no models/i).first()).toBeVisible();
   });
 });
 ```
@@ -290,24 +267,18 @@ test.describe("Pricing Flow", () => {
   test("add a new price entry", async ({ page }) => {
     // Fill in model selector, price, and retailer
     // (Adjust selectors based on actual form structure)
-    const modelSelect = page.locator(
-      'select[name*="model"], [class*="carbon-select"]'
-    ).first();
+    const modelSelect = page.locator('select[name*="model"], [class*="carbon-select"]').first();
     if (await modelSelect.isVisible()) {
       await modelSelect.selectOption({ index: 1 });
     }
 
-    const priceInput = page.locator(
-      'input[type="number"], input[name*="price"], input[placeholder*="CHF"]'
-    ).first();
+    const priceInput = page.locator('input[type="number"], input[name*="price"], input[placeholder*="CHF"]').first();
     if (await priceInput.isVisible()) {
       await priceInput.fill("1299");
     }
 
     // Submit the form
-    const submitBtn = page.locator(
-      'button[type="submit"], button:has-text("Add"), button:has-text("Save")'
-    ).first();
+    const submitBtn = page.locator('button[type="submit"], button:has-text("Add"), button:has-text("Save")').first();
     if (await submitBtn.isVisible()) {
       await submitBtn.click();
     }
@@ -315,9 +286,7 @@ test.describe("Pricing Flow", () => {
     // Verify the price appears in the list
   });
 
-  test("price persists in localStorage after page reload", async ({
-    page,
-  }) => {
+  test("price persists in localStorage after page reload", async ({ page }) => {
     // Seed a price directly
     await page.evaluate(() => {
       localStorage.setItem(
@@ -331,7 +300,7 @@ test.describe("Pricing Flow", () => {
             retailer: "digitec.ch",
             date: new Date().toISOString(),
           },
-        ])
+        ]),
       );
     });
     await page.reload();
@@ -354,23 +323,21 @@ test.describe("Pricing Flow", () => {
             retailer: "brack.ch",
             date: new Date().toISOString(),
           },
-        ])
+        ]),
       );
     });
     await page.reload();
 
     // Find and click delete button
-    const deleteBtn = page.locator(
-      'button[aria-label*="delete" i], button[aria-label*="remove" i], button:has-text("Delete")'
-    ).first();
+    const deleteBtn = page
+      .locator('button[aria-label*="delete" i], button[aria-label*="remove" i], button:has-text("Delete")')
+      .first();
     if (await deleteBtn.isVisible()) {
       await deleteBtn.click();
     }
 
     // Verify localStorage is cleared
-    const prices = await page.evaluate(() =>
-      JSON.parse(localStorage.getItem("lenovocompare-prices") || "[]")
-    );
+    const prices = await page.evaluate(() => JSON.parse(localStorage.getItem("lenovocompare-prices") || "[]"));
     expect(prices).toHaveLength(0);
   });
 });

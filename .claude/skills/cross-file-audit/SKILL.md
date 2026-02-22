@@ -12,6 +12,7 @@ Audit all 9 data files in the LenovoCompare CH registry to ensure every laptop m
 ### 1. Extract All Model IDs
 
 Read `data/laptops.ts` and collect every model's:
+
 - `id` (the `laptopId` used as key in support files)
 - `processor.name` (CPU name string)
 - `gpu.name` (GPU name string)
@@ -22,21 +23,22 @@ Read `data/laptops.ts` and collect every model's:
 
 For each model ID, confirm an entry exists in every supporting file:
 
-| File | Key Type | What to Check |
-|------|----------|---------------|
-| `data/laptops.ts` | base entry | Model exists (always true by definition) |
-| `data/cpu-benchmarks.ts` | CPU name string | `model.processor.name` has a benchmark entry; also check all `processorOptions` |
-| `data/gpu-benchmarks.ts` | GPU name string | `model.gpu.name` has a benchmark entry; also check all `gpuOptions` |
-| `data/model-benchmarks.ts` | laptopId | Entry keyed by model ID exists |
-| `data/linux-compat.ts` | laptopId | Entry keyed by model ID exists |
-| `data/model-editorial.ts` | laptopId | Entry keyed by model ID exists |
-| `data/seed-prices.ts` | laptopId field | At least one price entry has `laptopId` matching this model |
-| `data/price-baselines.ts` | laptopId | Entry keyed by model ID exists |
-| `data/hardware-guide.ts` | CPU architecture | CPU architecture/family has a hardware guide entry |
+| File                       | Key Type         | What to Check                                                                   |
+| -------------------------- | ---------------- | ------------------------------------------------------------------------------- |
+| `data/laptops.ts`          | base entry       | Model exists (always true by definition)                                        |
+| `data/cpu-benchmarks.ts`   | CPU name string  | `model.processor.name` has a benchmark entry; also check all `processorOptions` |
+| `data/gpu-benchmarks.ts`   | GPU name string  | `model.gpu.name` has a benchmark entry; also check all `gpuOptions`             |
+| `data/model-benchmarks.ts` | laptopId         | Entry keyed by model ID exists                                                  |
+| `data/linux-compat.ts`     | laptopId         | Entry keyed by model ID exists                                                  |
+| `data/model-editorial.ts`  | laptopId         | Entry keyed by model ID exists                                                  |
+| `data/seed-prices.ts`      | laptopId field   | At least one price entry has `laptopId` matching this model                     |
+| `data/price-baselines.ts`  | laptopId         | Entry keyed by model ID exists                                                  |
+| `data/hardware-guide.ts`   | CPU architecture | CPU architecture/family has a hardware guide entry                              |
 
 ### 3. Check for Orphaned Entries
 
 Scan each support file for entries that reference a `laptopId` or hardware name not present in `data/laptops.ts`:
+
 - Model benchmark keys not matching any laptop ID
 - Linux compat keys not matching any laptop ID
 - Editorial keys not matching any laptop ID
@@ -59,6 +61,7 @@ Print a table showing per-model completeness:
 ### 5. Flag Gaps
 
 List every model below 100% coverage with:
+
 - The model ID
 - Which file(s) are missing entries
 - The specific key that should be added (e.g., CPU name, laptop ID)
@@ -66,6 +69,7 @@ List every model below 100% coverage with:
 ### 6. Summary
 
 Print totals:
+
 - Total models checked
 - Models at 100% coverage
 - Models with gaps (count + list)
