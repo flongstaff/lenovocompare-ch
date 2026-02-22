@@ -106,17 +106,17 @@ const MiniBar = ({
 const CategoryHeader = ({ title, accent }: { title: string; accent: string }) => (
   <div className="flex items-center gap-2">
     <div className="h-4 w-1 rounded-full" style={{ background: accent }} />
-    <h4
-      className="text-xs font-semibold uppercase tracking-widest"
-      style={{ color: "var(--muted)" }}
-    >
+    <h4 className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
       {title}
     </h4>
   </div>
 );
 
 const SubSection = ({ title, accent, children }: { title: string; accent: string; children: React.ReactNode }) => (
-  <div className="flex flex-col gap-3 rounded-lg border p-4" style={{ borderColor: "var(--border-subtle)", background: "var(--surface)" }}>
+  <div
+    className="flex flex-col gap-3 rounded-lg border p-4"
+    style={{ borderColor: "var(--border-subtle)", background: "var(--surface)" }}
+  >
     <CategoryHeader title={title} accent={accent} />
     {children}
   </div>
@@ -192,10 +192,20 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     />
                   )}
                   {cpuRaw.geekbench6Single && (
-                    <MiniBar label="Geekbench 6 Single" value={cpuRaw.geekbench6Single} maxValue={3200} color="#ee5396" />
+                    <MiniBar
+                      label="Geekbench 6 Single"
+                      value={cpuRaw.geekbench6Single}
+                      maxValue={3200}
+                      color="#ee5396"
+                    />
                   )}
                   {cpuRaw.geekbench6Multi && (
-                    <MiniBar label="Geekbench 6 Multi" value={cpuRaw.geekbench6Multi} maxValue={21000} color="#be95ff" />
+                    <MiniBar
+                      label="Geekbench 6 Multi"
+                      value={cpuRaw.geekbench6Multi}
+                      maxValue={21000}
+                      color="#be95ff"
+                    />
                   )}
                 </div>
               </SubSection>

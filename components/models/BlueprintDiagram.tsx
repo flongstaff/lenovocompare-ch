@@ -69,9 +69,13 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
       {/* Dimension chips — prominent above the diagram */}
       <div className="flex flex-wrap items-center justify-center gap-2">
         <DimensionChip label="Width" value={`${widthMm}`} unit="mm" />
-        <span className="text-xs" style={{ color: "#525252" }}>×</span>
+        <span className="text-xs" style={{ color: "#525252" }}>
+          ×
+        </span>
         <DimensionChip label="Depth" value={`${depthMm}`} unit="mm" />
-        <span className="text-xs" style={{ color: "#525252" }}>×</span>
+        <span className="text-xs" style={{ color: "#525252" }}>
+          ×
+        </span>
         <DimensionChip label="Height" value={`${heightMm}`} unit="mm" />
       </div>
 
@@ -178,10 +182,38 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
 
         {/* Width measurement line (below chassis) */}
         <g>
-          <line x1={chassisX} y1={widthLineY - endCapSize} x2={chassisX} y2={widthLineY + endCapSize} stroke={ACCENT} strokeWidth={0.8} />
-          <line x1={chassisX + chassisW} y1={widthLineY - endCapSize} x2={chassisX + chassisW} y2={widthLineY + endCapSize} stroke={ACCENT} strokeWidth={0.8} />
-          <line x1={chassisX} y1={widthLineY} x2={chassisX + chassisW / 2 - widthLabelGap} y2={widthLineY} stroke={ACCENT} strokeWidth={0.8} />
-          <line x1={chassisX + chassisW / 2 + widthLabelGap} y1={widthLineY} x2={chassisX + chassisW} y2={widthLineY} stroke={ACCENT} strokeWidth={0.8} />
+          <line
+            x1={chassisX}
+            y1={widthLineY - endCapSize}
+            x2={chassisX}
+            y2={widthLineY + endCapSize}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
+          <line
+            x1={chassisX + chassisW}
+            y1={widthLineY - endCapSize}
+            x2={chassisX + chassisW}
+            y2={widthLineY + endCapSize}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
+          <line
+            x1={chassisX}
+            y1={widthLineY}
+            x2={chassisX + chassisW / 2 - widthLabelGap}
+            y2={widthLineY}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
+          <line
+            x1={chassisX + chassisW / 2 + widthLabelGap}
+            y1={widthLineY}
+            x2={chassisX + chassisW}
+            y2={widthLineY}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
           <text
             x={chassisX + chassisW / 2}
             y={widthLineY + 1}
@@ -197,10 +229,38 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
 
         {/* Depth measurement line (right of chassis) */}
         <g>
-          <line x1={depthLineX - endCapSize} y1={chassisY} x2={depthLineX + endCapSize} y2={chassisY} stroke={ACCENT} strokeWidth={0.8} />
-          <line x1={depthLineX - endCapSize} y1={chassisY + chassisH} x2={depthLineX + endCapSize} y2={chassisY + chassisH} stroke={ACCENT} strokeWidth={0.8} />
-          <line x1={depthLineX} y1={chassisY} x2={depthLineX} y2={chassisY + chassisH / 2 - depthLabelGap} stroke={ACCENT} strokeWidth={0.8} />
-          <line x1={depthLineX} y1={chassisY + chassisH / 2 + depthLabelGap} x2={depthLineX} y2={chassisY + chassisH} stroke={ACCENT} strokeWidth={0.8} />
+          <line
+            x1={depthLineX - endCapSize}
+            y1={chassisY}
+            x2={depthLineX + endCapSize}
+            y2={chassisY}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
+          <line
+            x1={depthLineX - endCapSize}
+            y1={chassisY + chassisH}
+            x2={depthLineX + endCapSize}
+            y2={chassisY + chassisH}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
+          <line
+            x1={depthLineX}
+            y1={chassisY}
+            x2={depthLineX}
+            y2={chassisY + chassisH / 2 - depthLabelGap}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
+          <line
+            x1={depthLineX}
+            y1={chassisY + chassisH / 2 + depthLabelGap}
+            x2={depthLineX}
+            y2={chassisY + chassisH}
+            stroke={ACCENT}
+            strokeWidth={0.8}
+          />
           <text
             x={depthLineX + 8}
             y={chassisY + chassisH / 2}
@@ -243,7 +303,9 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
 
       {/* Summary row — weight + volume */}
       <div className="flex items-center gap-3 font-mono text-xs" style={{ color: "var(--muted)" }}>
-        <span className="font-medium" style={{ color: "var(--foreground)" }}>{weight} kg</span>
+        <span className="font-medium" style={{ color: "var(--foreground)" }}>
+          {weight} kg
+        </span>
         <span style={{ color: "#393939" }}>|</span>
         <span>{volumeL} L volume</span>
       </div>
