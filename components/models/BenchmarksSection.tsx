@@ -29,6 +29,14 @@ const getNoiseThresholds = (model: Laptop): { moderate: number; loud: number } =
   return { moderate: 38, loud: 45 };
 };
 
+/* ── dB reference points for noise scale ─────────────────── */
+const NOISE_REFS = [
+  { db: 25, label: "Library" },
+  { db: 35, label: "Quiet office" },
+  { db: 45, label: "Conversation" },
+  { db: 55, label: "Street traffic" },
+] as const;
+
 /* ── Category accent colors ─────────────────────────────── */
 const CAT_COLORS: Record<string, string> = {
   cpu: "#4589ff",
@@ -134,6 +142,58 @@ const Divider = ({ label }: { label: string }) => (
   </div>
 );
 
+const SpecRow = ({ label, value, color }: { label: string; value: string; color?: string }) => (
+  <div className="flex items-baseline justify-between gap-2 py-0.5">
+    <span className="text-xs" style={{ color: "var(--muted)" }}>
+      {label}
+    </span>
+    <span className="font-mono text-xs font-medium" style={{ color: color ?? "var(--foreground)" }}>
+      {value}
+    </span>
+  </div>
+);
+
+const NoiseScale = ({ dbValue }: { dbValue: number }) => {
+  const pct = Math.min(100, Math.max(0, ((dbValue - 20) / 40) * 100));
+  return (
+    <div className="space-y-1">
+      <div className="relative h-2 rounded-full" style={{ background: "#1e1e1e" }}>
+        <div
+          className="absolute inset-y-0 left-0 rounded-full"
+          style={{
+            width: "100%",
+            background: "linear-gradient(90deg, #42be65 0%, #f1c21b 50%, #ff832b 80%, #da1e28 100%)",
+            opacity: 0.25,
+          }}
+        />
+        <div
+          className="absolute top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2"
+          style={{
+            left: `${pct}%`,
+            background: dbValue > 45 ? "#ff832b" : dbValue > 35 ? "#f1c21b" : "#42be65",
+            borderColor: "#161616",
+            transform: `translate(-50%, -50%)`,
+          }}
+        />
+      </div>
+      <div className="flex justify-between">
+        {NOISE_REFS.map((ref) => (
+          <span
+            key={ref.db}
+            className="text-[9px]"
+            style={{
+              color: Math.abs(dbValue - ref.db) < 5 ? "var(--foreground)" : "#525252",
+              fontWeight: Math.abs(dbValue - ref.db) < 5 ? 600 : 400,
+            }}
+          >
+            {ref.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const SOURCE_DISPLAY: Record<string, string> = {
   notebookcheck: "NotebookCheck",
   geekbench: "Geekbench",
@@ -213,7 +273,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
               </SubSection>
             )}
 
-            {hasAnyGpuExtra && (
+            {hasAnyGpuExtra ? (
               <SubSection title="GPU Benchmarks" accent={CAT_COLORS.gpu}>
                 <div className="space-y-2.5">
                   {gpuBench.timeSpyScore && (
@@ -228,6 +288,20 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                       unit="FPS"
                     />
                   )}
+                </div>
+              </SubSection>
+            ) : (
+              <SubSection title="CPU Specs" accent="#6f6f6f">
+                <div className="space-y-0.5">
+                  <SpecRow label="Cores / Threads" value={`${model.processor.cores}C / ${model.processor.threads}T`} />
+                  <SpecRow label="Base Clock" value={`${model.processor.baseClock} GHz`} />
+                  <SpecRow label="Boost Clock" value={`${model.processor.boostClock} GHz`} color="#4589ff" />
+                  <SpecRow label="TDP" value={`${model.processor.tdp} W`} />
+                  <SpecRow
+                    label="GPU"
+                    value={model.gpu.name}
+                    color={model.gpu.integrated ? "var(--muted)" : "#42be65"}
+                  />
                 </div>
               </SubSection>
             )}
@@ -298,18 +372,27 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
 
             {chassisBench?.fanNoise && (
               <SubSection title="Fan Noise" accent={CAT_COLORS.noise}>
-                <StatBox
-                  label="Max Load"
-                  value={chassisBench.fanNoise}
-                  unit="dB"
-                  color={
-                    chassisBench.fanNoise > noiseT.loud
-                      ? "#ff832b"
-                      : chassisBench.fanNoise > noiseT.moderate
-                        ? "#f1c21b"
-                        : "#42be65"
-                  }
-                />
+                <div className="grid grid-cols-2 gap-2">
+                  <StatBox
+                    label="Max Load"
+                    value={chassisBench.fanNoise}
+                    unit="dB"
+                    color={
+                      chassisBench.fanNoise > noiseT.loud
+                        ? "#ff832b"
+                        : chassisBench.fanNoise > noiseT.moderate
+                          ? "#f1c21b"
+                          : "#42be65"
+                    }
+                  />
+                  <StatBox
+                    label="Idle (est.)"
+                    value={chassisBench.fanNoise <= 33 ? "Silent" : `~${Math.round(chassisBench.fanNoise * 0.7)}`}
+                    unit={chassisBench.fanNoise <= 33 ? "" : "dB"}
+                    color="#525252"
+                  />
+                </div>
+                <NoiseScale dbValue={chassisBench.fanNoise} />
                 <span
                   className="inline-block rounded px-1.5 py-0.5 text-xs"
                   style={{
@@ -398,11 +481,21 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     unit="MB/s"
                   />
                 </div>
+                <div className="space-y-0.5 border-t pt-2" style={{ borderColor: "var(--border-subtle)" }}>
+                  <SpecRow label="Type" value={model.storage.type} />
+                  <SpecRow
+                    label="Capacity"
+                    value={`${model.storage.size >= 1000 ? `${model.storage.size / 1000} TB` : `${model.storage.size} GB`}`}
+                  />
+                  {model.storage.slots > 1 && (
+                    <SpecRow label="Slots" value={`${model.storage.slots}× M.2`} color="#4589ff" />
+                  )}
+                </div>
               </SubSection>
             )}
 
-            {chassisBench?.memoryBandwidthGBs && (
-              <SubSection title="Memory Bandwidth" accent={CAT_COLORS.memory}>
+            <SubSection title="Memory" accent={CAT_COLORS.memory}>
+              {chassisBench?.memoryBandwidthGBs && (
                 <MiniBar
                   label="Bandwidth"
                   value={chassisBench.memoryBandwidthGBs}
@@ -410,8 +503,18 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   color="#be95ff"
                   unit="GB/s"
                 />
-              </SubSection>
-            )}
+              )}
+              <div className="space-y-0.5">
+                <SpecRow label="Size" value={`${model.ram.size} GB`} color="#be95ff" />
+                <SpecRow label="Type" value={`${model.ram.type}-${model.ram.speed}`} />
+                <SpecRow label="Max" value={`${model.ram.maxSize} GB`} />
+                <SpecRow
+                  label="Config"
+                  value={model.ram.soldered ? "Soldered" : `${model.ram.slots} slot${model.ram.slots > 1 ? "s" : ""}`}
+                  color={model.ram.soldered ? "#f1c21b" : "#42be65"}
+                />
+              </div>
+            </SubSection>
           </div>
         </div>
       )}
@@ -427,10 +530,28 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   <StatBox label="Measured" value={chassisBench.displayBrightness} unit="nits" color="#f1c21b" />
                   <StatBox label="Spec" value={model.display.nits} unit="nits" color="var(--muted)" />
                 </div>
+                <div className="space-y-0.5 border-t pt-2" style={{ borderColor: "var(--border-subtle)" }}>
+                  <SpecRow
+                    label="Resolution"
+                    value={`${model.display.resolution} (${model.display.resolutionLabel})`}
+                  />
+                  <SpecRow
+                    label="Panel"
+                    value={model.display.panel}
+                    color={model.display.panel === "OLED" ? "#f1c21b" : "var(--foreground)"}
+                  />
+                  <SpecRow
+                    label="Refresh"
+                    value={`${model.display.refreshRate} Hz`}
+                    color={model.display.refreshRate >= 120 ? "#42be65" : "var(--foreground)"}
+                  />
+                  <SpecRow label="Size" value={`${model.display.size}″`} />
+                  {model.display.touchscreen && <SpecRow label="Touch" value="Yes" color="#08bdba" />}
+                </div>
               </SubSection>
             )}
 
-            {(chassisBench?.pugetPremiere || chassisBench?.pugetDavinci) && (
+            {chassisBench?.pugetPremiere || chassisBench?.pugetDavinci ? (
               <SubSection title="Content Creation" accent={CAT_COLORS.creative}>
                 <div className="grid grid-cols-2 gap-2">
                   {chassisBench.pugetPremiere && (
@@ -439,6 +560,28 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   {chassisBench.pugetDavinci && (
                     <StatBox label="Puget DaVinci" value={chassisBench.pugetDavinci} color="#6929c4" />
                   )}
+                </div>
+              </SubSection>
+            ) : (
+              <SubSection title="Display Specs" accent="#6f6f6f">
+                <div className="space-y-0.5">
+                  <SpecRow
+                    label="Resolution"
+                    value={`${model.display.resolution} (${model.display.resolutionLabel})`}
+                  />
+                  <SpecRow
+                    label="Panel"
+                    value={model.display.panel}
+                    color={model.display.panel === "OLED" ? "#f1c21b" : "var(--foreground)"}
+                  />
+                  <SpecRow
+                    label="Refresh"
+                    value={`${model.display.refreshRate} Hz`}
+                    color={model.display.refreshRate >= 120 ? "#42be65" : "var(--foreground)"}
+                  />
+                  <SpecRow label="Brightness" value={`${model.display.nits} nits (spec)`} />
+                  <SpecRow label="Size" value={`${model.display.size}″`} />
+                  {model.display.touchscreen && <SpecRow label="Touch" value="Yes" color="#08bdba" />}
                 </div>
               </SubSection>
             )}
