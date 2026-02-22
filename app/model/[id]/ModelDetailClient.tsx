@@ -71,16 +71,46 @@ const SpecRow = ({
   </div>
 );
 
-const FormFactorRow = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex items-start gap-2">
-    <span
-      className="w-16 shrink-0 font-mono text-[11px] font-medium uppercase tracking-wider"
-      style={{ color: "var(--muted)" }}
-    >
-      {label}
-    </span>
-    <span className="text-sm leading-snug" style={{ color: "var(--foreground)" }}>
+/** Parse port strings like "2x Thunderbolt 4" into structured data */
+const parsePortBreakdown = (ports: readonly string[]) => {
+  const tb: string[] = [];
+  const usbC: string[] = [];
+  const usbA: string[] = [];
+  const video: string[] = [];
+  const other: string[] = [];
+
+  for (const p of ports) {
+    const lower = p.toLowerCase();
+    if (lower.includes("thunderbolt")) tb.push(p);
+    else if (lower.includes("usb-c") || lower.includes("usb c")) usbC.push(p);
+    else if (lower.includes("usb-a") || lower.includes("usb a")) usbA.push(p);
+    else if (lower.includes("hdmi") || lower.includes("displayport") || lower.includes("vga")) video.push(p);
+    else other.push(p);
+  }
+  return { tb, usbC, usbA, video, other };
+};
+
+const PortChip = ({ label, accent }: { label: string; accent: string }) => (
+  <span
+    className="inline-flex items-center rounded px-1.5 py-0.5 font-mono text-[10px] font-medium"
+    style={{ background: `${accent}15`, color: accent, border: `1px solid ${accent}25` }}
+  >
+    {label}
+  </span>
+);
+
+const PhysicalStat = ({ label, value, unit }: { label: string; value: string; unit?: string }) => (
+  <div className="flex flex-col items-center">
+    <span className="font-mono text-sm font-semibold leading-tight" style={{ color: "var(--foreground)" }}>
       {value}
+      {unit && (
+        <span className="ml-0.5 text-[10px] font-normal" style={{ color: "var(--muted)" }}>
+          {unit}
+        </span>
+      )}
+    </span>
+    <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+      {label}
     </span>
   </div>
 );
@@ -460,42 +490,94 @@ const ModelDetailClient = () => {
         </div>
 
         {/* Form Factor */}
-        <div id="form-factor" className="carbon-card scroll-mt-14 rounded-lg p-4">
-          <h2 className="mb-3 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
-            Form Factor
-          </h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {/* Blueprint diagram */}
-            <div className="flex items-center justify-center">
-              <BlueprintDiagram
-                displaySize={configuredModel.display.size}
-                weight={configuredModel.weight}
-                lineup={configuredModel.lineup}
-                series={configuredModel.series}
-              />
+        {(() => {
+          const portInfo = parsePortBreakdown(model.ports);
+          const totalPorts = model.ports.reduce((sum, p) => {
+            const match = p.match(/^(\d+)x\s/);
+            return sum + (match ? parseInt(match[1]) : 1);
+          }, 0);
+
+          return (
+            <div id="form-factor" className="carbon-card scroll-mt-14 rounded-lg p-4">
+              <h2 className="mb-3 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
+                Form Factor
+              </h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-[auto_1fr]">
+                {/* Blueprint diagram — constrained */}
+                <div className="flex items-start justify-center md:justify-start">
+                  <BlueprintDiagram
+                    displaySize={configuredModel.display.size}
+                    weight={configuredModel.weight}
+                    lineup={configuredModel.lineup}
+                    series={configuredModel.series}
+                  />
+                </div>
+
+                {/* Physical build context — unique info not in Specs */}
+                <div className="space-y-3">
+                  {/* Quick physical stats */}
+                  <div
+                    className="flex flex-wrap items-center gap-4 rounded-md border px-3 py-2"
+                    style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
+                  >
+                    <PhysicalStat label="Weight" value={formatWeight(model.weight)} />
+                    <div className="h-6 w-px" style={{ background: "var(--border-subtle)" }} />
+                    <PhysicalStat label="Battery" value={`${model.battery.whr}`} unit="Wh" />
+                    <div className="h-6 w-px" style={{ background: "var(--border-subtle)" }} />
+                    <PhysicalStat label="Screen" value={`${configuredModel.display.size}"`} />
+                    <div className="h-6 w-px" style={{ background: "var(--border-subtle)" }} />
+                    <PhysicalStat label="Total I/O" value={`${totalPorts}`} unit="ports" />
+                  </div>
+
+                  {/* Port breakdown — the unique detail */}
+                  <div className="space-y-1.5">
+                    <span
+                      className="text-[10px] font-medium uppercase tracking-widest"
+                      style={{ color: "var(--muted)" }}
+                    >
+                      I/O Breakdown
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {portInfo.tb.map((p) => (
+                        <PortChip key={p} label={p} accent="#0f62fe" />
+                      ))}
+                      {portInfo.usbC.map((p) => (
+                        <PortChip key={p} label={p} accent="#08bdba" />
+                      ))}
+                      {portInfo.usbA.map((p) => (
+                        <PortChip key={p} label={p} accent="#be95ff" />
+                      ))}
+                      {portInfo.video.map((p) => (
+                        <PortChip key={p} label={p} accent="#f1c21b" />
+                      ))}
+                      {portInfo.other.map((p) => (
+                        <PortChip key={p} label={p} accent="#6f6f6f" />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Connectivity + build details */}
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs" style={{ color: "var(--muted)" }}>
+                    {model.wireless.map((w) => (
+                      <span key={w}>
+                        <Wifi size={11} className="mr-1 inline" style={{ color: "var(--muted)" }} />
+                        {w}
+                      </span>
+                    ))}
+                    {model.keyboard && (
+                      <span>
+                        <KeyboardIcon size={11} className="mr-1 inline" style={{ color: "var(--muted)" }} />
+                        {model.keyboard.layout}
+                        {model.keyboard.backlit ? " · Backlit" : ""}
+                        {model.keyboard.trackpoint ? " · TrackPoint" : ""}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* Physical specs */}
-            <div className="space-y-2.5">
-              <FormFactorRow
-                label="Display"
-                value={`${configuredModel.display.size}" ${configuredModel.display.panel} ${configuredModel.display.resolutionLabel} · ${configuredModel.display.refreshRate}Hz · ${configuredModel.display.nits} nits${configuredModel.display.touchscreen ? " · Touch" : ""}`}
-              />
-              <FormFactorRow
-                label="Battery"
-                value={`${model.battery.whr} Wh${model.battery.removable ? " · Removable" : ""}`}
-              />
-              {model.keyboard && (
-                <FormFactorRow
-                  label="Input"
-                  value={`${model.keyboard.layout}${model.keyboard.backlit ? " · Backlit" : ""}${model.keyboard.trackpoint ? " · TrackPoint" : ""}`}
-                />
-              )}
-              <FormFactorRow label="Ports" value={model.ports.join(", ")} />
-              <FormFactorRow label="Wireless" value={model.wireless.join(", ")} />
-              <FormFactorRow label="OS" value={model.os} />
-            </div>
-          </div>
-        </div>
+          );
+        })()}
 
         {/* Upgrade Simulator */}
         <div className="carbon-card rounded-lg p-4">
