@@ -24,18 +24,18 @@ const FONT = "'IBM Plex Mono', 'Courier New', monospace";
 export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagramProps) => {
   const { widthMm, depthMm, heightMm } = getDimensions(displaySize, weight);
 
-  // SVG coordinate system — wider to fit labels without clipping
-  const viewW = 320;
-  const viewH = 220;
+  // SVG coordinate system — wider and taller for readability
+  const viewW = 480;
+  const viewH = 340;
 
   // Chassis proportions mapped to SVG space
   const ratio = widthMm / depthMm;
-  const chassisW = 180;
+  const chassisW = 260;
   const chassisH = Math.round(chassisW / ratio);
 
   // Center chassis with room for labels on right and bottom
-  const chassisX = 30;
-  const chassisY = 16;
+  const chassisX = 40;
+  const chassisY = 24;
 
   // Screen area (80% width, 85% depth, offset toward top)
   const screenMarginX = chassisW * 0.1;
@@ -46,28 +46,37 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
   const screenY = chassisY + screenMarginTop;
 
   // Measurement line positions
-  const widthLineY = chassisY + chassisH + 18;
-  const depthLineX = chassisX + chassisW + 18;
-  const endCapSize = 3;
+  const widthLineY = chassisY + chassisH + 28;
+  const depthLineX = chassisX + chassisW + 28;
+  const endCapSize = 5;
 
-  // Height indicator — positioned below width line, aligned left
-  const heightBarY = widthLineY + 18;
-  const maxHeightBarW = 40;
-  const heightBarW = Math.round((heightMm / 25) * maxHeightBarW);
+  // Width dimension label gap (space in the middle of the line for the label)
+  const widthLabelGap = 36;
+
+  // Depth dimension label gap
+  const depthLabelGap = 18;
+
+  // Side profile view — below width measurement
+  const sideProfileY = widthLineY + 40;
+  const sideProfileMaxH = 12;
+  const sideProfileH = Math.round((heightMm / 25) * sideProfileMaxH);
+
+  // Volume estimate in liters
+  const volumeL = ((widthMm * depthMm * heightMm) / 1000000).toFixed(1);
 
   return (
     <div className="flex flex-col items-center gap-3">
       <svg
         viewBox={`0 0 ${viewW} ${viewH}`}
         xmlns="http://www.w3.org/2000/svg"
-        className="h-auto w-full max-w-sm"
+        className="h-auto w-full max-w-lg"
         role="img"
         aria-label={`Blueprint: ${widthMm} × ${depthMm} × ${heightMm} mm, ${weight} kg`}
       >
         {/* Subtle grid dots */}
         <defs>
           <pattern id="blueprint-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="10" cy="10" r="0.25" fill="#2a2a2a" />
+            <circle cx="10" cy="10" r="0.3" fill="#2a2a2a" />
           </pattern>
         </defs>
         <rect width={viewW} height={viewH} fill="url(#blueprint-grid)" />
@@ -78,10 +87,10 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
           y={chassisY}
           width={chassisW}
           height={chassisH}
-          rx={4}
+          rx={5}
           fill="none"
           stroke={LINE_COLOR}
-          strokeWidth={1}
+          strokeWidth={1.5}
         />
 
         {/* Screen area */}
@@ -90,10 +99,10 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
           y={screenY}
           width={screenW}
           height={screenH}
-          rx={2}
+          rx={3}
           fill={SCREEN_FILL}
           stroke={SUBTLE_COLOR}
-          strokeWidth={0.5}
+          strokeWidth={1}
         />
 
         {/* Display size label centered in screen */}
@@ -102,7 +111,7 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
           y={screenY + screenH / 2}
           textAnchor="middle"
           dominantBaseline="central"
-          fontSize={10}
+          fontSize={14}
           fontFamily={FONT}
           fill={LINE_COLOR}
         >
@@ -114,33 +123,33 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
           <circle
             cx={chassisX + chassisW / 2}
             cy={screenY + screenH + (chassisY + chassisH - (screenY + screenH)) / 2}
-            r={3}
+            r={5}
             fill={TRACKPOINT_RED}
           />
         )}
 
         {lineup === "Legion" && (
           <g>
-            {[0, 4, 8].map((offset) => (
+            {[0, 6, 12].map((offset) => (
               <line
                 key={`vent-l-${offset}`}
-                x1={chassisX + 20 + offset}
+                x1={chassisX + 28 + offset}
                 y1={chassisY}
-                x2={chassisX + 20 + offset}
-                y2={chassisY - 4}
+                x2={chassisX + 28 + offset}
+                y2={chassisY - 6}
                 stroke={SUBTLE_COLOR}
-                strokeWidth={0.75}
+                strokeWidth={1}
               />
             ))}
-            {[0, 4, 8].map((offset) => (
+            {[0, 6, 12].map((offset) => (
               <line
                 key={`vent-r-${offset}`}
-                x1={chassisX + chassisW - 28 + offset}
+                x1={chassisX + chassisW - 40 + offset}
                 y1={chassisY}
-                x2={chassisX + chassisW - 28 + offset}
-                y2={chassisY - 4}
+                x2={chassisX + chassisW - 40 + offset}
+                y2={chassisY - 6}
                 stroke={SUBTLE_COLOR}
-                strokeWidth={0.75}
+                strokeWidth={1}
               />
             ))}
           </g>
@@ -148,55 +157,60 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
 
         {lineup === "IdeaPad Pro" && (
           <line
-            x1={chassisX + 10}
+            x1={chassisX + 14}
             y1={chassisY + chassisH}
-            x2={chassisX + chassisW - 10}
+            x2={chassisX + chassisW - 14}
             y2={chassisY + chassisH}
             stroke={ACCENT}
-            strokeWidth={0.5}
+            strokeWidth={1}
           />
         )}
 
         {/* Width measurement line (below chassis) */}
         <g>
+          {/* Left end cap */}
           <line
             x1={chassisX}
             y1={widthLineY - endCapSize}
             x2={chassisX}
             y2={widthLineY + endCapSize}
             stroke={ACCENT}
-            strokeWidth={0.75}
+            strokeWidth={1}
           />
+          {/* Right end cap */}
           <line
             x1={chassisX + chassisW}
             y1={widthLineY - endCapSize}
             x2={chassisX + chassisW}
             y2={widthLineY + endCapSize}
             stroke={ACCENT}
-            strokeWidth={0.75}
+            strokeWidth={1}
           />
+          {/* Left segment */}
           <line
             x1={chassisX}
             y1={widthLineY}
-            x2={chassisX + chassisW / 2 - 22}
+            x2={chassisX + chassisW / 2 - widthLabelGap}
             y2={widthLineY}
             stroke={ACCENT}
-            strokeWidth={0.5}
+            strokeWidth={1}
           />
+          {/* Right segment */}
           <line
-            x1={chassisX + chassisW / 2 + 22}
+            x1={chassisX + chassisW / 2 + widthLabelGap}
             y1={widthLineY}
             x2={chassisX + chassisW}
             y2={widthLineY}
             stroke={ACCENT}
-            strokeWidth={0.5}
+            strokeWidth={1}
           />
+          {/* Width label */}
           <text
             x={chassisX + chassisW / 2}
             y={widthLineY + 1}
             textAnchor="middle"
             dominantBaseline="central"
-            fontSize={8}
+            fontSize={12}
             fontFamily={FONT}
             fill={ACCENT}
           >
@@ -206,92 +220,103 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
 
         {/* Depth measurement line (right of chassis) */}
         <g>
+          {/* Top end cap */}
           <line
             x1={depthLineX - endCapSize}
             y1={chassisY}
             x2={depthLineX + endCapSize}
             y2={chassisY}
             stroke={ACCENT}
-            strokeWidth={0.75}
+            strokeWidth={1}
           />
+          {/* Bottom end cap */}
           <line
             x1={depthLineX - endCapSize}
             y1={chassisY + chassisH}
             x2={depthLineX + endCapSize}
             y2={chassisY + chassisH}
             stroke={ACCENT}
-            strokeWidth={0.75}
+            strokeWidth={1}
           />
+          {/* Top segment */}
           <line
             x1={depthLineX}
             y1={chassisY}
             x2={depthLineX}
-            y2={chassisY + chassisH / 2 - 12}
+            y2={chassisY + chassisH / 2 - depthLabelGap}
             stroke={ACCENT}
-            strokeWidth={0.5}
+            strokeWidth={1}
           />
+          {/* Bottom segment */}
           <line
             x1={depthLineX}
-            y1={chassisY + chassisH / 2 + 12}
+            y1={chassisY + chassisH / 2 + depthLabelGap}
             x2={depthLineX}
             y2={chassisY + chassisH}
             stroke={ACCENT}
-            strokeWidth={0.5}
+            strokeWidth={1}
           />
+          {/* Depth label — single text element to the right of the line */}
           <text
-            x={depthLineX + 4}
+            x={depthLineX + 10}
             y={chassisY + chassisH / 2}
             dominantBaseline="central"
-            fontSize={8}
+            fontSize={12}
             fontFamily={FONT}
             fill={ACCENT}
           >
-            {depthMm}
-          </text>
-          <text
-            x={depthLineX + 4}
-            y={chassisY + chassisH / 2 + 10}
-            dominantBaseline="central"
-            fontSize={7}
-            fontFamily={FONT}
-            fill={ACCENT}
-            opacity={0.6}
-          >
-            mm
+            {depthMm} mm
           </text>
         </g>
 
-        {/* Height indicator bar (below width line, left-aligned) */}
+        {/* Side Profile View */}
         <g>
-          <line
-            x1={chassisX}
-            y1={heightBarY}
-            x2={chassisX + heightBarW}
-            y2={heightBarY}
-            stroke={ACCENT}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-          />
+          {/* Section label */}
           <text
-            x={chassisX + heightBarW + 5}
-            y={heightBarY + 1}
+            x={chassisX}
+            y={sideProfileY - 8}
+            fontSize={12}
+            fontFamily={FONT}
+            fill={SUBTLE_COLOR}
+          >
+            Side Profile
+          </text>
+
+          {/* Side profile rectangle — thickness proportional to heightMm */}
+          <rect
+            x={chassisX}
+            y={sideProfileY}
+            width={chassisW}
+            height={sideProfileH}
+            rx={2}
+            fill="none"
+            stroke={LINE_COLOR}
+            strokeWidth={1.5}
+          />
+
+          {/* Height label to the right */}
+          <text
+            x={chassisX + chassisW + 10}
+            y={sideProfileY + sideProfileH / 2}
             dominantBaseline="central"
-            fontSize={8}
+            fontSize={12}
             fontFamily={FONT}
             fill={ACCENT}
           >
-            {heightMm} mm thick
+            {heightMm} mm
           </text>
         </g>
       </svg>
 
-      {/* Weight + summary row below the SVG */}
-      <div className="flex items-center gap-4 font-mono text-xs text-carbon-400">
-        <span>{weight} kg</span>
+      {/* Weight + dimensions + volume summary row */}
+      <div className="flex items-center gap-4 font-mono text-sm text-carbon-300">
+        <span className="font-medium">{weight} kg</span>
         <span className="text-carbon-600">|</span>
         <span>
           {widthMm} × {depthMm} × {heightMm} mm
         </span>
+        <span className="text-carbon-600">|</span>
+        <span>{volumeL} L</span>
       </div>
     </div>
   );
