@@ -53,7 +53,13 @@ const FpsChart = ({ estimates }: FpsChartProps) => {
           <BarChart data={data} layout="vertical" margin={{ left: 10, right: 40, top: 5, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#393939" horizontal={false} />
             <XAxis type="number" domain={[0, "auto"]} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#525252" />
-            <YAxis type="category" dataKey="name" width={200} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#525252" />
+            <YAxis
+              type="category"
+              dataKey="name"
+              width={200}
+              tick={{ fill: "#a8a8a8", fontSize: 11 }}
+              stroke="#525252"
+            />
             <ReferenceLine
               x={30}
               stroke="#ff832b"

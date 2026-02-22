@@ -22,7 +22,10 @@ export const ThermalProfileBar = ({ keyboardMaxC }: ThermalProfileBarProps) => {
     <div className="flex flex-col gap-1">
       {/* Temperature value above bar */}
       <div className="relative h-5" style={{ paddingLeft: `${labelPct}%` }}>
-        <span className="absolute -translate-x-1/2 font-mono text-xs font-medium" style={{ left: `${labelPct}%`, color }}>
+        <span
+          className="absolute -translate-x-1/2 font-mono text-xs font-medium"
+          style={{ left: `${labelPct}%`, color }}
+        >
           {keyboardMaxC}°C
         </span>
       </div>
@@ -53,10 +56,18 @@ export const ThermalProfileBar = ({ keyboardMaxC }: ThermalProfileBarProps) => {
 
       {/* Zone labels */}
       <div className="relative mt-1 flex font-mono text-[9px] uppercase tracking-wider">
-        <span className="absolute left-0" style={{ color: "#42be65" }}>Cool</span>
-        <span className="absolute left-[32%] -translate-x-1/2" style={{ color: "#f1c21b" }}>Warm</span>
-        <span className="absolute left-[56%] -translate-x-1/2" style={{ color: "#ff832b" }}>Hot</span>
-        <span className="absolute right-0 text-right" style={{ color: "#fa4d56" }}>Critical</span>
+        <span className="absolute left-0" style={{ color: "#42be65" }}>
+          Cool
+        </span>
+        <span className="absolute left-[32%] -translate-x-1/2" style={{ color: "#f1c21b" }}>
+          Warm
+        </span>
+        <span className="absolute left-[56%] -translate-x-1/2" style={{ color: "#ff832b" }}>
+          Hot
+        </span>
+        <span className="absolute right-0 text-right" style={{ color: "#fa4d56" }}>
+          Critical
+        </span>
       </div>
     </div>
   );
