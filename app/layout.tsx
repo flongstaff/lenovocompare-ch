@@ -24,9 +24,17 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
     <body className="flex min-h-screen flex-col bg-carbon-900 font-sans text-carbon-50 antialiased">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+      >
+        Skip to content
+      </a>
       <Header />
       <ErrorBoundary>
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
       </ErrorBoundary>
       <Footer />
     </body>

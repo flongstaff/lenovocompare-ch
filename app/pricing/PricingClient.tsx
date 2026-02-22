@@ -184,6 +184,7 @@ const PricingClient = () => {
             onChange={(e) => setImportText(e.target.value)}
             placeholder="Paste exported JSON here..."
             className="carbon-input !h-24 resize-none"
+            aria-label="Import price data in JSON format"
           />
           <button onClick={handleImport} className="carbon-btn text-sm">
             Import Prices

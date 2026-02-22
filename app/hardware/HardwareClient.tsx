@@ -64,7 +64,7 @@ const HardwareClient = () => {
       </div>
 
       {/* Tab toggle */}
-      <div className="flex gap-2">
+      <div className="flex gap-2" role="tablist">
         <button
           onClick={() => {
             setTab("cpu");
@@ -75,6 +75,8 @@ const HardwareClient = () => {
           }}
           className={`carbon-btn flex items-center gap-1.5 !px-4 !py-1.5 text-sm ${tab === "cpu" ? "" : "!border-carbon-500 !bg-transparent"}`}
           style={tab === "cpu" ? {} : { color: "var(--muted)" }}
+          role="tab"
+          aria-selected={tab === "cpu"}
         >
           <Cpu size={14} /> CPUs ({Object.keys(cpuGuide).length})
         </button>
@@ -88,6 +90,8 @@ const HardwareClient = () => {
           }}
           className={`carbon-btn flex items-center gap-1.5 !px-4 !py-1.5 text-sm ${tab === "gpu" ? "" : "!border-carbon-500 !bg-transparent"}`}
           style={tab === "gpu" ? {} : { color: "var(--muted)" }}
+          role="tab"
+          aria-selected={tab === "gpu"}
         >
           <Monitor size={14} /> GPUs ({Object.keys(gpuGuide).length})
         </button>
@@ -103,9 +107,15 @@ const HardwareClient = () => {
             onChange={(e) => setSearch(e.target.value)}
             placeholder={`Search ${tab === "cpu" ? "CPUs" : "GPUs"}...`}
             className="carbon-input w-full pl-9"
+            aria-label="Search CPUs and GPUs"
           />
         </div>
-        <select value={sortMode} onChange={(e) => setSortMode(e.target.value as SortMode)} className="carbon-select">
+        <select
+          value={sortMode}
+          onChange={(e) => setSortMode(e.target.value as SortMode)}
+          className="carbon-select"
+          aria-label="Sort hardware entries"
+        >
           <option value="score">Sort by Score</option>
           <option value="name">Sort by Name</option>
         </select>
@@ -116,6 +126,7 @@ const HardwareClient = () => {
         <button
           onClick={() => setArchFilter(null)}
           className={`carbon-chip text-xs ${!archFilter ? "carbon-chip-success" : ""}`}
+          aria-pressed={!archFilter}
         >
           All
         </button>
@@ -124,6 +135,7 @@ const HardwareClient = () => {
             key={arch}
             onClick={() => setArchFilter(archFilter === arch ? null : arch)}
             className={`carbon-chip text-xs ${archFilter === arch ? "carbon-chip-success" : ""}`}
+            aria-pressed={archFilter === arch}
           >
             {arch}
           </button>
@@ -148,7 +160,12 @@ const HardwareClient = () => {
           Quick Compare
         </h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <select value={compareA} onChange={(e) => setCompareA(e.target.value)} className="carbon-select">
+          <select
+            value={compareA}
+            onChange={(e) => setCompareA(e.target.value)}
+            className="carbon-select"
+            aria-label="Select first CPU/GPU to compare"
+          >
             <option value="">Select first {tab === "cpu" ? "CPU" : "GPU"}</option>
             {chipNames.map((n) => (
               <option key={n} value={n}>
@@ -156,7 +173,12 @@ const HardwareClient = () => {
               </option>
             ))}
           </select>
-          <select value={compareB} onChange={(e) => setCompareB(e.target.value)} className="carbon-select">
+          <select
+            value={compareB}
+            onChange={(e) => setCompareB(e.target.value)}
+            className="carbon-select"
+            aria-label="Select second CPU/GPU to compare"
+          >
             <option value="">Select second {tab === "cpu" ? "CPU" : "GPU"}</option>
             {chipNames.map((n) => (
               <option key={n} value={n}>

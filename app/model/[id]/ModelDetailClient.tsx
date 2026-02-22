@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -127,7 +127,17 @@ const ModelDetailClient = () => {
   const [configuredModel, setConfiguredModel] = useState<Laptop | null>(model ?? null);
   const handleConfigChange = useCallback((configured: Laptop) => setConfiguredModel(configured), []);
 
-  if (!model || !configuredModel) {
+  // Scores derived from configured model (respond to config changes) — must be before early return
+  const sc = useMemo(
+    () => (configuredModel ? getModelScores(configuredModel, allPrices) : null),
+    [configuredModel, allPrices],
+  );
+  const analysis = useMemo(
+    () => (configuredModel ? generateAnalysis(configuredModel, laptops) : null),
+    [configuredModel],
+  );
+
+  if (!model || !configuredModel || !sc || !analysis) {
     return (
       <div className="py-16 text-center">
         <p className="text-lg font-medium" style={{ color: "var(--foreground)" }}>
@@ -139,10 +149,6 @@ const ModelDetailClient = () => {
       </div>
     );
   }
-
-  // Scores derived from configured model (respond to config changes)
-  const sc = getModelScores(configuredModel, allPrices);
-  const analysis = generateAnalysis(configuredModel, laptops);
 
   // Values tied to base model (prices, value, editorial, linux)
   const valScore = sc.value;

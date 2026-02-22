@@ -1,6 +1,5 @@
 "use client";
 import { memo } from "react";
-import { motion } from "framer-motion";
 
 import Link from "next/link";
 import { Cpu, Monitor, HardDrive, Weight, Battery, GitCompareArrows } from "lucide-react";
@@ -20,6 +19,7 @@ interface LaptopCardProps {
   readonly isCompareSelected: boolean;
   readonly onToggleCompare: (id: string) => void;
   readonly index?: number;
+  readonly precomputedScores?: ReturnType<typeof getModelScores>;
 }
 
 /** Series-specific accent colors for ScoreBar gradients. Must be raw hex — see ScoreBar color prop constraint. */
@@ -57,19 +57,23 @@ const isBestValue = (modelId: string, lowestPrice: number | null): boolean => {
   return lowestPrice <= baseline.historicalLow * 1.05;
 };
 
-const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index = 0 }: LaptopCardProps) => {
-  const scores = getModelScores(model, prices);
+const LaptopCard = ({
+  model,
+  prices,
+  isCompareSelected,
+  onToggleCompare,
+  index = 0,
+  precomputedScores,
+}: LaptopCardProps) => {
+  const scores = precomputedScores ?? getModelScores(model, prices);
   const accent = SERIES_ACCENT[model.series] ?? "#4589ff";
   const snippet = getEditorialSnippet(model.id);
   const showBestValue = isBestValue(model.id, scores.lowestPrice);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.6), ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="carbon-card card-glow group flex flex-col"
-      style={{ color: accent }}
+    <div
+      className="carbon-card card-glow group flex animate-card-in flex-col"
+      style={{ color: accent, animationDelay: `${Math.min(index * 40, 600)}ms` }}
     >
       {/* Series accent bar with gradient fade */}
       <div
@@ -216,7 +220,7 @@ const LaptopCard = ({ model, prices, isCompareSelected, onToggleCompare, index =
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

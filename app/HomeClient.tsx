@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
-import { motion } from "framer-motion";
 import {
   Laptop as LaptopIcon,
   ChevronDown,
@@ -11,7 +10,6 @@ import {
   Palette,
   Gamepad2,
   PiggyBank,
-  Search,
 } from "lucide-react";
 import type { FilterState } from "@/lib/types";
 import { useLaptops } from "@/lib/hooks/useLaptops";
@@ -24,8 +22,13 @@ import { getModelScores } from "@/lib/scoring";
 import { FilterBar } from "@/components/filters/FilterBar";
 import LaptopCard from "@/components/models/LaptopCard";
 import { CompareFloatingBar } from "@/components/compare/CompareFloatingBar";
-import { PricePerformanceScatter } from "@/components/charts/PricePerformanceScatter";
 import { SkeletonGrid } from "@/components/ui/Skeleton";
+import dynamic from "next/dynamic";
+
+const PricePerformanceScatter = dynamic(
+  () => import("@/components/charts/PricePerformanceScatter").then((m) => ({ default: m.PricePerformanceScatter })),
+  { ssr: false },
+);
 
 /** Animate a number from 0 to target over ~800ms */
 const useCounter = (target: number) => {
@@ -138,17 +141,23 @@ const HomeClient = () => {
   const cpuCounter = useCounter(cpuCount);
   const gpuCounter = useCounter(gpuCount);
 
+  const scoresMap = useMemo(() => {
+    const map = new Map<string, ReturnType<typeof getModelScores>>();
+    for (const m of filtered) map.set(m.id, getModelScores(m, allPrices));
+    return map;
+  }, [filtered, allPrices]);
+
   const scatterData = useMemo(
     () =>
       filtered
         .map((m) => {
-          const s = getModelScores(m, allPrices);
-          return s.lowestPrice
+          const s = scoresMap.get(m.id);
+          return s?.lowestPrice
             ? { id: m.id, name: m.name, lineup: m.lineup, price: s.lowestPrice, perf: s.perf }
             : null;
         })
         .filter((d): d is NonNullable<typeof d> => d !== null),
-    [filtered, allPrices],
+    [filtered, scoresMap],
   );
 
   const filterKey = useMemo(() => JSON.stringify(filters), [filters]);
@@ -171,7 +180,7 @@ const HomeClient = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-7xl space-y-6 px-4 sm:px-6">
       <div className="relative py-10 sm:py-14">
         {/* Dot grid background */}
         <div
@@ -226,18 +235,6 @@ const HomeClient = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Hero search bar */}
-        <div className="relative mt-6 max-w-md">
-          <Search size={16} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-carbon-500" />
-          <input
-            type="text"
-            placeholder="Search models, CPUs, features..."
-            value={filters.search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="carbon-input !py-3 !pl-10 !pr-4 !text-sm"
-          />
         </div>
       </div>
 
@@ -300,16 +297,13 @@ const HomeClient = () => {
                 isCompareSelected={selectedIds.includes(model.id)}
                 onToggleCompare={toggleCompare}
                 index={i}
+                precomputedScores={scoresMap.get(model.id)}
               />
             ))}
           </div>
 
           {hasMore && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex flex-col items-center gap-3 pb-2 pt-4"
-            >
+            <div className="flex animate-fade-in flex-col items-center gap-3 pb-2 pt-4">
               <div className="flex items-center gap-3 font-mono text-xs text-carbon-500">
                 <span className="h-px w-16 flex-1 bg-carbon-600" />
                 <span>
@@ -324,7 +318,7 @@ const HomeClient = () => {
                 Show {Math.min(remaining, PAGE_SIZE)} more
                 <ChevronDown size={14} className="transition-transform group-hover:translate-y-0.5" />
               </button>
-            </motion.div>
+            </div>
           )}
 
           {!hasMore && filtered.length > PAGE_SIZE && (

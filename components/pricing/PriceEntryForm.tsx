@@ -89,7 +89,9 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
       </h2>
 
       {error && (
-        <div className="rounded border border-red-700 bg-red-900/30 px-3 py-2 text-sm text-red-400">{error}</div>
+        <div role="alert" className="rounded border border-red-700 bg-red-900/30 px-3 py-2 text-sm text-red-400">
+          {error}
+        </div>
       )}
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
