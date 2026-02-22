@@ -1051,6 +1051,11 @@ export const laptops: readonly Laptop[] = [
       { type: "NVMe", size: 512, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
     ],
+
+    gpuOptions: [
+      { name: "AMD Radeon 660M", integrated: true },
+      { name: "AMD Radeon 680M", integrated: true },
+    ],
   },
   {
     id: "l16-gen3-intel",
@@ -3905,6 +3910,12 @@ export const laptops: readonly Laptop[] = [
       { type: "NVMe", size: 256, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
     ],
+
+    ramOptions: [
+      { size: 8, type: "DDR4", speed: 3200, maxSize: 32, slots: 0, soldered: true },
+      { size: 16, type: "DDR4", speed: 3200, maxSize: 32, slots: 0, soldered: true },
+      { size: 32, type: "DDR4", speed: 3200, maxSize: 32, slots: 0, soldered: true },
+    ],
   },
 
   // L13 2-in-1 (rebranded from Yoga)
@@ -3941,6 +3952,12 @@ export const laptops: readonly Laptop[] = [
     storageOptions: [
       { type: "NVMe", size: 256, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
+    ],
+
+    ramOptions: [
+      { size: 8, type: "LPDDR5", speed: 6400, maxSize: 32, slots: 0, soldered: true },
+      { size: 16, type: "LPDDR5", speed: 6400, maxSize: 32, slots: 0, soldered: true },
+      { size: 32, type: "LPDDR5", speed: 6400, maxSize: 32, slots: 0, soldered: true },
     ],
   },
   {
@@ -3979,6 +3996,11 @@ export const laptops: readonly Laptop[] = [
       { type: "NVMe", size: 256, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
     ],
+
+    ramOptions: [
+      { size: 16, type: "LPDDR5x", speed: 7467, maxSize: 32, slots: 0, soldered: true },
+      { size: 32, type: "LPDDR5x", speed: 7467, maxSize: 32, slots: 0, soldered: true },
+    ],
   },
   {
     id: "l13-2in1-gen6-amd",
@@ -4013,6 +4035,15 @@ export const laptops: readonly Laptop[] = [
     storageOptions: [
       { type: "NVMe", size: 256, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
+    ],
+
+    ramOptions: [
+      { size: 16, type: "LPDDR5x", speed: 7500, maxSize: 32, slots: 0, soldered: true },
+      { size: 32, type: "LPDDR5x", speed: 7500, maxSize: 32, slots: 0, soldered: true },
+    ],
+    gpuOptions: [
+      { name: "AMD Radeon 740M", integrated: true },
+      { name: "AMD Radeon 780M", integrated: true },
     ],
   },
 
@@ -4062,6 +4093,27 @@ export const laptops: readonly Laptop[] = [
       { type: "NVMe", size: 512, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
     ],
+
+    displayOptions: [
+      {
+        size: 14,
+        resolution: "2880x1800",
+        resolutionLabel: "2.8K IPS",
+        panel: "IPS",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: false,
+      },
+      {
+        size: 14,
+        resolution: "2880x1800",
+        resolutionLabel: "2.8K OLED",
+        panel: "OLED",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: false,
+      },
+    ],
   },
   {
     id: "ideapad-pro-5-16-gen9-amd",
@@ -4103,6 +4155,36 @@ export const laptops: readonly Laptop[] = [
     storageOptions: [
       { type: "NVMe", size: 512, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
+    ],
+
+    displayOptions: [
+      {
+        size: 16,
+        resolution: "2048x1280",
+        resolutionLabel: "2048x1280 OLED",
+        panel: "OLED",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: false,
+      },
+      {
+        size: 16,
+        resolution: "2048x1280",
+        resolutionLabel: "2048x1280 OLED",
+        panel: "OLED",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: true,
+      },
+      {
+        size: 16,
+        resolution: "2560x1600",
+        resolutionLabel: "2.5K IPS",
+        panel: "IPS",
+        refreshRate: 60,
+        nits: 350,
+        touchscreen: false,
+      },
     ],
   },
 
@@ -4149,6 +4231,27 @@ export const laptops: readonly Laptop[] = [
       { type: "NVMe", size: 512, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
     ],
+
+    displayOptions: [
+      {
+        size: 14,
+        resolution: "2880x1800",
+        resolutionLabel: "2.8K IPS",
+        panel: "IPS",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: false,
+      },
+      {
+        size: 14,
+        resolution: "2880x1800",
+        resolutionLabel: "2.8K OLED",
+        panel: "OLED",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: false,
+      },
+    ],
   },
   {
     id: "ideapad-pro-5i-16-gen9",
@@ -4191,6 +4294,36 @@ export const laptops: readonly Laptop[] = [
     storageOptions: [
       { type: "NVMe", size: 512, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
+    ],
+
+    displayOptions: [
+      {
+        size: 16,
+        resolution: "2048x1280",
+        resolutionLabel: "2048x1280 OLED",
+        panel: "OLED",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: false,
+      },
+      {
+        size: 16,
+        resolution: "2048x1280",
+        resolutionLabel: "2048x1280 OLED",
+        panel: "OLED",
+        refreshRate: 60,
+        nits: 400,
+        touchscreen: true,
+      },
+      {
+        size: 16,
+        resolution: "2560x1600",
+        resolutionLabel: "2.5K IPS",
+        panel: "IPS",
+        refreshRate: 60,
+        nits: 350,
+        touchscreen: false,
+      },
     ],
   },
 
@@ -4429,6 +4562,11 @@ export const laptops: readonly Laptop[] = [
       { size: 16, type: "LPDDR5x", speed: 7500, maxSize: 32, slots: 0, soldered: true },
       { size: 32, type: "LPDDR5x", speed: 7500, maxSize: 32, slots: 0, soldered: true },
     ],
+
+    storageOptions: [
+      { type: "NVMe", size: 512, slots: 2 },
+      { type: "NVMe", size: 1024, slots: 2 },
+    ],
   },
   {
     id: "ideapad-pro-5-16-gen10-amd",
@@ -4486,6 +4624,11 @@ export const laptops: readonly Laptop[] = [
     ramOptions: [
       { size: 16, type: "LPDDR5x", speed: 7500, maxSize: 32, slots: 0, soldered: true },
       { size: 32, type: "LPDDR5x", speed: 7500, maxSize: 32, slots: 0, soldered: true },
+    ],
+
+    storageOptions: [
+      { type: "NVMe", size: 512, slots: 2 },
+      { type: "NVMe", size: 1024, slots: 2 },
     ],
   },
   {
@@ -4546,6 +4689,11 @@ export const laptops: readonly Laptop[] = [
       { size: 16, type: "LPDDR5x", speed: 7467, maxSize: 32, slots: 0, soldered: true },
       { size: 32, type: "LPDDR5x", speed: 7467, maxSize: 32, slots: 0, soldered: true },
     ],
+
+    storageOptions: [
+      { type: "NVMe", size: 512, slots: 2 },
+      { type: "NVMe", size: 1024, slots: 2 },
+    ],
   },
   {
     id: "ideapad-pro-5i-16-gen10",
@@ -4604,6 +4752,11 @@ export const laptops: readonly Laptop[] = [
     ramOptions: [
       { size: 16, type: "LPDDR5x", speed: 7467, maxSize: 32, slots: 0, soldered: true },
       { size: 32, type: "LPDDR5x", speed: 7467, maxSize: 32, slots: 0, soldered: true },
+    ],
+
+    storageOptions: [
+      { type: "NVMe", size: 512, slots: 2 },
+      { type: "NVMe", size: 1024, slots: 2 },
     ],
   },
 
@@ -4714,6 +4867,11 @@ export const laptops: readonly Laptop[] = [
     gpuOptions: [
       { name: "NVIDIA GeForce RTX 4050 Laptop", vram: 6, integrated: false },
       { name: "NVIDIA GeForce RTX 4060 Laptop", vram: 8, integrated: false },
+    ],
+
+    storageOptions: [
+      { type: "NVMe", size: 512, slots: 2 },
+      { type: "NVMe", size: 1024, slots: 2 },
     ],
   },
   {
@@ -4856,6 +5014,11 @@ export const laptops: readonly Laptop[] = [
     storageOptions: [
       { type: "NVMe", size: 512, slots: 1 },
       { type: "NVMe", size: 1024, slots: 1 },
+    ],
+
+    processorOptions: [
+      { name: "Intel Core i7-14700HX", cores: 20, threads: 28, baseClock: 2.1, boostClock: 5.5, tdp: 0 },
+      { name: "Intel Core i9-14900HX", cores: 24, threads: 32, baseClock: 2.2, boostClock: 5.8, tdp: 0 },
     ],
   },
 
@@ -5350,6 +5513,11 @@ export const laptops: readonly Laptop[] = [
         touchscreen: false,
       },
     ],
+
+    storageOptions: [
+      { type: "NVMe", size: 512, slots: 2 },
+      { type: "NVMe", size: 1024, slots: 2 },
+    ],
   },
 
   // === Legion 7 (2025) ===
@@ -5389,6 +5557,10 @@ export const laptops: readonly Laptop[] = [
     gpuOptions: [
       { name: "NVIDIA GeForce RTX 5070 Laptop", vram: 8, integrated: false },
       { name: "NVIDIA GeForce RTX 5080 Laptop", vram: 16, integrated: false },
+    ],
+
+    processorOptions: [
+      { name: "Intel Core Ultra 9 275HX", cores: 24, threads: 24, baseClock: 2.7, boostClock: 5.4, tdp: 0 },
     ],
   },
 

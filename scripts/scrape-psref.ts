@@ -130,28 +130,47 @@ const RESET = "\x1b[0m";
 // ── Known-withdrawn models (skip immediately to save time) ─────────────────
 
 const WITHDRAWN_IDS = new Set([
+  // ThinkPad — confirmed WDProduct redirect
   "x1-carbon-gen11",
-  "x1-nano-gen3",
-  "t480",
-  "x13-gen4-intel",
-  "t480s",
   "x1-carbon-gen10",
-  "t14-gen4-amd",
-  "x1-yoga-gen7",
+  "x1-nano-gen3",
   "x1-nano-gen2",
+  "x1-yoga-gen7",
+  "x1-yoga-gen8",
+  "x1-yoga-3rd",
+  "x1-yoga-4th",
+  "x1-yoga-gen5",
+  "x1-yoga-gen6",
+  "x13-gen4-intel",
+  "x13-yoga-gen1",
+  "x13-yoga-gen3",
+  "x13-yoga-gen4",
+  "t480",
+  "t480s",
   "t14-gen3-intel",
   "t14-gen3-amd",
+  "t14-gen4-intel",
+  "t14-gen4-amd",
   "t14s-gen3-intel",
   "t14s-gen3-amd",
-  "t16-gen1-intel",
-  "l14-gen3-intel",
-  "e14-gen4",
-  "x1-yoga-gen8",
-  "t14-gen4-intel",
   "t14s-gen4-intel",
+  "t16-gen1-intel",
   "t16-gen2-intel",
+  "l14-gen3-intel",
   "l14-gen4-intel",
+  "l13-yoga-gen1",
+  "l13-yoga-gen2-amd",
+  "l13-yoga-gen3-amd",
+  "e14-gen4",
   "e14-gen5",
+  // IdeaPad Pro — confirmed WDProduct redirect
+  "ideapad-pro-5-14-gen8-amd",
+  "ideapad-pro-5-16-gen8-amd",
+  "ideapad-pro-5i-14-gen8",
+  "ideapad-pro-5i-16-gen8",
+  // Legion — confirmed WDProduct redirect
+  "legion-5-15-gen8-amd",
+  "legion-5-15-gen7-amd",
 ]);
 
 // ── URL normalization ──────────────────────────────────────────────────────
@@ -955,6 +974,16 @@ const scrapePsrefPage = async (
               }
             }
           }
+        }
+      }
+
+      // Validate: for IdeaPad Pro, reject Flex/plain IdeaPad matches (wrong product line)
+      if (listingUrl && laptop.lineup === "IdeaPad Pro") {
+        const urlPath = listingUrl.split("/").pop() || "";
+        const isProOrSlim = /IdeaPad_(Pro|Slim)_/i.test(urlPath);
+        if (!isProOrSlim) {
+          console.log(`  ${DIM}Listing lookup rejected (not Pro/Slim): ${modelKey} → .../${urlPath}${RESET}`);
+          listingUrl = undefined;
         }
       }
 

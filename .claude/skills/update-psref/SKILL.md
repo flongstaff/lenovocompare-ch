@@ -1,58 +1,76 @@
 ---
 name: update-psref
-description: Verify and update a ThinkPad model's specs against its PSREF page
+description: Run the full PSREF scrape → fix URLs → merge pipeline for all or specific models
 disable-model-invocation: true
 ---
 
 # Update PSREF
 
-Verify and correct a ThinkPad model's specs against its official Lenovo PSREF page.
+Run the automated PSREF scraping pipeline to extract processor, display, RAM, storage, and GPU options from Lenovo's PSREF pages.
 
 ## Arguments
 
-- Model ID (e.g., `x1-carbon-gen12`) or model name (e.g., `X1 Carbon Gen 12`)
-- If no argument, run for all models missing `psrefUrl`
+- `--id <model-id>` — Scrape a single model (e.g., `x1-carbon-gen12`)
+- `--lineup <lineup>` — Scrape one lineup (`ThinkPad`, `IdeaPad Pro`, `Legion`)
+- `--missing-only` — Only models without existing option arrays
+- No arguments — full scrape of all non-withdrawn models
 
-## Workflow
+## Pipeline
 
-1. **Find the model** in `data/laptops.ts` by ID or name match.
+### Step 1: Scrape PSREF pages
 
-2. **Get the PSREF page**:
-   - If model has `psrefUrl`, use it
-   - Otherwise, construct URL: `https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_{Model_Name}` (spaces → underscores)
-   - PSREF pages are SPAs — use web search to cross-reference specs instead of direct fetching
+```bash
+npx tsx scripts/scrape-psref.ts [args]
+```
 
-3. **Verify specs** against PSREF data:
-   - Processor: name, cores, threads, base/boost clocks, TDP
-   - Display: size, resolution, panel type, refresh rate, nits, touch
-   - RAM: size, type, speed, max size, slots, soldered
-   - Storage: type, capacity, slots
-   - Battery: Wh, removable
-   - Weight (kg, starting weight)
-   - Ports and wireless
+This uses Playwright to:
+- Build product listing lookup tables (with `?MT=` URLs)
+- Navigate to each model's PSREF Specifications tab
+- Extract structured data (processors, displays, RAM, storage, GPUs)
+- Output results to `scripts/psref-data.json`
 
-4. **Report discrepancies** with format:
+Key flags:
+- `--no-discovery` — Skip search fallback (faster, uses listing lookup only)
+- `--no-listing` — Skip listing page scrape (use stored URLs only)
+- `--headful` — Show browser window for debugging
+- `--resume` — Continue from existing psref-data.json
 
-   ```
-   [model.name] — PSREF: [value] vs Registry: [value]
-   ```
+### Step 2: Fix URLs (if discovery found new ones)
 
-5. **Fix confirmed mismatches** in `data/laptops.ts`.
+```bash
+npx tsx scripts/fix-psref-urls.ts          # Dry run
+npx tsx scripts/fix-psref-urls.ts --apply  # Patch laptops.ts
+```
 
-6. **Add `psrefUrl`** if missing (required field).
+### Step 3: Merge scraped data into laptops.ts
 
-7. **Run `npm run build`** to verify no type errors.
+```bash
+npx tsx scripts/merge-psref.ts --dry-run   # Preview
+npx tsx scripts/merge-psref.ts             # Apply
+```
 
-## PSREF URL Patterns
+Only adds option arrays (processorOptions, displayOptions, etc.) when:
+- Model doesn't already have that option array
+- Scraped data has >1 entry for that category
+- CPUs/GPUs exist in the benchmarks database
 
-- Standard: `https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_{Model}_{MachineType}`
-- Models with platform suffix: include `(Intel)` or `(AMD)` in name but not URL
-- X1 2-in-1 Gen 9 uses hyphens: `Lenovo_ThinkPad_X1_2-in-1_Gen_9`
-- Older models (T480, T480s) use 4-digit machine types
+### Step 4: Verify
 
-## Known Gotchas
+```bash
+npm test && npm run build
+```
 
-- PSREF weight is "starting at" — use the lightest config
-- T480 battery: 24Wh internal + external (Power Bridge) — use internal only (48Wh total) not combined
-- X1 Nano Gen 3 battery is 49.5 Wh (not 49.6)
-- PSREF RAM max may differ from actual max (check community reports)
+## Architecture
+
+- `scripts/scrape-psref.ts` — Main scraper with Playwright, URL normalization, listing lookup (4 strategies), search discovery fallback, withdrawn skip list
+- `scripts/fix-psref-urls.ts` — Patches `psrefUrl` values in laptops.ts from discovered URLs
+- `scripts/merge-psref.ts` — Inserts option arrays into model blocks in laptops.ts
+- `scripts/psref-name-map.ts` — CPU/GPU name normalization (PSREF names → benchmark keys)
+- `scripts/psref-data.json` — Scrape output (gitignored)
+
+## Known Limitations
+
+- ~20 models are withdrawn from PSREF (maintained in `WITHDRAWN_IDS` set)
+- Some newer models (Gen 13, Gen 10) may timeout or redirect — PSREF SPA rendering issues
+- IdeaPad Pro Gen 10 models are listed as "IdeaPad Slim" on PSREF (correct match)
+- Legion screen sizes may differ between marketing names and PSREF listings
