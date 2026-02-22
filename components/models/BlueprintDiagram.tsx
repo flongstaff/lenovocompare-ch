@@ -272,13 +272,7 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
         {/* Side Profile View */}
         <g>
           {/* Section label */}
-          <text
-            x={chassisX}
-            y={sideProfileY - 8}
-            fontSize={12}
-            fontFamily={FONT}
-            fill={SUBTLE_COLOR}
-          >
+          <text x={chassisX} y={sideProfileY - 8} fontSize={12} fontFamily={FONT} fill={SUBTLE_COLOR}>
             Side Profile
           </text>
 

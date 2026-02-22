@@ -13,6 +13,7 @@ Check all `psrefUrl` values in `data/laptops.ts` against PSREF to identify newly
 ### Step 1: Check all PSREF URLs
 
 Run HEAD requests against every `psrefUrl` to detect:
+
 - **WDProduct redirects** — model withdrawn from PSREF
 - **Homepage redirects** — URL invalid (may need fixing, not necessarily withdrawn)
 - **Timeouts** — PSREF SPA issues (not withdrawn)

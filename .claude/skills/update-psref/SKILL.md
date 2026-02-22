@@ -24,12 +24,14 @@ npx tsx scripts/scrape-psref.ts [args]
 ```
 
 This uses Playwright to:
+
 - Build product listing lookup tables (with `?MT=` URLs)
 - Navigate to each model's PSREF Specifications tab
 - Extract structured data (processors, displays, RAM, storage, GPUs)
 - Output results to `scripts/psref-data.json`
 
 Key flags:
+
 - `--no-discovery` — Skip search fallback (faster, uses listing lookup only)
 - `--no-listing` — Skip listing page scrape (use stored URLs only)
 - `--headful` — Show browser window for debugging
@@ -50,6 +52,7 @@ npx tsx scripts/merge-psref.ts             # Apply
 ```
 
 Only adds option arrays (processorOptions, displayOptions, etc.) when:
+
 - Model doesn't already have that option array
 - Scraped data has >1 entry for that category
 - CPUs/GPUs exist in the benchmarks database
