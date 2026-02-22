@@ -24,21 +24,21 @@ const ThermalBar = ({ label, temp }: { label: string; temp: number }) => {
   const pct = Math.min(100, (temp / 60) * 100);
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="w-20 shrink-0 text-xs" style={{ color: "var(--muted)" }}>
+    <div className="flex items-center gap-2">
+      <span className="w-16 shrink-0 text-[11px]" style={{ color: "var(--muted)" }}>
         {label}
       </span>
-      <div className="h-5 flex-1 rounded" style={{ background: "var(--surface)" }}>
+      <div className="h-4 flex-1 rounded" style={{ background: "var(--surface)" }}>
         <div
-          className="flex h-full items-center justify-end rounded px-2 transition-all"
-          style={{ width: `${pct}%`, background: `${color}30`, borderRight: `3px solid ${color}` }}
+          className="flex h-full items-center justify-end rounded px-1.5 transition-all"
+          style={{ width: `${pct}%`, background: `${color}30`, borderRight: `2px solid ${color}` }}
         >
-          <span className="font-mono text-xs font-semibold" style={{ color }}>
+          <span className="font-mono text-[11px] font-semibold" style={{ color }}>
             {temp}°C
           </span>
         </div>
       </div>
-      <span className="w-16 text-right text-xs" style={{ color }}>
+      <span className="w-12 text-right text-[11px]" style={{ color }}>
         {getLabel(temp)}
       </span>
     </div>

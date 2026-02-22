@@ -3110,9 +3110,17 @@ export const laptops: readonly Laptop[] = [
     keyboard: { backlit: true, layout: "6-row", trackpoint: true },
     processorOptions: [
       { name: "Intel Core Ultra 7 268V", cores: 8, threads: 8, baseClock: 2.2, boostClock: 5.0, tdp: 17 },
+      { name: "Intel Core Ultra 7 265H", cores: 16, threads: 16, baseClock: 2.3, boostClock: 5.3, tdp: 28 },
+      { name: "Intel Core Ultra 7 265U", cores: 8, threads: 8, baseClock: 1.7, boostClock: 5.3, tdp: 15 },
       { name: "Intel Core Ultra 7 256V", cores: 8, threads: 8, baseClock: 2.2, boostClock: 4.7, tdp: 17 },
+      { name: "Intel Core Ultra 7 255H", cores: 16, threads: 16, baseClock: 2.2, boostClock: 5.2, tdp: 28 },
+      { name: "Intel Core Ultra 7 255U", cores: 8, threads: 8, baseClock: 1.7, boostClock: 5.2, tdp: 15 },
+      { name: "Intel Core Ultra 5 238V", cores: 8, threads: 8, baseClock: 2.2, boostClock: 4.7, tdp: 17 },
+      { name: "Intel Core Ultra 5 236V", cores: 8, threads: 8, baseClock: 2.0, boostClock: 4.6, tdp: 17 },
+      { name: "Intel Core Ultra 5 235U", cores: 8, threads: 8, baseClock: 1.7, boostClock: 4.9, tdp: 15 },
       { name: "Intel Core Ultra 5 228V", cores: 8, threads: 8, baseClock: 2.2, boostClock: 4.6, tdp: 17 },
       { name: "Intel Core Ultra 5 226V", cores: 8, threads: 8, baseClock: 2.0, boostClock: 4.5, tdp: 17 },
+      { name: "Intel Core Ultra 5 225U", cores: 8, threads: 8, baseClock: 1.7, boostClock: 4.9, tdp: 15 },
     ],
     displayOptions: [
       {
@@ -4213,7 +4221,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_14IRH9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14IMH9",
     processorOptions: [
       { name: "Intel Core Ultra 5 125H", cores: 14, threads: 18, baseClock: 1.2, boostClock: 4.5, tdp: 28 },
       { name: "Intel Core Ultra 7 155H", cores: 16, threads: 22, baseClock: 1.4, boostClock: 4.8, tdp: 28 },
@@ -4277,7 +4285,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_16IRH9",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16IMH9",
     processorOptions: [
       { name: "Intel Core Ultra 5 125H", cores: 14, threads: 18, baseClock: 1.2, boostClock: 4.5, tdp: 28 },
       { name: "Intel Core Ultra 7 155H", cores: 16, threads: 22, baseClock: 1.4, boostClock: 4.8, tdp: 28 },
@@ -4451,7 +4459,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.0", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_14IRH8",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14IRH8",
     processorOptions: [
       { name: "Intel Core i5-13500H", cores: 12, threads: 16, baseClock: 2.6, boostClock: 4.7, tdp: 45 },
       { name: "Intel Core i7-13700H", cores: 14, threads: 20, baseClock: 2.4, boostClock: 5.0, tdp: 45 },
@@ -4489,7 +4497,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.0", "1x SD card reader"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_16IRH8",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16IRH8",
     processorOptions: [
       { name: "Intel Core i5-13500H", cores: 12, threads: 16, baseClock: 2.6, boostClock: 4.7, tdp: 45 },
       { name: "Intel Core i7-13700H", cores: 14, threads: 20, baseClock: 2.4, boostClock: 5.0, tdp: 45 },
@@ -4529,7 +4537,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x USB-C (USB 4)", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14AKP10",
     processorOptions: [
       { name: "AMD Ryzen AI 5 340", cores: 6, threads: 12, baseClock: 2.0, boostClock: 4.8, tdp: 28 },
       { name: "AMD Ryzen AI 7 350", cores: 8, threads: 16, baseClock: 2.0, boostClock: 5.0, tdp: 28 },
@@ -4592,7 +4600,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x USB-C (USB 4)", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16AKP10",
     processorOptions: [
       { name: "AMD Ryzen AI 5 340", cores: 6, threads: 12, baseClock: 2.0, boostClock: 4.8, tdp: 28 },
       { name: "AMD Ryzen AI 7 350", cores: 8, threads: 16, baseClock: 2.0, boostClock: 5.0, tdp: 28 },
@@ -4655,7 +4663,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_14AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_14IAH10",
     processorOptions: [
       { name: "Intel Core Ultra 5 225H", cores: 12, threads: 14, baseClock: 1.8, boostClock: 4.9, tdp: 28 },
       { name: "Intel Core Ultra 7 255H", cores: 16, threads: 16, baseClock: 2.1, boostClock: 5.1, tdp: 28 },
@@ -4719,7 +4727,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["2x Thunderbolt 4", "1x USB-A 3.2", "1x HDMI 2.1", "1x SD card reader"],
     wireless: ["Wi-Fi 7", "Bluetooth 5.4"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5i_16AHP10",
+    psrefUrl: "https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_5_16IAH10",
     processorOptions: [
       { name: "Intel Core Ultra 5 225H", cores: 12, threads: 14, baseClock: 1.8, boostClock: 4.9, tdp: 28 },
       { name: "Intel Core Ultra 7 255H", cores: 16, threads: 16, baseClock: 2.1, boostClock: 5.1, tdp: 28 },
@@ -4898,7 +4906,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5i_16IRX9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5_16IRX9",
     processorOptions: [
       { name: "Intel Core i5-14500HX", cores: 14, threads: 20, baseClock: 2.5, boostClock: 5.0, tdp: 55 },
       { name: "Intel Core i7-14650HX", cores: 16, threads: 24, baseClock: 2.2, boostClock: 5.2, tdp: 55 },
@@ -4973,7 +4981,7 @@ export const laptops: readonly Laptop[] = [
     ],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_7i_16IRX9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_7_16IRX9",
     gpuOptions: [
       { name: "NVIDIA GeForce RTX 4070 Laptop", vram: 8, integrated: false },
       { name: "NVIDIA GeForce RTX 4080 Laptop", vram: 12, integrated: false },
@@ -5081,7 +5089,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2 (DP)", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.3"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Pro_5i_16IRX9",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Pro_5_16IRX9",
     processorOptions: [
       { name: "Intel Core i5-14500HX", cores: 14, threads: 20, baseClock: 2.5, boostClock: 5.0, tdp: 55 },
       { name: "Intel Core i7-14650HX", cores: 16, threads: 24, baseClock: 2.2, boostClock: 5.2, tdp: 55 },
@@ -5240,7 +5248,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5i_16IRX8",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5_16IRX8",
     processorOptions: [
       { name: "Intel Core i5-13500H", cores: 12, threads: 16, baseClock: 2.6, boostClock: 4.7, tdp: 45 },
       { name: "Intel Core i7-13700H", cores: 14, threads: 20, baseClock: 2.4, boostClock: 5.0, tdp: 45 },
@@ -5284,7 +5292,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2 (DP)", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6E", "Bluetooth 5.2"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Pro_5i_16IRX8",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_Pro_5_16ARX8",
     processorOptions: [
       { name: "Intel Core i7-13700HX", cores: 16, threads: 24, baseClock: 2.1, boostClock: 5.0, tdp: 55 },
       { name: "Intel Core i9-13900HX", cores: 24, threads: 32, baseClock: 2.2, boostClock: 5.4, tdp: 55 },

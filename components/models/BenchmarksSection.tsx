@@ -86,14 +86,16 @@ const MiniBar = ({
   const pct = Math.min(100, (value / maxValue) * 100);
   return (
     <div className="space-y-1">
-      <div className="flex items-baseline justify-between text-sm">
-        <span style={{ color: "var(--muted)" }}>{label}</span>
-        <span className="font-mono text-xs font-medium tabular-nums" style={{ color }}>
+      <div className="flex items-baseline justify-between gap-2 text-sm">
+        <span className="truncate" style={{ color: "var(--muted)" }}>
+          {label}
+        </span>
+        <span className="shrink-0 font-mono text-xs font-medium tabular-nums" style={{ color }}>
           {value.toLocaleString()}
           {unit && ` ${unit}`}
         </span>
       </div>
-      <div className="h-2 rounded-full" style={{ background: "#1e1e1e" }}>
+      <div className="h-1.5 rounded-full" style={{ background: "#1e1e1e" }}>
         <div
           className="h-full rounded-full transition-all"
           style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${color}66, ${color})` }}

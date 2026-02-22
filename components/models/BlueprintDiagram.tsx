@@ -27,9 +27,9 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
   // Volume estimate in liters
   const volumeL = ((widthMm * depthMm * heightMm) / 1000000).toFixed(1);
 
-  // Compact SVG coordinate system
-  const viewW = 320;
-  const viewH = 240;
+  // Compact SVG coordinate system — tightly cropped
+  const viewW = 280;
+  const viewH = 220;
 
   // Chassis proportions mapped to SVG space — smaller footprint
   const ratio = widthMm / depthMm;

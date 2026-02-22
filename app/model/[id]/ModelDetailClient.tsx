@@ -71,6 +71,20 @@ const SpecRow = ({
   </div>
 );
 
+const FormFactorRow = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex items-start gap-2">
+    <span
+      className="w-16 shrink-0 font-mono text-[11px] font-medium uppercase tracking-wider"
+      style={{ color: "var(--muted)" }}
+    >
+      {label}
+    </span>
+    <span className="text-sm leading-snug" style={{ color: "var(--foreground)" }}>
+      {value}
+    </span>
+  </div>
+);
+
 const ModelDetailClient = () => {
   const params = useParams();
   const { allPrices, getBaseline, getPriceHistory } = usePrices();
@@ -447,16 +461,39 @@ const ModelDetailClient = () => {
 
         {/* Form Factor */}
         <div id="form-factor" className="carbon-card scroll-mt-14 rounded-lg p-4">
-          <h2 className="text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
+          <h2 className="mb-3 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
             Form Factor
           </h2>
-          <div className="mt-3 flex justify-center">
-            <BlueprintDiagram
-              displaySize={configuredModel.display.size}
-              weight={configuredModel.weight}
-              lineup={configuredModel.lineup}
-              series={configuredModel.series}
-            />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {/* Blueprint diagram */}
+            <div className="flex items-center justify-center">
+              <BlueprintDiagram
+                displaySize={configuredModel.display.size}
+                weight={configuredModel.weight}
+                lineup={configuredModel.lineup}
+                series={configuredModel.series}
+              />
+            </div>
+            {/* Physical specs */}
+            <div className="space-y-2.5">
+              <FormFactorRow
+                label="Display"
+                value={`${configuredModel.display.size}" ${configuredModel.display.panel} ${configuredModel.display.resolutionLabel} · ${configuredModel.display.refreshRate}Hz · ${configuredModel.display.nits} nits${configuredModel.display.touchscreen ? " · Touch" : ""}`}
+              />
+              <FormFactorRow
+                label="Battery"
+                value={`${model.battery.whr} Wh${model.battery.removable ? " · Removable" : ""}`}
+              />
+              {model.keyboard && (
+                <FormFactorRow
+                  label="Input"
+                  value={`${model.keyboard.layout}${model.keyboard.backlit ? " · Backlit" : ""}${model.keyboard.trackpoint ? " · TrackPoint" : ""}`}
+                />
+              )}
+              <FormFactorRow label="Ports" value={model.ports.join(", ")} />
+              <FormFactorRow label="Wireless" value={model.wireless.join(", ")} />
+              <FormFactorRow label="OS" value={model.os} />
+            </div>
           </div>
         </div>
 

@@ -19,11 +19,11 @@ export const ThermalProfileBar = ({ keyboardMaxC }: ThermalProfileBarProps) => {
   const color = getTempColor(keyboardMaxC);
 
   return (
-    <div className="flex flex-col gap-1">
-      {/* Temperature value above bar */}
-      <div className="relative h-5" style={{ paddingLeft: `${labelPct}%` }}>
+    <div className="flex flex-col gap-0.5">
+      {/* Temperature value + pointer above bar */}
+      <div className="relative" style={{ height: "16px" }}>
         <span
-          className="absolute -translate-x-1/2 font-mono text-xs font-medium"
+          className="absolute bottom-0 -translate-x-1/2 font-mono text-[11px] font-medium leading-none"
           style={{ left: `${labelPct}%`, color }}
         >
           {keyboardMaxC}°C
@@ -33,21 +33,21 @@ export const ThermalProfileBar = ({ keyboardMaxC }: ThermalProfileBarProps) => {
       {/* Pointer + gradient bar */}
       <div className="relative">
         {/* Pointer triangle */}
-        <div className="absolute -top-[6px] -translate-x-1/2" style={{ left: `${labelPct}%` }}>
+        <div className="absolute -top-[5px] -translate-x-1/2" style={{ left: `${labelPct}%` }}>
           <div
             style={{
               width: 0,
               height: 0,
-              borderLeft: "4px solid transparent",
-              borderRight: "4px solid transparent",
-              borderTop: `6px solid ${color}`,
+              borderLeft: "3px solid transparent",
+              borderRight: "3px solid transparent",
+              borderTop: `5px solid ${color}`,
             }}
           />
         </div>
 
         {/* Gradient track */}
         <div
-          className="h-3 w-full rounded-full"
+          className="h-2.5 w-full rounded-full"
           style={{
             background: "linear-gradient(90deg, #42be65, #f1c21b, #ff832b, #fa4d56)",
           }}
@@ -55,10 +55,7 @@ export const ThermalProfileBar = ({ keyboardMaxC }: ThermalProfileBarProps) => {
       </div>
 
       {/* Zone labels */}
-      <div
-        className="relative mb-1 mt-0.5 flex font-mono text-[9px] uppercase tracking-wider"
-        style={{ height: "14px" }}
-      >
+      <div className="relative mb-1 flex font-mono text-[9px] uppercase tracking-wider" style={{ height: "12px" }}>
         <span className="absolute left-0" style={{ color: "#42be65" }}>
           Cool
         </span>
