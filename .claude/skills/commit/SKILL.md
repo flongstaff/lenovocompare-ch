@@ -43,20 +43,20 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 
 ## Commit Types
 
-| Type | Use when |
-|------|----------|
-| `feat` | New feature or capability (components, pages, skills, agents, hooks) |
-| `fix` | Bug fix (correcting broken behavior) |
-| `data` | Laptop/benchmark data additions or corrections (laptops.ts, benchmarks, editorial, prices) |
-| `refactor` | Code restructuring without behavior change (renaming, extracting) |
-| `perf` | Performance improvement (specify the metric) |
-| `style` | CSS/UI changes with no logic change (colors, spacing, animations) |
-| `test` | Adding or updating tests |
-| `docs` | Documentation only (README, CONTRIBUTING, CLAUDE.md) |
-| `build` | Build system or dependencies (npm, next.config, Docker) |
-| `ci` | CI/CD pipeline changes (.github/workflows) |
-| `chore` | Routine tasks (gitignore, .claude/ config, maintenance) |
-| `revert` | Revert a previous commit |
+| Type       | Use when                                                                                   |
+| ---------- | ------------------------------------------------------------------------------------------ |
+| `feat`     | New feature or capability (components, pages, skills, agents, hooks)                       |
+| `fix`      | Bug fix (correcting broken behavior)                                                       |
+| `data`     | Laptop/benchmark data additions or corrections (laptops.ts, benchmarks, editorial, prices) |
+| `refactor` | Code restructuring without behavior change (renaming, extracting)                          |
+| `perf`     | Performance improvement (specify the metric)                                               |
+| `style`    | CSS/UI changes with no logic change (colors, spacing, animations)                          |
+| `test`     | Adding or updating tests                                                                   |
+| `docs`     | Documentation only (README, CONTRIBUTING, CLAUDE.md)                                       |
+| `build`    | Build system or dependencies (npm, next.config, Docker)                                    |
+| `ci`       | CI/CD pipeline changes (.github/workflows)                                                 |
+| `chore`    | Routine tasks (gitignore, .claude/ config, maintenance)                                    |
+| `revert`   | Revert a previous commit                                                                   |
 
 ### Type Decision Rules
 
