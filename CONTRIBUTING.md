@@ -11,7 +11,7 @@ Thank you for your interest in contributing! This guide covers everything you ne
 ## Development Setup
 
 ```bash
-git clone https://github.com/flong/lenovocompare-ch.git
+git clone https://github.com/flongstaff/lenovocompare-ch.git
 cd lenovocompare-ch
 npm install
 npm run dev
@@ -21,13 +21,15 @@ Open [http://localhost:3000](http://localhost:3000) to verify the dev server is 
 
 ### Verification
 
-There is no test framework configured. Use the production build as the verification step:
+The project uses **Vitest** for unit tests (7 test files in `tests/`):
 
 ```bash
-npm run build
+npm test          # Run all tests once
+npm run test:watch # Watch mode during development
+npm run build      # Full production build
 ```
 
-Always run this before submitting a PR.
+Always run `npm test` and `npm run build` before submitting a PR.
 
 ## Project Conventions
 
@@ -57,9 +59,9 @@ Always run this before submitting a PR.
 ### Data Files
 
 - All data arrays use `as const` assertions
-- Seed price IDs are sequential strings (`sp-1` through `sp-205`) — check the last ID before adding
+- Seed price IDs are sequential strings (check last entry in `data/seed-prices.ts` for the current max)
 - Data files are keyed by `laptopId` or hardware name (CPU/GPU string)
-- New fields on the `Laptop` interface must be optional (`?`) unless you update all 98+ models
+- New fields on the `Laptop` interface must be optional (`?`) unless you update all 100 models
 
 ## Adding Data
 
@@ -177,7 +179,7 @@ These are collected from real development experience:
 - **ScoreBar colors**: Must be raw hex values (`"#0f62fe"`), not CSS variables. `var(--accent)90` creates invalid CSS when the hex opacity suffix is appended
 - **`npm start` CSS**: Standalone mode doesn't serve CSS properly. Use `npm run dev` for visual testing
 - **`as const` arrays**: `data/laptops.ts` ends with `] as const;` — insert new models before the closing bracket
-- **Optional fields**: New fields on `Laptop` must be optional (`?`) unless you update all 98+ models
+- **Optional fields**: New fields on `Laptop` must be optional (`?`) unless you update all 100 models
 - **Icon `size` prop**: lucide-react `size` is `string | number`, not just `number`
 - **Export styles**: Footer uses named export, Header uses default export — check existing patterns
 

@@ -8,6 +8,7 @@ import { ScoreBar } from "@/components/ui/ScoreBar";
 import { LinuxBadge } from "@/components/ui/LinuxBadge";
 import { formatCHF, formatWeight, formatStorage } from "@/lib/formatters";
 import { getModelScores } from "@/lib/scoring";
+import { SERIES_ACCENT } from "@/lib/constants";
 import { GamingTierBadge } from "@/components/models/GamingTierBadge";
 import { MiniRadar } from "@/components/models/MiniRadar";
 import { modelEditorial } from "@/data/model-editorial";
@@ -21,27 +22,6 @@ interface LaptopCardProps {
   readonly index?: number;
   readonly precomputedScores?: ReturnType<typeof getModelScores>;
 }
-
-/** Series-specific accent colors for ScoreBar gradients. Must be raw hex — see ScoreBar color prop constraint. */
-const SERIES_ACCENT: Record<string, string> = {
-  // ThinkPad
-  X1: "#ee5396",
-  T: "#4589ff",
-  P: "#f1c21b",
-  L: "#42be65",
-  E: "#be95ff",
-  // IdeaPad Pro
-  "Pro 5": "#33b1ff",
-  "Pro 5i": "#6929c4",
-  "Pro 7": "#a56eff",
-  // Legion
-  "5": "#ff832b",
-  "5i": "#fa4d56",
-  "7": "#fa4d56",
-  "7i": "#d12771",
-  Pro: "#f1c21b",
-  Slim: "#08bdba",
-};
 
 const getEditorialSnippet = (modelId: string): string | null => {
   const editorial = modelEditorial[modelId];

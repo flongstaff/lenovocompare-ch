@@ -417,5 +417,6 @@ export const getScorePercentile = (score: number, dimension: keyof PerformanceDi
 export const getLineupMaxScore = (dimension: keyof PerformanceDimensions, lineup: string): number => {
   const lineupModels = laptops.filter((m) => m.lineup === lineup);
   const allScores = lineupModels.map((m) => getPerformanceDimensions(m)[dimension]);
+  if (allScores.length === 0) return 0;
   return Math.max(...allScores);
 };

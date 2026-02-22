@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - IdeaPad Pro lineup (14 models: Pro 5, Pro 5i, Pro 7)
-- Legion lineup (16 models: 5, 5i, 7, 7i, Pro, Slim)
+- Legion lineup (18 models: 5, 5i, 7, 7i, Pro, Slim)
 - GPU benchmarks database (28+ GPUs: integrated + discrete RTX 3060–5080 Laptop)
 - Per-model chassis benchmarks (thermals, fan noise, battery, SSD, display brightness)
 - Gaming analysis section with FPS estimates and gaming tier classification

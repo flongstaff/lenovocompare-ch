@@ -1,6 +1,6 @@
 # Swiss Pricing Verifier
 
-Verify that all laptop models (ThinkPad, IdeaPad Pro, and Legion) in `data/laptops.ts` have accurate and current Swiss pricing in `data/seed-prices.ts` and `data/price-baselines.ts`.
+Verify that all laptop models (ThinkPad, IdeaPad Pro, and Legion) in `data/laptops.ts` have complete pricing data in `data/seed-prices.ts` and `data/price-baselines.ts`.
 
 ## Instructions
 
@@ -10,28 +10,31 @@ Verify that all laptop models (ThinkPad, IdeaPad Pro, and Legion) in `data/lapto
 
 For each model:
 
-3. Use `fetch_content` or web search to check current Swiss retailer prices:
-   - Digitec: `https://www.digitec.ch/de/search?q={model name}`
-   - Brack: `https://www.brack.ch/search?query={model name}`
-   - Toppreise: `https://www.toppreise.ch/search?q={model name}`
+4. Verify data integrity:
+   - Model has at least one seed price entry
+   - Model has a baseline entry in price-baselines.ts
+   - Baseline ordering: msrp > typicalRetail > historicalLow
+   - Seed prices are within plausible range of baselines (±50% of MSRP for retail, lower for used/refurbished)
+   - No duplicate entries (same model + retailer + price + date)
+   - `dateAdded` is not in the future
+   - `priceType` is set correctly (retail vs refurbished vs used)
 
-4. Report findings per model:
+5. Report findings per model:
    - Whether the model has price entries in seed-prices.ts
    - Whether the model has a baseline entry in price-baselines.ts
-   - Current prices found online vs stored prices
-   - Missing retailer coverage
-   - Stale prices (> 3 months old based on `dateAdded`)
-   - Price baseline sanity: msrp > typicalRetail > historicalLow
+   - Any data integrity issues found
+   - Missing coverage gaps
+
+**Important**: All pricing is user-contributed. Do NOT scrape or fetch retailer websites — this violates project legal rules.
 
 ## Output Format
 
 ```
 ## [model.name] (id: [model.id])
 - Seed prices: [count] entries
-- Digitec: [current price or "not found"] vs stored [stored price or "none"]
-- Brack: [current price or "not found"] vs stored [stored price or "none"]
-- Toppreise: [current price or "not found"] vs stored [stored price or "none"]
-- Recommendation: [OK / Add prices / Update stale prices / Remove discontinued]
+- Baseline: [present/missing] — MSRP: [value], Typical: [value], Low: [value]
+- Issues: [list or "none"]
+- Recommendation: [OK / Add prices / Fix baseline ordering / Remove duplicates]
 ```
 
 ## Summary
@@ -39,5 +42,6 @@ For each model:
 After checking all models, provide:
 
 - Total models with prices vs without
-- Models with the most outdated pricing
-- Suggested priority updates
+- Models with baseline ordering issues
+- Duplicate or suspicious entries
+- Suggested priority fixes

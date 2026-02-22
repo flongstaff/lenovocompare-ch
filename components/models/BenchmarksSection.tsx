@@ -2,6 +2,7 @@
 
 import type { Laptop } from "@/lib/types";
 import { getModelBenchmarks, getCpuRawBenchmarks, getGpuBenchmark } from "@/lib/scoring";
+import { BENCHMARK_CAT_COLORS } from "@/lib/constants";
 import { ThermalProfileBar } from "@/components/models/ThermalProfileBar";
 import dynamic from "next/dynamic";
 
@@ -37,20 +38,7 @@ const NOISE_REFS = [
   { db: 55, label: "Street traffic" },
 ] as const;
 
-/* ── Category accent colors ─────────────────────────────── */
-const CAT_COLORS: Record<string, string> = {
-  cpu: "#4589ff",
-  gpu: "#42be65",
-  thermal: "#ff832b",
-  noise: "#f1c21b",
-  battery: "#08bdba",
-  battPerf: "#42be65",
-  storage: "#4589ff",
-  memory: "#be95ff",
-  display: "#f1c21b",
-  creative: "#be95ff",
-  weight: "#a8a8a8",
-};
+const CAT_COLORS = BENCHMARK_CAT_COLORS;
 
 const StatBox = ({
   label,

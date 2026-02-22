@@ -1,6 +1,6 @@
 # LenovoCompare CH
 
-A local-first Swiss-market Lenovo laptop comparison tool covering **98+ models** across three lineups: **ThinkPad**, **IdeaPad Pro**, and **Legion** (2018–2025).
+A local-first Swiss-market Lenovo laptop comparison tool covering **100 models** across three lineups: **ThinkPad**, **IdeaPad Pro**, and **Legion** (2018–2025).
 
 Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are hardcoded from public [PSREF](https://psref.lenovo.com) data — no scraping, no external APIs, no tracking.
 
@@ -10,7 +10,7 @@ Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are ha
 
 ## Features
 
-- **Browse & filter** — Grid of 98+ models filterable by lineup (ThinkPad / IdeaPad Pro / Legion), series, and sort order
+- **Browse & filter** — Grid of 100 models filterable by lineup (ThinkPad / IdeaPad Pro / Legion), series, and sort order
 - **Model detail pages** — Full specs, config selector, performance radar, benchmark charts, thermal/battery data, Linux compatibility, editorial analysis
 - **Side-by-side compare** — Compare up to 4 models with CPU, GPU, portability, and performance radar charts
 - **Swiss pricing** — User-contributed CHF prices stored in localStorage with import/export, seed prices for all models
@@ -86,14 +86,14 @@ components/
   ui/                   # Shared UI (ScoreBar, Toast, ErrorBoundary)
   layout/               # Header, Footer
 data/
-  laptops.ts            # 98+ models with full PSREF specs
+  laptops.ts            # 100 models with full PSREF specs
   cpu-benchmarks.ts     # 80+ CPUs with single/multi/composite scores
   gpu-benchmarks.ts     # 28+ GPUs with gaming tiers and FPS estimates
   model-benchmarks.ts   # Per-model chassis benchmarks (thermals, battery, SSD)
   linux-compat.ts       # Per-model Linux compatibility
   model-editorial.ts    # Curated editorial for all models
   hardware-guide.ts     # CPU/GPU analysis and recommendations
-  seed-prices.ts        # ~205 curated Swiss prices in CHF
+  seed-prices.ts        # ~212 curated Swiss prices in CHF
   price-baselines.ts    # MSRP, retail, and historical price baselines
 lib/
   types.ts              # Core interfaces (Laptop, Lineup, SwissPrice, etc.)
