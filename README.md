@@ -130,6 +130,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions, coding convention
 
 The most impactful contributions are **data additions** — new laptop models, benchmark updates, Linux compatibility notes, and Swiss price data.
 
+## Community
+
+- [Code of Conduct](CODE_OF_CONDUCT.md) — Contributor Covenant v2.1
+- [Security Policy](SECURITY.md) — Responsible disclosure process
+- [Support](SUPPORT.md) — How to get help and report issues
+- [Changelog](CHANGELOG.md) — Release history
+
 ## License
 
-MIT
+[MIT](LICENSE)
