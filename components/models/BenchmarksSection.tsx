@@ -86,8 +86,11 @@ const MiniBar = ({
 };
 
 const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="space-y-3">
-    <h4 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+  <div className="space-y-3 rounded-lg p-3" style={{ background: "var(--surface)" }}>
+    <h4
+      className="border-l-2 pl-2 text-sm font-semibold uppercase tracking-wider"
+      style={{ color: "var(--muted)", borderColor: "var(--accent)" }}
+    >
       {title}
     </h4>
     {children}
@@ -180,7 +183,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   keyboardMaxC={chassisBench.thermals.keyboardMaxC}
                   undersideMaxC={chassisBench.thermals.undersideMaxC}
                 />
-                <div className="mt-1 flex gap-2">
+                <div className="flex gap-2">
                   <span
                     className="rounded px-1 py-0.5 text-[10px]"
                     style={{
@@ -213,7 +216,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
               </>
             )}
             {chassisBench?.fanNoise && (
-              <div className="mt-2">
+              <div>
                 <StatBox
                   label="Fan Noise (Max Load)"
                   value={chassisBench.fanNoise}
