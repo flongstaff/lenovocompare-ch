@@ -20,6 +20,7 @@ import {
   getPriceDiscountClasses,
 } from "@/lib/formatters";
 import { ChartTooltip } from "@/components/charts/ChartTooltip";
+import { RETAILER_COLORS } from "@/lib/constants";
 
 interface PriceHistoryCardProps {
   readonly baseline: PriceBaseline | null;
@@ -49,22 +50,6 @@ const PriceTypeLabel = ({ type }: { type?: string }) => {
       {type}
     </span>
   );
-};
-
-const RETAILER_COLORS: Record<string, string> = {
-  Digitec: "#0f62fe",
-  Galaxus: "#0f62fe",
-  Brack: "#42be65",
-  "Lenovo CH": "#da1e28",
-  Interdiscount: "#a56eff",
-  Fust: "#ff832b",
-  MediaMarkt: "#ee5396",
-  Toppreise: "#f1c21b",
-  Revendo: "#08bdba",
-  "Back Market": "#4589ff",
-  "Galaxus Used": "#78a9ff",
-  Ricardo: "#be95ff",
-  Tutti: "#3ddbd9",
 };
 
 const getRetailerColor = (retailer: string): string => RETAILER_COLORS[retailer] ?? "#c6c6c6";

@@ -217,62 +217,65 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                       >
                         {row.label}
                       </td>
-                      {models.map((m) => {
-                        if (isPriceRow) {
-                          const p = getLowestPrice(m.id, prices);
-                          const lowestAll = models.map((x) => getLowestPrice(x.id, prices) ?? Infinity);
-                          const isLowest = p !== null && p === Math.min(...lowestAll);
-                          const bl = priceBaselines[m.id];
-                          const pctOff = bl && p ? getPriceDiscount(p, bl.msrp) : 0;
-                          const pctClass = getPriceDiscountClasses(pctOff);
+                      {(() => {
+                        const lowestPrices = isPriceRow ? models.map((x) => getLowestPrice(x.id, prices)) : [];
+                        const minPrice = isPriceRow ? Math.min(...lowestPrices.map((p) => p ?? Infinity)) : 0;
+                        return models.map((m, mi) => {
+                          if (isPriceRow) {
+                            const p = lowestPrices[mi];
+                            const isLowest = p !== null && p === minPrice;
+                            const bl = priceBaselines[m.id];
+                            const pctOff = bl && p ? getPriceDiscount(p, bl.msrp) : 0;
+                            const pctClass = getPriceDiscountClasses(pctOff);
+                            return (
+                              <td
+                                key={m.id}
+                                className={`border-t border-carbon-600 px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-green-400" : "text-carbon-50"}`}
+                              >
+                                {p !== null ? formatCHF(p) : "—"}
+                                {isLowest && (
+                                  <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
+                                    Best
+                                  </span>
+                                )}
+                                {p !== null && pctOff > 0 && (
+                                  <span className={`ml-1.5 border px-1 py-0.5 text-[10px] ${pctClass}`}>
+                                    {pctOff}% off
+                                  </span>
+                                )}
+                              </td>
+                            );
+                          }
+
+                          const val = row.getValue(m);
+                          const numVal = row.getNumeric?.(m);
+                          const isBest = best !== null && numVal === best;
+
                           return (
                             <td
                               key={m.id}
-                              className={`border-t border-carbon-600 px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-green-400" : "text-carbon-50"}`}
+                              className={`break-words border-t border-carbon-600 px-4 py-3 ${isBest ? "font-semibold text-green-400" : "text-carbon-50"}`}
                             >
-                              {p !== null ? formatCHF(p) : "—"}
-                              {isLowest && (
+                              {row.wrapLong ? (
+                                <div className="space-y-0.5">
+                                  {val.split(", ").map((item, idx) => (
+                                    <div key={idx} className="text-[13px]">
+                                      {item}
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : (
+                                <span className="line-clamp-2">{val}</span>
+                              )}
+                              {isBest && (
                                 <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
                                   Best
                                 </span>
                               )}
-                              {p !== null && pctOff > 0 && (
-                                <span className={`ml-1.5 border px-1 py-0.5 text-[10px] ${pctClass}`}>
-                                  {pctOff}% off
-                                </span>
-                              )}
                             </td>
                           );
-                        }
-
-                        const val = row.getValue(m);
-                        const numVal = row.getNumeric?.(m);
-                        const isBest = best !== null && numVal === best;
-
-                        return (
-                          <td
-                            key={m.id}
-                            className={`break-words border-t border-carbon-600 px-4 py-3 ${isBest ? "font-semibold text-green-400" : "text-carbon-50"}`}
-                          >
-                            {row.wrapLong ? (
-                              <div className="space-y-0.5">
-                                {val.split(", ").map((item, idx) => (
-                                  <div key={idx} className="text-[13px]">
-                                    {item}
-                                  </div>
-                                ))}
-                              </div>
-                            ) : (
-                              <span className="line-clamp-2">{val}</span>
-                            )}
-                            {isBest && (
-                              <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
-                                Best
-                              </span>
-                            )}
-                          </td>
-                        );
-                      })}
+                        });
+                      })()}
                     </tr>
                   )}
                 </React.Fragment>
