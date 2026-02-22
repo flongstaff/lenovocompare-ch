@@ -432,7 +432,7 @@ c.drawRightString(W - MARGIN - 22, strip_y + 28, "Signal Precision")
 c.setFont("PlexMono", 3.8)
 c.setFillColor(MUTED)
 c.drawRightString(W - MARGIN - 22, strip_y + 18, "VISUAL PHILOSOPHY  /  2026")
-c.drawRightString(W - MARGIN - 22, strip_y + 8, "THINKCOMPARE CH")
+c.drawRightString(W - MARGIN - 22, strip_y + 8, "LENOVOCOMPARE CH")
 
 # ============================================================
 # LAYER 11 — Swiss Cross Registration Mark

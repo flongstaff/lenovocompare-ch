@@ -63,7 +63,7 @@ export const Footer = () => (
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <a
-              href="https://github.com/flongstaff/thinkcompare-ch"
+              href="https://github.com/flongstaff/lenovocompare-ch"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 border border-carbon-500 px-2 py-1 text-[10px] font-medium text-carbon-300 transition-colors hover:border-accent hover:text-accent-light"
@@ -71,7 +71,7 @@ export const Footer = () => (
               GitHub <ExternalLink size={9} className="opacity-50" />
             </a>
             <a
-              href="https://github.com/flongstaff/thinkcompare-ch/issues"
+              href="https://github.com/flongstaff/lenovocompare-ch/issues"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 border border-carbon-500 px-2 py-1 text-[10px] font-medium text-carbon-300 transition-colors hover:border-accent hover:text-accent-light"

@@ -12,7 +12,7 @@ Thank you for your interest in contributing! This guide covers everything you ne
 
 ```bash
 git clone https://github.com/flong/lenovocompare-ch.git
-cd thinkcompare-ch
+cd lenovocompare-ch
 npm install
 npm run dev
 ```

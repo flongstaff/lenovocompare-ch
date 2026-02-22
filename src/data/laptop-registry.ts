@@ -1,4 +1,4 @@
-// ThinkCompare CH – Laptop Registry
+// LenovoCompare CH – Laptop Registry
 // Spec data for ThinkPad T14, X1 Carbon, and X1 2-in-1 series (Swiss market)
 
 export const SERIES_PHILOSOPHIES = {
