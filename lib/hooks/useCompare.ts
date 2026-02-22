@@ -1,12 +1,9 @@
 "use client";
-import { useCallback } from "react";
-import { useLocalStorage } from "./useLocalStorage";
-import { STORAGE_KEYS, MAX_COMPARE } from "@/lib/constants";
-
-const isStringArray = (v: unknown): v is string[] => Array.isArray(v) && v.every((x) => typeof x === "string");
+import { useCallback, useState } from "react";
+import { MAX_COMPARE } from "@/lib/constants";
 
 export const useCompare = () => {
-  const [selectedIds, setSelectedIds] = useLocalStorage<string[]>(STORAGE_KEYS.compare, [], isStringArray);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const toggleCompare = useCallback(
     (id: string) => {

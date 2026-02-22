@@ -6,7 +6,6 @@ import type { Lineup, Series, UseCase } from "./types";
 
 export const STORAGE_KEYS = {
   prices: "lenovocompare-prices",
-  compare: "lenovocompare-compare",
 } as const;
 
 /** Old keys for one-time migration */
