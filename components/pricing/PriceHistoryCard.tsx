@@ -140,12 +140,15 @@ const PriceTimelineChart = ({
     return entry;
   });
 
+  // Adaptive height: taller for more data, compact for sparse
+  const chartHeight = sortedTimestamps.length <= 3 ? 140 : sortedTimestamps.length <= 8 ? 170 : 200;
+
   return (
-    <div className="mb-4">
-      <div style={{ height: 200 }}>
+    <div className="mb-3">
+      <div style={{ height: chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={mergedData} margin={{ left: 10, right: 50, top: 10, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#393939" />
+          <ComposedChart data={mergedData} margin={{ left: 10, right: 50, top: 8, bottom: 4 }}>
+            <CartesianGrid strokeDasharray="4 4" stroke="#2a2a2a" />
             <XAxis
               type="number"
               dataKey="timestamp"
@@ -229,23 +232,26 @@ const PriceTimelineChart = ({
                 <ReferenceLine
                   y={baseline.msrp}
                   stroke="#da1e28"
-                  strokeDasharray="5 3"
-                  strokeOpacity={0.6}
-                  label={{ value: "MSRP", fill: "#da1e28", fontSize: 9, position: "right" }}
+                  strokeDasharray="6 4"
+                  strokeOpacity={0.35}
+                  strokeWidth={0.8}
+                  label={{ value: "MSRP", fill: "#da1e2880", fontSize: 9, position: "right" }}
                 />
                 <ReferenceLine
                   y={baseline.typicalRetail}
                   stroke="#a8a8a8"
-                  strokeDasharray="5 3"
-                  strokeOpacity={0.5}
-                  label={{ value: "Typical", fill: "#a8a8a8", fontSize: 9, position: "right" }}
+                  strokeDasharray="6 4"
+                  strokeOpacity={0.3}
+                  strokeWidth={0.8}
+                  label={{ value: "Typical", fill: "#a8a8a870", fontSize: 9, position: "right" }}
                 />
                 <ReferenceLine
                   y={baseline.historicalLow}
                   stroke="#42be65"
-                  strokeDasharray="5 3"
-                  strokeOpacity={0.6}
-                  label={{ value: "Hist. Low", fill: "#42be65", fontSize: 9, position: "right" }}
+                  strokeDasharray="6 4"
+                  strokeOpacity={0.35}
+                  strokeWidth={0.8}
+                  label={{ value: "Hist. Low", fill: "#42be6580", fontSize: 9, position: "right" }}
                 />
               </>
             )}
@@ -257,8 +263,8 @@ const PriceTimelineChart = ({
                 stroke={getRetailerColor(retailer)}
                 strokeWidth={2}
                 strokeOpacity={0.7}
-                dot={{ r: 4, fill: getRetailerColor(retailer), stroke: "#161616", strokeWidth: 1.5 }}
-                activeDot={{ r: 6, fill: getRetailerColor(retailer), stroke: "#f4f4f4", strokeWidth: 2 }}
+                dot={{ r: 5, fill: getRetailerColor(retailer), stroke: "#161616", strokeWidth: 2 }}
+                activeDot={{ r: 7, fill: getRetailerColor(retailer), stroke: "#f4f4f4", strokeWidth: 2 }}
                 connectNulls={true}
                 isAnimationActive={false}
               />
@@ -321,71 +327,73 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
         Price History
       </h2>
 
-      {/* Baseline strip */}
-      {baseline && (
-        <div className="mb-4 grid grid-cols-3 gap-3">
-          <div className="rounded p-2 text-center" style={{ background: "var(--surface)" }}>
-            <div className="mb-1 text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-              MSRP
+      {/* Combined header: current best + baselines inline */}
+      {(lowestCurrent !== null || baseline) && (
+        <div className="mb-3 flex flex-wrap items-end gap-4 rounded-md p-3" style={{ background: "var(--surface)" }}>
+          {/* Current best — prominent */}
+          {lowestCurrent !== null && (
+            <div className="flex items-center gap-2">
+              {nearHistoricalLow ? (
+                <TrendingDown size={16} style={{ color: "#42be65" }} />
+              ) : baseline && lowestCurrent > baseline.typicalRetail ? (
+                <TrendingUp size={16} style={{ color: "#da1e28" }} />
+              ) : (
+                <Minus size={16} style={{ color: "var(--muted)" }} />
+              )}
+              <div>
+                <div className="text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+                  Best Price
+                </div>
+                <span
+                  className="font-mono text-lg font-bold leading-tight"
+                  style={{ color: baseline ? getPriceColor(lowestCurrent, baseline) : "var(--foreground)" }}
+                >
+                  {formatCHF(lowestCurrent)}
+                </span>
+              </div>
+              {baseline && getPriceBadge(lowestCurrent, baseline)}
+              {nearHistoricalLow && (
+                <span className="border border-green-700 bg-green-900/40 px-1.5 py-0.5 text-[10px] text-green-400">
+                  Near Low
+                </span>
+              )}
             </div>
-            <div className="font-mono text-sm font-semibold" style={{ color: "var(--foreground)" }}>
-              {formatCHF(baseline.msrp)}
+          )}
+
+          {/* Baselines — compact inline */}
+          {baseline && (
+            <div className="ml-auto flex gap-4">
+              <div className="text-center">
+                <div className="text-[9px] uppercase tracking-wider" style={{ color: "#da1e2890" }}>
+                  MSRP
+                </div>
+                <div className="font-mono text-xs font-medium" style={{ color: "var(--muted)" }}>
+                  {formatCHF(baseline.msrp)}
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-[9px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+                  Typical
+                </div>
+                <div className="font-mono text-xs font-medium" style={{ color: "var(--muted)" }}>
+                  {formatCHF(baseline.typicalRetail)}
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-[9px] uppercase tracking-wider" style={{ color: "#42be6590" }}>
+                  Hist. Low
+                </div>
+                <div className="font-mono text-xs font-medium" style={{ color: "#42be65" }}>
+                  {formatCHF(baseline.historicalLow)}
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="rounded p-2 text-center" style={{ background: "var(--surface)" }}>
-            <div className="mb-1 text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-              Typical
-            </div>
-            <div className="font-mono text-sm font-semibold" style={{ color: "var(--foreground)" }}>
-              {formatCHF(baseline.typicalRetail)}
-            </div>
-          </div>
-          <div className="rounded p-2 text-center" style={{ background: "var(--surface)" }}>
-            <div className="mb-1 text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-              Hist. Low
-            </div>
-            <div className="font-mono text-sm font-semibold" style={{ color: "#42be65" }}>
-              {formatCHF(baseline.historicalLow)}
-            </div>
-            <div className="mt-0.5 text-[10px]" style={{ color: "var(--muted)" }}>
-              {baseline.historicalLowRetailer}
-            </div>
-          </div>
+          )}
         </div>
       )}
 
-      {/* Current best */}
-      {lowestCurrent !== null && (
-        <div className="mb-4 flex items-center gap-3 rounded p-3" style={{ background: "var(--surface)" }}>
-          {nearHistoricalLow ? (
-            <TrendingDown size={20} style={{ color: "#42be65" }} />
-          ) : baseline && lowestCurrent > baseline.typicalRetail ? (
-            <TrendingUp size={20} style={{ color: "#da1e28" }} />
-          ) : (
-            <Minus size={20} style={{ color: "var(--muted)" }} />
-          )}
-          <div className="flex-1">
-            <div className="text-xs" style={{ color: "var(--muted)" }}>
-              Current Best
-            </div>
-            <span
-              className="font-mono text-xl font-bold"
-              style={{ color: baseline ? getPriceColor(lowestCurrent, baseline) : "var(--foreground)" }}
-            >
-              {formatCHF(lowestCurrent)}
-            </span>
-          </div>
-          {baseline && getPriceBadge(lowestCurrent, baseline)}
-          {nearHistoricalLow && (
-            <span className="border border-green-700 bg-green-900/40 px-1.5 py-0.5 text-[10px] text-green-400">
-              Near Low
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Price timeline chart */}
-      {priceHistory.length >= 2 && <PriceTimelineChart prices={priceHistory} baseline={baseline} />}
+      {/* Price timeline chart — only show when 3+ entries for meaningful visualization */}
+      {priceHistory.length >= 3 && <PriceTimelineChart prices={priceHistory} baseline={baseline} />}
 
       {/* Price timeline */}
       {priceHistory.length > 0 && (
