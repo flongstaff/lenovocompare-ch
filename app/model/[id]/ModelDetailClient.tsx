@@ -198,11 +198,37 @@ const ModelDetailClient = () => {
         )}
       </div>
 
+      {/* Quick score strip — at-a-glance summary (RTINGS-inspired) */}
+      <div className="flex flex-wrap gap-2">
+        {[
+          { label: "CPU", score: sc.dimensions.cpu, color: "#0f62fe" },
+          { label: "GPU", score: sc.dimensions.gpu, color: "#42be65" },
+          { label: "Display", score: sc.dimensions.display, color: "#ee5396" },
+          { label: "Memory", score: sc.dimensions.memory, color: "#be95ff" },
+          { label: "Connect", score: sc.dimensions.connectivity, color: "#08bdba" },
+          { label: "Portable", score: sc.dimensions.portability, color: "#42be65" },
+        ].map((d) => (
+          <div
+            key={d.label}
+            className="flex items-center gap-1.5 rounded border px-2 py-1"
+            style={{ borderColor: "#393939", background: "#1e1e1e" }}
+          >
+            <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "#6f6f6f" }}>
+              {d.label}
+            </span>
+            <span className="font-mono text-sm font-semibold" style={{ color: d.color }}>
+              {d.score}
+            </span>
+          </div>
+        ))}
+      </div>
+
       <ConfigSelector model={model} onConfigChange={handleConfigChange} />
 
       {/* Jump-to navigation */}
       <nav
-        className="scrollbar-thin sticky top-0 z-20 -mx-4 flex gap-1 overflow-x-auto bg-carbon-900/95 px-4 py-2 backdrop-blur-sm sm:gap-2"
+        className="scrollbar-thin sticky top-0 z-20 -mx-4 flex gap-1.5 overflow-x-auto px-4 py-2.5 backdrop-blur-md sm:gap-2"
+        style={{ background: "rgba(22, 22, 22, 0.92)", borderBottom: "1px solid #262626" }}
         aria-label="Page sections"
       >
         {[
@@ -219,7 +245,7 @@ const ModelDetailClient = () => {
           <a
             key={s.id}
             href={`#${s.id}`}
-            className="shrink-0 border border-carbon-600 px-2.5 py-1 text-[11px] font-medium text-carbon-400 transition-colors hover:border-accent hover:text-accent-light"
+            className="shrink-0 rounded px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-carbon-400 transition-all hover:bg-carbon-700/50 hover:text-accent-light"
           >
             {s.label}
           </a>
@@ -443,26 +469,28 @@ const ModelDetailClient = () => {
       {/* Full-width stacked sections */}
       <div className="space-y-6">
         {/* Specifications — 2-column on large screens */}
-        <div id="specs" className="carbon-card scroll-mt-14 rounded-lg p-4">
-          <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
+        <div id="specs" className="carbon-card scroll-mt-14 rounded-lg p-3">
+          <h2 className="mb-2 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
             Specifications
           </h2>
-          <div className="grid grid-cols-1 gap-x-8 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-x-4 lg:grid-cols-2">
             <div>
               <SpecRow
                 icon={Cpu}
-                label="Processor"
-                value={`${configuredModel.processor.name} (${configuredModel.processor.cores}C/${configuredModel.processor.threads}T, ${configuredModel.processor.boostClock} GHz, ${configuredModel.processor.tdp}W TDP)`}
+                label="CPU"
+                even
+                value={`${configuredModel.processor.name} (${configuredModel.processor.cores}C/${configuredModel.processor.threads}T, ${configuredModel.processor.boostClock} GHz, ${configuredModel.processor.tdp}W)`}
               />
               <SpecRow
                 icon={Monitor}
                 label="Display"
-                value={`${configuredModel.display.size}" ${configuredModel.display.resolutionLabel} (${configuredModel.display.resolution}) ${configuredModel.display.panel}, ${configuredModel.display.refreshRate}Hz, ${configuredModel.display.nits} nits${configuredModel.display.touchscreen ? ", Touch" : ""}`}
+                value={`${configuredModel.display.size}" ${configuredModel.display.resolutionLabel} ${configuredModel.display.panel} · ${configuredModel.display.refreshRate}Hz · ${configuredModel.display.nits} nits${configuredModel.display.touchscreen ? " · Touch" : ""}`}
               />
               <SpecRow
                 icon={HardDrive}
-                label="Memory"
-                value={`${configuredModel.ram.size}GB ${configuredModel.ram.type}-${configuredModel.ram.speed}${configuredModel.ram.soldered ? " (soldered)" : ` (${configuredModel.ram.slots} slots)`}, max ${configuredModel.ram.maxSize}GB`}
+                label="RAM"
+                even
+                value={`${configuredModel.ram.size}GB ${configuredModel.ram.type}-${configuredModel.ram.speed}${configuredModel.ram.soldered ? " (soldered)" : ` (${configuredModel.ram.slots} slot${configuredModel.ram.slots > 1 ? "s" : ""})`} · max ${configuredModel.ram.maxSize}GB`}
               />
               <SpecRow
                 icon={HardDrive}
@@ -471,23 +499,26 @@ const ModelDetailClient = () => {
               />
               <SpecRow
                 label="GPU"
-                value={`${configuredModel.gpu.name}${configuredModel.gpu.vram ? ` ${configuredModel.gpu.vram}GB` : ""}${configuredModel.gpu.integrated ? " (integrated)" : " (discrete)"}`}
+                even
+                value={`${configuredModel.gpu.name}${configuredModel.gpu.vram ? ` ${configuredModel.gpu.vram}GB` : ""} · ${configuredModel.gpu.integrated ? "integrated" : "discrete"}`}
               />
             </div>
             <div>
               <SpecRow
                 icon={Battery}
                 label="Battery"
-                value={`${model.battery.whr} Wh${model.battery.removable ? " (removable)" : ""}`}
+                even
+                value={`${model.battery.whr} Wh${model.battery.removable ? " · Removable" : ""}`}
               />
               <SpecRow icon={Weight} label="Weight" value={formatWeight(model.weight)} />
-              <SpecRow icon={Usb} label="Ports" value={model.ports.join(", ")} />
+              <SpecRow icon={Usb} label="Ports" even value={model.ports.join(", ")} />
               <SpecRow icon={Wifi} label="Wireless" value={model.wireless.join(", ")} />
               {model.keyboard && (
                 <SpecRow
                   icon={KeyboardIcon}
-                  label="Keyboard"
-                  value={`${model.keyboard.layout}${model.keyboard.backlit ? ", backlit" : ""}${model.keyboard.trackpoint ? ", TrackPoint" : ""}`}
+                  label="Input"
+                  even
+                  value={`${model.keyboard.layout}${model.keyboard.backlit ? " · Backlit" : ""}${model.keyboard.trackpoint ? " · TrackPoint" : ""}`}
                 />
               )}
             </div>

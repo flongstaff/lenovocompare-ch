@@ -31,7 +31,7 @@ Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and
 - When adding MCP servers, edit `.mcp.json` directly — `claude mcp add` cannot run inside a session. All servers use Docker (`docker run`), not npx
 - GitHub tools are provided via Docker MCP (MCP_DOCKER), not a standalone server — use `mcp__MCP_DOCKER__` prefixed tools for PRs, issues, and code search
 - New fields on `Laptop` interface must be optional (`?`) unless you update all models — `psrefUrl` is the only required non-optional field added post-launch
-- PSREF URL pattern: `https://psref.lenovo.com/Product/{Lineup}/Lenovo_{Lineup}_{Model}_{MachineType}` (spaces → underscores, no Intel/AMD suffix in URL). For Legion: `Product/Legion/Lenovo_Legion_{Model}_{MachineType}`
+- PSREF URL pattern: ThinkPad uses `Product/ThinkPad/Lenovo_ThinkPad_{Model}_{MachineType}`. IdeaPad Pro uses `Product/IdeaPad/IdeaPad_Pro_{Model}_{MachineType}` (no `Lenovo_` prefix, drop "i" from slug). Legion uses `Product/Legion/Legion_{Model}_{MachineType}` (no `Lenovo_` prefix, drop "i" from slug for Gen 9+). Spaces → underscores, no Intel/AMD suffix in URL
 - Model IDs use platform suffixes: `t14-gen5-intel`, `t14s-gen5-amd` — omit suffix only for single-platform models (e.g., `p1-gen7`)
 - PostToolUse hooks auto-modify files on save — always re-read files before writing if time has passed
 - PostToolUse ESLint hook strips "unused" imports immediately — if adding imports + code that uses them, do it in a single Edit or the imports vanish before the code referencing them lands

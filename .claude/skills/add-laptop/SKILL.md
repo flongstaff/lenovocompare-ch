@@ -24,10 +24,10 @@ Use web search or fetch to find the PSREF page. Extract all specs from there —
 PSREF URL patterns by lineup:
 
 - **ThinkPad**: `https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_{Model}_{MachineType}`
-- **IdeaPad Pro**: `https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_{Model}_{MachineType}`
-- **Legion**: `https://psref.lenovo.com/Product/Legion/Lenovo_Legion_{Model}_{MachineType}`
+- **IdeaPad Pro**: `https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_{Model}_{MachineType}` (no `Lenovo_` prefix, drop "i" from slug — e.g., `IdeaPad_Pro_5_14IMH9` not `IdeaPad_Pro_5i_14IRH9`)
+- **Legion**: `https://psref.lenovo.com/Product/Legion/Legion_{Model}_{MachineType}` (no `Lenovo_` prefix, drop "i" from slug for Gen 9+ — e.g., `Legion_5_16IRX9` not `Legion_5i_16IRX9`)
 
-Rules: Spaces → underscores, no Intel/AMD suffix in URL.
+Rules: Spaces → underscores, no Intel/AMD suffix in URL. IdeaPad Pro and Legion never use `Lenovo_` prefix or "i" suffix in URL slugs.
 
 **Verify the PSREF URL loads** before proceeding. If it 404s, search PSREF for the correct URL.
 

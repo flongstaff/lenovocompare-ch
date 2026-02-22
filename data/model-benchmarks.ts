@@ -817,7 +817,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
   // IdeaPad Pro Series
   // ============================================================
 
-  // === IdeaPad Pro 5 14AHP10 (2025, Ryzen AI 7 350) ===
+  // === IdeaPad Pro 5 14AKP10 (2025, Ryzen AI 7 350) ===
   "ideapad-pro-5-14-gen10-amd": {
     thermals: { keyboardMaxC: 42.0, undersideMaxC: 46.0 },
     fanNoise: 40.0,
@@ -828,7 +828,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     sources: ["notebookcheck"],
   },
 
-  // === IdeaPad Pro 5 16AHP10 (2025, Ryzen AI 7 350) ===
+  // === IdeaPad Pro 5 16AKP10 (2025, Ryzen AI 7 350) ===
   "ideapad-pro-5-16-gen10-amd": {
     thermals: { keyboardMaxC: 42.0, undersideMaxC: 46.0 },
     fanNoise: 38.0,
@@ -839,7 +839,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     sources: ["community"],
   },
 
-  // === IdeaPad Pro 5i 14AHP10 (2025, Core Ultra 7 255H) ===
+  // === IdeaPad Pro 5i 14IAH10 (2025, Core Ultra 7 255H) ===
   "ideapad-pro-5i-14-gen10": {
     thermals: { keyboardMaxC: 42.0, undersideMaxC: 46.0 },
     fanNoise: 38.0,
@@ -850,7 +850,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     sources: ["community"],
   },
 
-  // === IdeaPad Pro 5i 16AHP10 (2025, Core Ultra 7 255H) ===
+  // === IdeaPad Pro 5i 16IAH10 (2025, Core Ultra 7 255H) ===
   "ideapad-pro-5i-16-gen10": {
     thermals: { keyboardMaxC: 38.0, undersideMaxC: 40.0 },
     fanNoise: 50.0,
@@ -884,7 +884,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     sources: ["community"],
   },
 
-  // === IdeaPad Pro 5i 14IRH9 (2024, Core Ultra 7 155H) ===
+  // === IdeaPad Pro 5i 14IMH9 (2024, Core Ultra 7 155H) ===
   "ideapad-pro-5i-14-gen9": {
     thermals: { keyboardMaxC: 43.0, undersideMaxC: 47.0 },
     fanNoise: 38.0,
@@ -895,7 +895,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     sources: ["community"],
   },
 
-  // === IdeaPad Pro 5i 16IRH9 (2024, Core Ultra 7 155H) ===
+  // === IdeaPad Pro 5i 16IMH9 (2024, Core Ultra 7 155H) ===
   "ideapad-pro-5i-16-gen9": {
     thermals: { keyboardMaxC: 43.2, undersideMaxC: 48.4 },
     fanNoise: 38.6,

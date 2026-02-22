@@ -71,8 +71,8 @@ For every model ID in `data/laptops.ts`, verify an entry exists in:
 - Verify every model has `psrefUrl`
 - Check URL format by lineup:
   - ThinkPad: `https://psref.lenovo.com/Product/ThinkPad/Lenovo_ThinkPad_*`
-  - IdeaPad Pro: `https://psref.lenovo.com/Product/IdeaPad/Lenovo_IdeaPad_Pro_*`
-  - Legion: `https://psref.lenovo.com/Product/Legion/Lenovo_Legion_*`
+  - IdeaPad Pro: `https://psref.lenovo.com/Product/IdeaPad/IdeaPad_Pro_*` (no `Lenovo_` prefix, no "i" in slug)
+  - Legion: `https://psref.lenovo.com/Product/Legion/Legion_*` (no `Lenovo_` prefix, no "i" in slug for Gen 9+)
 - Optionally: fetch to verify URLs return 200
 
 ### 6. Orphaned Entries

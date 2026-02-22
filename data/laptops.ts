@@ -4199,7 +4199,7 @@ export const laptops: readonly Laptop[] = [
   // === IdeaPad Pro 5i (Intel) ===
   {
     id: "ideapad-pro-5i-14-gen9",
-    name: "IdeaPad Pro 5i 14IRH9",
+    name: "IdeaPad Pro 5i 14IMH9",
     lineup: "IdeaPad Pro",
     series: "Pro 5i",
     year: 2024,
@@ -4263,7 +4263,7 @@ export const laptops: readonly Laptop[] = [
   },
   {
     id: "ideapad-pro-5i-16-gen9",
-    name: "IdeaPad Pro 5i 16IRH9",
+    name: "IdeaPad Pro 5i 16IMH9",
     lineup: "IdeaPad Pro",
     series: "Pro 5i",
     year: 2024,
@@ -4515,7 +4515,7 @@ export const laptops: readonly Laptop[] = [
   // === 2025 IdeaPad Pro 5 ===
   {
     id: "ideapad-pro-5-14-gen10-amd",
-    name: "IdeaPad Pro 5 14AHP10",
+    name: "IdeaPad Pro 5 14AKP10",
     lineup: "IdeaPad Pro",
     series: "Pro 5",
     year: 2025,
@@ -4578,7 +4578,7 @@ export const laptops: readonly Laptop[] = [
   },
   {
     id: "ideapad-pro-5-16-gen10-amd",
-    name: "IdeaPad Pro 5 16AHP10",
+    name: "IdeaPad Pro 5 16AKP10",
     lineup: "IdeaPad Pro",
     series: "Pro 5",
     year: 2025,
@@ -4641,7 +4641,7 @@ export const laptops: readonly Laptop[] = [
   },
   {
     id: "ideapad-pro-5i-14-gen10",
-    name: "IdeaPad Pro 5i 14AHP10",
+    name: "IdeaPad Pro 5i 14IAH10",
     lineup: "IdeaPad Pro",
     series: "Pro 5i",
     year: 2025,
@@ -4705,7 +4705,7 @@ export const laptops: readonly Laptop[] = [
   },
   {
     id: "ideapad-pro-5i-16-gen10",
-    name: "IdeaPad Pro 5i 16AHP10",
+    name: "IdeaPad Pro 5i 16IAH10",
     lineup: "IdeaPad Pro",
     series: "Pro 5i",
     year: 2025,
@@ -5375,7 +5375,7 @@ export const laptops: readonly Laptop[] = [
     ports: ["1x Thunderbolt 4", "1x USB-C 3.2", "2x USB-A 3.2", "1x HDMI 2.1", "1x RJ45", "1x 3.5mm"],
     wireless: ["Wi-Fi 6", "Bluetooth 5.1"],
     os: "Windows 11 Home",
-    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5i_15IAH7",
+    psrefUrl: "https://psref.lenovo.com/Product/Legion/Legion_5_15IAH7",
     processorOptions: [
       { name: "Intel Core i5-12500H", cores: 12, threads: 16, baseClock: 2.5, boostClock: 4.5, tdp: 45 },
       { name: "Intel Core i7-12700H", cores: 14, threads: 20, baseClock: 2.3, boostClock: 4.7, tdp: 45 },

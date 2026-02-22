@@ -36,16 +36,16 @@ const ModelAnalysisCard = ({ analysis }: ModelAnalysisCardProps) => {
         {analysis.summary}
       </p>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {analysis.pros.length > 0 && (
-          <div>
-            <h3 className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: "var(--success)" }}>
+          <div className="rounded-lg border p-3" style={{ borderColor: "#393939", borderLeft: "3px solid #42be65" }}>
+            <h3 className="mb-2 font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: "#42be65" }}>
               Strengths
             </h3>
             <ul className="space-y-1.5">
               {analysis.pros.map((pro) => (
                 <li key={pro} className="flex items-start gap-1.5 text-sm" style={{ color: "var(--foreground)" }}>
-                  <CheckCircle size={14} className="mt-0.5 shrink-0" style={{ color: "var(--success)" }} />
+                  <CheckCircle size={13} className="mt-0.5 shrink-0" style={{ color: "#42be65" }} />
                   {pro}
                 </li>
               ))}
@@ -54,14 +54,14 @@ const ModelAnalysisCard = ({ analysis }: ModelAnalysisCardProps) => {
         )}
 
         {analysis.cons.length > 0 && (
-          <div>
-            <h3 className="mb-2 text-xs font-bold uppercase tracking-widest" style={{ color: "var(--warning)" }}>
+          <div className="rounded-lg border p-3" style={{ borderColor: "#393939", borderLeft: "3px solid #f1c21b" }}>
+            <h3 className="mb-2 font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: "#f1c21b" }}>
               Limitations
             </h3>
             <ul className="space-y-1.5">
               {analysis.cons.map((con) => (
                 <li key={con} className="flex items-start gap-1.5 text-sm" style={{ color: "var(--foreground)" }}>
-                  <AlertTriangle size={14} className="mt-0.5 shrink-0" style={{ color: "var(--warning)" }} />
+                  <AlertTriangle size={13} className="mt-0.5 shrink-0" style={{ color: "#f1c21b" }} />
                   {con}
                 </li>
               ))}
