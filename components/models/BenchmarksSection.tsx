@@ -142,12 +142,15 @@ const Divider = ({ label }: { label: string }) => (
   </div>
 );
 
-const SpecRow = ({ label, value, color }: { label: string; value: string; color?: string }) => (
-  <div className="flex items-baseline justify-between gap-2 py-0.5">
-    <span className="text-xs" style={{ color: "var(--muted)" }}>
+const InsightRow = ({ label, value, color }: { label: string; value: string; color?: string }) => (
+  <div className="flex items-start gap-2 py-0.5">
+    <span
+      className="shrink-0 text-[10px] font-semibold uppercase tracking-wide"
+      style={{ color: color ?? "#6f6f6f", minWidth: 60 }}
+    >
       {label}
     </span>
-    <span className="font-mono text-xs font-medium" style={{ color: color ?? "var(--foreground)" }}>
+    <span className="text-xs" style={{ color: "var(--muted)" }}>
       {value}
     </span>
   </div>
@@ -291,18 +294,60 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                 </div>
               </SubSection>
             ) : (
-              <SubSection title="CPU Specs" accent="#6f6f6f">
-                <div className="space-y-0.5">
-                  <SpecRow label="Cores / Threads" value={`${model.processor.cores}C / ${model.processor.threads}T`} />
-                  <SpecRow label="Base Clock" value={`${model.processor.baseClock} GHz`} />
-                  <SpecRow label="Boost Clock" value={`${model.processor.boostClock} GHz`} color="#4589ff" />
-                  <SpecRow label="TDP" value={`${model.processor.tdp} W`} />
-                  <SpecRow
-                    label="GPU"
-                    value={model.gpu.name}
-                    color={model.gpu.integrated ? "var(--muted)" : "#42be65"}
-                  />
-                </div>
+              <SubSection title="Performance Context" accent="#6f6f6f">
+                {cpuRaw && (
+                  <div className="space-y-2">
+                    {cpuRaw.cinebench2024Single && cpuRaw.cinebench2024Multi && (
+                      <div className="grid grid-cols-2 gap-2">
+                        <StatBox
+                          label="Multi / Single"
+                          value={`${(cpuRaw.cinebench2024Multi / cpuRaw.cinebench2024Single).toFixed(1)}×`}
+                          color="#4589ff"
+                        />
+                        <StatBox
+                          label="Per-Core Perf"
+                          value={Math.round(cpuRaw.cinebench2024Multi / model.processor.cores)}
+                          color="#be95ff"
+                        />
+                      </div>
+                    )}
+                    <div className="space-y-0.5">
+                      <InsightRow
+                        label="Scaling"
+                        value={
+                          cpuRaw.cinebench2024Single && cpuRaw.cinebench2024Multi
+                            ? cpuRaw.cinebench2024Multi / cpuRaw.cinebench2024Single > model.processor.cores * 0.75
+                              ? "Excellent multi-thread scaling for this core count"
+                              : cpuRaw.cinebench2024Multi / cpuRaw.cinebench2024Single > model.processor.cores * 0.55
+                                ? "Good scaling — some thermal or power throttling"
+                                : "Moderate scaling — likely TDP-limited"
+                            : "Benchmark data needed for scaling analysis"
+                        }
+                        color={
+                          cpuRaw.cinebench2024Single && cpuRaw.cinebench2024Multi
+                            ? cpuRaw.cinebench2024Multi / cpuRaw.cinebench2024Single > model.processor.cores * 0.75
+                              ? "#42be65"
+                              : cpuRaw.cinebench2024Multi / cpuRaw.cinebench2024Single > model.processor.cores * 0.55
+                                ? "#4589ff"
+                                : "#f1c21b"
+                            : undefined
+                        }
+                      />
+                      {cpuRaw.typicalTdpAvg && (
+                        <InsightRow
+                          label="Efficiency"
+                          value={`${((cpuRaw.cinebench2024Multi ?? 0) / cpuRaw.typicalTdpAvg).toFixed(1)} pts/W — ${
+                            (cpuRaw.cinebench2024Multi ?? 0) / cpuRaw.typicalTdpAvg > 20
+                              ? "highly efficient"
+                              : (cpuRaw.cinebench2024Multi ?? 0) / cpuRaw.typicalTdpAvg > 12
+                                ? "good efficiency"
+                                : "performance-focused"
+                          }`}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
               </SubSection>
             )}
           </div>
@@ -481,21 +526,30 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     unit="MB/s"
                   />
                 </div>
-                <div className="space-y-0.5 border-t pt-2" style={{ borderColor: "var(--border-subtle)" }}>
-                  <SpecRow label="Type" value={model.storage.type} />
-                  <SpecRow
-                    label="Capacity"
-                    value={`${model.storage.size >= 1000 ? `${model.storage.size / 1000} TB` : `${model.storage.size} GB`}`}
-                  />
-                  {model.storage.slots > 1 && (
-                    <SpecRow label="Slots" value={`${model.storage.slots}× M.2`} color="#4589ff" />
-                  )}
-                </div>
+                <InsightRow
+                  label="Tier"
+                  value={
+                    chassisBench.ssdSpeed.seqReadMBs >= 7000
+                      ? "PCIe 4.0 top-tier — fast OS, app, and game loads"
+                      : chassisBench.ssdSpeed.seqReadMBs >= 5000
+                        ? "PCIe 4.0 mid-range — snappy for most workloads"
+                        : chassisBench.ssdSpeed.seqReadMBs >= 3000
+                          ? "PCIe 3.0 / entry 4.0 — adequate for general use"
+                          : "Entry-level — noticeable in large file transfers"
+                  }
+                  color={
+                    chassisBench.ssdSpeed.seqReadMBs >= 7000
+                      ? "#42be65"
+                      : chassisBench.ssdSpeed.seqReadMBs >= 5000
+                        ? "#4589ff"
+                        : "#f1c21b"
+                  }
+                />
               </SubSection>
             )}
 
-            <SubSection title="Memory" accent={CAT_COLORS.memory}>
-              {chassisBench?.memoryBandwidthGBs && (
+            {chassisBench?.memoryBandwidthGBs ? (
+              <SubSection title="Memory Bandwidth" accent={CAT_COLORS.memory}>
                 <MiniBar
                   label="Bandwidth"
                   value={chassisBench.memoryBandwidthGBs}
@@ -503,18 +557,32 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   color="#be95ff"
                   unit="GB/s"
                 />
-              )}
-              <div className="space-y-0.5">
-                <SpecRow label="Size" value={`${model.ram.size} GB`} color="#be95ff" />
-                <SpecRow label="Type" value={`${model.ram.type}-${model.ram.speed}`} />
-                <SpecRow label="Max" value={`${model.ram.maxSize} GB`} />
-                <SpecRow
-                  label="Config"
-                  value={model.ram.soldered ? "Soldered" : `${model.ram.slots} slot${model.ram.slots > 1 ? "s" : ""}`}
-                  color={model.ram.soldered ? "#f1c21b" : "#42be65"}
+                <InsightRow
+                  label="Rating"
+                  value={
+                    chassisBench.memoryBandwidthGBs >= 70
+                      ? "Excellent — great for content creation and large datasets"
+                      : chassisBench.memoryBandwidthGBs >= 45
+                        ? "Good — handles multitasking and dev workloads well"
+                        : "Standard — sufficient for typical office and web use"
+                  }
+                  color={
+                    chassisBench.memoryBandwidthGBs >= 70
+                      ? "#42be65"
+                      : chassisBench.memoryBandwidthGBs >= 45
+                        ? "#be95ff"
+                        : undefined
+                  }
                 />
-              </div>
-            </SubSection>
+                {model.ram.soldered && (
+                  <InsightRow
+                    label="Note"
+                    value="Soldered RAM — bandwidth is fixed and not upgradeable"
+                    color="#f1c21b"
+                  />
+                )}
+              </SubSection>
+            ) : null}
           </div>
         </div>
       )}
@@ -524,32 +592,43 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
         <div className="space-y-3">
           <Divider label="Display & Creative" />
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-            {chassisBench?.displayBrightness && (
-              <SubSection title="Display (Measured)" accent={CAT_COLORS.display}>
-                <div className="grid grid-cols-2 gap-2">
-                  <StatBox label="Measured" value={chassisBench.displayBrightness} unit="nits" color="#f1c21b" />
-                  <StatBox label="Spec" value={model.display.nits} unit="nits" color="var(--muted)" />
-                </div>
-                <div className="space-y-0.5 border-t pt-2" style={{ borderColor: "var(--border-subtle)" }}>
-                  <SpecRow
-                    label="Resolution"
-                    value={`${model.display.resolution} (${model.display.resolutionLabel})`}
-                  />
-                  <SpecRow
-                    label="Panel"
-                    value={model.display.panel}
-                    color={model.display.panel === "OLED" ? "#f1c21b" : "var(--foreground)"}
-                  />
-                  <SpecRow
-                    label="Refresh"
-                    value={`${model.display.refreshRate} Hz`}
-                    color={model.display.refreshRate >= 120 ? "#42be65" : "var(--foreground)"}
-                  />
-                  <SpecRow label="Size" value={`${model.display.size}″`} />
-                  {model.display.touchscreen && <SpecRow label="Touch" value="Yes" color="#08bdba" />}
-                </div>
-              </SubSection>
-            )}
+            {chassisBench?.displayBrightness &&
+              (() => {
+                const diff = chassisBench.displayBrightness - model.display.nits;
+                const diffPct = Math.round((diff / model.display.nits) * 100);
+                const overSpec = diff > 0;
+                return (
+                  <SubSection title="Display (Measured)" accent={CAT_COLORS.display}>
+                    <div className="grid grid-cols-2 gap-2">
+                      <StatBox label="Measured" value={chassisBench.displayBrightness} unit="nits" color="#f1c21b" />
+                      <StatBox label="Spec" value={model.display.nits} unit="nits" color="var(--muted)" />
+                    </div>
+                    <InsightRow
+                      label="Accuracy"
+                      value={
+                        overSpec
+                          ? `+${diffPct}% above spec — exceeds advertised brightness`
+                          : Math.abs(diffPct) <= 5
+                            ? "Matches spec — accurate manufacturer claim"
+                            : `${diffPct}% below spec — dimmer than advertised`
+                      }
+                      color={overSpec ? "#42be65" : Math.abs(diffPct) <= 5 ? "#4589ff" : "#ff832b"}
+                    />
+                    <InsightRow
+                      label="Use"
+                      value={
+                        chassisBench.displayBrightness >= 500
+                          ? "Outdoor-capable — comfortable in direct sunlight"
+                          : chassisBench.displayBrightness >= 350
+                            ? "Indoor-excellent — handles bright office lighting"
+                            : chassisBench.displayBrightness >= 250
+                              ? "Indoor-adequate — may struggle near windows"
+                              : "Dim — best in controlled lighting environments"
+                      }
+                    />
+                  </SubSection>
+                );
+              })()}
 
             {chassisBench?.pugetPremiere || chassisBench?.pugetDavinci ? (
               <SubSection title="Content Creation" accent={CAT_COLORS.creative}>
@@ -561,30 +640,63 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     <StatBox label="Puget DaVinci" value={chassisBench.pugetDavinci} color="#6929c4" />
                   )}
                 </div>
+                <InsightRow
+                  label="Rating"
+                  value={
+                    (chassisBench.pugetPremiere ?? 0) >= 8000 || (chassisBench.pugetDavinci ?? 0) >= 5000
+                      ? "Professional-grade — smooth 4K timeline editing"
+                      : (chassisBench.pugetPremiere ?? 0) >= 5000 || (chassisBench.pugetDavinci ?? 0) >= 3000
+                        ? "Capable — handles 1080p editing and moderate 4K"
+                        : "Basic — suitable for light editing and short projects"
+                  }
+                  color={
+                    (chassisBench.pugetPremiere ?? 0) >= 8000 || (chassisBench.pugetDavinci ?? 0) >= 5000
+                      ? "#42be65"
+                      : "#be95ff"
+                  }
+                />
               </SubSection>
-            ) : (
-              <SubSection title="Display Specs" accent="#6f6f6f">
+            ) : chassisBench?.displayBrightness ? (
+              <SubSection title="Display Quality" accent="#6f6f6f">
                 <div className="space-y-0.5">
-                  <SpecRow
-                    label="Resolution"
-                    value={`${model.display.resolution} (${model.display.resolutionLabel})`}
-                  />
-                  <SpecRow
+                  <InsightRow
                     label="Panel"
-                    value={model.display.panel}
-                    color={model.display.panel === "OLED" ? "#f1c21b" : "var(--foreground)"}
+                    value={
+                      model.display.panel === "OLED"
+                        ? "OLED — perfect blacks, wide color gamut, burn-in risk with static content"
+                        : model.display.panel === "IPS"
+                          ? "IPS — consistent colors at wide angles, good for productivity"
+                          : "TN — fast response but narrow viewing angles"
+                    }
+                    color={model.display.panel === "OLED" ? "#f1c21b" : undefined}
                   />
-                  <SpecRow
+                  <InsightRow
                     label="Refresh"
-                    value={`${model.display.refreshRate} Hz`}
-                    color={model.display.refreshRate >= 120 ? "#42be65" : "var(--foreground)"}
+                    value={
+                      model.display.refreshRate >= 165
+                        ? `${model.display.refreshRate} Hz — competitive gaming and ultra-smooth scrolling`
+                        : model.display.refreshRate >= 120
+                          ? `${model.display.refreshRate} Hz — noticeably smoother than 60 Hz`
+                          : `${model.display.refreshRate} Hz — standard refresh for productivity`
+                    }
+                    color={model.display.refreshRate >= 120 ? "#42be65" : undefined}
                   />
-                  <SpecRow label="Brightness" value={`${model.display.nits} nits (spec)`} />
-                  <SpecRow label="Size" value={`${model.display.size}″`} />
-                  {model.display.touchscreen && <SpecRow label="Touch" value="Yes" color="#08bdba" />}
+                  <InsightRow
+                    label="PPI"
+                    value={(() => {
+                      const [w, h] = model.display.resolution.split("x").map(Number);
+                      const diag = Math.sqrt(w * w + h * h) / model.display.size;
+                      const ppi = Math.round(diag);
+                      return ppi >= 200
+                        ? `${ppi} — Retina-class, text is crisp at any distance`
+                        : ppi >= 150
+                          ? `${ppi} — sharp, individual pixels rarely visible`
+                          : `${ppi} — adequate at normal viewing distance`;
+                    })()}
+                  />
                 </div>
               </SubSection>
-            )}
+            ) : null}
           </div>
         </div>
       )}
