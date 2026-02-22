@@ -30,7 +30,8 @@ export const formatStorage = (gb: number): string => (gb >= 1024 ? `${(gb / 1024
 export const shortName = (name: string) => name.replace(/^(ThinkPad|IdeaPad Pro|Legion) /, "");
 
 /** Calculate percentage discount off MSRP (rounded integer) */
-export const getPriceDiscount = (price: number, msrp: number): number => Math.round(((msrp - price) / msrp) * 100);
+export const getPriceDiscount = (price: number, msrp: number): number =>
+  msrp === 0 ? 0 : Math.round(((msrp - price) / msrp) * 100);
 
 /** Color for a price discount percentage: green (>=25%), yellow (>=10%), red (<10%) */
 export const getPriceDiscountColor = (discountPct: number): string => {

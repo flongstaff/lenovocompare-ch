@@ -24,7 +24,8 @@ const isValidPrice = (item: unknown): item is SwissPrice => {
     typeof obj.retailer === "string" &&
     typeof obj.price === "number" &&
     obj.price > 0 &&
-    typeof obj.dateAdded === "string"
+    typeof obj.dateAdded === "string" &&
+    (!obj.url || (typeof obj.url === "string" && /^https?:\/\//.test(obj.url)))
   );
 };
 

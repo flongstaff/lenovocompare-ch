@@ -40,7 +40,7 @@ export const getValueScore = (model: Laptop, prices: readonly SwissPrice[]): num
 
   const lowestPrice = Math.min(...matching.map((p) => p.price));
   // Performance per 1000 CHF, with 1.5x scaling so a mid-range model at typical price ≈ 50
-  return Math.round((perf / (lowestPrice / 1000)) * 1.5);
+  return Math.min(100, Math.round((perf / (lowestPrice / 1000)) * 1.5));
 };
 
 export const getPortabilityScore = (model: Laptop): number => {
@@ -70,9 +70,9 @@ export const getDisplayScore = (model: Laptop): number => {
   const resScore = Math.min(30, (pixels / (3840 * 2400)) * 30);
   const panelScore = d.panel === "OLED" ? 25 : d.panel === "IPS" ? 15 : 5;
   const brightnessScore = Math.min(15, (d.nits / 600) * 15);
-  const refreshScore = Math.min(15, ((d.refreshRate - 60) / 105) * 15);
+  const refreshScore = Math.max(0, Math.min(15, ((d.refreshRate - 60) / 105) * 15));
   const touchScore = d.touchscreen ? 10 : 0;
-  const sizeScore = Math.min(5, ((d.size - 13) / 3) * 5);
+  const sizeScore = Math.max(0, Math.min(5, ((d.size - 13) / 3) * 5));
 
   return Math.round(Math.min(100, resScore + panelScore + brightnessScore + refreshScore + touchScore + sizeScore));
 };
@@ -287,9 +287,9 @@ export const getDisplayScoreBreakdown = (model: Laptop): DisplayBreakdown => {
     resolution: { label: "Resolution", earned: Math.min(30, (pixels / (3840 * 2400)) * 30), max: 30 },
     panel: { label: "Panel", earned: d.panel === "OLED" ? 25 : d.panel === "IPS" ? 15 : 5, max: 25 },
     brightness: { label: "Brightness", earned: Math.min(15, (d.nits / 600) * 15), max: 15 },
-    refresh: { label: "Refresh Rate", earned: Math.min(15, ((d.refreshRate - 60) / 105) * 15), max: 15 },
+    refresh: { label: "Refresh Rate", earned: Math.max(0, Math.min(15, ((d.refreshRate - 60) / 105) * 15)), max: 15 },
     touch: { label: "Touch", earned: d.touchscreen ? 10 : 0, max: 10 },
-    size: { label: "Size", earned: Math.min(5, ((d.size - 13) / 3) * 5), max: 5 },
+    size: { label: "Size", earned: Math.max(0, Math.min(5, ((d.size - 13) / 3) * 5)), max: 5 },
   };
 };
 
@@ -409,6 +409,7 @@ export const getGpuScoreBreakdown = (gpuName: string): GpuBreakdown => ({
 export const getScorePercentile = (score: number, dimension: keyof PerformanceDimensions, lineup: string): number => {
   const lineupModels = laptops.filter((m) => m.lineup === lineup);
   const allScores = lineupModels.map((m) => getPerformanceDimensions(m)[dimension]);
+  if (allScores.length === 0) return 0;
   const below = allScores.filter((s) => s < score).length;
   return Math.round((below / allScores.length) * 100);
 };

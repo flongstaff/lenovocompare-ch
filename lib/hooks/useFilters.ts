@@ -79,12 +79,18 @@ const parseFiltersFromUrl = (): Partial<MutableFilterState> => {
     return isNaN(n) ? null : n;
   };
 
-  result.minPrice = parseNum(p.get("minPrice"));
-  result.maxPrice = parseNum(p.get("maxPrice"));
-  result.year = parseNum(p.get("year"));
-  result.ramMin = parseNum(p.get("ramMin"));
-  result.maxWeight = parseNum(p.get("maxWeight"));
-  result.minScreenSize = parseNum(p.get("minScreen"));
+  const minPrice = parseNum(p.get("minPrice"));
+  if (minPrice !== null) result.minPrice = minPrice;
+  const maxPrice = parseNum(p.get("maxPrice"));
+  if (maxPrice !== null) result.maxPrice = maxPrice;
+  const year = parseNum(p.get("year"));
+  if (year !== null) result.year = year;
+  const ramMin = parseNum(p.get("ramMin"));
+  if (ramMin !== null) result.ramMin = ramMin;
+  const maxWeight = parseNum(p.get("maxWeight"));
+  if (maxWeight !== null) result.maxWeight = maxWeight;
+  const minScreen = parseNum(p.get("minScreen"));
+  if (minScreen !== null) result.minScreenSize = minScreen;
 
   return result;
 };
