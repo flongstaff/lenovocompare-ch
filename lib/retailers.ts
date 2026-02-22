@@ -55,14 +55,6 @@ export const getMarketplaceLinks = (model: Laptop): readonly RetailerLink[] => [
   { name: "Tutti", url: `https://www.tutti.ch/de/q/${enc(model.name)}`, category: "marketplace" },
 ];
 
-/** All shopping links combined (for PriceCheck component) */
-export const getAllShoppingLinks = (model: Laptop): readonly RetailerLink[] => [
-  ...getRetailerSearchLinks(model),
-  ...getPriceCompareLinks(model),
-  ...getRefurbishedLinks(model),
-  ...getMarketplaceLinks(model),
-];
-
 export const getNotebookCheckUrl = (model: Laptop): string =>
   `https://www.notebookcheck.net/search.php?s=${enc(model.name)}`;
 

@@ -110,9 +110,6 @@ export interface Laptop {
   readonly storageOptions?: readonly Storage[];
 }
 
-/** @deprecated Use Laptop instead */
-export type ThinkPad = Laptop;
-
 export type PriceType = "msrp" | "retail" | "sale" | "refurbished" | "used";
 
 export interface SwissPrice {
