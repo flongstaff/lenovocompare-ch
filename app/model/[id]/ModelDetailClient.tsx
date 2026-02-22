@@ -55,17 +55,22 @@ const SpecRow = ({
   label,
   value,
   icon: Icon,
+  even,
 }: {
   label: string;
   value: string;
   icon?: React.ComponentType<{ size?: string | number; className?: string; style?: React.CSSProperties }>;
+  even?: boolean;
 }) => (
-  <div className="flex items-start gap-3 py-2" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-    {Icon && <Icon size={16} style={{ color: "var(--muted)" }} className="mt-0.5 shrink-0" />}
-    <span className="w-32 shrink-0 text-sm" style={{ color: "var(--muted)" }}>
+  <div className="flex items-start gap-3 rounded px-2 py-2" style={{ background: even ? "#1e1e1e" : "transparent" }}>
+    {Icon && <Icon size={15} style={{ color: "#525252" }} className="mt-0.5 shrink-0" />}
+    <span
+      className="w-20 shrink-0 font-mono text-[11px] font-medium uppercase tracking-wider"
+      style={{ color: "#6f6f6f" }}
+    >
       {label}
     </span>
-    <span className="text-sm" style={{ color: "var(--foreground)" }}>
+    <span className="text-sm leading-snug" style={{ color: "var(--foreground)" }}>
       {value}
     </span>
   </div>
@@ -502,9 +507,9 @@ const ModelDetailClient = () => {
               <h2 className="mb-3 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
                 Form Factor
               </h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-[auto_1fr]">
-                {/* Blueprint diagram — constrained */}
-                <div className="flex items-start justify-center md:justify-start">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                {/* Blueprint diagram */}
+                <div className="flex items-center justify-center">
                   <BlueprintDiagram
                     displaySize={configuredModel.display.size}
                     weight={configuredModel.weight}
@@ -514,22 +519,36 @@ const ModelDetailClient = () => {
                 </div>
 
                 {/* Physical build context — unique info not in Specs */}
-                <div className="space-y-3">
-                  {/* Quick physical stats */}
-                  <div
-                    className="flex flex-wrap items-center gap-4 rounded-md border px-3 py-2"
-                    style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
-                  >
-                    <PhysicalStat label="Weight" value={formatWeight(model.weight)} />
-                    <div className="h-6 w-px" style={{ background: "var(--border-subtle)" }} />
-                    <PhysicalStat label="Battery" value={`${model.battery.whr}`} unit="Wh" />
-                    <div className="h-6 w-px" style={{ background: "var(--border-subtle)" }} />
-                    <PhysicalStat label="Screen" value={`${configuredModel.display.size}"`} />
-                    <div className="h-6 w-px" style={{ background: "var(--border-subtle)" }} />
-                    <PhysicalStat label="Total I/O" value={`${totalPorts}`} unit="ports" />
+                <div className="flex flex-col justify-between gap-3">
+                  {/* Quick physical stats — 2×2 grid */}
+                  <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <div
+                      className="rounded-md border px-2.5 py-2"
+                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
+                    >
+                      <PhysicalStat label="Weight" value={formatWeight(model.weight)} />
+                    </div>
+                    <div
+                      className="rounded-md border px-2.5 py-2"
+                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
+                    >
+                      <PhysicalStat label="Battery" value={`${model.battery.whr}`} unit="Wh" />
+                    </div>
+                    <div
+                      className="rounded-md border px-2.5 py-2"
+                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
+                    >
+                      <PhysicalStat label="Screen" value={`${configuredModel.display.size}"`} />
+                    </div>
+                    <div
+                      className="rounded-md border px-2.5 py-2"
+                      style={{ borderColor: "var(--border-subtle)", background: "#1e1e1e" }}
+                    >
+                      <PhysicalStat label="Total I/O" value={`${totalPorts}`} unit="ports" />
+                    </div>
                   </div>
 
-                  {/* Port breakdown — the unique detail */}
+                  {/* Port breakdown */}
                   <div className="space-y-1.5">
                     <span
                       className="text-[10px] font-medium uppercase tracking-widest"

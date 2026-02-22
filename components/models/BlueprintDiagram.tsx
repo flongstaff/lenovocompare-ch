@@ -70,7 +70,7 @@ export const BlueprintDiagram = ({ displaySize, weight, lineup }: BlueprintDiagr
       <svg
         viewBox={`0 0 ${viewW} ${viewH}`}
         xmlns="http://www.w3.org/2000/svg"
-        className="h-auto w-full max-w-[240px]"
+        className="h-auto w-full max-w-xs"
         role="img"
         aria-label={`Blueprint: ${widthMm} × ${depthMm} × ${heightMm} mm, ${weight} kg`}
       >
