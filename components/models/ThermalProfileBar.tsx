@@ -55,7 +55,7 @@ export const ThermalProfileBar = ({ keyboardMaxC }: ThermalProfileBarProps) => {
       </div>
 
       {/* Zone labels */}
-      <div className="relative mt-1 flex font-mono text-[9px] uppercase tracking-wider">
+      <div className="relative mt-1 flex font-mono text-[11px] uppercase tracking-wider">
         <span className="absolute left-0" style={{ color: "#42be65" }}>
           Cool
         </span>

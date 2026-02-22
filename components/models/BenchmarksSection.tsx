@@ -41,13 +41,13 @@ const StatBox = ({
   color?: string;
 }) => (
   <div className="rounded p-3" style={{ background: "var(--surface)" }}>
-    <div className="mb-1 text-xs" style={{ color: "var(--muted)" }}>
+    <div className="mb-1 text-sm" style={{ color: "var(--muted)" }}>
       {label}
     </div>
-    <div className="font-mono text-lg font-semibold" style={{ color: color ?? "var(--foreground)" }}>
+    <div className="font-mono text-xl font-semibold" style={{ color: color ?? "var(--foreground)" }}>
       {value}
       {unit && (
-        <span className="ml-0.5 text-xs font-normal" style={{ color: "var(--muted)" }}>
+        <span className="ml-0.5 text-sm font-normal" style={{ color: "var(--muted)" }}>
           {unit}
         </span>
       )}
@@ -71,14 +71,14 @@ const MiniBar = ({
   const pct = Math.min(100, (value / maxValue) * 100);
   return (
     <div className="space-y-1">
-      <div className="flex justify-between text-xs">
+      <div className="flex justify-between text-sm">
         <span style={{ color: "var(--muted)" }}>{label}</span>
         <span className="font-mono" style={{ color }}>
           {value.toLocaleString()}
           {unit && ` ${unit}`}
         </span>
       </div>
-      <div className="h-2 rounded-full" style={{ background: "var(--surface)" }}>
+      <div className="h-2.5 rounded-full" style={{ background: "var(--surface)" }}>
         <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, background: color }} />
       </div>
     </div>
@@ -86,9 +86,9 @@ const MiniBar = ({
 };
 
 const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="space-y-3 rounded-lg p-3" style={{ background: "var(--surface)" }}>
+  <div className="space-y-4 rounded-lg p-4" style={{ background: "var(--surface)" }}>
     <h4
-      className="border-l-2 pl-2 text-sm font-semibold uppercase tracking-wider"
+      className="border-l-[3px] pl-2 text-base font-semibold uppercase tracking-wider"
       style={{ color: "var(--muted)", borderColor: "var(--accent)" }}
     >
       {title}
@@ -122,11 +122,11 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+      <h3 className="text-xl font-semibold" style={{ color: "var(--foreground)" }}>
         Benchmarks
       </h3>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         {/* CPU Raw Benchmarks */}
         {hasAnyCpuRaw && (
           <SubSection title="CPU Performance">
@@ -185,7 +185,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                 />
                 <div className="flex gap-2">
                   <span
-                    className="rounded px-1 py-0.5 text-[10px]"
+                    className="rounded px-1 py-0.5 text-xs"
                     style={{
                       background:
                         chassisBench.thermals.keyboardMaxC > thermalT.hot
@@ -207,7 +207,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                         ? "Warm under load"
                         : "Cool under load"}
                     {(model.lineup === "Legion" || model.series === "P") && (
-                      <span className="ml-1 text-[9px] opacity-70">
+                      <span className="ml-1 text-[10px] opacity-70">
                         (normal for {model.lineup === "Legion" ? "gaming" : "workstation"})
                       </span>
                     )}
@@ -231,7 +231,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                 />
                 <div className="mt-1">
                   <span
-                    className="rounded px-1 py-0.5 text-[10px]"
+                    className="rounded px-1 py-0.5 text-xs"
                     style={{
                       background:
                         chassisBench.fanNoise > noiseT.loud
@@ -371,7 +371,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
 
       {/* Sources */}
       {chassisBench?.sources && chassisBench.sources.length > 0 && (
-        <div className="pt-2 text-xs" style={{ color: "var(--muted)", borderTop: "1px solid var(--border-subtle)" }}>
+        <div className="pt-2 text-sm" style={{ color: "var(--muted)", borderTop: "1px solid var(--border-subtle)" }}>
           Sources:{" "}
           {chassisBench.sourceUrls && chassisBench.sourceUrls.length > 0
             ? chassisBench.sources.map((src, i) => {

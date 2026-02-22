@@ -41,13 +41,13 @@ const MiniBar = ({ earned, max, color }: { earned: number; max: number; color: s
 
 const SubScore = ({ component, color }: { component: ScoreComponent; color: string }) => (
   <div className="flex items-center gap-2">
-    <span className="w-16 shrink-0 text-[10px]" style={{ color: "var(--muted)" }}>
+    <span className="w-16 shrink-0 text-xs" style={{ color: "var(--muted)" }}>
       {component.label}
     </span>
     <div className="flex-1">
       <MiniBar earned={component.earned} max={component.max} color={color} />
     </div>
-    <span className="w-10 shrink-0 text-right font-mono text-[10px]" style={{ color: "var(--muted)" }}>
+    <span className="w-10 shrink-0 text-right font-mono text-xs" style={{ color: "var(--muted)" }}>
       {Math.round(component.earned)}/{component.max}
     </span>
   </div>
@@ -101,7 +101,7 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                     {dim.label}
                   </span>
                   <span
-                    className="text-[10px] font-medium"
+                    className="text-xs font-medium"
                     style={{
                       color:
                         dim.score >= 80
@@ -116,7 +116,7 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                     {dim.score >= 80 ? "Excellent" : dim.score >= 60 ? "Good" : dim.score >= 40 ? "Fair" : "Low"}
                   </span>
                 </div>
-                <div className="truncate text-[10px]" style={{ color: "var(--muted)" }}>
+                <div className="truncate text-xs" style={{ color: "var(--muted)" }}>
                   {dim.detail}
                 </div>
               </div>
@@ -140,13 +140,13 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                     {/* Score Breakdown */}
                     <div className="mb-2 space-y-1">
                       <span
-                        className="text-[10px] font-semibold uppercase tracking-wider"
+                        className="text-xs font-semibold uppercase tracking-wider"
                         style={{ color: "var(--muted)" }}
                       >
                         Breakdown
                       </span>
                       {dim.key === "gpu" && (
-                        <div className="text-[10px]" style={{ color: "var(--muted)" }}>
+                        <div className="text-xs" style={{ color: "var(--muted)" }}>
                           Tier: {getGpuScoreBreakdown(model.gpu.name).tier}
                         </div>
                       )}
@@ -156,12 +156,12 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                     </div>
 
                     {/* Contextual Comparison */}
-                    <div className="mb-2 text-[10px]" style={{ color: "var(--muted)" }}>
+                    <div className="mb-2 text-xs" style={{ color: "var(--muted)" }}>
                       {getScoreContext(dim.key, model).comparisonText}
                     </div>
 
                     {/* Practical Interpretation */}
-                    <div className="text-[10px] italic" style={{ color: "var(--muted)" }}>
+                    <div className="text-xs italic" style={{ color: "var(--muted)" }}>
                       {getInterpretation(dim.key, dim.score)}
                     </div>
                   </div>

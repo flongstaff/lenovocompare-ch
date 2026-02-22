@@ -20,7 +20,7 @@ const LinuxSection = ({ compat }: LinuxSectionProps) => (
       <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
         Linux Compatibility
       </h2>
-      <code className="bg-carbon-700 px-1.5 py-0.5 text-[10px] text-carbon-200">
+      <code className="bg-carbon-700 px-1.5 py-0.5 text-xs text-carbon-200">
         Kernel {compat.recommendedKernel}+
       </code>
     </div>
@@ -28,7 +28,7 @@ const LinuxSection = ({ compat }: LinuxSectionProps) => (
     {compat.certifiedDistros.length > 0 && (
       <div className="flex flex-wrap gap-1.5">
         {compat.certifiedDistros.map((d) => (
-          <span key={d} className="carbon-chip-success text-[10px]">
+          <span key={d} className="carbon-chip-success text-xs">
             {d}
           </span>
         ))}
@@ -49,7 +49,7 @@ const LinuxSection = ({ compat }: LinuxSectionProps) => (
               <span className="text-xs font-medium" style={{ color: "var(--foreground)" }}>
                 {note.component}
               </span>
-              <span className="truncate text-[10px]" style={{ color: "var(--muted)" }}>
+              <span className="truncate text-xs" style={{ color: "var(--muted)" }}>
                 {note.notes}
               </span>
             </div>
