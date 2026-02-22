@@ -116,7 +116,7 @@ const CategoryHeader = ({ title, accent }: { title: string; accent: string }) =>
 
 const SubSection = ({ title, accent, children }: { title: string; accent: string; children: React.ReactNode }) => (
   <div
-    className="flex flex-col gap-3 rounded-lg border p-4"
+    className="flex flex-col gap-2.5 rounded-lg border p-3"
     style={{ borderColor: "var(--border-subtle)", background: "var(--surface)" }}
   >
     <CategoryHeader title={title} accent={accent} />
@@ -164,8 +164,8 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
   const hasDisplay = chassisBench?.displayBrightness || chassisBench?.pugetPremiere || chassisBench?.pugetDavinci;
 
   return (
-    <div className="space-y-5">
-      <h3 className="text-xl font-semibold" style={{ color: "var(--foreground)" }}>
+    <div className="space-y-3">
+      <h3 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
         Benchmarks
       </h3>
 

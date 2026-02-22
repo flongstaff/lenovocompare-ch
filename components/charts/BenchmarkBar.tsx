@@ -16,12 +16,12 @@ interface BenchmarkBarProps {
 const DEFAULT_COLOR = "#4589ff";
 
 const BenchmarkBar = ({ items, maxValue = 100 }: BenchmarkBarProps) => (
-  <div className="w-full" style={{ height: items.length * 44 + 20 }}>
+  <div className="w-full" style={{ height: items.length * 36 + 16 }}>
     <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={[...items]} layout="vertical" margin={{ left: 0, right: 20, top: 5, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#393939" horizontal={false} />
-        <XAxis type="number" domain={[0, maxValue]} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#525252" />
-        <YAxis type="category" dataKey="label" width={90} tick={{ fill: "#a8a8a8", fontSize: 12 }} stroke="#525252" />
+      <BarChart data={[...items]} layout="vertical" margin={{ left: 0, right: 20, top: 4, bottom: 4 }}>
+        <CartesianGrid strokeDasharray="4 4" stroke="#2a2a2a" horizontal={false} />
+        <XAxis type="number" domain={[0, maxValue]} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#393939" />
+        <YAxis type="category" dataKey="label" width={85} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#393939" />
         <Tooltip
           cursor={{ fill: "rgba(255,255,255,0.03)" }}
           content={({ active, payload }) => {

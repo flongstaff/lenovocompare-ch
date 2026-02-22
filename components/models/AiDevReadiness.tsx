@@ -58,11 +58,11 @@ const getDockerEstimate = (ramGb: number, cores: number): { containers: number; 
   return { containers: 0, note: "Minimal Docker capacity" };
 };
 
-const AiDevReadiness = ({ ramGb, cores, threads }: AiDevReadinessProps) => {
+const AiDevReadiness = ({ ramGb, cores }: AiDevReadinessProps) => {
   const docker = getDockerEstimate(ramGb, cores);
 
   return (
-    <div className="space-y-3 rounded-lg p-3" style={{ background: "var(--surface)" }}>
+    <div className="space-y-2 rounded-lg p-2.5" style={{ background: "var(--surface)" }}>
       <h4
         className="border-l-[3px] pl-2 text-xs font-semibold uppercase tracking-wider"
         style={{ color: "var(--muted)", borderColor: "var(--accent)" }}
@@ -70,61 +70,55 @@ const AiDevReadiness = ({ ramGb, cores, threads }: AiDevReadinessProps) => {
         AI &amp; Dev Readiness
       </h4>
 
-      {/* Local LLMs */}
-      <div className="space-y-1.5">
-        <div className="flex items-center gap-1.5">
-          <Cpu size={12} style={{ color: "var(--accent)" }} />
-          <span className="text-xs font-medium" style={{ color: "var(--foreground)" }}>
-            Local LLMs
-          </span>
-          <span className="text-xs" style={{ color: "var(--muted)" }}>
-            ({ramGb}GB RAM)
-          </span>
-        </div>
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto]">
+        {/* Local LLMs */}
         <div className="space-y-1">
-          {LLM_MODELS.map((m) => {
-            const tier = getLlmTier(ramGb, m.requiredRamGb);
-            const color = TIER_COLORS[tier];
-            const barPct = TIER_BARS[tier];
-            return (
-              <div key={m.label} className="flex items-center gap-2">
-                <span className="w-8 shrink-0 text-right font-mono text-xs font-medium" style={{ color }}>
-                  {m.label}
-                </span>
-                <div className="h-1.5 flex-1 rounded-full" style={{ background: "var(--border-subtle)" }}>
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{ width: `${barPct}%`, background: color }}
-                  />
+          <div className="flex items-center gap-1.5">
+            <Cpu size={11} style={{ color: "var(--accent)" }} />
+            <span className="text-xs font-medium" style={{ color: "var(--foreground)" }}>
+              Local LLMs
+            </span>
+            <span className="text-[10px]" style={{ color: "var(--muted)" }}>
+              ({ramGb}GB)
+            </span>
+          </div>
+          <div className="space-y-0.5">
+            {LLM_MODELS.map((m) => {
+              const tier = getLlmTier(ramGb, m.requiredRamGb);
+              const color = TIER_COLORS[tier];
+              const barPct = TIER_BARS[tier];
+              return (
+                <div key={m.label} className="flex items-center gap-1.5">
+                  <span className="w-7 shrink-0 text-right font-mono text-[11px] font-medium" style={{ color }}>
+                    {m.label}
+                  </span>
+                  <div className="h-1 flex-1 rounded-full" style={{ background: "var(--border-subtle)" }}>
+                    <div className="h-full rounded-full" style={{ width: `${barPct}%`, background: color }} />
+                  </div>
+                  <span className="w-12 shrink-0 text-[10px]" style={{ color }}>
+                    {tier}
+                  </span>
                 </div>
-                <span className="w-14 shrink-0 text-xs" style={{ color }}>
-                  {tier}
-                </span>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Docker */}
-      <div className="space-y-1">
-        <div className="flex items-center gap-1.5">
-          <Container size={12} style={{ color: "#08bdba" }} />
-          <span className="text-xs font-medium" style={{ color: "var(--foreground)" }}>
-            Docker
+        {/* Docker — compact inline */}
+        <div className="flex items-center gap-2 sm:flex-col sm:items-end sm:justify-center">
+          <Container size={11} style={{ color: "#08bdba" }} className="hidden sm:block" />
+          <div className="flex items-baseline gap-1.5 sm:flex-col sm:items-end sm:gap-0">
+            <span className="font-mono text-base font-semibold leading-tight" style={{ color: "#08bdba" }}>
+              ~{docker.containers}
+            </span>
+            <span className="text-[10px]" style={{ color: "var(--muted)" }}>
+              containers
+            </span>
+          </div>
+          <span className="text-[10px]" style={{ color: "var(--muted)" }}>
+            {docker.note}
           </span>
         </div>
-        <div className="flex items-baseline gap-2">
-          <span className="font-mono text-lg font-semibold" style={{ color: "#08bdba" }}>
-            ~{docker.containers}
-          </span>
-          <span className="text-xs" style={{ color: "var(--muted)" }}>
-            containers ({ramGb}GB, {cores}C/{threads}T)
-          </span>
-        </div>
-        <span className="text-xs" style={{ color: "var(--muted)" }}>
-          {docker.note}
-        </span>
       </div>
     </div>
   );

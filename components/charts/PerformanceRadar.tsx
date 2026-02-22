@@ -80,9 +80,9 @@ const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
   });
 
   const compact = models.length === 1;
-  const chartHeight = compact ? 170 : 220;
-  const outerRadius = compact ? "58%" : "65%";
-  const margin = compact ? { top: 15, right: 40, bottom: 15, left: 40 } : { top: 20, right: 45, bottom: 20, left: 45 };
+  const chartHeight = compact ? 150 : 210;
+  const outerRadius = compact ? "55%" : "62%";
+  const margin = compact ? { top: 12, right: 35, bottom: 12, left: 35 } : { top: 18, right: 42, bottom: 18, left: 42 };
 
   return (
     <div className="w-full">

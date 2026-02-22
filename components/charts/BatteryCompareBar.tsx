@@ -29,10 +29,10 @@ const BatteryCompareBar = ({ pluggedIn, onBattery, label = "Cinebench 2024 Multi
           {delta > 0 ? `-${delta}% on battery` : "No loss on battery"}
         </span>
       </div>
-      <div style={{ height: 100 }}>
+      <div style={{ height: 72 }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical" margin={{ left: 0, right: 20, top: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#393939" horizontal={false} />
+            <CartesianGrid strokeDasharray="4 4" stroke="#2a2a2a" horizontal={false} />
             <XAxis type="number" domain={[0, "auto"]} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#525252" />
             <YAxis
               type="category"
