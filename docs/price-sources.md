@@ -17,115 +17,126 @@ Seed data (curated)        →  data/seed-prices.ts
                            User localStorage prices merged last
 ```
 
+## Retailer Ranking: Best to Worst for Legal Price Data
+
+| Rank | Retailer | Method | Feed Format | Cost | Laptop Coverage |
+|------|----------|--------|-------------|------|-----------------|
+| 1 | **MediaMarkt CH** | Awin (ID 14040) + Tradedoubler (ID 23056) | CSV / JSON+XML | Free (publisher) | Full catalog in CHF |
+| 2 | **Lenovo CH** | Impact Radius + Admitad | Product feed | Free (publisher) | Full Lenovo catalog in CHF |
+| 3 | **Interdiscount** | Open Price Engine API | JSON REST (OpenAPI v3) | Free tier | Electronics inc. laptops |
+| 4 | **Revendo** | Open Price Engine API | JSON REST (OpenAPI v3) | Free tier | Refurbished electronics |
+| 5 | **Fust** | Adtraction | Network feed (TBC) | Free (publisher) | Electronics catalog |
+| 6 | **Back Market** | Awin (DE, ID 18275) | CSV via Awin | Free (publisher) | EUR prices, not CHF |
+| 7 | **Ricardo** | Seller API (SearchService) | JSON | Free (account) | Marketplace listings only |
+| 8 | **Digitec/Galaxus** | None (merchant programme only) | N/A | N/A | No publisher access |
+| 9 | **Brack** | None | N/A | N/A | No access |
+| 10 | **Toppreise** | None (data consumer, not provider) | N/A | N/A | No access |
+
 ## Retailer-by-Retailer Analysis
 
 ### Tier 1: Affiliate Programs with Product Feeds
 
-These retailers offer affiliate programs that provide structured product data feeds including prices.
+These retailers offer affiliate programs with structured product data feeds.
 
-| Retailer | Network | Feed Format | Notes |
-|----------|---------|-------------|-------|
-| **Lenovo CH** | CJ / Awin / direct | Product catalog | [Affiliate program](https://www.lenovo.com/ch/en/landing-pages/promotion/affiliate/affiliate-program/) — up to 5% commission, weekly eCoupons, MSRP data |
-| **Digitec/Galaxus** | Tradedoubler | CSV/FTP | [Merchant programme](https://www.digitec.ch/en/page/join-our-merchant-programme-12462) — automated product/price data via FTP. Contact: haendlerprogramm@digitecgalaxus.ch |
-| **Brack** | Tradedoubler (ID 220605) | Standard feed | Part of Competec Group. Affiliate program provides product feeds through Tradedoubler |
+#### MediaMarkt CH (Best Option)
+- **Awin** advertiser ID **14040** (MediaMarkt CH Partnerprogramm)
+- **Tradedoubler** feed ID **23056**
+- Awin: CSV product feed via [Product Feed List API](https://help.awin.com/docs/product-feed-list-download)
+- Tradedoubler: JSON/XML via [Products API](https://dev.tradedoubler.com/products/publisher/) with search + filtering
+- Full CHF laptop catalog available
 
-**Action**: Register as affiliate on these networks to get structured product feeds with CHF prices. This is the most reliable legal method.
+#### Lenovo CH
+- **Impact Radius** — primary affiliate platform. Product feed, deeplinks, coupons/deals
+- **Admitad** — Lenovo Many GEOs program with [developer API](https://developers.admitad.com/)
+- **FlexOffers** — additional feed access
+- Up to 5% commission, 45-day cookie. [Program page](https://www.lenovo.com/ch/en/landing-pages/promotion/affiliate/affiliate-program/)
 
-### Tier 2: No Public API — Community Submissions Only
+#### Fust
+- **Adtraction** network (Nordic-origin, Swiss office)
+- Product feed likely available through Adtraction dashboard once approved
+- Part of Coop Group
 
-These retailers have no known affiliate program or public API for price data.
+### Tier 2: Free API (Open Price Engine)
 
-| Retailer | Owner | Status |
-|----------|-------|--------|
-| **Interdiscount** | Coop | No public affiliate program. B2B partnerships only. Contact directly |
-| **Fust** | Coop | No public affiliate program. Shares infrastructure with Interdiscount |
-| **MediaMarkt CH** | MediaMarktSaturn | No Swiss-specific affiliate program found |
+[Open Price Engine](https://openpricengine.com/documentation/) provides a free REST API (OpenAPI v3) with real-time and historical electronics prices for Swiss stores.
 
-**Action**: Rely on community price submissions via GitHub Issues.
+| Retailer | Coverage |
+|----------|----------|
+| **Interdiscount** | Electronics including laptops |
+| **Revendo** | Refurbished electronics |
 
-### Tier 3: Price Comparison Engines
+No affiliate registration needed — just an API key from the [free plan](https://openpricengine.com/free-plan/).
 
-| Service | API Available | Notes |
-|---------|--------------|-------|
-| **Toppreise** | No public API | Actively blocks scraping. 600+ Swiss shops, 200k+ products, hourly updates. Outbound search links only |
-| **Comparis** | No public API | Proprietary data. Contact: media@comparis.ch for partnerships |
-| **Preispirat** | No public API | Community-driven deal platform. #3 price comparison site in Switzerland |
+### Tier 3: No Programmatic Access
 
-**Action**: Use as reference/verification only. Link to search pages for user verification.
+| Retailer | Why | Notes |
+|----------|-----|-------|
+| **Digitec/Galaxus** | Merchant programme only (sellers, not publishers). No Swiss affiliate program — Tradedoubler only covers DE/FR/BE markets | [swiss-deals-api](https://github.com/gaelgoth/swiss-deals-api) covers daily deals only |
+| **Brack** | No affiliate program. Tagged "Kein Affiliate" by beste-shops.ch. Supplier API/EDI is for vendors, not data consumers | Part of Competec Group |
+| **Toppreise** | Data consumer, not provider. Actively blocks scraping. Part of Geizhals/Heise Gruppe | Retailers push feeds TO Toppreise |
+| **Comparis** | No public API. Proprietary data. Contact: media@comparis.ch | |
 
-### Tier 4: Refurbished & Marketplace
+### Tier 4: Marketplace & Refurbished (Limited)
 
-| Service | API Available | Notes |
-|---------|--------------|-------|
-| **Revendo** | No | Swiss refurbished specialist. No known API |
-| **Back Market** | No public API | DE site ships to CH. No affiliate data for Swiss market specifically |
-| **Ricardo** | Partner APIs only | Integrations via SellInterface, plentymarkets. No open read API for listings |
-| **Tutti** | No | User listings only, not programmatically accessible |
-
-**Action**: Community submissions only. Search links provided for manual checking.
-
-## Additional Data Sources
-
-### Google Shopping / Merchant API
-- Google's Content API for Shopping supports Switzerland (`CH`) with CHF currency
-- Provides price competitiveness reports and market insights
-- Requires Google Merchant Center account
-- Third-party alternatives: SerpApi, DataForSEO, Oxylabs (paid, varying legality)
-
-### Open Price Engine
-- [openpricengine.com](https://www.openpricengine.com/) — Free real-time and historical pricing API
-- Covers retail prices across categories
-- Could supplement community data for validation
-
-### Datafeedr
-- [datafeedr.com](https://www.datafeedr.com/) — Aggregates ~1B products from 27k+ merchants across 40 affiliate networks
-- May include Lenovo products with CHF pricing from Swiss affiliate networks
-- Useful for cross-referencing prices across multiple networks
+| Retailer | Access | Notes |
+|----------|--------|-------|
+| **Back Market** | Awin (DE, ID 18275). Prices in EUR, not CHF | No dedicated Swiss market. [Official API](https://api.backmarket.dev/) is seller-facing only |
+| **Ricardo** | [Seller API](https://help.ricardo.ch/hc/de/articles/115002970529) with SearchService, ArticleService. JSON via .NET Webservice | Primarily seller-facing. [PHP library](https://github.com/diglin/ricardo) exists. Contact for read-only access |
+| **Tutti** | None | User listings only |
 
 ## Legal Framework
 
-### What's Legal in Switzerland
-1. **Affiliate product feeds** — Explicitly provided for use by publishers. Most reliable method
-2. **Public product pages** — Viewing and manually recording prices is legal (just like noting a price in a store)
-3. **Community contributions** — Users voluntarily sharing prices they observed. Fully legal
-4. **Google Shopping data** — Aggregated with retailer consent. Legal via API
-5. **Structured data (JSON-LD/Schema.org)** — Gray area; published for search engines but TOS may restrict automated access
+### Swiss Law on Price Data
 
-### What's NOT Legal / Allowed
-1. **Web scraping** — Violates most Swiss retailer TOS. Project policy prohibits this
-2. **Automated access without permission** — Even if technically possible, unauthorized bot access violates Swiss computer fraud laws (StGB Art. 143bis)
-3. **Database extraction** — Swiss copyright law (URG) protects database contents even if individual data points are public
-4. **Bypassing technical protections** — Anti-bot measures indicate the retailer doesn't consent to automated access
+1. **No specific web scraping law** — Swiss law is "silent on the use of automatically scraped or otherwise obtained third party content" ([MLL Legal](https://mll-legal.com/wp-content/uploads/2023/11/Data-Scraping-Torino-Reinhard-Oertli.pdf))
+2. **Product prices are not personal data** — Fall outside nDSG/FADP scope (effective Sept 2023)
+3. **UWG (Unfair Competition Act)** — Simple price comparison is generally permissible; "parasitic copying" of substantial investment could be challenged
+4. **JSON-LD/structured data** — Gray area. Machine-readable by design for search engines, but not established in Swiss case law as freely usable
+5. **Affiliate feeds** — Explicitly provided for publisher use. The clearly legal path
 
-### Swiss Data Protection (nDSG / FADP)
-- The revised Federal Act on Data Protection (nDSG, effective Sept 2023) focuses on personal data
-- Product prices are not personal data and fall outside nDSG scope
-- However, retailer TOS and database rights still apply
+### What's Allowed
+- Affiliate product feeds — provided for use by publishers
+- Open Price Engine API — explicitly public API with free tier
+- Community contributions — users voluntarily sharing observed prices
+- Manual price observation — like noting a price in a physical store
 
-## Recommended Strategy
+### What's NOT Allowed (Project Policy)
+- Web scraping — violates retailer TOS and project legal rules
+- Automated access without permission — even if technically possible
+- Database extraction — Swiss copyright law (URG) applies
+- Bypassing anti-bot measures — indicates lack of consent
 
-### Phase 1: Community Pipeline (Current)
-- GitHub Issue template for manual price submissions
-- Community members check retailer sites and submit what they find
-- Maintainers verify and approve via the `approved` label
-- Automated processing via GitHub Action
+## Recommended Action Plan
 
-### Phase 2: Affiliate Integration (Future)
-- Register for Lenovo CH affiliate program
-- Register for Tradedoubler (Digitec/Galaxus, Brack feeds)
-- Parse affiliate product feeds for Lenovo laptop prices
-- Add to `data/community-prices.json` via scheduled script
+### Phase 1: Community Pipeline (Implemented)
+- GitHub Issue template for structured price submissions
+- Automated processing via GitHub Action on `approved` label
+- Daily regeneration of `prices.json` via scheduled workflow
+- Client-side `useRemotePrices` hook with seed-price fallback
 
-### Phase 3: Aggregator Integration (Future)
-- Evaluate Datafeedr or similar for Swiss market coverage
-- Google Merchant API for price competitiveness data
-- Open Price Engine for validation/cross-reference
+### Phase 2: API Integration (Next Steps)
+1. **Immediate** — Register for [Open Price Engine](https://openpricengine.com/free-plan/) free API key → Interdiscount + Revendo prices
+2. **Short-term** — Register as [Awin](https://www.awin.com/) publisher → apply for MediaMarkt CH (ID 14040) → download CSV product feed
+3. **Short-term** — Register on [Impact Radius](https://impact.com/) → apply for Lenovo Switzerland → access CHF product catalog feed
+4. **Short-term** — Register on [Tradedoubler](https://www.tradedoubler.com/) → apply for MediaMarkt → use Products API (JSON/XML)
+
+### Phase 3: Extended Coverage (Future)
+- Register on [Adtraction](https://adtraction.com/) for Fust product feed
+- Register on [Admitad](https://www.admitad.com/) for Lenovo Many GEOs with developer API
+- Contact Ricardo about read-only SearchService API access
+- Evaluate [Datafeedr](https://www.datafeedr.com/) for multi-network aggregation
+
+### Not Viable
+- Digitec/Galaxus — no Swiss affiliate program for publishers
+- Brack — no affiliate program at all
+- Toppreise — consumer of feeds, not provider
+- Comparis — no product price API
 
 ## Contributing Prices
 
 See the [Price Submission issue template](../.github/ISSUE_TEMPLATE/price-submission.yml) for the structured form. Requirements:
-- Price in CHF including VAT (8.1%)
+- Price in CHF including Swiss VAT (8.1%)
 - Valid model ID from the site
 - Retailer name from the supported list
-- Date the price was observed
+- Date the price was observed (YYYY-MM-DD)
 - Confirmation that the price is real and currently visible
