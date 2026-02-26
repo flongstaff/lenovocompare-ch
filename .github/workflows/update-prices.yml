@@ -1,0 +1,51 @@
+name: Update Prices
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC (07:00 CET / 08:00 CEST)
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+  # Also run when community prices file changes
+  push:
+    branches: [main]
+    paths:
+      - "data/community-prices.json"
+      - "data/seed-prices.ts"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    name: Regenerate prices.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate prices.json
+        run: npm run generate-prices
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet public/data/prices.json 2>/dev/null; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/prices.json
+          git commit -m "chore(prices): regenerate prices.json [skip ci]"
+          git push

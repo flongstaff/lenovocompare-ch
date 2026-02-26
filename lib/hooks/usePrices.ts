@@ -1,13 +1,15 @@
 "use client";
 /**
- * Price management hook — merges hardcoded seed prices with user-contributed
- * localStorage prices. Provides add/remove/import/export and baseline lookups.
+ * Price management hook — merges remote community prices (from /data/prices.json),
+ * hardcoded seed prices (fallback), and user-contributed localStorage prices.
+ * Provides add/remove/import/export and baseline lookups.
  */
 import { useMemo, useCallback } from "react";
 import type { SwissPrice, PriceBaseline } from "@/lib/types";
 import { seedPrices } from "@/data/seed-prices";
 import { priceBaselines } from "@/data/price-baselines";
 import { useLocalStorage } from "./useLocalStorage";
+import { useRemotePrices } from "./useRemotePrices";
 import { STORAGE_KEYS } from "@/lib/constants";
 
 interface ImportResult {
@@ -33,8 +35,11 @@ export const usePrices = () => {
   const isSwissPriceArray = (v: unknown): v is SwissPrice[] => Array.isArray(v) && v.every(isValidPrice);
 
   const [userPrices, setUserPrices] = useLocalStorage<SwissPrice[]>(STORAGE_KEYS.prices, [], isSwissPriceArray);
+  const { remotePrices, loading: remotePricesLoading } = useRemotePrices();
 
-  const allPrices = useMemo<SwissPrice[]>(() => [...seedPrices, ...userPrices], [userPrices]);
+  // Merge: remote prices (includes seed + community) → fallback to bundled seed → user localStorage
+  const basePrices = useMemo(() => remotePrices ?? [...seedPrices], [remotePrices]);
+  const allPrices = useMemo<SwissPrice[]>(() => [...basePrices, ...userPrices], [basePrices, userPrices]);
 
   const getBaseline = useCallback((laptopId: string): PriceBaseline | null => priceBaselines[laptopId] ?? null, []);
 
@@ -113,5 +118,22 @@ export const usePrices = () => {
     [setUserPrices],
   );
 
-  return { allPrices, userPrices, addPrice, removePrice, exportPrices, importPrices, getBaseline, getPriceHistory };
+  /** Number of community-submitted prices loaded from remote */
+  const communityPriceCount = useMemo(
+    () => (remotePrices ?? []).filter((p) => p.id.startsWith("community-")).length,
+    [remotePrices],
+  );
+
+  return {
+    allPrices,
+    userPrices,
+    addPrice,
+    removePrice,
+    exportPrices,
+    importPrices,
+    getBaseline,
+    getPriceHistory,
+    remotePricesLoading,
+    communityPriceCount,
+  };
 };

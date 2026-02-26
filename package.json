@@ -25,11 +25,12 @@
   "scripts": {
     "dev": "next dev",
     "validate": "npx tsx scripts/validate-data.ts",
-    "build": "npx tsx scripts/validate-data.ts && next build",
+    "build": "npx tsx scripts/validate-data.ts && npx tsx scripts/generate-prices-json.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "scrape-psref": "npx tsx scripts/scrape-psref.ts",
     "merge-psref": "npx tsx scripts/merge-psref.ts",
+    "generate-prices": "npx tsx scripts/generate-prices-json.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

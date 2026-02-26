@@ -1,0 +1,102 @@
+name: Price Submission
+description: Submit a Swiss retail price for a Lenovo laptop model
+title: "[Price] "
+labels: ["price-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Submit a Swiss Price
+
+        Help the community by sharing a price you found at a Swiss retailer.
+        All prices should be in **CHF** and include **Swiss VAT (8.1%)**.
+
+  - type: input
+    id: laptop_id
+    attributes:
+      label: Model ID
+      description: "The laptop model ID (e.g., `x1-carbon-gen13`, `t14s-gen6-amd`, `legion-5i-15-gen10`). Check the site for valid IDs."
+      placeholder: "x1-carbon-gen13"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: retailer
+    attributes:
+      label: Retailer
+      description: Where did you find this price?
+      options:
+        - Digitec
+        - Galaxus
+        - Brack
+        - Lenovo CH
+        - Interdiscount
+        - Fust
+        - MediaMarkt
+        - Toppreise
+        - Revendo
+        - Back Market
+        - Ricardo
+        - Tutti
+    validations:
+      required: true
+
+  - type: input
+    id: price
+    attributes:
+      label: Price (CHF)
+      description: "Price in Swiss Francs including VAT. Numbers only, no currency symbol."
+      placeholder: "1849"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: price_type
+    attributes:
+      label: Price Type
+      description: What kind of price is this?
+      options:
+        - retail
+        - sale
+        - msrp
+        - refurbished
+        - used
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Product URL (optional)
+      description: "Direct link to the product listing (helps verify the price)."
+      placeholder: "https://www.digitec.ch/de/s1/product/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: note
+    attributes:
+      label: Notes (optional)
+      description: "Any additional context (e.g., specific configuration, sale dates, coupon codes)."
+      placeholder: "Black Friday sale, ends Dec 1. Config: i7-1365U / 16GB / 512GB"
+    validations:
+      required: false
+
+  - type: input
+    id: date
+    attributes:
+      label: Date Observed
+      description: "When did you see this price? (YYYY-MM-DD format)"
+      placeholder: "2026-02-26"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: "I confirm this price is real and currently visible at the listed retailer"
+          required: true
+        - label: "The price includes Swiss VAT (8.1%)"
+          required: true

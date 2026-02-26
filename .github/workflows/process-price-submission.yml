@@ -1,0 +1,144 @@
+name: Process Price Submission
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  process:
+    name: Parse and append price
+    if: contains(github.event.issue.labels.*.name, 'price-submission') && contains(github.event.issue.labels.*.name, 'approved')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Parse issue body
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+            if (!body) {
+              core.setFailed('Issue body is empty');
+              return;
+            }
+
+            // Parse YAML form fields from issue body
+            const getField = (label) => {
+              // GitHub forms render as: ### Label\n\nValue
+              const regex = new RegExp(`### ${label}\\s*\\n\\n([^\\n]+)`, 'i');
+              const match = body.match(regex);
+              return match ? match[1].trim() : '';
+            };
+
+            const laptopId = getField('Model ID');
+            const retailer = getField('Retailer');
+            const price = parseFloat(getField('Price \\(CHF\\)'));
+            const priceType = getField('Price Type');
+            const url = getField('Product URL \\(optional\\)');
+            const note = getField('Notes \\(optional\\)');
+            const dateAdded = getField('Date Observed');
+
+            // Validate required fields
+            if (!laptopId || !retailer || isNaN(price) || price <= 0 || !dateAdded) {
+              core.setFailed(`Missing required fields: laptopId=${laptopId}, retailer=${retailer}, price=${price}, date=${dateAdded}`);
+              return;
+            }
+
+            // Validate date format
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(dateAdded)) {
+              core.setFailed(`Invalid date format: ${dateAdded} (expected YYYY-MM-DD)`);
+              return;
+            }
+
+            // Validate price range
+            if (price > 99999) {
+              core.setFailed(`Price ${price} exceeds maximum (99999 CHF)`);
+              return;
+            }
+
+            core.setOutput('laptopId', laptopId);
+            core.setOutput('retailer', retailer);
+            core.setOutput('price', price.toString());
+            core.setOutput('priceType', priceType);
+            core.setOutput('url', url === '_No response_' ? '' : url);
+            core.setOutput('note', note === '_No response_' ? '' : note);
+            core.setOutput('dateAdded', dateAdded);
+            core.setOutput('issueNumber', context.payload.issue.number.toString());
+
+      - name: Append to community-prices.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = 'data/community-prices.json';
+            const existing = JSON.parse(fs.readFileSync(path, 'utf-8'));
+
+            // Generate next community ID
+            const communityIds = existing
+              .filter(p => p.id.startsWith('community-'))
+              .map(p => parseInt(p.id.split('-')[1], 10))
+              .filter(n => !isNaN(n));
+            const nextId = communityIds.length > 0 ? Math.max(...communityIds) + 1 : 1;
+
+            const newPrice = {
+              id: 'community-' + nextId,
+              laptopId: '${{ steps.parse.outputs.laptopId }}',
+              retailer: '${{ steps.parse.outputs.retailer }}',
+              price: ${{ steps.parse.outputs.price }},
+              dateAdded: '${{ steps.parse.outputs.dateAdded }}',
+              isUserAdded: false,
+              priceType: '${{ steps.parse.outputs.priceType }}' || undefined,
+              url: '${{ steps.parse.outputs.url }}' || undefined,
+              note: '${{ steps.parse.outputs.note }}' ? '${{ steps.parse.outputs.note }} (via #${{ steps.parse.outputs.issueNumber }})' : 'via #${{ steps.parse.outputs.issueNumber }}'
+            };
+
+            // Remove undefined fields
+            Object.keys(newPrice).forEach(k => newPrice[k] === undefined && delete newPrice[k]);
+
+            existing.push(newPrice);
+            fs.writeFileSync(path, JSON.stringify(existing, null, 2) + '\n');
+            console.log('Added price:', JSON.stringify(newPrice, null, 2));
+          "
+
+      - name: Regenerate prices.json
+        run: npm ci && npm run generate-prices
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/community-prices.json public/data/prices.json
+          git commit -m "feat(prices): add community price from #${{ steps.parse.outputs.issueNumber }} [skip ci]"
+          git push
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `✅ **Price added!** Thank you for your contribution.\n\n` +
+                    `- **Model:** \`${{ steps.parse.outputs.laptopId }}\`\n` +
+                    `- **Retailer:** ${{ steps.parse.outputs.retailer }}\n` +
+                    `- **Price:** CHF ${{ steps.parse.outputs.price }}\n` +
+                    `- **Type:** ${{ steps.parse.outputs.priceType }}\n\n` +
+                    `The price will appear on the site after the next deployment.`
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: 'closed',
+              state_reason: 'completed'
+            });
