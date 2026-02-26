@@ -31,6 +31,7 @@
     "scrape-psref": "npx tsx scripts/scrape-psref.ts",
     "merge-psref": "npx tsx scripts/merge-psref.ts",
     "generate-prices": "npx tsx scripts/generate-prices-json.ts",
+    "fetch-ope-prices": "npx tsx scripts/fetch-ope-prices.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

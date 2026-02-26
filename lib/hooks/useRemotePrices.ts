@@ -13,6 +13,11 @@ interface PricesPayload {
   prices: SwissPrice[];
 }
 
+interface CachedResult {
+  prices: SwissPrice[];
+  generatedAt: string | null;
+}
+
 const isValidPrice = (item: unknown): item is SwissPrice => {
   if (typeof item !== "object" || item === null) return false;
   const obj = item as Record<string, unknown>;
@@ -27,8 +32,8 @@ const isValidPrice = (item: unknown): item is SwissPrice => {
 };
 
 /** Module-level cache — survives re-renders but not page refresh */
-let cachedPrices: SwissPrice[] | null = null;
-let fetchPromise: Promise<SwissPrice[] | null> | null = null;
+let cached: CachedResult | null = null;
+let fetchPromise: Promise<CachedResult | null> | null = null;
 
 /** Resolve the basePath at runtime so the fetch works on both localhost and GitHub Pages */
 const getBasePath = (): string => {
@@ -39,7 +44,7 @@ const getBasePath = (): string => {
   return typeof bp === "string" ? bp : "";
 };
 
-const fetchRemotePrices = async (): Promise<SwissPrice[] | null> => {
+const fetchRemotePrices = async (): Promise<CachedResult | null> => {
   try {
     const basePath = getBasePath();
     const res = await fetch(`${basePath}/data/prices.json`, {
@@ -54,7 +59,12 @@ const fetchRemotePrices = async (): Promise<SwissPrice[] | null> => {
     if (!Array.isArray(payload.prices)) return null;
 
     const valid = payload.prices.filter(isValidPrice);
-    return valid.length > 0 ? valid : null;
+    if (valid.length === 0) return null;
+
+    return {
+      prices: valid,
+      generatedAt: typeof payload.generated === "string" ? payload.generated : null,
+    };
   } catch {
     return null;
   }
@@ -70,13 +80,14 @@ export interface RemotePricesState {
 }
 
 export const useRemotePrices = (): RemotePricesState => {
-  const [remotePrices, setRemotePrices] = useState<SwissPrice[] | null>(cachedPrices);
-  const [loading, setLoading] = useState(cachedPrices === null);
-  const [generatedAt, setGeneratedAt] = useState<string | null>(null);
+  const [remotePrices, setRemotePrices] = useState<SwissPrice[] | null>(cached?.prices ?? null);
+  const [loading, setLoading] = useState(cached === null);
+  const [generatedAt, setGeneratedAt] = useState<string | null>(cached?.generatedAt ?? null);
 
   useEffect(() => {
-    if (cachedPrices !== null) {
-      setRemotePrices(cachedPrices);
+    if (cached !== null) {
+      setRemotePrices(cached.prices);
+      setGeneratedAt(cached.generatedAt);
       setLoading(false);
       return;
     }
@@ -87,11 +98,12 @@ export const useRemotePrices = (): RemotePricesState => {
     }
 
     let cancelled = false;
-    fetchPromise.then((prices) => {
+    fetchPromise.then((result) => {
       if (cancelled) return;
-      if (prices) {
-        cachedPrices = prices;
-        setRemotePrices(prices);
+      if (result) {
+        cached = result;
+        setRemotePrices(result.prices);
+        setGeneratedAt(result.generatedAt);
       }
       setLoading(false);
       fetchPromise = null;
@@ -101,19 +113,6 @@ export const useRemotePrices = (): RemotePricesState => {
       cancelled = true;
     };
   }, []);
-
-  // Also parse generatedAt from the cached data
-  useEffect(() => {
-    if (remotePrices && !generatedAt) {
-      const basePath = getBasePath();
-      fetch(`${basePath}/data/prices.json`, { cache: "no-cache" })
-        .then((r) => r.json())
-        .then((data: PricesPayload) => {
-          if (data?.generated) setGeneratedAt(data.generated);
-        })
-        .catch(() => {});
-    }
-  }, [remotePrices, generatedAt]);
 
   return { remotePrices, loading, generatedAt };
 };

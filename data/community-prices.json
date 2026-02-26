@@ -1,1 +1,162 @@
-[]
+[
+  {
+    "id": "community-1",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Digitec",
+    "price": 1702,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ultra 5 225U, 32GB, 1TB, CH keyboard — entry config"
+  },
+  {
+    "id": "community-2",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Digitec",
+    "price": 2183,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ultra 7 255U, 32GB, 1TB, OLED, CH keyboard"
+  },
+  {
+    "id": "community-3",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Digitec",
+    "price": 2208,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Aura Edition, Ultra 7 258V, 32GB, 1TB, OLED 2.8K"
+  },
+  {
+    "id": "community-4",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Digitec",
+    "price": 2856,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Aura Edition, Ultra 7 265U, 64GB, 2TB, OLED 2.8K, 5G"
+  },
+  {
+    "id": "community-5",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Digitec",
+    "price": 2618,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Aura Edition, Ultra 7 265U, 64GB, 1TB, OLED 2.8K"
+  },
+  {
+    "id": "community-6",
+    "laptopId": "t14s-gen6-intel",
+    "retailer": "Digitec",
+    "price": 1900,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Snapdragon X Elite X1E-78-100, 32GB, 1TB, CH keyboard"
+  },
+  {
+    "id": "community-7",
+    "laptopId": "t14s-gen6-amd",
+    "retailer": "Interdiscount",
+    "price": 1799,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ryzen 7 Pro 360, 32GB, 1TB — listed on interdiscount.ch"
+  },
+  {
+    "id": "community-8",
+    "laptopId": "t14-gen6-intel",
+    "retailer": "Digitec",
+    "price": 1511,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ultra 5 225U, 32GB, 512GB, CH keyboard"
+  },
+  {
+    "id": "community-9",
+    "laptopId": "t14-gen6-intel",
+    "retailer": "Digitec",
+    "price": 1738,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ultra 7 255U, 16GB, 512GB, CH keyboard"
+  },
+  {
+    "id": "community-10",
+    "laptopId": "t14-gen6-intel",
+    "retailer": "Digitec",
+    "price": 1821,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ultra 7 255U, 32GB, 1TB, CH keyboard"
+  },
+  {
+    "id": "community-11",
+    "laptopId": "t14-gen6-amd",
+    "retailer": "Digitec",
+    "price": 1835,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ryzen AI 7 PRO 350, 32GB, 1TB, CH keyboard"
+  },
+  {
+    "id": "community-12",
+    "laptopId": "t14-gen6-intel",
+    "retailer": "Digitec",
+    "price": 1869,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ultra 7 258V, 32GB, 1TB, DE keyboard"
+  },
+  {
+    "id": "community-13",
+    "laptopId": "legion-pro-5i-16-gen9",
+    "retailer": "Digitec",
+    "price": 1394,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "i5-14500HX, 16GB, 1TB, RTX 4060 — 3rd party seller"
+  },
+  {
+    "id": "community-14",
+    "laptopId": "ideapad-pro-5i-16-gen10",
+    "retailer": "Digitec",
+    "price": 899,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "sale",
+    "note": "Ultra 7 255H, 24GB, 1TB — daily deal (regular CHF 1199)"
+  },
+  {
+    "id": "community-15",
+    "laptopId": "ideapad-pro-5i-14-gen10",
+    "retailer": "Lenovo CH",
+    "price": 866,
+    "dateAdded": "2026-02-20",
+    "isUserAdded": false,
+    "priceType": "sale",
+    "note": "Web Price -9% (Core Ultra 7 255H config)"
+  },
+  {
+    "id": "community-16",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Digitec",
+    "price": 1764,
+    "dateAdded": "2026-02-26",
+    "isUserAdded": false,
+    "priceType": "retail",
+    "note": "Ultra 5 225U, 16GB, 512GB — via Bechtle from CHF 1764"
+  }
+]
