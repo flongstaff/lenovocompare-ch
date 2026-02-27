@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Share2, ArrowLeft, Check } from "lucide-react";
 import { useLaptops } from "@/lib/hooks/useLaptops";
@@ -33,6 +33,8 @@ const PortabilityCompareChart = dynamic(() => import("@/components/charts/Portab
   loading: ChartSkeleton,
 });
 import { QuickVerdict } from "@/components/compare/QuickVerdict";
+import { CompareConfigPanel } from "@/components/compare/CompareConfigPanel";
+import { type ConfigState, buildConfiguredModel } from "@/lib/configUtils";
 
 const ComparePageContent = () => {
   const models = useLaptops();
@@ -41,6 +43,15 @@ const ComparePageContent = () => {
   const searchParams = useSearchParams();
   const initRef = useRef(false);
   const [copied, setCopied] = useState(false);
+  const [configOverrides, setConfigOverrides] = useState<Record<string, ConfigState>>({});
+
+  const handleConfigChange = useCallback((laptopId: string, config: ConfigState) => {
+    setConfigOverrides((prev) => ({ ...prev, [laptopId]: config }));
+  }, []);
+
+  const handleResetAllConfigs = useCallback(() => {
+    setConfigOverrides({});
+  }, []);
 
   // Load IDs from URL on mount
   useEffect(() => {
@@ -56,6 +67,11 @@ const ComparePageContent = () => {
   const selectedModels = selectedIds
     .map((id) => models.find((m) => m.id === id))
     .filter((m): m is NonNullable<typeof m> => m !== undefined);
+
+  const configuredModels = selectedModels.map((m) => {
+    const override = configOverrides[m.id];
+    return override ? buildConfiguredModel(m, override) : m;
+  });
 
   const handleShare = async () => {
     const shareUrl = `${window.location.origin}/compare?ids=${selectedIds.join(",")}`;
@@ -101,7 +117,13 @@ const ComparePageContent = () => {
 
       {selectedModels.length >= 2 ? (
         <>
-          <QuickVerdict models={selectedModels} prices={allPrices} />
+          <QuickVerdict models={configuredModels} prices={allPrices} />
+          <CompareConfigPanel
+            models={selectedModels}
+            configs={configOverrides}
+            onConfigChange={handleConfigChange}
+            onResetAll={handleResetAllConfigs}
+          />
           <div className="hidden grid-cols-1 gap-4 sm:grid lg:grid-cols-2">
             <div className="carbon-card p-4">
               <h2
@@ -111,7 +133,7 @@ const ComparePageContent = () => {
                 Performance Comparison
               </h2>
               <PerformanceRadar
-                models={selectedModels.map((m) => ({
+                models={configuredModels.map((m) => ({
                   name: m.name,
                   dimensions: getPerformanceDimensions(m),
                 }))}
@@ -124,7 +146,7 @@ const ComparePageContent = () => {
               >
                 Weight & Battery
               </h2>
-              <PortabilityCompareChart models={selectedModels} />
+              <PortabilityCompareChart models={configuredModels} />
             </div>
             <div className="carbon-card p-4">
               <h2
@@ -133,7 +155,7 @@ const ComparePageContent = () => {
               >
                 CPU Benchmarks
               </h2>
-              <CpuCompareChart models={selectedModels} />
+              <CpuCompareChart models={configuredModels} />
             </div>
             <div className="carbon-card p-4">
               <h2
@@ -142,14 +164,14 @@ const ComparePageContent = () => {
               >
                 GPU Scores
               </h2>
-              <GpuCompareChart models={selectedModels} />
+              <GpuCompareChart models={configuredModels} />
             </div>
           </div>
           <div className="carbon-card hidden overflow-hidden p-4 sm:block">
-            <CompareTable models={selectedModels} prices={allPrices} onRemove={removeFromCompare} />
+            <CompareTable models={configuredModels} prices={allPrices} onRemove={removeFromCompare} />
           </div>
           <div className="sm:hidden">
-            <MobileCompareCards models={selectedModels} prices={allPrices} onRemove={removeFromCompare} />
+            <MobileCompareCards models={configuredModels} prices={allPrices} onRemove={removeFromCompare} />
           </div>
         </>
       ) : (
