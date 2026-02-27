@@ -8,7 +8,7 @@ import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { FilterState, Laptop, SwissPrice, Lineup, Series, SortOption } from "@/lib/types";
 import { filterThinkPads } from "@/lib/filters";
 
-const VALID_LINEUPS = ["ThinkPad", "IdeaPad Pro", "Legion"] as const satisfies readonly Lineup[];
+const VALID_LINEUPS = ["ThinkPad", "IdeaPad Pro", "Legion", "Yoga"] as const satisfies readonly Lineup[];
 const VALID_SERIES = [
   "X1",
   "T",
@@ -24,6 +24,11 @@ const VALID_SERIES = [
   "7i",
   "Pro",
   "Slim",
+  "Yoga 6",
+  "Yoga 7",
+  "Yoga 9",
+  "Yoga Slim",
+  "Yoga Book",
 ] as const satisfies readonly Series[];
 const VALID_SORTS = [
   "name-asc",

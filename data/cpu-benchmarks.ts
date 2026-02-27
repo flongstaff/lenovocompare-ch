@@ -1065,6 +1065,106 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     typicalTdpAvg: 55,
     typicalTdpMax: 157,
   },
+
+  // AMD Ryzen PRO 4000 (Renoir, Zen 2) — 15W TDP
+  "AMD Ryzen 5 PRO 4650U": {
+    singleCore: 42,
+    multiCore: 52,
+    composite: 48,
+    cinebench2024Single: 58,
+    cinebench2024Multi: 420,
+    geekbench6Single: 1280,
+    geekbench6Multi: 6100,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+  "AMD Ryzen 7 PRO 4750U": {
+    singleCore: 44,
+    multiCore: 60,
+    composite: 54,
+    cinebench2024Single: 60,
+    cinebench2024Multi: 530,
+    geekbench6Single: 1350,
+    geekbench6Multi: 7400,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+
+  // AMD Ryzen 5 5625U (Barcelo, Zen 3) — 15W TDP
+  "AMD Ryzen 5 5625U": {
+    singleCore: 52,
+    multiCore: 58,
+    composite: 56,
+    cinebench2024Single: 72,
+    cinebench2024Multi: 490,
+    geekbench6Single: 1520,
+    geekbench6Multi: 6800,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+
+  // Intel Core i7-1260P (Alder Lake P) — 28W TDP
+  "Intel Core i7-1260P": {
+    singleCore: 70,
+    multiCore: 72,
+    composite: 71,
+    cinebench2024Single: 95,
+    cinebench2024Multi: 650,
+    geekbench6Single: 2300,
+    geekbench6Multi: 10500,
+    typicalTdpAvg: 28,
+    typicalTdpMax: 64,
+  },
+
+  // AMD Ryzen 7 8840HS (Hawk Point, Zen 4) — 28W TDP
+  "AMD Ryzen 7 8840HS": {
+    singleCore: 78,
+    multiCore: 80,
+    composite: 79,
+    cinebench2024Single: 107,
+    cinebench2024Multi: 780,
+    geekbench6Single: 2580,
+    geekbench6Multi: 12200,
+    typicalTdpAvg: 28,
+    typicalTdpMax: 54,
+  },
+
+  // AMD Ryzen 7 7840U (Phoenix, Zen 4) — 15-28W TDP
+  "AMD Ryzen 7 7840U": {
+    singleCore: 76,
+    multiCore: 78,
+    composite: 77,
+    cinebench2024Single: 104,
+    cinebench2024Multi: 740,
+    geekbench6Single: 2520,
+    geekbench6Multi: 11500,
+    typicalTdpAvg: 20,
+    typicalTdpMax: 30,
+  },
+
+  // Qualcomm Snapdragon 8cx Gen 3 (ARM) — ~8W TDP
+  "Qualcomm Snapdragon 8cx Gen 3": {
+    singleCore: 38,
+    multiCore: 40,
+    composite: 39,
+    geekbench6Single: 1100,
+    geekbench6Multi: 5600,
+    typicalTdpAvg: 8,
+    typicalTdpMax: 12,
+  },
+
+  // Qualcomm Snapdragon X Elite X1E-78-100 (Oryon) — ~23W TDP
+  "Qualcomm Snapdragon X Elite X1E-78-100": {
+    singleCore: 82,
+    multiCore: 86,
+    composite: 84,
+    cinebench2024Single: 114,
+    cinebench2024Multi: 1020,
+    geekbench6Single: 2620,
+    geekbench6Multi: 14800,
+    typicalTdpAvg: 23,
+    typicalTdpMax: 45,
+  },
 };
 
 /** Backward-compatible composite-only scores */

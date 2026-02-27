@@ -26,6 +26,12 @@ const SERIES_DESCRIPTIONS: Record<string, string> = {
   "7i": "Intel-powered high-end gaming laptop with top-tier thermals",
   Pro: "competition-grade gaming laptop with maximum GPU power",
   Slim: "thin gaming laptop trading some thermals for portability",
+  // Yoga
+  "Yoga 6": "budget convertible with fabric-lid design and solid battery life",
+  "Yoga 7": "mid-range convertible balancing OLED displays and versatile form factor",
+  "Yoga 9": "premium convertible flagship with B&W audio and 4K OLED",
+  "Yoga Slim": "slim clamshell ultrabook with OLED display and lightweight design",
+  "Yoga Book": "dual-screen OLED convertible with virtual keyboard",
 };
 
 const hasPort = (ports: readonly string[], pattern: string): boolean =>

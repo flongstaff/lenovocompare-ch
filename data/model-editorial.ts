@@ -997,4 +997,167 @@ export const modelEditorial: Record<string, EditorialOverlay> = {
     linuxNotes:
       "Community-supported. Core Ultra 9 275HX (Arrow Lake HX) well-supported in kernel 6.10+. NVIDIA RTX 5080 Laptop (Blackwell) requires NVIDIA driver 570+ — verify availability on target distro at time of purchase. New platform — expect early BIOS and driver iterations. Not recommended for production Linux deployment until driver maturity is confirmed.",
   },
+
+  // === ThinkPad X13 models ===
+  "x13-gen1-intel": {
+    editorialNotes:
+      "First X13 generation (2020), replacing the X390. Comet Lake 10th gen Intel in the familiar 13.3-inch ThinkPad ultraportable form factor. Solid build quality with MIL-STD-810H rating.",
+    knownIssues: "10th gen Intel Comet Lake runs warmer than Tiger Lake successors. FHD panel is average at 300 nits.",
+    swissMarketNotes:
+      "Discontinued — available refurbished from Revendo and occasionally on Ricardo. Good value sub-CHF 500.",
+  },
+  "x13-gen1-amd": {
+    editorialNotes:
+      "AMD Renoir (Ryzen PRO 4000 Zen 2) variant — a breakthrough for AMD in ThinkPads. Excellent multi-threaded performance and battery life compared to the Intel variant.",
+    knownIssues:
+      "Early BIOS had minor suspend/resume issues on Linux, resolved in later updates. FHD panel at 300 nits is average.",
+    swissMarketNotes: "Discontinued — refurbished units at Revendo. AMD variant harder to find in CH than Intel.",
+  },
+  "x13-gen2-intel": {
+    editorialNotes:
+      "Tiger Lake refresh (2021) with Thunderbolt 4 and the transition to 16:10 WUXGA displays. Iris Xe integrated graphics were a significant step up from UHD.",
+    knownIssues: "LPDDR4x (soldered) limits upgradeability. Some units had coil whine under load.",
+    swissMarketNotes: "Discontinued — refurbished available. 16:10 display makes this a better buy than Gen 1.",
+  },
+  "x13-gen2-amd": {
+    editorialNotes:
+      "Cezanne Zen 3 (Ryzen PRO 5000) — improved single-threaded performance over Gen 1 AMD. WUXGA 16:10 display upgrade. DDR4 (not LPDDR) with one upgradeable slot.",
+    knownIssues: "DDR4 instead of LPDDR5 limits memory bandwidth. Otherwise very solid.",
+    swissMarketNotes: "Discontinued — refurbished from Revendo. AMD variant offers better value than Intel.",
+  },
+  "x13-gen3-intel": {
+    editorialNotes:
+      "Alder Lake U-series (2022) with hybrid P+E core architecture. WQXGA display option added. Wi-Fi 6E upgrade. LPDDR5 soldered.",
+    knownIssues:
+      "Alder Lake hybrid scheduler had early Windows issues — resolved in 22H2. Linux support good with 5.15+.",
+    swissMarketNotes:
+      "Available new from Digitec and Brack. Swiss QWERTZ keyboard standard. Good business ultraportable.",
+  },
+  "x13-gen3-amd": {
+    editorialNotes:
+      "Rembrandt (Ryzen PRO 6000 Zen 3+) with RDNA 2 integrated graphics — a significant iGPU leap. LPDDR5 standard. Wi-Fi 6E available.",
+    knownIssues: "Rembrandt RDNA 2 iGPU needs updated mesa drivers for best Linux performance.",
+    swissMarketNotes: "Available from Digitec and Brack. AMD variant offers better iGPU performance than Intel.",
+  },
+  "x13-gen4-amd": {
+    editorialNotes:
+      "Phoenix (Ryzen PRO 7000 Zen 4) with optional 2.8K OLED display. Strong all-round ultraportable. USB-C only (no Thunderbolt on AMD).",
+    knownIssues: "No Thunderbolt — USB4 support varies by dock. OLED option adds slight weight.",
+    swissMarketNotes:
+      "Available from Digitec, Brack, and Lenovo CH. OLED option adds ~CHF 200. Competitive with T14s Gen 4.",
+  },
+  "x13s-gen1": {
+    editorialNotes:
+      "Lenovo's first ARM-based ThinkPad (Snapdragon 8cx Gen 3). Fanless design at 1.06 kg with 5G connectivity. Groundbreaking for always-connected mobile work.",
+    knownIssues:
+      "ARM app compatibility — not all x86 apps run well under emulation. Limited peripheral support. Linux support is experimental (Fedora ARM).",
+    swissMarketNotes:
+      "Available from Lenovo CH. Niche product — 5G connectivity useful for Swiss business travel. Limited retailer availability.",
+  },
+
+  // === Yoga consumer models ===
+  "yoga-6-13alc7": {
+    editorialNotes:
+      "Budget 13.3-inch convertible with fabric lid — a distinctive Yoga design element. Ryzen 5625U provides solid everyday performance. Good battery life from 59 Whr cell.",
+    knownIssues: "RAM soldered at 8 GB — no upgrade path. Fabric lid shows wear over time.",
+    swissMarketNotes:
+      "Available from Digitec and Galaxus. Budget Yoga option under CHF 900. Competes with HP Envy x360.",
+  },
+  "yoga-7-14ial7": {
+    editorialNotes:
+      "2022 mid-range Yoga with 2.8K OLED display — excellent color accuracy for creative work. Alder Lake P-series provides good performance. Convertible with pen support.",
+    knownIssues: "OLED at 90 Hz — some users notice flicker at low brightness with PWM dimming.",
+    swissMarketNotes:
+      "Available from Digitec. OLED display is the key selling point at this price range. CHF 1200-1500.",
+  },
+  "yoga-7-16iah7": {
+    editorialNotes:
+      "16-inch Yoga convertible with H-series Alder Lake. Larger screen useful for content creation but adds weight at 2 kg. 120 Hz IPS display.",
+    knownIssues:
+      "H-series CPU in a convertible — thermals can be loud under sustained load. 2 kg is heavy for a convertible.",
+    swissMarketNotes:
+      "Available from Digitec. The 16-inch size fills a gap between portable Yogas and desktop replacements.",
+  },
+  "yoga-7-2in1-14ahp9": {
+    editorialNotes:
+      "2024 AMD variant with Ryzen 7 8840HS (Hawk Point Zen 4). 2.8K OLED 90 Hz touchscreen. Wi-Fi 7 and USB4. Strong all-round convertible.",
+    knownIssues: "No Thunderbolt — AMD USB4 dock compatibility varies.",
+    swissMarketNotes: "Available from Digitec and Brack. AMD variant typically CHF 100-200 less than Intel equivalent.",
+  },
+  "yoga-7-2in1-14iml9": {
+    editorialNotes:
+      "2024 Intel Core Ultra (Meteor Lake) variant. Thunderbolt 4 with 2.8K OLED. NPU for on-device AI features in Windows 11.",
+    knownIssues: "Meteor Lake NPU features are Windows-only. Battery life slightly less than AMD variant.",
+    swissMarketNotes: "Available from Digitec and Brack. Intel variant preferred if Thunderbolt docking is needed.",
+  },
+  "yoga-9-14iap7": {
+    editorialNotes:
+      "2022 premium Yoga flagship with 4K OLED and B&W rotating soundbar hinge — distinctive audio design. Premium materials and excellent build quality.",
+    knownIssues: "4K 60 Hz OLED — no high refresh rate. Soundbar hinge mechanism has limited repairability.",
+    swissMarketNotes: "Premium segment — CHF 1800-2200 at Digitec. B&W audio differentiates from competitors.",
+  },
+  "yoga-9-14irp8": {
+    editorialNotes:
+      "2023 update with Raptor Lake and 4K OLED at 120 Hz — addressing the Gen 7 refresh rate limitation. B&W soundbar retained.",
+    knownIssues: "Premium pricing for incremental CPU upgrade. OLED burn-in risk with static UI elements.",
+    swissMarketNotes:
+      "Premium segment — CHF 1800-2200. The 120 Hz upgrade makes this the better buy over the 2022 model.",
+  },
+  "yoga-9-2in1-14imh9": {
+    editorialNotes:
+      "2024 flagship with Core Ultra 155H, 4K OLED HDR 500, and 32 GB RAM standard. Best Yoga for creative professionals.",
+    knownIssues: "HDR 500 OLED consumes more power — battery life slightly less than non-HDR models.",
+    swissMarketNotes: "Premium flagship — CHF 2200-2600 at Digitec. Competes with HP Spectre x360 and Dell XPS.",
+  },
+  "yoga-slim-6-14iap8": {
+    editorialNotes:
+      "2023 slim clamshell with 2.8K OLED. U-series 13th gen Intel for balanced performance and battery life. Lightweight at 1.36 kg.",
+    knownIssues: "U-series limits sustained multi-threaded workloads. No touchscreen on standard model.",
+    swissMarketNotes: "Available from Digitec. Budget-friendly OLED slim laptop under CHF 1200.",
+  },
+  "yoga-slim-6-14irh8": {
+    editorialNotes:
+      "H-series variant with i7-13700H — more performance headroom than the U-series sibling at the cost of thermals and battery.",
+    knownIssues: "H-series in a slim chassis — expect higher fan noise under load. Same OLED panel as IAP8.",
+    swissMarketNotes: "Available from Digitec. Choose this over IAP8 if sustained CPU performance matters.",
+  },
+  "yoga-slim-7-14apu8": {
+    editorialNotes:
+      "2023 AMD Ryzen 7 7840U (Phoenix Zen 4) slim with 2.8K OLED. Excellent balance of performance, battery, and display quality.",
+    knownIssues: "No Thunderbolt — USB4 via AMD. LPDDR5 soldered.",
+    swissMarketNotes: "Available from Digitec and Brack. AMD variant offers better battery than Intel equivalents.",
+  },
+  "yoga-slim-7-14imh9": {
+    editorialNotes: "2024 Intel Core Ultra (Meteor Lake) slim. Thunderbolt 4, OLED, and NPU. Wi-Fi 7 ready.",
+    knownIssues: "Meteor Lake battery life varies with NPU workloads. LPDDR5x soldered.",
+    swissMarketNotes: "Available from Digitec. Intel variant preferred for Thunderbolt docking workflows.",
+  },
+  "yoga-slim-7x-14are9": {
+    editorialNotes:
+      "Snapdragon X Elite ARM laptop — 14.5-inch 3K OLED with exceptional battery life (18+ hours claimed). Copilot+ PC with on-device AI.",
+    knownIssues:
+      "ARM app compatibility — some x86 apps run slowly or not at all. Adobe suite mostly works via emulation. Linux support is experimental.",
+    swissMarketNotes:
+      "Available from Digitec and Lenovo CH. Early Snapdragon X Elite pricing at CHF 1500-1800. Best for users in the Microsoft ecosystem.",
+  },
+  "yoga-slim-9-14iap7": {
+    editorialNotes:
+      "2022 flagship ultrabook with 4K OLED touchscreen and machined aluminium unibody. Alder Lake P-series i7-1280P provides strong performance.",
+    knownIssues: "4K 60 Hz — no high refresh rate. Premium pricing for a 2022 model.",
+    swissMarketNotes: "Premium segment — CHF 2000-2400. Competes with MacBook Pro 14 and Dell XPS 15.",
+  },
+  "yoga-book-9-13iru8": {
+    editorialNotes:
+      "Dual-screen OLED convertible — the bottom screen replaces the physical keyboard with a virtual one. Unique form factor for creative workflows.",
+    knownIssues:
+      "Virtual keyboard takes adjustment. Battery life reduced due to dual OLED panels. Limited Linux usability — virtual keyboard is Windows-only.",
+    swissMarketNotes: "Niche product — CHF 2500-3000 at Digitec. Unique form factor with limited Swiss availability.",
+  },
+  "yoga-book-9-14iah10": {
+    editorialNotes:
+      "2025 update with Intel Lunar Lake Core Ultra 7 258V and 14-inch dual screens. Improved battery life over Gen 1 thanks to Lunar Lake efficiency.",
+    knownIssues:
+      "Same virtual keyboard limitations. Dual OLED still impacts battery. ARM-level efficiency from Lunar Lake helps.",
+    swissMarketNotes: "Premium niche — CHF 2800-3200. Very limited Swiss availability. Digitec and Lenovo CH only.",
+  },
 };

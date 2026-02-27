@@ -1531,4 +1531,275 @@ export const linuxCompat: Record<string, LinuxCompatEntry> = {
     generalNotes:
       "Community-supported. Flagship 2025 Legion — Core Ultra 9 275HX + RTX 5080 Laptop. NVIDIA Blackwell driver 570+ mandatory; early adoption. Highest-power Legion config — confirm power supply and cooling adequacy for Linux sustained workloads.",
   },
+
+  // === ThinkPad X13 models ===
+  "x13-gen1-intel": {
+    laptopId: "x13-gen1-intel",
+    certifiedDistros: ["Ubuntu 20.04 LTS"],
+    recommendedKernel: "5.4+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX201 — iwlwifi" },
+      { component: "GPU", status: "works", notes: "Intel UHD Graphics — i915 driver" },
+      { component: "Fingerprint", status: "works", notes: "Synaptics — libfprint 1.90+" },
+    ],
+    generalNotes: "Lenovo-certified for Ubuntu. Mature Comet Lake platform, well-supported.",
+  },
+  "x13-gen1-amd": {
+    laptopId: "x13-gen1-amd",
+    certifiedDistros: ["Ubuntu 20.04 LTS"],
+    recommendedKernel: "5.4+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX200 — iwlwifi" },
+      { component: "GPU", status: "works", notes: "AMD Radeon RX Vega 6 — amdgpu" },
+      { component: "Fingerprint", status: "works", notes: "Synaptics — libfprint 1.90+" },
+    ],
+    generalNotes: "Lenovo-certified. Renoir APU — excellent Linux support.",
+  },
+  "x13-gen2-intel": {
+    laptopId: "x13-gen2-intel",
+    certifiedDistros: ["Ubuntu 20.04 LTS"],
+    recommendedKernel: "5.11+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX201 — iwlwifi" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915 driver, 5.11+" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint 1.92+" },
+    ],
+    generalNotes: "Lenovo-certified. Tiger Lake Xe works well with 5.11+.",
+  },
+  "x13-gen2-amd": {
+    laptopId: "x13-gen2-amd",
+    certifiedDistros: ["Ubuntu 20.04 LTS"],
+    recommendedKernel: "5.11+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX200 — iwlwifi" },
+      { component: "GPU", status: "works", notes: "AMD Radeon Graphics — amdgpu" },
+      { component: "Fingerprint", status: "works", notes: "Synaptics — libfprint 1.90+" },
+    ],
+    generalNotes: "Lenovo-certified. Cezanne Zen 3 — excellent Linux support.",
+  },
+  "x13-gen3-intel": {
+    laptopId: "x13-gen3-intel",
+    certifiedDistros: ["Ubuntu 22.04 LTS"],
+    recommendedKernel: "5.15+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — iwlwifi, Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915 driver" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint 1.94+" },
+    ],
+    generalNotes: "Lenovo-certified. Alder Lake U-series — well-supported in 5.15+.",
+  },
+  "x13-gen3-amd": {
+    laptopId: "x13-gen3-amd",
+    certifiedDistros: ["Ubuntu 22.04 LTS"],
+    recommendedKernel: "5.15+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Qualcomm QCNFA765 or Intel AX211" },
+      { component: "GPU", status: "works", notes: "AMD Radeon 680M — RDNA 2 iGPU, amdgpu" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint 1.94+" },
+    ],
+    generalNotes: "Lenovo-certified. Rembrandt RDNA 2 iGPU — strong Linux graphics.",
+  },
+  "x13-gen4-amd": {
+    laptopId: "x13-gen4-amd",
+    certifiedDistros: ["Ubuntu 22.04 LTS"],
+    recommendedKernel: "6.1+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 or Qualcomm" },
+      { component: "GPU", status: "works", notes: "AMD Radeon Graphics — amdgpu" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint 1.94+" },
+    ],
+    generalNotes: "Lenovo-certified. Zen 4 Phoenix platform — well-supported.",
+  },
+  "x13s-gen1": {
+    laptopId: "x13s-gen1",
+    certifiedDistros: [],
+    recommendedKernel: "6.2+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "partial", notes: "Qualcomm — requires ath11k, improving" },
+      { component: "GPU", status: "partial", notes: "Qualcomm Adreno 690 — freedreno driver, partial" },
+      { component: "Fingerprint", status: "broken", notes: "No Linux driver available" },
+    ],
+    generalNotes:
+      "ARM64 Snapdragon 8cx Gen 3 — Fedora and Ubuntu ARM images available. Not all apps support ARM. Fanless design. Improving rapidly but not fully mature.",
+  },
+
+  // === Yoga consumer models ===
+  "yoga-6-13alc7": {
+    laptopId: "yoga-6-13alc7",
+    certifiedDistros: [],
+    recommendedKernel: "5.15+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX200 — iwlwifi" },
+      { component: "GPU", status: "works", notes: "AMD Radeon Graphics — amdgpu" },
+      { component: "Fingerprint", status: "partial", notes: "Varies by reader model" },
+    ],
+    generalNotes: "Community-supported. Budget Yoga convertible — touchscreen works under Wayland.",
+  },
+  "yoga-7-14ial7": {
+    laptopId: "yoga-7-14ial7",
+    certifiedDistros: [],
+    recommendedKernel: "5.15+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint 1.94+" },
+    ],
+    generalNotes: "Community-supported. OLED touchscreen works well under Wayland.",
+  },
+  "yoga-7-16iah7": {
+    laptopId: "yoga-7-16iah7",
+    certifiedDistros: [],
+    recommendedKernel: "5.15+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915, H-series" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint 1.94+" },
+    ],
+    generalNotes: "Community-supported. 16-inch Alder Lake H-series — good Linux support.",
+  },
+  "yoga-7-2in1-14ahp9": {
+    laptopId: "yoga-7-2in1-14ahp9",
+    certifiedDistros: [],
+    recommendedKernel: "6.6+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Wi-Fi 7 — mt7925 or iwlwifi" },
+      { component: "GPU", status: "works", notes: "AMD Radeon 780M — amdgpu" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint" },
+    ],
+    generalNotes: "Community-supported. Hawk Point Zen 4 — well-supported in 6.6+.",
+  },
+  "yoga-7-2in1-14iml9": {
+    laptopId: "yoga-7-2in1-14iml9",
+    certifiedDistros: [],
+    recommendedKernel: "6.6+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel BE200 — Wi-Fi 7" },
+      { component: "GPU", status: "works", notes: "Intel Arc Graphics — Xe driver" },
+      { component: "Fingerprint", status: "works", notes: "Goodix — libfprint" },
+    ],
+    generalNotes: "Community-supported. Core Ultra Series 1 — Meteor Lake, 6.6+ recommended.",
+  },
+  "yoga-9-14iap7": {
+    laptopId: "yoga-9-14iap7",
+    certifiedDistros: [],
+    recommendedKernel: "5.15+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Premium OLED convertible. B&W soundbar speakers work via sof-firmware.",
+  },
+  "yoga-9-14irp8": {
+    laptopId: "yoga-9-14irp8",
+    certifiedDistros: [],
+    recommendedKernel: "6.1+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Raptor Lake 13th gen — 6.1+ recommended.",
+  },
+  "yoga-9-2in1-14imh9": {
+    laptopId: "yoga-9-2in1-14imh9",
+    certifiedDistros: [],
+    recommendedKernel: "6.6+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel BE200 — Wi-Fi 7" },
+      { component: "GPU", status: "works", notes: "Intel Arc Graphics — Xe driver" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Core Ultra Series 1 flagship Yoga — 4K OLED HDR 500.",
+  },
+  "yoga-slim-6-14iap8": {
+    laptopId: "yoga-slim-6-14iap8",
+    certifiedDistros: [],
+    recommendedKernel: "6.1+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Slim clamshell — OLED display works well.",
+  },
+  "yoga-slim-6-14irh8": {
+    laptopId: "yoga-slim-6-14irh8",
+    certifiedDistros: [],
+    recommendedKernel: "6.1+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915, H-series" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Raptor Lake H-series in slim chassis.",
+  },
+  "yoga-slim-7-14apu8": {
+    laptopId: "yoga-slim-7-14apu8",
+    certifiedDistros: [],
+    recommendedKernel: "6.1+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Wi-Fi 6E — Qualcomm or Intel" },
+      { component: "GPU", status: "works", notes: "AMD Radeon 780M — amdgpu" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Phoenix Zen 4 — strong AMD Linux support.",
+  },
+  "yoga-slim-7-14imh9": {
+    laptopId: "yoga-slim-7-14imh9",
+    certifiedDistros: [],
+    recommendedKernel: "6.6+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel BE200 — Wi-Fi 7" },
+      { component: "GPU", status: "works", notes: "Intel Arc Graphics — Xe driver" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Core Ultra Series 1 — Meteor Lake, 6.6+.",
+  },
+  "yoga-slim-7x-14are9": {
+    laptopId: "yoga-slim-7x-14are9",
+    certifiedDistros: [],
+    recommendedKernel: "6.10+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "partial", notes: "Qualcomm Wi-Fi 7 — ath12k, improving" },
+      { component: "GPU", status: "partial", notes: "Qualcomm Adreno X1-85 — freedreno, partial support" },
+      { component: "Fingerprint", status: "unknown", notes: "No confirmed Linux driver" },
+    ],
+    generalNotes:
+      "ARM64 Snapdragon X Elite — Fedora and Ubuntu ARM images available. Not all apps support ARM. Rapidly improving but experimental.",
+  },
+  "yoga-slim-9-14iap7": {
+    laptopId: "yoga-slim-9-14iap7",
+    certifiedDistros: [],
+    recommendedKernel: "5.15+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915" },
+      { component: "Fingerprint", status: "works", notes: "Goodix reader" },
+    ],
+    generalNotes: "Community-supported. Premium 4K OLED ultrabook — Alder Lake P-series.",
+  },
+  "yoga-book-9-13iru8": {
+    laptopId: "yoga-book-9-13iru8",
+    certifiedDistros: [],
+    recommendedKernel: "6.1+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel AX211 — Wi-Fi 6E" },
+      { component: "GPU", status: "works", notes: "Intel Iris Xe — i915" },
+      { component: "Fingerprint", status: "unknown", notes: "Dual-screen — no traditional fingerprint reader" },
+    ],
+    generalNotes:
+      "Community-supported. Dual-screen OLED — virtual keyboard relies on custom Lenovo software, limited Linux usability.",
+  },
+  "yoga-book-9-14iah10": {
+    laptopId: "yoga-book-9-14iah10",
+    certifiedDistros: [],
+    recommendedKernel: "6.10+",
+    driverNotes: [
+      { component: "Wi-Fi", status: "works", notes: "Intel BE200 — Wi-Fi 7" },
+      { component: "GPU", status: "works", notes: "Intel Arc 140V — Xe driver, 6.10+" },
+      { component: "Fingerprint", status: "unknown", notes: "Dual-screen — no traditional fingerprint reader" },
+    ],
+    generalNotes: "Community-supported. Dual-screen OLED — Lunar Lake. Virtual keyboard limited on Linux.",
+  },
 };
