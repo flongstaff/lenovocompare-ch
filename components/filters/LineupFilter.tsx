@@ -2,7 +2,7 @@
 import type { Lineup } from "@/lib/types";
 import { LINEUP_COLORS } from "@/lib/constants";
 
-const ALL_LINEUPS: readonly Lineup[] = ["ThinkPad", "IdeaPad Pro", "Legion"];
+const ALL_LINEUPS: readonly Lineup[] = ["ThinkPad", "IdeaPad Pro", "Legion", "Yoga"];
 
 interface LineupFilterProps {
   readonly selected: readonly Lineup[];
@@ -22,9 +22,14 @@ export const LineupFilter = ({ selected, onToggle }: LineupFilterProps) => (
           aria-label={`${l} lineup${active ? " (active)" : ""}`}
           className={`rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
             active
-              ? `${colors.bg} ${colors.text} ${colors.border}`
+              ? colors.chipClass
               : "border-carbon-500 text-carbon-300 hover:border-carbon-400 hover:text-carbon-100"
           }`}
+          style={
+            active
+              ? { color: colors.accent, borderColor: colors.accent + "40", background: colors.accent + "15" }
+              : undefined
+          }
         >
           {l}
         </button>

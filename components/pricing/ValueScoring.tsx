@@ -30,9 +30,9 @@ const getQuality = (metric: string, value: number): "good" | "ok" | "poor" => {
 };
 
 const QUALITY_STYLES = {
-  good: "text-green-400 bg-green-900/30 border-green-700",
-  ok: "text-yellow-400 bg-yellow-900/30 border-yellow-700",
-  poor: "text-red-400 bg-red-900/30 border-red-700",
+  good: "text-status-success bg-status-success/15 border-status-success/30",
+  ok: "text-status-warning bg-status-warning/15 border-status-warning/30",
+  poor: "text-carbon-400 bg-carbon-700/30 border-carbon-600",
 } as const;
 
 export const ValueScoring = ({ model }: ValueScoringProps) => {
@@ -87,7 +87,7 @@ export const ValueScoring = ({ model }: ValueScoringProps) => {
               <p className="font-mono text-lg font-semibold">
                 {m.value < 10 ? m.value.toFixed(1) : Math.round(m.value)}
               </p>
-              <p className="mt-0.5 text-[10px] uppercase tracking-wider opacity-80">{m.label}</p>
+              <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider opacity-80">{m.label}</p>
             </div>
           ))}
         </div>

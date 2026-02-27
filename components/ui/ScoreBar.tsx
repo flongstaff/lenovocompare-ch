@@ -44,9 +44,9 @@ export const ScoreBar = ({
           {label}
         </span>
       )}
-      <div className={`relative flex-1 ${isMd ? "h-2.5" : "h-1.5"} rounded-full bg-carbon-600/50`}>
+      <div className={`relative flex-1 ${isMd ? "h-2.5" : "h-1.5"} bg-carbon-600/50`}>
         <div
-          className="score-fill h-full overflow-hidden rounded-full transition-all duration-700 ease-out"
+          className="score-fill h-full overflow-hidden transition-all duration-700 ease-out"
           style={{
             width: `${Math.max(pct, 8)}%`,
             background: `linear-gradient(90deg, ${color}90, ${color})`,

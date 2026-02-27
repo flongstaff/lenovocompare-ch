@@ -295,6 +295,17 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     geekbench6Single: 2140,
     geekbench6Multi: 9800,
   },
+  "Intel Core i7-1260P": {
+    singleCore: 60,
+    multiCore: 56,
+    composite: 58,
+    cinebench2024Single: 82,
+    cinebench2024Multi: 470,
+    geekbench6Single: 2100,
+    geekbench6Multi: 9400,
+    typicalTdpAvg: 28,
+    typicalTdpMax: 64,
+  },
   "Intel Core i7-1265U": {
     singleCore: 58,
     multiCore: 47,
@@ -344,6 +355,17 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
   },
 
   // Intel 12th Gen U-series (Alder Lake)
+  "Intel Core i3-1215U": {
+    singleCore: 60,
+    multiCore: 38,
+    composite: 47,
+    cinebench2024Single: 82,
+    cinebench2024Multi: 290,
+    geekbench6Single: 1680,
+    geekbench6Multi: 4800,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 55,
+  },
   "Intel Core i5-1235U": {
     singleCore: 54,
     multiCore: 38,
@@ -364,6 +386,17 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
   },
 
   // Intel 11th Gen (Tiger Lake)
+  "Intel Core i5-1145G7": {
+    singleCore: 59,
+    multiCore: 41,
+    composite: 48,
+    cinebench2024Single: 82,
+    cinebench2024Multi: 320,
+    geekbench6Single: 1640,
+    geekbench6Multi: 5300,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 28,
+  },
   "Intel Core i5-1135G7": {
     singleCore: 48,
     multiCore: 32,
@@ -393,6 +426,17 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
   },
 
   // Intel 10th Gen (Comet Lake)
+  "Intel Core i3-10110U": {
+    singleCore: 38,
+    multiCore: 20,
+    composite: 27,
+    cinebench2024Single: 52,
+    cinebench2024Multi: 120,
+    geekbench6Single: 1050,
+    geekbench6Multi: 2200,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
   "Intel Core i5-10210U": {
     singleCore: 38,
     multiCore: 24,
@@ -406,6 +450,17 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     composite: 34,
     geekbench6Single: 1380,
     geekbench6Multi: 4600,
+  },
+  "Intel Core i5-10310U": {
+    singleCore: 43,
+    multiCore: 29,
+    composite: 35,
+    cinebench2024Single: 59,
+    cinebench2024Multi: 225,
+    geekbench6Single: 1200,
+    geekbench6Multi: 3650,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
   },
   "Intel Core i7-10610U": {
     singleCore: 43,
@@ -436,6 +491,41 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     composite: 28,
     geekbench6Single: 1060,
     geekbench6Multi: 3400,
+  },
+
+  // AMD Ryzen PRO 4000 (Renoir)
+  "AMD Ryzen 3 PRO 4450U": {
+    singleCore: 38,
+    multiCore: 32,
+    composite: 34,
+    cinebench2024Single: 52,
+    cinebench2024Multi: 240,
+    geekbench6Single: 1050,
+    geekbench6Multi: 4200,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+  "AMD Ryzen 5 PRO 4650U": {
+    singleCore: 42,
+    multiCore: 42,
+    composite: 42,
+    cinebench2024Single: 58,
+    cinebench2024Multi: 380,
+    geekbench6Single: 1160,
+    geekbench6Multi: 5800,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+  "AMD Ryzen 7 PRO 4750U": {
+    singleCore: 44,
+    multiCore: 52,
+    composite: 49,
+    cinebench2024Single: 61,
+    cinebench2024Multi: 480,
+    geekbench6Single: 1220,
+    geekbench6Multi: 7200,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
   },
 
   // AMD Ryzen PRO 8000 (Hawk Point)
@@ -474,6 +564,17 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     typicalTdpAvg: 22,
     typicalTdpMax: 28,
   },
+  "AMD Ryzen 5 PRO 7540U": {
+    singleCore: 68,
+    multiCore: 56,
+    composite: 61,
+    cinebench2024Single: 94,
+    cinebench2024Multi: 490,
+    geekbench6Single: 1880,
+    geekbench6Multi: 8000,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 28,
+  },
   "AMD Ryzen 5 PRO 7535U": {
     singleCore: 55,
     multiCore: 50,
@@ -509,6 +610,52 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     cinebench2024Multi: 460,
     geekbench6Single: 2040,
     geekbench6Multi: 8800,
+  },
+
+  // AMD Ryzen 5000 (Cezanne / Lucienne)
+  "AMD Ryzen 3 PRO 5450U": {
+    singleCore: 45,
+    multiCore: 34,
+    composite: 38,
+    cinebench2024Single: 62,
+    cinebench2024Multi: 260,
+    geekbench6Single: 1250,
+    geekbench6Multi: 4600,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+  "AMD Ryzen 5 5600U": {
+    singleCore: 52,
+    multiCore: 48,
+    composite: 50,
+    cinebench2024Single: 72,
+    cinebench2024Multi: 420,
+    geekbench6Single: 1450,
+    geekbench6Multi: 6400,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+  "AMD Ryzen 7 5700U": {
+    singleCore: 50,
+    multiCore: 54,
+    composite: 52,
+    cinebench2024Single: 69,
+    cinebench2024Multi: 510,
+    geekbench6Single: 1380,
+    geekbench6Multi: 7000,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
+  },
+  "AMD Ryzen 7 5800U": {
+    singleCore: 54,
+    multiCore: 56,
+    composite: 55,
+    cinebench2024Single: 75,
+    cinebench2024Multi: 530,
+    geekbench6Single: 1500,
+    geekbench6Multi: 7400,
+    typicalTdpAvg: 15,
+    typicalTdpMax: 25,
   },
 
   // AMD Ryzen PRO 5000
@@ -562,6 +709,17 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
   },
 
   // AMD Ryzen 7000
+  "AMD Ryzen 7 7840S": {
+    singleCore: 72,
+    multiCore: 70,
+    composite: 71,
+    cinebench2024Single: 100,
+    cinebench2024Multi: 620,
+    geekbench6Single: 1990,
+    geekbench6Multi: 11200,
+    typicalTdpAvg: 28,
+    typicalTdpMax: 54,
+  },
   "AMD Ryzen 7 7840HS": {
     singleCore: 73,
     multiCore: 76,
@@ -704,7 +862,18 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     typicalTdpMax: 54,
   },
 
-  // AMD Ryzen 8000 HS (non-PRO, IdeaPad/Legion)
+  // AMD Ryzen 8000 HS (non-PRO, IdeaPad/Legion/Yoga)
+  "AMD Ryzen 7 8840HS": {
+    singleCore: 74,
+    multiCore: 72,
+    composite: 73,
+    cinebench2024Single: 103,
+    cinebench2024Multi: 650,
+    geekbench6Single: 2050,
+    geekbench6Multi: 11600,
+    typicalTdpAvg: 35,
+    typicalTdpMax: 54,
+  },
   "AMD Ryzen 7 8845HS": {
     singleCore: 75,
     multiCore: 76,
@@ -1064,6 +1233,30 @@ export const cpuBenchmarksExpanded: Record<string, CpuBenchmarkData> = {
     geekbench6Multi: 18400,
     typicalTdpAvg: 55,
     typicalTdpMax: 157,
+  },
+
+  // Qualcomm Snapdragon
+  "Qualcomm Snapdragon 8cx Gen 3": {
+    singleCore: 42,
+    multiCore: 38,
+    composite: 40,
+    cinebench2024Single: 58,
+    cinebench2024Multi: 340,
+    geekbench6Single: 1160,
+    geekbench6Multi: 5600,
+    typicalTdpAvg: 8,
+    typicalTdpMax: 12,
+  },
+  "Qualcomm Snapdragon X Elite X1E-78-100": {
+    singleCore: 76,
+    multiCore: 82,
+    composite: 80,
+    cinebench2024Single: 106,
+    cinebench2024Multi: 800,
+    geekbench6Single: 2400,
+    geekbench6Multi: 14500,
+    typicalTdpAvg: 23,
+    typicalTdpMax: 45,
   },
 };
 

@@ -62,9 +62,9 @@ const AiDevReadiness = ({ ramGb, cores }: AiDevReadinessProps) => {
   const docker = getDockerEstimate(ramGb, cores);
 
   return (
-    <div className="space-y-2 rounded-lg p-2.5" style={{ background: "var(--surface)" }}>
+    <div className="space-y-2 p-2.5" style={{ background: "var(--surface)" }}>
       <h4
-        className="border-l-[3px] pl-2 text-xs font-semibold uppercase tracking-wider"
+        className="border-l-[3px] pl-2 font-mono text-xs font-semibold uppercase tracking-wider"
         style={{ color: "var(--muted)", borderColor: "var(--accent)" }}
       >
         AI &amp; Dev Readiness

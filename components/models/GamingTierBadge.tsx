@@ -8,9 +8,9 @@ interface GamingTierBadgeProps {
 
 const TIER_STYLE: Record<GamingTier, { label: string; className: string } | null> = {
   None: null,
-  Light: { label: "Light Gaming", className: "bg-yellow-900/30 text-yellow-400 border border-yellow-700" },
-  Medium: { label: "Medium Gaming", className: "bg-green-900/30 text-green-400 border border-green-700" },
-  Heavy: { label: "Heavy Gaming", className: "bg-blue-900/30 text-blue-400 border border-blue-700" },
+  Light: { label: "Light Gaming", className: "carbon-verdict-fair" },
+  Medium: { label: "Medium Gaming", className: "carbon-verdict-good" },
+  Heavy: { label: "Heavy Gaming", className: "carbon-verdict-excellent" },
 };
 
 export const GamingTierBadge = ({ tier }: GamingTierBadgeProps) => {

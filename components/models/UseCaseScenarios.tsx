@@ -7,19 +7,19 @@ interface UseCaseScenariosProps {
   readonly scenarios: readonly UseCaseScenario[];
 }
 
-const VERDICT_CONFIG: Record<ScenarioVerdict, { label: string; bg: string; text: string; border: string }> = {
-  overkill: { label: "Overkill", bg: "bg-blue-900/30", text: "text-blue-400", border: "border-blue-700" },
-  excellent: { label: "Excellent", bg: "bg-green-900/30", text: "text-green-400", border: "border-green-700" },
-  good: { label: "Good", bg: "bg-teal-900/30", text: "text-teal-400", border: "border-teal-700" },
-  marginal: { label: "Marginal", bg: "bg-yellow-900/30", text: "text-yellow-400", border: "border-yellow-700" },
-  insufficient: { label: "Insufficient", bg: "bg-red-900/30", text: "text-red-400", border: "border-red-700" },
+const VERDICT_CONFIG: Record<ScenarioVerdict, { label: string; className: string }> = {
+  overkill: { label: "Overkill", className: "carbon-verdict-excellent" },
+  excellent: { label: "Excellent", className: "carbon-verdict-excellent" },
+  good: { label: "Good", className: "carbon-verdict-good" },
+  marginal: { label: "Marginal", className: "carbon-verdict-fair" },
+  insufficient: { label: "Insufficient", className: "carbon-verdict-low" },
 };
 
 const UseCaseScenarios = ({ scenarios }: UseCaseScenariosProps) => (
   <div className="space-y-3">
     <div className="flex items-center gap-2">
       <Target size={16} style={{ color: "var(--muted)" }} />
-      <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+      <h2 className="font-mono text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
         Use Case Fit
       </h2>
     </div>
@@ -34,7 +34,7 @@ const UseCaseScenarios = ({ scenarios }: UseCaseScenariosProps) => (
             style={{ borderBottom: "1px solid var(--border-subtle)" }}
           >
             <span
-              className={`shrink-0 border px-1 py-0.5 text-[9px] font-semibold uppercase tracking-wider ${config.bg} ${config.text} ${config.border}`}
+              className={`shrink-0 px-1 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider ${config.className}`}
             >
               {config.label}
             </span>

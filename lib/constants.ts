@@ -29,42 +29,49 @@ export const RETAILERS = [
   "Tutti",
 ] as const;
 
-export const LINEUP_COLORS: Record<Lineup, { bg: string; text: string; border: string }> = {
-  ThinkPad: { bg: "bg-zinc-800/40", text: "text-zinc-300", border: "border-zinc-600" },
-  "IdeaPad Pro": { bg: "bg-sky-900/30", text: "text-sky-400", border: "border-sky-700" },
-  Legion: { bg: "bg-orange-900/30", text: "text-orange-400", border: "border-orange-700" },
+export const LINEUP_COLORS: Record<Lineup, { accent: string; chipClass: string }> = {
+  ThinkPad: { accent: "#a8a8a8", chipClass: "carbon-chip-thinkpad" },
+  "IdeaPad Pro": { accent: "#78a9ff", chipClass: "carbon-chip-ideapad" },
+  Legion: { accent: "#ff832b", chipClass: "carbon-chip-legion" },
+  Yoga: { accent: "#ee5396", chipClass: "carbon-chip-yoga" },
 };
 
-export const SERIES_COLORS: Record<Series, { bg: string; text: string; border: string }> = {
+export const SERIES_COLORS: Record<Series, { accent: string; chipClass: string }> = {
   // ThinkPad series
-  X1: { bg: "bg-red-900/30", text: "text-red-400", border: "border-red-700" },
-  T: { bg: "bg-blue-900/30", text: "text-blue-400", border: "border-blue-700" },
-  P: { bg: "bg-amber-900/30", text: "text-amber-400", border: "border-amber-700" },
-  L: { bg: "bg-green-900/30", text: "text-green-400", border: "border-green-700" },
-  E: { bg: "bg-purple-900/30", text: "text-purple-400", border: "border-purple-700" },
+  X1: { accent: "#ee5396", chipClass: "carbon-chip-thinkpad" },
+  T: { accent: "#4589ff", chipClass: "carbon-chip-thinkpad" },
+  P: { accent: "#f1c21b", chipClass: "carbon-chip-thinkpad" },
+  L: { accent: "#42be65", chipClass: "carbon-chip-thinkpad" },
+  E: { accent: "#be95ff", chipClass: "carbon-chip-thinkpad" },
   // IdeaPad Pro series
-  "Pro 5": { bg: "bg-sky-900/30", text: "text-sky-400", border: "border-sky-700" },
-  "Pro 5i": { bg: "bg-indigo-900/30", text: "text-indigo-400", border: "border-indigo-700" },
-  "Pro 7": { bg: "bg-violet-900/30", text: "text-violet-400", border: "border-violet-700" },
+  "Pro 5": { accent: "#33b1ff", chipClass: "carbon-chip-ideapad" },
+  "Pro 5i": { accent: "#6929c4", chipClass: "carbon-chip-ideapad" },
+  "Pro 7": { accent: "#a56eff", chipClass: "carbon-chip-ideapad" },
   // Legion series
-  "5": { bg: "bg-orange-900/30", text: "text-orange-400", border: "border-orange-700" },
-  "5i": { bg: "bg-rose-900/30", text: "text-rose-400", border: "border-rose-700" },
-  "7": { bg: "bg-red-900/30", text: "text-red-400", border: "border-red-700" },
-  "7i": { bg: "bg-fuchsia-900/30", text: "text-fuchsia-400", border: "border-fuchsia-700" },
-  Pro: { bg: "bg-yellow-900/30", text: "text-yellow-400", border: "border-yellow-700" },
-  Slim: { bg: "bg-teal-900/30", text: "text-teal-400", border: "border-teal-700" },
+  "5": { accent: "#ff832b", chipClass: "carbon-chip-legion" },
+  "5i": { accent: "#fa4d56", chipClass: "carbon-chip-legion" },
+  "7": { accent: "#fa4d56", chipClass: "carbon-chip-legion" },
+  "7i": { accent: "#d12771", chipClass: "carbon-chip-legion" },
+  Pro: { accent: "#f1c21b", chipClass: "carbon-chip-legion" },
+  Slim: { accent: "#08bdba", chipClass: "carbon-chip-legion" },
+  // Yoga series
+  "Yoga 6": { accent: "#ee5396", chipClass: "carbon-chip-yoga" },
+  "Yoga 7": { accent: "#ff7eb6", chipClass: "carbon-chip-yoga" },
+  "Yoga 9": { accent: "#d02670", chipClass: "carbon-chip-yoga" },
+  "Yoga Slim": { accent: "#a56eff", chipClass: "carbon-chip-yoga" },
+  "Yoga Book": { accent: "#be95ff", chipClass: "carbon-chip-yoga" },
 };
 
-export const USE_CASE_COLORS: Record<UseCase, { bg: string; text: string }> = {
-  "Business Travel": { bg: "bg-blue-900/30", text: "text-blue-400" },
-  Developer: { bg: "bg-violet-900/30", text: "text-violet-400" },
-  "Creative Work": { bg: "bg-pink-900/30", text: "text-pink-400" },
-  Budget: { bg: "bg-green-900/30", text: "text-green-400" },
-  "Desktop Replacement": { bg: "bg-amber-900/30", text: "text-amber-400" },
-  Ultraportable: { bg: "bg-cyan-900/30", text: "text-cyan-400" },
-  Student: { bg: "bg-teal-900/30", text: "text-teal-400" },
-  "IT Fleet": { bg: "bg-slate-700/30", text: "text-slate-400" },
-  "Light Gaming": { bg: "bg-orange-900/30", text: "text-orange-400" },
+export const USE_CASE_COLORS: Record<UseCase, { accent: string }> = {
+  "Business Travel": { accent: "#4589ff" },
+  Developer: { accent: "#a56eff" },
+  "Creative Work": { accent: "#ee5396" },
+  Budget: { accent: "#42be65" },
+  "Desktop Replacement": { accent: "#f1c21b" },
+  Ultraportable: { accent: "#08bdba" },
+  Student: { accent: "#33b1ff" },
+  "IT Fleet": { accent: "#a8a8a8" },
+  "Light Gaming": { accent: "#ff832b" },
 };
 
 /** Color-blind safe palette for multi-model comparison charts (passes Protanopia/Deuteranopia/Tritanopia) */
@@ -94,6 +101,12 @@ export const SERIES_ACCENT: Record<string, string> = {
   "7i": "#d12771",
   Pro: "#f1c21b",
   Slim: "#08bdba",
+  // Yoga
+  "Yoga 6": "#ee5396",
+  "Yoga 7": "#ff7eb6",
+  "Yoga 9": "#d02670",
+  "Yoga Slim": "#a56eff",
+  "Yoga Book": "#be95ff",
 };
 
 /** Benchmark category accent colors (hex) */

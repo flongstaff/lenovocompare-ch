@@ -32,6 +32,17 @@ const config: Config = {
           800: "#262626",
           900: "#161616",
         },
+        status: {
+          success: "var(--status-success)",
+          warning: "var(--status-warning)",
+          low: "var(--status-low)",
+          info: "var(--status-info)",
+        },
+        lineup: {
+          thinkpad: "var(--lineup-thinkpad)",
+          ideapad: "var(--lineup-ideapad)",
+          legion: "var(--lineup-legion)",
+        },
       },
       keyframes: {
         "fade-in": {

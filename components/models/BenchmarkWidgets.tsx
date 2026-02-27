@@ -20,7 +20,7 @@ export const StatBox = ({
   color?: string;
 }) => (
   <div
-    className="rounded-md border px-3 py-2.5"
+    className="border px-3 py-2.5"
     style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
   >
     <div className="mb-0.5 text-xs tracking-wide" style={{ color: "var(--muted)" }}>
@@ -75,7 +75,7 @@ export const MiniBar = ({
 export const CategoryHeader = ({ title, accent }: { title: string; accent: string }) => (
   <div className="flex items-center gap-2">
     <div className="h-4 w-1 rounded-full" style={{ background: accent }} />
-    <h4 className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+    <h4 className="font-mono text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
       {title}
     </h4>
   </div>
@@ -91,7 +91,7 @@ export const SubSection = ({
   children: React.ReactNode;
 }) => (
   <div
-    className="flex flex-col gap-2.5 rounded-lg border p-3"
+    className="flex flex-col gap-2.5 border p-3"
     style={{ borderColor: "var(--border-subtle)", background: "var(--surface)" }}
   >
     <CategoryHeader title={title} accent={accent} />
@@ -102,7 +102,7 @@ export const SubSection = ({
 export const Divider = ({ label }: { label: string }) => (
   <div className="flex items-center gap-3 px-1">
     <div className="h-px flex-1" style={{ background: "var(--border-subtle)" }} />
-    <span className="text-[10px] font-medium uppercase tracking-[0.15em]" style={{ color: "var(--muted)" }}>
+    <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em]" style={{ color: "var(--muted)" }}>
       {label}
     </span>
     <div className="h-px flex-1" style={{ background: "var(--border-subtle)" }} />
@@ -112,7 +112,7 @@ export const Divider = ({ label }: { label: string }) => (
 export const InsightRow = ({ label, value, color }: { label: string; value: string; color?: string }) => (
   <div className="flex items-start gap-2 py-0.5">
     <span
-      className="shrink-0 text-[10px] font-semibold uppercase tracking-wide"
+      className="shrink-0 font-mono text-[10px] font-semibold uppercase tracking-wide"
       style={{ color: color ?? "var(--muted)", minWidth: 60 }}
     >
       {label}

@@ -19,7 +19,7 @@ const BenchmarkBar = ({ items, maxValue = 100 }: BenchmarkBarProps) => (
   <div className="w-full" style={{ height: items.length * 36 + 16 }}>
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={[...items]} layout="vertical" margin={{ left: 0, right: 20, top: 4, bottom: 4 }}>
-        <CartesianGrid strokeDasharray="4 4" stroke="#2a2a2a" horizontal={false} />
+        <CartesianGrid strokeDasharray="4 4" stroke="#262626" horizontal={false} />
         <XAxis type="number" domain={[0, maxValue]} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#393939" />
         <YAxis type="category" dataKey="label" width={85} tick={{ fill: "#a8a8a8", fontSize: 11 }} stroke="#393939" />
         <Tooltip
@@ -32,7 +32,7 @@ const BenchmarkBar = ({ items, maxValue = 100 }: BenchmarkBarProps) => (
                 style={{
                   background: "#262626",
                   border: "1px solid #525252",
-                  borderRadius: 6,
+                  borderRadius: 0,
                   padding: "8px 12px",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
                 }}
@@ -45,7 +45,7 @@ const BenchmarkBar = ({ items, maxValue = 100 }: BenchmarkBarProps) => (
             );
           }}
         />
-        <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
+        <Bar dataKey="value" radius={0} barSize={20}>
           {items.map((item, i) => (
             <Cell key={i} fill={item.color ?? DEFAULT_COLOR} />
           ))}

@@ -26,6 +26,32 @@ export const gpuBenchmarks: Record<string, GpuBenchmarkEntry> = {
       { title: "Stardew Valley", resolution: "1080p", settings: "Default", fps: 60 },
     ],
   },
+  "AMD Radeon RX Vega 6": {
+    gpuName: "AMD Radeon RX Vega 6",
+    score: 12,
+    gamingTier: "Light",
+    fpsEstimates: [
+      { title: "CS2", resolution: "720p", settings: "Low", fps: 18 },
+      { title: "Valorant", resolution: "720p", settings: "Low", fps: 35 },
+      { title: "Minecraft", resolution: "720p", settings: "Low", fps: 40 },
+      { title: "League of Legends", resolution: "720p", settings: "Low", fps: 48 },
+      { title: "Civilization VI", resolution: "720p", settings: "Low", fps: 22 },
+      { title: "Stardew Valley", resolution: "1080p", settings: "Default", fps: 60 },
+    ],
+  },
+  "Qualcomm Adreno 690": {
+    gpuName: "Qualcomm Adreno 690",
+    score: 18,
+    gamingTier: "Light",
+    fpsEstimates: [
+      { title: "CS2", resolution: "720p", settings: "Low", fps: 20 },
+      { title: "Valorant", resolution: "720p", settings: "Low", fps: 38 },
+      { title: "Minecraft", resolution: "720p", settings: "Low", fps: 42 },
+      { title: "League of Legends", resolution: "720p", settings: "Low", fps: 50 },
+      { title: "Civilization VI", resolution: "720p", settings: "Low", fps: 24 },
+      { title: "Stardew Valley", resolution: "1080p", settings: "Default", fps: 60 },
+    ],
+  },
   "AMD Radeon Graphics": {
     gpuName: "AMD Radeon Graphics",
     score: 15,
@@ -306,6 +332,21 @@ export const gpuBenchmarks: Record<string, GpuBenchmarkEntry> = {
       { title: "Minecraft", resolution: "1080p", settings: "High", fps: 70 },
       { title: "League of Legends", resolution: "1080p", settings: "High", fps: 100 },
       { title: "Civilization VI", resolution: "1080p", settings: "Medium", fps: 45 },
+      { title: "Stardew Valley", resolution: "1080p", settings: "Default", fps: 60 },
+    ],
+  },
+
+  // === Qualcomm Adreno (Snapdragon X Elite) ===
+  "Qualcomm Adreno X1-85": {
+    gpuName: "Qualcomm Adreno X1-85",
+    score: 34,
+    gamingTier: "Light",
+    fpsEstimates: [
+      { title: "CS2", resolution: "720p", settings: "Low", fps: 48 },
+      { title: "Valorant", resolution: "1080p", settings: "Medium", fps: 70 },
+      { title: "Minecraft", resolution: "1080p", settings: "Medium", fps: 65 },
+      { title: "League of Legends", resolution: "1080p", settings: "High", fps: 85 },
+      { title: "Civilization VI", resolution: "1080p", settings: "Medium", fps: 42 },
       { title: "Stardew Valley", resolution: "1080p", settings: "Default", fps: 60 },
     ],
   },

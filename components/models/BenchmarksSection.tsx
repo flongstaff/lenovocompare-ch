@@ -117,7 +117,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                       <div className="mt-1 flex flex-wrap gap-2">
                         {pctSingle !== null && (
                           <span
-                            className="rounded px-1.5 py-0.5 text-[10px]"
+                            className="px-1.5 py-0.5 text-[10px]"
                             style={{ background: "#4589ff20", color: "#4589ff" }}
                           >
                             Top {100 - pctSingle}% single-core
@@ -125,7 +125,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                         )}
                         {pctMulti !== null && (
                           <span
-                            className="rounded px-1.5 py-0.5 text-[10px]"
+                            className="px-1.5 py-0.5 text-[10px]"
                             style={{ background: "#0f62fe20", color: "#0f62fe" }}
                           >
                             Top {100 - pctMulti}% multi-core
@@ -159,7 +159,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     return (
                       <div className="mt-1">
                         <span
-                          className="rounded px-1.5 py-0.5 text-[10px]"
+                          className="px-1.5 py-0.5 text-[10px]"
                           style={{ background: "#42be6520", color: "#42be65" }}
                         >
                           Top {100 - pctGpu}% GPU
@@ -256,7 +256,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                     undersideMaxC={chassisBench.thermals.undersideMaxC}
                   />
                   <span
-                    className="inline-block rounded px-1.5 py-0.5 text-xs"
+                    className="inline-block px-1.5 py-0.5 text-xs"
                     style={{
                       background:
                         chassisBench.thermals.keyboardMaxC > thermalT.hot
@@ -311,7 +311,7 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                 </div>
                 <NoiseScale dbValue={chassisBench.fanNoise} />
                 <span
-                  className="inline-block rounded px-1.5 py-0.5 text-xs"
+                  className="inline-block px-1.5 py-0.5 text-xs"
                   style={{
                     background:
                       chassisBench.fanNoise > noiseT.loud

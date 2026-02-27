@@ -34,8 +34,8 @@ interface SpecRow {
 
 const Delta = ({ score, bestScore }: { score: number; bestScore: number }) => {
   const diff = score - bestScore;
-  if (diff === 0) return <span className="ml-1 text-[10px] text-green-400">Best</span>;
-  return <span className="ml-1 text-[10px] text-red-400">{diff}</span>;
+  if (diff === 0) return <span className="ml-1 text-[10px] text-status-success">Best</span>;
+  return <span className="ml-1 text-[10px] text-status-warning">{diff}</span>;
 };
 
 /**
@@ -171,11 +171,11 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                       <Link href={`/model/${m.id}`} className="hover:underline">
                         {m.name}
                       </Link>
-                      <div className="mt-0.5 text-xs font-normal text-blue-200">{m.year}</div>
+                      <div className="mt-0.5 text-xs font-normal text-carbon-200">{m.year}</div>
                     </div>
                     <button
                       onClick={() => onRemove(m.id)}
-                      className="p-1 text-blue-200 hover:text-white"
+                      className="p-1 text-carbon-200 hover:text-white"
                       aria-label={`Remove ${m.name} from comparison`}
                     >
                       <X size={14} />
@@ -199,7 +199,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                     <tr>
                       <td
                         colSpan={models.length + 1}
-                        className="cursor-pointer select-none border-t border-carbon-500 bg-carbon-600 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-carbon-200 transition-colors hover:bg-carbon-500"
+                        className="cursor-pointer select-none border-t border-carbon-500 bg-carbon-600 px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-carbon-200 transition-colors hover:bg-carbon-500"
                         onClick={() => toggleSection(row.section!)}
                       >
                         <span className="flex items-center justify-between">
@@ -230,13 +230,11 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                             return (
                               <td
                                 key={m.id}
-                                className={`border-t border-carbon-600 px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-green-400" : "text-carbon-50"}`}
+                                className={`border-t border-carbon-600 px-4 py-3 font-mono text-lg font-semibold ${isLowest ? "text-status-success" : "text-carbon-50"}`}
                               >
                                 {p !== null ? formatCHF(p) : "—"}
                                 {isLowest && (
-                                  <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
-                                    Best
-                                  </span>
+                                  <span className="carbon-chip-success ml-1.5 px-1 py-0.5 text-[10px]">Best</span>
                                 )}
                                 {p !== null && pctOff > 0 && (
                                   <span className={`ml-1.5 border px-1 py-0.5 text-[10px] ${pctClass}`}>
@@ -254,7 +252,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                           return (
                             <td
                               key={m.id}
-                              className={`break-words border-t border-carbon-600 px-4 py-3 ${isBest ? "font-semibold text-green-400" : "text-carbon-50"}`}
+                              className={`break-words border-t border-carbon-600 px-4 py-3 ${isBest ? "font-semibold text-status-success" : "text-carbon-50"}`}
                             >
                               {row.wrapLong ? (
                                 <div className="space-y-0.5">
@@ -268,9 +266,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                                 <span className="line-clamp-2">{val}</span>
                               )}
                               {isBest && (
-                                <span className="ml-1.5 border border-green-700 bg-green-900/40 px-1 py-0.5 text-[10px] text-green-400">
-                                  Best
-                                </span>
+                                <span className="carbon-chip-success ml-1.5 px-1 py-0.5 text-[10px]">Best</span>
                               )}
                             </td>
                           );
@@ -286,7 +282,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
             <tr>
               <td
                 colSpan={models.length + 1}
-                className="border-t border-carbon-500 bg-carbon-600 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-carbon-200"
+                className="border-t border-carbon-500 bg-carbon-600 px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-carbon-200"
               >
                 Scores
               </td>

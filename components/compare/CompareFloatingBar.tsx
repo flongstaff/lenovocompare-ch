@@ -16,7 +16,7 @@ export const CompareFloatingBar = ({ count, onClear }: CompareFloatingBarProps) 
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 80, opacity: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="glass-bar fixed bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 rounded-lg px-5 py-3"
+      className="glass-bar fixed bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 px-5 py-3"
     >
       <GitCompareArrows size={18} className="text-accent-light" />
       <span className="text-sm font-medium text-carbon-100">

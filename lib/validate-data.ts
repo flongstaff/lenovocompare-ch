@@ -65,6 +65,7 @@ const VALID_SERIES = {
   ThinkPad: ["X1", "T", "P", "L", "E"],
   "IdeaPad Pro": ["Pro 5", "Pro 5i", "Pro 7"],
   Legion: ["5", "5i", "7", "7i", "Pro", "Slim"],
+  Yoga: ["Yoga 6", "Yoga 7", "Yoga 9", "Yoga Slim", "Yoga Book"],
 } as const satisfies Record<Lineup, readonly Series[]>;
 
 // --- Issue dispatcher (keeps level and array in sync) ---

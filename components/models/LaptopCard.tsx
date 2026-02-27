@@ -66,7 +66,7 @@ const LaptopCard = ({
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
             <span
-              className="rounded-sm px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider"
+              className="px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider"
               style={{ background: accent + "15", color: accent, border: `1px solid ${accent}30` }}
             >
               {model.lineup !== "ThinkPad" ? `${model.lineup} ${model.series}` : `${model.series} Series`}
@@ -84,7 +84,7 @@ const LaptopCard = ({
                 </span>
               )}
               {showBestValue && (
-                <span className="inline-flex items-center border border-green-700 bg-green-900/30 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-green-400">
+                <span className="carbon-chip-success inline-flex items-center px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider">
                   Best Value
                 </span>
               )}
@@ -125,7 +125,7 @@ const LaptopCard = ({
                 ? model.display.resolutionLabel.replace(/\s*OLED\s*/gi, " ").trim()
                 : model.display.resolutionLabel}
               {model.display.panel === "OLED" && (
-                <span className="ml-1.5 border border-purple-700/50 bg-purple-900/40 px-1 py-0.5 font-mono text-[9px] uppercase text-purple-300">
+                <span className="ml-1.5 border border-accent/30 bg-accent/10 px-1 py-0.5 font-mono text-[9px] uppercase text-accent-light">
                   OLED
                 </span>
               )}

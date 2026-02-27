@@ -12,10 +12,10 @@ interface DealCardProps {
   readonly baseline: PriceBaseline | null;
 }
 
-const priceTypeBadge: Record<string, { bg: string; text: string }> = {
-  sale: { bg: "bg-green-900/40", text: "text-green-400" },
-  clearance: { bg: "bg-amber-900/40", text: "text-amber-400" },
-  refurbished: { bg: "bg-blue-900/40", text: "text-blue-400" },
+const priceTypeBadge: Record<string, string> = {
+  sale: "carbon-chip-success",
+  clearance: "carbon-chip-warning",
+  refurbished: "carbon-chip",
 };
 
 const DealCard = ({ deal, model, baseline }: DealCardProps) => {
@@ -27,7 +27,7 @@ const DealCard = ({ deal, model, baseline }: DealCardProps) => {
 
   return (
     <div
-      className={`carbon-card overflow-hidden rounded-lg ${isExpired ? "opacity-50" : ""}`}
+      className={`carbon-card overflow-hidden ${isExpired ? "opacity-50" : ""}`}
       style={{ borderLeft: `3px solid ${lineupColor ? "var(--accent)" : "var(--border-subtle)"}` }}
     >
       <div className="p-4">
@@ -37,15 +37,11 @@ const DealCard = ({ deal, model, baseline }: DealCardProps) => {
               {model?.name ?? deal.laptopId}
             </h3>
             <div className="mt-1 flex flex-wrap items-center gap-2">
-              {lineupColor && (
-                <span className={`rounded px-1.5 py-0.5 text-xs ${lineupColor.bg} ${lineupColor.text}`}>
-                  {model?.lineup}
-                </span>
-              )}
-              <span className={`rounded px-1.5 py-0.5 text-xs ${badge.bg} ${badge.text}`}>{deal.priceType}</span>
-              {isExpired && <span className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs text-zinc-500">expired</span>}
+              {lineupColor && <span className={`carbon-chip ${lineupColor.chipClass}`}>{model?.lineup}</span>}
+              <span className={`px-1.5 py-0.5 text-xs ${badge}`}>{deal.priceType}</span>
+              {isExpired && <span className="bg-carbon-800 px-1.5 py-0.5 text-xs text-carbon-500">expired</span>}
               {stale && (
-                <span className="rounded bg-amber-900/40 px-1.5 py-0.5 text-xs text-amber-400">Unverified</span>
+                <span className="bg-status-warning/10 px-1.5 py-0.5 text-xs text-status-warning">Unverified</span>
               )}
             </div>
           </div>
@@ -54,7 +50,7 @@ const DealCard = ({ deal, model, baseline }: DealCardProps) => {
               {formatCHF(deal.price)}
             </div>
             {pctOff !== null && pctOff > 0 && (
-              <div className="text-xs font-semibold text-green-400">-{pctOff}% off MSRP</div>
+              <div className="text-xs font-semibold text-status-success">-{pctOff}% off MSRP</div>
             )}
           </div>
         </div>
@@ -64,7 +60,7 @@ const DealCard = ({ deal, model, baseline }: DealCardProps) => {
         <div className="mt-3 flex items-center justify-between">
           <span className="text-xs" style={{ color: "var(--muted)" }}>
             {deal.retailer} · {deal.addedDate}
-            {deal.verified && <span className="ml-1 text-green-400">✓</span>}
+            {deal.verified && <span className="ml-1 text-status-success">✓</span>}
           </span>
           {deal.url && (
             <a

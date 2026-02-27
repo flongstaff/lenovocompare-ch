@@ -94,7 +94,7 @@ const DealsClient = () => {
             key={l}
             onClick={() => setLineupFilter(l)}
             aria-pressed={lineupFilter === l}
-            className={`rounded px-3 py-1.5 text-xs font-medium transition-colors ${
+            className={`px-3 py-1.5 text-xs font-medium transition-colors ${
               lineupFilter === l
                 ? "bg-accent text-white"
                 : "text-carbon-300 hover:bg-carbon-600/30 hover:text-carbon-100"
@@ -122,7 +122,7 @@ const DealsClient = () => {
             ))}
           </div>
         ) : (
-          <div className="carbon-card rounded-lg p-6 text-center">
+          <div className="carbon-card p-6 text-center">
             <p className="text-sm" style={{ color: "var(--muted)" }}>
               No deals for this lineup right now.
             </p>

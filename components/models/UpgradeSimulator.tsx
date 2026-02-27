@@ -71,7 +71,7 @@ const UpgradeSimulator = ({ model }: UpgradeSimulatorProps) => {
               </p>
             </>
           ) : (
-            <div className="rounded px-3 py-2 text-sm" style={{ background: "var(--surface)", color: "var(--muted)" }}>
+            <div className="px-3 py-2 text-sm" style={{ background: "var(--surface)", color: "var(--muted)" }}>
               {model.ram.size}GB {model.ram.type} — Soldered (not upgradeable)
             </div>
           )}
@@ -127,7 +127,7 @@ const UpgradeSimulator = ({ model }: UpgradeSimulatorProps) => {
           </span>
           {hasChanges && delta !== 0 && (
             <span
-              className={`rounded px-1.5 py-0.5 font-mono text-xs font-semibold ${delta > 0 ? "bg-green-900/40 text-green-400" : "bg-red-900/40 text-red-400"}`}
+              className={`px-1.5 py-0.5 font-mono text-xs font-semibold ${delta > 0 ? "bg-[color-mix(in_srgb,var(--status-success)_15%,transparent)] text-status-success" : "bg-[color-mix(in_srgb,var(--trackpoint)_15%,transparent)] text-trackpoint"}`}
             >
               {delta > 0 ? "+" : ""}
               {delta}

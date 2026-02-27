@@ -4,6 +4,7 @@ import React, { useState, useRef, useMemo, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { computeEfficiencyFrontier, mapRange, clamp } from "@/lib/chart-utils";
+import { BENCHMARK_CAT_COLORS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -58,9 +59,9 @@ const LINEUP_COLORS: Record<string, string> = {
 } as const;
 
 const DIMENSION_ENTRIES = [
-  { key: "cpu", label: "CPU", color: "#4589ff" },
-  { key: "gpu", label: "GPU", color: "#42be65" },
-  { key: "memory", label: "Mem", color: "#be95ff" },
+  { key: "cpu", label: "CPU", color: BENCHMARK_CAT_COLORS.cpu },
+  { key: "gpu", label: "GPU", color: BENCHMARK_CAT_COLORS.gpu },
+  { key: "memory", label: "Mem", color: BENCHMARK_CAT_COLORS.memory },
   { key: "display", label: "Disp", color: "#ee5396" },
   { key: "connectivity", label: "Conn", color: "#08bdba" },
   { key: "portability", label: "Port", color: "#f1c21b" },
@@ -391,7 +392,7 @@ export const PricePerformanceScatter = ({ models }: PricePerformanceScatterProps
             <button
               key={lineup}
               onClick={() => toggleLineup(lineup)}
-              className="flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] transition-colors"
+              className="flex items-center gap-1.5 border px-2.5 py-0.5 text-[11px] transition-colors"
               style={{
                 borderColor: active ? color : "#525252",
                 background: active ? `${color}20` : "transparent",
@@ -406,7 +407,7 @@ export const PricePerformanceScatter = ({ models }: PricePerformanceScatterProps
         {zoom && (
           <button
             onClick={() => setZoom(null)}
-            className="ml-auto rounded border border-carbon-600 px-2 py-0.5 text-[10px] text-carbon-400 transition-colors hover:border-carbon-400 hover:text-carbon-200"
+            className="ml-auto border border-carbon-600 px-2 py-0.5 text-[10px] text-carbon-400 transition-colors hover:border-carbon-400 hover:text-carbon-200"
           >
             Reset zoom
           </button>
@@ -624,7 +625,7 @@ export const PricePerformanceScatter = ({ models }: PricePerformanceScatterProps
       {/* Tooltip */}
       {tooltip && (
         <div
-          className="pointer-events-none absolute z-10 rounded border px-3 py-2 text-xs"
+          className="pointer-events-none absolute z-10 border px-3 py-2 text-xs"
           style={{
             ...tooltipStyle,
             background: "#262626",
@@ -634,7 +635,7 @@ export const PricePerformanceScatter = ({ models }: PricePerformanceScatterProps
         >
           <p className="mb-1 font-medium text-carbon-100">{tooltip.model.name}</p>
           <span
-            className="mb-1 inline-block rounded-full px-1.5 py-0.5 text-[9px] font-medium"
+            className="mb-1 inline-block px-1.5 py-0.5 text-[9px] font-medium"
             style={{
               background: `${LINEUP_COLORS[tooltip.model.lineup] ?? "#525252"}30`,
               color: LINEUP_COLORS[tooltip.model.lineup] ?? "#a8a8a8",

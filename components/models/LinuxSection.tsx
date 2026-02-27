@@ -17,7 +17,7 @@ const STATUS_ICON: Record<DriverStatus, { Icon: typeof CheckCircle; color: strin
 const LinuxSection = ({ compat }: LinuxSectionProps) => (
   <div className="space-y-2">
     <div className="flex items-center justify-between">
-      <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+      <h2 className="font-mono text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
         Linux Compatibility
       </h2>
       <code className="bg-carbon-700 px-1.5 py-0.5 text-xs text-carbon-200">Kernel {compat.recommendedKernel}+</code>
@@ -57,7 +57,7 @@ const LinuxSection = ({ compat }: LinuxSectionProps) => (
     )}
 
     {compat.fedoraNotes && (
-      <div className="rounded p-2" style={{ background: "#1a3a5c", border: "1px solid #264a7a" }}>
+      <div className="p-2" style={{ background: "var(--surface-inset)", border: "1px solid var(--border-subtle)" }}>
         <span className="text-xs font-semibold" style={{ color: "#78aeed" }}>
           Fedora:{" "}
         </span>

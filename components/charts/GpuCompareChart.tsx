@@ -64,7 +64,7 @@ const GpuCompareChart = ({ models }: GpuCompareChartProps) => {
                     style={{
                       background: "#262626",
                       border: "1px solid #525252",
-                      borderRadius: 6,
+                      borderRadius: 0,
                       padding: "8px 12px",
                       boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
                     }}
@@ -92,7 +92,7 @@ const GpuCompareChart = ({ models }: GpuCompareChartProps) => {
                 );
               }}
             />
-            <Bar dataKey="score" radius={[0, 3, 3, 0]} barSize={barSize}>
+            <Bar dataKey="score" radius={0} barSize={barSize}>
               {data.map((entry) => (
                 <Cell key={entry.name} fill={entry.color} />
               ))}

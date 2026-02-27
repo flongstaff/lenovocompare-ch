@@ -42,7 +42,7 @@ export const getPriceDiscountColor = (discountPct: number): string => {
 
 /** Tailwind class set for a price discount badge: green/yellow/red */
 export const getPriceDiscountClasses = (discountPct: number): string => {
-  if (discountPct >= 25) return "bg-green-900/40 text-green-400 border-green-700";
-  if (discountPct >= 10) return "bg-yellow-900/40 text-yellow-400 border-yellow-700";
-  return "bg-red-900/40 text-red-400 border-red-700";
+  if (discountPct >= 25) return "carbon-verdict-excellent";
+  if (discountPct >= 10) return "carbon-verdict-fair";
+  return "carbon-verdict-low";
 };

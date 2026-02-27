@@ -14,9 +14,27 @@ interface MarketAlertBannerProps {
 }
 
 const severityStyles = {
-  critical: { bg: "bg-red-900/30", border: "border-red-700", icon: AlertTriangle, iconColor: "text-red-400" },
-  warning: { bg: "bg-yellow-900/20", border: "border-yellow-700", icon: TrendingUp, iconColor: "text-yellow-400" },
-  good: { bg: "bg-green-900/20", border: "border-green-700", icon: Info, iconColor: "text-green-400" },
+  critical: {
+    icon: AlertTriangle,
+    style: {
+      background: "color-mix(in srgb, var(--status-warning) 15%, transparent)",
+      borderColor: "var(--status-warning)",
+    },
+  },
+  warning: {
+    icon: TrendingUp,
+    style: {
+      background: "color-mix(in srgb, var(--status-warning) 8%, transparent)",
+      borderColor: "var(--status-warning)",
+    },
+  },
+  good: {
+    icon: Info,
+    style: {
+      background: "color-mix(in srgb, var(--status-success) 12%, transparent)",
+      borderColor: "var(--status-success)",
+    },
+  },
 } as const;
 
 const MarketAlertBanner = ({ severity, headline, detail, updatedDate, componentMarkets }: MarketAlertBannerProps) => {
@@ -25,13 +43,13 @@ const MarketAlertBanner = ({ severity, headline, detail, updatedDate, componentM
   const Icon = styles.icon;
 
   return (
-    <div className={`rounded-lg border ${styles.border} ${styles.bg} p-4`}>
+    <div className="border p-4" style={styles.style}>
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex w-full items-start gap-3 text-left"
         aria-expanded={expanded}
       >
-        <Icon size={20} className={`mt-0.5 flex-shrink-0 ${styles.iconColor}`} />
+        <Icon size={20} className="mt-0.5 flex-shrink-0" style={{ color: styles.style.borderColor }} />
         <div className="min-w-0 flex-1">
           <h2 className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>
             {headline}
@@ -59,7 +77,7 @@ const MarketAlertBanner = ({ severity, headline, detail, updatedDate, componentM
                 return (
                   <div
                     key={cm.component}
-                    className="rounded border px-3 py-2"
+                    className="border px-3 py-2"
                     style={{ borderColor: "var(--border-subtle)", background: "var(--surface-alt)" }}
                   >
                     <div className="flex items-center gap-2">

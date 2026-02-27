@@ -39,7 +39,7 @@ import { modelEditorial } from "@/data/model-editorial";
 import { linuxCompat } from "@/data/linux-compat";
 import dynamic from "next/dynamic";
 
-const ChartSkeleton = () => <div className="carbon-card animate-pulse rounded-lg" style={{ height: 200 }} />;
+const ChartSkeleton = () => <div className="carbon-card animate-pulse" style={{ height: 200 }} />;
 const PerformanceRadar = dynamic(() => import("@/components/charts/PerformanceRadar"), {
   ssr: false,
   loading: ChartSkeleton,
@@ -79,7 +79,7 @@ const SpecRow = ({
   even?: boolean;
 }) => (
   <div
-    className="flex items-start gap-3 rounded px-2 py-2"
+    className="flex items-start gap-3 px-2 py-2"
     style={{ background: even ? "var(--surface-inset)" : "transparent" }}
   >
     {Icon && <Icon size={15} style={{ color: "var(--icon-muted)" }} className="mt-0.5 shrink-0" />}
@@ -116,7 +116,7 @@ const parsePortBreakdown = (ports: readonly string[]) => {
 
 const PortChip = ({ label, accent }: { label: string; accent: string }) => (
   <span
-    className="inline-flex items-center rounded px-1.5 py-0.5 font-mono text-[10px] font-medium"
+    className="inline-flex items-center px-1.5 py-0.5 font-mono text-[10px] font-medium"
     style={{ background: `${accent}15`, color: accent, border: `1px solid ${accent}25` }}
   >
     {label}
@@ -133,7 +133,7 @@ const PhysicalStat = ({ label, value, unit }: { label: string; value: string; un
         </span>
       )}
     </span>
-    <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+    <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
       {label}
     </span>
   </div>
@@ -153,7 +153,7 @@ const FormFactorConnectivity = ({
   }, 0);
 
   return (
-    <div id="form-factor" className="carbon-card scroll-mt-14 rounded-lg p-4">
+    <div id="form-factor" className="carbon-card scroll-mt-14 p-4">
       <h2 className="mb-3 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
         Form Factor
       </h2>
@@ -173,25 +173,25 @@ const FormFactorConnectivity = ({
           {/* Quick physical stats — 2x2 grid */}
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             <div
-              className="rounded-md border px-2.5 py-2"
+              className="border px-2.5 py-2"
               style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
             >
               <PhysicalStat label="Weight" value={formatWeight(model.weight)} />
             </div>
             <div
-              className="rounded-md border px-2.5 py-2"
+              className="border px-2.5 py-2"
               style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
             >
               <PhysicalStat label="Battery" value={`${model.battery.whr}`} unit="Wh" />
             </div>
             <div
-              className="rounded-md border px-2.5 py-2"
+              className="border px-2.5 py-2"
               style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
             >
               <PhysicalStat label="Screen" value={`${configuredModel.display.size}"`} />
             </div>
             <div
-              className="rounded-md border px-2.5 py-2"
+              className="border px-2.5 py-2"
               style={{ borderColor: "var(--border-subtle)", background: "var(--surface-inset)" }}
             >
               <PhysicalStat label="Total I/O" value={`${totalPorts}`} unit="ports" />
@@ -200,7 +200,10 @@ const FormFactorConnectivity = ({
 
           {/* Port breakdown */}
           <div className="space-y-1.5">
-            <span className="text-[10px] font-medium uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+            <span
+              className="font-mono text-[10px] font-medium uppercase tracking-widest"
+              style={{ color: "var(--muted)" }}
+            >
               I/O Breakdown
             </span>
             <div className="flex flex-wrap gap-1.5">
@@ -341,7 +344,7 @@ const ModelDetailClient = () => {
         ].map((d) => (
           <div
             key={d.label}
-            className="flex items-center gap-1.5 rounded border px-2 py-1"
+            className="flex items-center gap-1.5 border px-2 py-1"
             style={{ borderColor: "#393939", background: "var(--surface-inset)" }}
           >
             <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
@@ -376,7 +379,7 @@ const ModelDetailClient = () => {
           <a
             key={s.id}
             href={`#${s.id}`}
-            className="shrink-0 rounded px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-carbon-400 transition-all hover:bg-carbon-700/50 hover:text-accent-light"
+            className="shrink-0 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-carbon-400 transition-all hover:bg-carbon-700/50 hover:text-accent-light"
           >
             {s.label}
           </a>
@@ -389,7 +392,7 @@ const ModelDetailClient = () => {
         className="grid scroll-mt-14 grid-cols-1 gap-4 border-b border-carbon-600/60 pb-6 md:grid-cols-3"
       >
         {/* Scores card */}
-        <div className="carbon-card-scores rounded-lg p-4">
+        <div className="carbon-card-scores p-4">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
               Scores
@@ -484,7 +487,7 @@ const ModelDetailClient = () => {
         </div>
 
         {/* Swiss Prices card */}
-        <div className="carbon-card rounded-lg p-4">
+        <div className="carbon-card p-4">
           <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Swiss Prices
           </h2>
@@ -505,14 +508,14 @@ const ModelDetailClient = () => {
                         </span>
                         {p.priceType && (
                           <span
-                            className={`border px-1 py-0.5 text-[9px] uppercase tracking-wider ${
+                            className={`px-1 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
                               p.priceType === "sale"
-                                ? "border-green-700 bg-green-900/30 text-green-400"
+                                ? "carbon-verdict-excellent"
                                 : p.priceType === "msrp"
-                                  ? "border-blue-700 bg-blue-900/30 text-blue-400"
+                                  ? "carbon-verdict-good"
                                   : p.priceType === "used"
-                                    ? "border-amber-700 bg-amber-900/30 text-amber-400"
-                                    : "border-slate-600 bg-slate-700/30 text-slate-300"
+                                    ? "carbon-verdict-fair"
+                                    : "border-carbon-600 bg-carbon-700/30 text-carbon-300"
                             }`}
                           >
                             {p.priceType}
@@ -589,7 +592,7 @@ const ModelDetailClient = () => {
         </div>
 
         {/* Value Calculator card */}
-        <div className="carbon-card rounded-lg p-4">
+        <div className="carbon-card p-4">
           <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Value Calculator
           </h2>
@@ -603,7 +606,7 @@ const ModelDetailClient = () => {
       {/* Full-width stacked sections */}
       <div className="space-y-6">
         {/* Specifications — 2-column on large screens */}
-        <div id="specs" className="carbon-card scroll-mt-14 rounded-lg p-3">
+        <div id="specs" className="carbon-card scroll-mt-14 p-3">
           <h2 className="mb-2 text-base font-semibold sm:text-lg" style={{ color: "var(--foreground)" }}>
             Specifications
           </h2>
@@ -663,7 +666,7 @@ const ModelDetailClient = () => {
         <FormFactorConnectivity model={model} configuredModel={configuredModel} />
 
         {/* Upgrade Simulator */}
-        <div className="carbon-card rounded-lg p-4">
+        <div className="carbon-card p-4">
           <UpgradeSimulator
             key={`${configuredModel.ram.size}-${configuredModel.storage.size}`}
             model={configuredModel}
@@ -671,7 +674,7 @@ const ModelDetailClient = () => {
         </div>
 
         {/* Performance Overview */}
-        <div id="performance" className="carbon-card scroll-mt-14 rounded-lg p-4">
+        <div id="performance" className="carbon-card scroll-mt-14 p-4">
           <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Performance Overview
           </h2>
@@ -748,15 +751,15 @@ const ModelDetailClient = () => {
           )}
         </div>
 
-        <div id="benchmarks" className="carbon-card scroll-mt-14 rounded-lg p-4">
+        <div id="benchmarks" className="carbon-card scroll-mt-14 p-4">
           <BenchmarksSection model={configuredModel} />
         </div>
 
-        <div id="gaming" className="carbon-card scroll-mt-14 rounded-lg p-4">
+        <div id="gaming" className="carbon-card scroll-mt-14 p-4">
           <GamingSection gpuName={configuredModel.gpu.name} gamingTier={sc.gamingTier} benchmark={sc.gpuBenchmark} />
         </div>
 
-        <div className="carbon-card rounded-lg p-4">
+        <div className="carbon-card p-4">
           <HardwareGuide cpuName={configuredModel.processor.name} gpuName={configuredModel.gpu.name} />
         </div>
 
@@ -764,12 +767,12 @@ const ModelDetailClient = () => {
         {((analysis.scenarios?.length ?? 0) > 0 || linux) && (
           <div id="use-cases" className="grid scroll-mt-14 grid-cols-1 gap-4 lg:grid-cols-2">
             {analysis.scenarios && analysis.scenarios.length > 0 && (
-              <div className="carbon-card rounded-lg p-4">
+              <div className="carbon-card p-4">
                 <UseCaseScenarios scenarios={analysis.scenarios} />
               </div>
             )}
             {linux && (
-              <div className="carbon-card rounded-lg p-4">
+              <div className="carbon-card p-4">
                 <LinuxSection compat={linux} />
               </div>
             )}
@@ -779,17 +782,17 @@ const ModelDetailClient = () => {
         <ModelAnalysisCard analysis={analysis} />
 
         {editorial && (
-          <div id="editorial" className="carbon-card-editorial scroll-mt-14 rounded-lg p-4">
+          <div id="editorial" className="carbon-card-editorial scroll-mt-14 p-4">
             <EditorialCard editorial={editorial} linuxStatus={model.linuxStatus} />
           </div>
         )}
 
         {/* Deep Dive + Price Check — compact row */}
         <div id="research" className="grid scroll-mt-14 grid-cols-1 gap-4 lg:grid-cols-2">
-          <div className="carbon-card rounded-lg p-3">
+          <div className="carbon-card p-3">
             <DeepDive model={model} />
           </div>
-          <div className="carbon-card rounded-lg p-3">
+          <div className="carbon-card p-3">
             <PriceCheck model={model} />
           </div>
         </div>

@@ -39,14 +39,16 @@ const getPriceBadge = (price: number, baseline: PriceBaseline) => {
 const PriceTypeLabel = ({ type }: { type?: string }) => {
   if (!type) return null;
   const styles: Record<string, string> = {
-    msrp: "bg-blue-900/30 text-blue-400 border-blue-700",
-    retail: "bg-slate-700/30 text-slate-300 border-slate-600",
-    sale: "bg-green-900/30 text-green-400 border-green-700",
-    used: "bg-amber-900/30 text-amber-400 border-amber-700",
-    refurbished: "bg-teal-900/30 text-teal-400 border-teal-700",
+    msrp: "carbon-chip",
+    retail: "bg-carbon-700/30 text-carbon-300 border-carbon-600",
+    sale: "carbon-chip-success",
+    used: "carbon-chip-warning",
+    refurbished: "carbon-chip",
   };
   return (
-    <span className={`border px-1 py-0.5 text-[10px] uppercase tracking-wider ${styles[type] ?? styles.retail}`}>
+    <span
+      className={`border px-1 py-0.5 font-mono text-[10px] uppercase tracking-wider ${styles[type] ?? styles.retail}`}
+    >
       {type}
     </span>
   );
@@ -128,7 +130,7 @@ const PriceTimelineChart = ({
       <div style={{ height: chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={mergedData} margin={{ left: 10, right: 50, top: 8, bottom: 4 }}>
-            <CartesianGrid strokeDasharray="4 4" stroke="#2a2a2a" />
+            <CartesianGrid strokeDasharray="4 4" stroke="#262626" />
             <XAxis
               type="number"
               dataKey="timestamp"
@@ -178,7 +180,7 @@ const PriceTimelineChart = ({
                             style={{
                               width: 8,
                               height: 8,
-                              borderRadius: "50%",
+                              borderRadius: 0,
                               background: getRetailerColor(item.name ?? ""),
                               flexShrink: 0,
                             }}
@@ -275,7 +277,7 @@ const PriceTimelineChart = ({
 const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => {
   if (!baseline && priceHistory.length === 0) {
     return (
-      <div className="carbon-card rounded-lg p-4">
+      <div className="carbon-card p-4">
         <h2 className="mb-2 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
           Price History
         </h2>
@@ -294,14 +296,14 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
   const nearHistoricalLow = baseline && lowestCurrent ? lowestCurrent <= baseline.historicalLow * 1.05 : false;
 
   return (
-    <div className="carbon-card rounded-lg p-4">
+    <div className="carbon-card p-4">
       <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
         Price History
       </h2>
 
       {/* Combined header: current best + baselines inline */}
       {(lowestCurrent !== null || baseline) && (
-        <div className="mb-3 flex flex-wrap items-end gap-4 rounded-md p-3" style={{ background: "var(--surface)" }}>
+        <div className="mb-3 flex flex-wrap items-end gap-4 p-3" style={{ background: "var(--surface)" }}>
           {/* Current best — prominent */}
           {lowestCurrent !== null && (
             <div className="flex items-center gap-2">
@@ -313,7 +315,7 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
                 <Minus size={16} style={{ color: "var(--muted)" }} />
               )}
               <div>
-                <div className="text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+                <div className="font-mono text-[10px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
                   Best Price
                 </div>
                 <span
@@ -328,11 +330,7 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
                 </span>
               </div>
               {baseline && getPriceBadge(lowestCurrent, baseline)}
-              {nearHistoricalLow && (
-                <span className="border border-green-700 bg-green-900/40 px-1.5 py-0.5 text-[10px] text-green-400">
-                  Near Low
-                </span>
-              )}
+              {nearHistoricalLow && <span className="carbon-chip-success px-1.5 py-0.5 text-[10px]">Near Low</span>}
             </div>
           )}
 
@@ -340,7 +338,7 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
           {baseline && (
             <div className="ml-auto flex gap-4">
               <div className="text-center">
-                <div className="text-[9px] uppercase tracking-wider" style={{ color: "#da1e2890" }}>
+                <div className="font-mono text-[9px] uppercase tracking-wider" style={{ color: "#da1e2890" }}>
                   MSRP
                 </div>
                 <div className="font-mono text-xs font-medium" style={{ color: "var(--muted)" }}>
@@ -348,7 +346,7 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-[9px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+                <div className="font-mono text-[9px] uppercase tracking-wider" style={{ color: "var(--muted)" }}>
                   Typical
                 </div>
                 <div className="font-mono text-xs font-medium" style={{ color: "var(--muted)" }}>
@@ -356,7 +354,7 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-[9px] uppercase tracking-wider" style={{ color: "#42be6590" }}>
+                <div className="font-mono text-[9px] uppercase tracking-wider" style={{ color: "#42be6590" }}>
                   Hist. Low
                 </div>
                 <div className="font-mono text-xs font-medium" style={{ color: "#42be65" }}>
@@ -374,7 +372,7 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
       {/* Price timeline */}
       {priceHistory.length > 0 && (
         <div className="space-y-0">
-          <div className="mb-2 text-xs uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+          <div className="mb-2 font-mono text-xs uppercase tracking-wider" style={{ color: "var(--muted)" }}>
             Timeline ({priceHistory.length} entries)
           </div>
           {priceHistory.map((p) => (

@@ -89,7 +89,7 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
   const isModified = Object.values(config).some((v) => v !== null);
 
   return (
-    <div className="carbon-card rounded-lg p-4">
+    <div className="carbon-card p-4">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Settings2 size={18} style={{ color: "var(--accent)" }} />

@@ -73,10 +73,10 @@ const BaselineStrip = ({ baseline, bestPrice }: { baseline: PriceBaseline; bestP
         Typical <span style={{ color: "var(--foreground)" }}>{formatCHF(baseline.typicalRetail)}</span>
       </span>
       <span style={{ color: "var(--muted)" }}>
-        Low <span className="text-green-400">{formatCHF(baseline.historicalLow)}</span>
+        Low <span className="text-status-success">{formatCHF(baseline.historicalLow)}</span>
       </span>
       {pctOff !== null && pctOff > 0 && (
-        <span className="flex items-center gap-0.5 text-green-400">
+        <span className="flex items-center gap-0.5 text-status-success">
           <TrendingDown size={10} /> {pctOff}% off MSRP
         </span>
       )}
@@ -178,7 +178,7 @@ const PricingClient = () => {
       </div>
 
       {showImport && (
-        <div className="carbon-card space-y-3 rounded-lg p-4">
+        <div className="carbon-card space-y-3 p-4">
           <textarea
             value={importText}
             onChange={(e) => setImportText(e.target.value)}
@@ -194,7 +194,7 @@ const PricingClient = () => {
 
       {priceGroups.length > 0 ? (
         priceGroups.map((group) => (
-          <div key={group.model?.id ?? "unknown"} className="carbon-card overflow-hidden rounded-lg">
+          <div key={group.model?.id ?? "unknown"} className="carbon-card overflow-hidden">
             <div className="flex items-center px-3 py-2" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
               <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>
                 {group.model?.name ?? "Unknown Model"}
@@ -211,7 +211,7 @@ const PricingClient = () => {
           </div>
         ))
       ) : (
-        <div className="carbon-card rounded-lg p-6 text-center">
+        <div className="carbon-card p-6 text-center">
           <p className="text-sm" style={{ color: "var(--muted)" }}>
             No prices yet. Add one above.
           </p>

@@ -15,7 +15,7 @@ import { MAX_COMPARE } from "@/lib/constants";
 import dynamic from "next/dynamic";
 import { getPerformanceDimensions } from "@/lib/scoring";
 
-const ChartSkeleton = () => <div className="carbon-card animate-pulse rounded-lg" style={{ height: 200 }} />;
+const ChartSkeleton = () => <div className="carbon-card animate-pulse" style={{ height: 200 }} />;
 const PerformanceRadar = dynamic(() => import("@/components/charts/PerformanceRadar"), {
   ssr: false,
   loading: ChartSkeleton,
@@ -103,8 +103,11 @@ const ComparePageContent = () => {
         <>
           <QuickVerdict models={selectedModels} prices={allPrices} />
           <div className="hidden grid-cols-1 gap-4 sm:grid lg:grid-cols-2">
-            <div className="carbon-card rounded-lg p-4">
-              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+            <div className="carbon-card p-4">
+              <h2
+                className="mb-2 font-mono text-sm font-semibold uppercase tracking-wider"
+                style={{ color: "var(--muted)" }}
+              >
                 Performance Comparison
               </h2>
               <PerformanceRadar
@@ -114,26 +117,35 @@ const ComparePageContent = () => {
                 }))}
               />
             </div>
-            <div className="carbon-card rounded-lg p-4">
-              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+            <div className="carbon-card p-4">
+              <h2
+                className="mb-2 font-mono text-sm font-semibold uppercase tracking-wider"
+                style={{ color: "var(--muted)" }}
+              >
                 Weight & Battery
               </h2>
               <PortabilityCompareChart models={selectedModels} />
             </div>
-            <div className="carbon-card rounded-lg p-4">
-              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+            <div className="carbon-card p-4">
+              <h2
+                className="mb-2 font-mono text-sm font-semibold uppercase tracking-wider"
+                style={{ color: "var(--muted)" }}
+              >
                 CPU Benchmarks
               </h2>
               <CpuCompareChart models={selectedModels} />
             </div>
-            <div className="carbon-card rounded-lg p-4">
-              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+            <div className="carbon-card p-4">
+              <h2
+                className="mb-2 font-mono text-sm font-semibold uppercase tracking-wider"
+                style={{ color: "var(--muted)" }}
+              >
                 GPU Scores
               </h2>
               <GpuCompareChart models={selectedModels} />
             </div>
           </div>
-          <div className="carbon-card hidden overflow-hidden rounded-lg p-4 sm:block">
+          <div className="carbon-card hidden overflow-hidden p-4 sm:block">
             <CompareTable models={selectedModels} prices={allPrices} onRemove={removeFromCompare} />
           </div>
           <div className="sm:hidden">

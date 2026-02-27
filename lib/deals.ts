@@ -47,42 +47,16 @@ export const isDealStale = (deal: DealHighlight, thresholdDays = 14): boolean =>
 };
 
 /** Display metadata for each buy signal */
-export const getBuySignalMeta = (
-  signal: BuySignal,
-): { label: string; color: string; bgClass: string; textClass: string; borderClass: string } => {
+export const getBuySignalMeta = (signal: BuySignal): { label: string; color: string; chipClass: string } => {
   switch (signal) {
     case "buy-now":
-      return {
-        label: "Buy Now",
-        color: "#42be65",
-        bgClass: "bg-green-900/40",
-        textClass: "text-green-400",
-        borderClass: "border-green-700",
-      };
+      return { label: "Buy Now", color: "#42be65", chipClass: "carbon-verdict-excellent" };
     case "good-deal":
-      return {
-        label: "Good Deal",
-        color: "#4589ff",
-        bgClass: "bg-blue-900/40",
-        textClass: "text-blue-400",
-        borderClass: "border-blue-700",
-      };
+      return { label: "Good Deal", color: "#4589ff", chipClass: "carbon-verdict-good" };
     case "hold":
-      return {
-        label: "Hold",
-        color: "#f1c21b",
-        bgClass: "bg-yellow-900/40",
-        textClass: "text-yellow-400",
-        borderClass: "border-yellow-700",
-      };
+      return { label: "Hold", color: "#f1c21b", chipClass: "carbon-verdict-fair" };
     case "wait":
-      return {
-        label: "Wait",
-        color: "#a8a8a8",
-        bgClass: "bg-zinc-800/40",
-        textClass: "text-zinc-400",
-        borderClass: "border-zinc-600",
-      };
+      return { label: "Wait", color: "#a8a8a8", chipClass: "carbon-verdict-low" };
   }
 };
 

@@ -26,7 +26,7 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
   const [expanded, setExpanded] = useState(!compact);
 
   return (
-    <div className="carbon-card overflow-hidden rounded-lg">
+    <div className="carbon-card overflow-hidden">
       {/* Header */}
       <button
         onClick={() => setExpanded((prev) => !prev)}
@@ -43,7 +43,7 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
             </h3>
             <div className="mt-0.5 flex items-center gap-2">
               <span
-                className="rounded px-1.5 py-0.5 text-xs"
+                className="px-1.5 py-0.5 text-xs"
                 style={{ backgroundColor: "var(--surface-hover)", color: "var(--muted)" }}
               >
                 {entry.architecture}
@@ -74,7 +74,10 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
           {/* Strengths & Weaknesses */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: "#42be65" }}>
+              <h4
+                className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider"
+                style={{ color: "#42be65" }}
+              >
                 Strengths
               </h4>
               <ul className="space-y-1.5">
@@ -87,7 +90,10 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
               </ul>
             </div>
             <div>
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: "#f1c21b" }}>
+              <h4
+                className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider"
+                style={{ color: "#f1c21b" }}
+              >
                 Weaknesses
               </h4>
               <ul className="space-y-1.5">
@@ -105,7 +111,7 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
               <h4
-                className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider"
                 style={{ color: "var(--accent-light)" }}
               >
                 <Target size={12} className="mr-1 inline" />
@@ -121,7 +127,7 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
             </div>
             <div>
               <h4
-                className="mb-2 text-xs font-semibold uppercase tracking-wider"
+                className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider"
                 style={{ color: "var(--trackpoint)" }}
               >
                 <Ban size={12} className="mr-1 inline" />
@@ -139,11 +145,11 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
 
           {/* Thermal Notes */}
           <div
-            className="rounded-lg border p-3"
+            className="border p-3"
             style={{ borderColor: "var(--border-subtle)", backgroundColor: "var(--surface-hover)" }}
           >
             <h4
-              className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider"
+              className="mb-1.5 flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider"
               style={{ color: "#ff832b" }}
             >
               <Thermometer size={12} />
@@ -157,7 +163,7 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
           {/* Generation Context */}
           <div>
             <h4
-              className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider"
+              className="mb-1.5 flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider"
               style={{ color: "var(--muted)" }}
             >
               <Clock size={12} />
@@ -171,14 +177,17 @@ const ChipDetailCard = ({ name, entry, score, type, compact = false }: ChipDetai
           {/* Alternatives */}
           {entry.alternatives.length > 0 && (
             <div>
-              <h4 className="mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+              <h4
+                className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider"
+                style={{ color: "var(--muted)" }}
+              >
                 Alternatives
               </h4>
               <div className="space-y-2">
                 {entry.alternatives.map((alt) => (
                   <div
                     key={alt.name}
-                    className="flex items-start gap-2 rounded p-2 text-sm"
+                    className="flex items-start gap-2 p-2 text-sm"
                     style={{ backgroundColor: "var(--surface-hover)" }}
                   >
                     <ArrowRight size={14} className="mt-0.5 shrink-0" style={{ color: "var(--accent-light)" }} />

@@ -28,9 +28,9 @@ const ThermalBar = ({ label, temp }: { label: string; temp: number }) => {
       <span className="w-16 shrink-0 text-[11px]" style={{ color: "var(--muted)" }}>
         {label}
       </span>
-      <div className="h-4 flex-1 rounded" style={{ background: "var(--surface)" }}>
+      <div className="h-4 flex-1" style={{ background: "var(--surface)" }}>
         <div
-          className="flex h-full items-center justify-end rounded px-1.5 transition-all"
+          className="flex h-full items-center justify-end px-1.5 transition-all"
           style={{ width: `${pct}%`, background: `${color}30`, borderRight: `2px solid ${color}` }}
         >
           <span className="font-mono text-[11px] font-semibold" style={{ color }}>

@@ -4,11 +4,11 @@ import type { SwissPrice, Laptop } from "@/lib/types";
 import { formatCHF, formatDate } from "@/lib/formatters";
 
 const PRICE_TYPE_STYLES: Record<string, string> = {
-  msrp: "bg-blue-900/30 text-blue-400 border-blue-700",
-  retail: "bg-slate-700/30 text-slate-300 border-slate-600",
-  sale: "bg-green-900/30 text-green-400 border-green-700",
-  used: "bg-amber-900/30 text-amber-400 border-amber-700",
-  refurbished: "bg-teal-900/30 text-teal-400 border-teal-700",
+  msrp: "carbon-chip",
+  retail: "carbon-chip",
+  sale: "carbon-chip-success",
+  used: "carbon-chip-warning",
+  refurbished: "carbon-chip-warning",
 };
 
 interface PriceDisplayProps {
@@ -34,7 +34,7 @@ export const PriceDisplay = ({ price, model, onRemove }: PriceDisplayProps) => (
         <span>{formatDate(price.dateAdded)}</span>
         {price.priceType && (
           <span
-            className={`border px-1 py-0.5 text-[10px] uppercase tracking-wider ${PRICE_TYPE_STYLES[price.priceType] ?? PRICE_TYPE_STYLES.retail}`}
+            className={`px-1 py-0.5 font-mono text-[10px] uppercase tracking-wider ${PRICE_TYPE_STYLES[price.priceType] ?? PRICE_TYPE_STYLES.retail}`}
           >
             {price.priceType}
           </span>

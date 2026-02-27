@@ -62,7 +62,7 @@ const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
           {models.map((m, i) => (
             <div key={m.name} className="flex items-center gap-1.5 text-xs" style={{ color: "#f4f4f4" }}>
               <span
-                className="inline-block h-2.5 w-2.5 rounded-sm"
+                className="inline-block h-2.5 w-2.5"
                 style={{ background: COMPARE_COLORS[i % COMPARE_COLORS.length] }}
               />
               {shortName(m.name)}

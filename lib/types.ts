@@ -6,7 +6,7 @@
  * Supporting types cover pricing, filters, scoring dimensions, and analysis output.
  */
 
-export type Lineup = "ThinkPad" | "IdeaPad Pro" | "Legion";
+export type Lineup = "ThinkPad" | "IdeaPad Pro" | "Legion" | "Yoga";
 
 export type Series =
   | "X1"
@@ -22,7 +22,12 @@ export type Series =
   | "7"
   | "7i"
   | "Pro"
-  | "Slim";
+  | "Slim"
+  | "Yoga 6"
+  | "Yoga 7"
+  | "Yoga 9"
+  | "Yoga Slim"
+  | "Yoga Book";
 
 export type SortOption =
   | "name-asc"

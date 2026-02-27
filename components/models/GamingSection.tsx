@@ -47,7 +47,7 @@ const GamingSection = ({ gpuName, gamingTier, benchmark }: GamingSectionProps) =
 
       <div className="flex items-center gap-3">
         <span
-          className="px-2 py-1 text-xs font-semibold uppercase tracking-wider"
+          className="px-2 py-1 font-mono text-xs font-semibold uppercase tracking-wider"
           style={{ background: config.color + "20", color: config.color, border: `1px solid ${config.color}40` }}
         >
           {config.label}

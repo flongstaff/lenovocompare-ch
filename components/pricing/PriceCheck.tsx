@@ -26,7 +26,7 @@ const LinkPill = ({ name, url, icon }: { name: string; url: string; icon?: React
 );
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="mb-1 mt-2 text-[9px] font-bold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+  <p className="mb-1 mt-2 font-mono text-[9px] font-bold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
     {children}
   </p>
 );
@@ -39,7 +39,7 @@ export const PriceCheck = ({ model }: PriceCheckProps) => {
 
   return (
     <div className="space-y-1">
-      <p className="text-[10px] font-bold uppercase tracking-widest text-carbon-200">
+      <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-carbon-200">
         <ShoppingCart size={10} className="mr-1 inline" />
         Check Prices
       </p>

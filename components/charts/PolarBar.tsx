@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { polarToCartesian, equalAngles, gridRingPoints, mapRange } from "@/lib/chart-utils";
 import type { PerformanceDimensions } from "@/lib/types";
+import { BENCHMARK_CAT_COLORS } from "@/lib/constants";
 
 const DIMENSIONS = ["cpu", "gpu", "memory", "display", "connectivity", "portability"] as const;
 
@@ -16,9 +17,9 @@ const DIMENSION_LABELS: Record<(typeof DIMENSIONS)[number], string> = {
 };
 
 const DIMENSION_COLORS: Record<(typeof DIMENSIONS)[number], string> = {
-  cpu: "#4589ff",
-  gpu: "#42be65",
-  memory: "#be95ff",
+  cpu: BENCHMARK_CAT_COLORS.cpu,
+  gpu: BENCHMARK_CAT_COLORS.gpu,
+  memory: BENCHMARK_CAT_COLORS.memory,
   display: "#ee5396",
   connectivity: "#08bdba",
   portability: "#f1c21b",
@@ -173,7 +174,7 @@ const PolarBarInner = ({ scores, compact = false, color, compareScores }: PolarB
       {/* Hover tooltip */}
       {!compact && hoveredDim && tooltipPos && (
         <div
-          className="pointer-events-none absolute z-10 rounded border px-2 py-1 text-xs"
+          className="pointer-events-none absolute z-10 border px-2 py-1 text-xs"
           style={{
             left: tooltipPos.x,
             top: tooltipPos.y,

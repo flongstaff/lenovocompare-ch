@@ -292,8 +292,10 @@ const HomeClient = () => {
       </div>
 
       {showScatter && scatterData.length > 0 && (
-        <div className="carbon-card mb-4 rounded-lg p-4">
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-carbon-400">Price vs Performance</h2>
+        <div className="carbon-card mb-4 p-4">
+          <h2 className="mb-3 font-mono text-sm font-semibold uppercase tracking-wider text-carbon-400">
+            Price vs Performance
+          </h2>
           <PricePerformanceScatter models={scatterData} />
         </div>
       )}

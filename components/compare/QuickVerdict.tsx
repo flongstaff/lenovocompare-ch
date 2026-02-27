@@ -132,17 +132,17 @@ export const QuickVerdict = ({ models, prices }: QuickVerdictProps) => {
   const overall = getOverallResult(winners, models);
 
   return (
-    <div className="carbon-card rounded-lg p-4">
+    <div className="carbon-card p-4">
       <div className="mb-3 flex items-center gap-2">
         <Trophy size={16} style={{ color: "#f1c21b" }} />
-        <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+        <h2 className="font-mono text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
           Quick Verdict
         </h2>
       </div>
 
       {/* Overall winner or tie */}
       <div
-        className="mb-4 flex items-center gap-3 rounded p-3"
+        className="mb-4 flex items-center gap-3 p-3"
         style={{
           background: overall.isTied ? "rgba(241, 194, 27, 0.08)" : "rgba(15, 98, 254, 0.1)",
           border: overall.isTied ? "1px solid rgba(241, 194, 27, 0.3)" : "1px solid rgba(15, 98, 254, 0.3)",
@@ -152,7 +152,7 @@ export const QuickVerdict = ({ models, prices }: QuickVerdictProps) => {
           {overall.tiedModels.map((t) => (
             <div
               key={t.index}
-              className="h-3 w-3 flex-shrink-0 rounded-sm"
+              className="h-3 w-3 flex-shrink-0"
               style={{ background: COMPARE_COLORS[t.index % COMPARE_COLORS.length] }}
             />
           ))}
@@ -186,12 +186,15 @@ export const QuickVerdict = ({ models, prices }: QuickVerdictProps) => {
         {winners.map((w) => (
           <div
             key={w.label}
-            className="rounded p-2.5"
+            className="p-2.5"
             style={{ background: "var(--surface)", border: "1px solid var(--border-subtle)" }}
           >
             <div className="mb-1 flex items-center gap-1.5">
               <span style={{ color: COMPARE_COLORS[w.winnerIndex % COMPARE_COLORS.length] }}>{w.icon}</span>
-              <span className="text-[11px] font-semibold uppercase tracking-wide" style={{ color: "var(--muted)" }}>
+              <span
+                className="font-mono text-[11px] font-semibold uppercase tracking-wide"
+                style={{ color: "var(--muted)" }}
+              >
                 {w.label}
               </span>
             </div>

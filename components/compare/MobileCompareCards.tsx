@@ -86,7 +86,7 @@ export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileComp
 
       <motion.div
         key={model.id}
-        className="carbon-card touch-pan-y overflow-hidden rounded-lg"
+        className="carbon-card touch-pan-y overflow-hidden"
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.2}
@@ -100,11 +100,11 @@ export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileComp
             <Link href={`/model/${model.id}`} className="font-semibold text-white hover:underline">
               {model.name}
             </Link>
-            <p className="mt-0.5 text-xs text-blue-200">{model.year}</p>
+            <p className="mt-0.5 text-xs text-carbon-200">{model.year}</p>
           </div>
           <button
             onClick={() => onRemove(model.id)}
-            className="p-1 text-blue-200 hover:text-white"
+            className="p-1 text-carbon-200 hover:text-white"
             aria-label={`Remove ${model.name}`}
           >
             <X size={16} />
@@ -157,7 +157,10 @@ export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileComp
           </div>
 
           <div className="pt-4">
-            <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+            <h3
+              className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider"
+              style={{ color: "var(--muted)" }}
+            >
               Performance Radar
             </h3>
             <PerformanceRadar

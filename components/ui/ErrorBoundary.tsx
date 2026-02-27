@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="flex items-center justify-center py-20">
-          <div className="carbon-card max-w-md rounded-lg p-8 text-center">
+          <div className="carbon-card max-w-md p-8 text-center">
             <AlertCircle size={48} className="mx-auto mb-4" style={{ color: "var(--trackpoint)" }} />
             <h2 className="mb-2 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
               Something went wrong
@@ -41,7 +41,7 @@ class ErrorBoundary extends React.Component<Props, State> {
             </p>
             {this.state.errorMessage && (
               <p
-                className="mb-6 rounded px-3 py-2 font-mono text-xs"
+                className="mb-6 px-3 py-2 font-mono text-xs"
                 style={{ background: "var(--surface-alt)", color: "var(--muted)" }}
               >
                 {this.state.errorMessage}

@@ -11,7 +11,7 @@ interface ModelAnalysisCardProps {
 
 const ModelAnalysisCard = ({ analysis }: ModelAnalysisCardProps) => {
   return (
-    <div className="carbon-card space-y-4 rounded-lg p-4">
+    <div className="carbon-card space-y-4 p-4">
       <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
         Analysis
       </h2>
@@ -19,11 +19,12 @@ const ModelAnalysisCard = ({ analysis }: ModelAnalysisCardProps) => {
       {analysis.useCases.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {analysis.useCases.map((uc) => {
-            const colors = USE_CASE_COLORS[uc];
+            const { accent } = USE_CASE_COLORS[uc];
             return (
               <span
                 key={uc}
-                className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${colors.bg} ${colors.text}`}
+                className="inline-block px-2 py-0.5 text-xs font-medium"
+                style={{ color: accent, borderColor: accent + "40", background: accent + "15" }}
               >
                 {uc}
               </span>
@@ -38,7 +39,7 @@ const ModelAnalysisCard = ({ analysis }: ModelAnalysisCardProps) => {
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {analysis.pros.length > 0 && (
-          <div className="rounded-lg border p-3" style={{ borderColor: "#393939", borderLeft: "3px solid #42be65" }}>
+          <div className="border p-3" style={{ borderColor: "#393939", borderLeft: "3px solid #42be65" }}>
             <h3 className="mb-2 font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: "#42be65" }}>
               Strengths
             </h3>
@@ -54,7 +55,7 @@ const ModelAnalysisCard = ({ analysis }: ModelAnalysisCardProps) => {
         )}
 
         {analysis.cons.length > 0 && (
-          <div className="rounded-lg border p-3" style={{ borderColor: "#393939", borderLeft: "3px solid #f1c21b" }}>
+          <div className="border p-3" style={{ borderColor: "#393939", borderLeft: "3px solid #f1c21b" }}>
             <h3 className="mb-2 font-mono text-[10px] font-bold uppercase tracking-widest" style={{ color: "#f1c21b" }}>
               Limitations
             </h3>

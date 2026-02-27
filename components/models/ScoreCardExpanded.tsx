@@ -149,11 +149,11 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                   transition={{ duration: 0.2 }}
                   className="overflow-hidden"
                 >
-                  <div className="mb-1 rounded-md p-3" style={{ background: "var(--surface)" }}>
+                  <div className="mb-1 p-3" style={{ background: "var(--surface)" }}>
                     {/* Score Breakdown */}
                     <div className="mb-2 space-y-1">
                       <span
-                        className="text-xs font-semibold uppercase tracking-wider"
+                        className="font-mono text-xs font-semibold uppercase tracking-wider"
                         style={{ color: "var(--muted)" }}
                       >
                         Breakdown

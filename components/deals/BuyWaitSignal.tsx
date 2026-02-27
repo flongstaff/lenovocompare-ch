@@ -18,7 +18,7 @@ const BuyWaitSignal = ({ model, baseline, bestPrice, signal }: BuyWaitSignalProp
 
   return (
     <div
-      className="flex items-center gap-3 rounded border px-3 py-2"
+      className="flex items-center gap-3 border px-3 py-2"
       style={{ borderColor: "var(--border-subtle)", background: "var(--surface-alt)" }}
     >
       <div className="min-w-0 flex-1">
@@ -26,19 +26,14 @@ const BuyWaitSignal = ({ model, baseline, bestPrice, signal }: BuyWaitSignalProp
           <span className="truncate text-sm font-medium" style={{ color: "var(--foreground)" }}>
             {model.name}
           </span>
-          <span
-            className={`flex-shrink-0 rounded border px-1.5 py-0.5 text-xs font-semibold ${meta.bgClass} ${meta.textClass} ${meta.borderClass}`}
-          >
-            {meta.label}
-          </span>
+          <span className={`flex-shrink-0 px-1.5 py-0.5 text-xs font-semibold ${meta.chipClass}`}>{meta.label}</span>
         </div>
         <div className="mt-1.5 flex items-center gap-2">
-          <span className="w-16 text-right font-mono text-xs text-green-400">{formatCHF(baseline.historicalLow)}</span>
-          <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-carbon-600">
-            <div
-              className="absolute inset-y-0 left-0 rounded-full"
-              style={{ width: `${position}%`, background: meta.color }}
-            />
+          <span className="w-16 text-right font-mono text-xs text-status-success">
+            {formatCHF(baseline.historicalLow)}
+          </span>
+          <div className="relative h-2 flex-1 overflow-hidden bg-carbon-600">
+            <div className="absolute inset-y-0 left-0" style={{ width: `${position}%`, background: meta.color }} />
             {range > 0 && (
               <div
                 className="absolute top-0 h-2 w-0.5 bg-carbon-300 opacity-50"

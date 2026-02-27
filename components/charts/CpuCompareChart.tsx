@@ -25,7 +25,7 @@ const CustomTooltip = ({
       style={{
         background: "#262626",
         border: "1px solid #525252",
-        borderRadius: 6,
+        borderRadius: 0,
         padding: "8px 12px",
         boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
       }}
@@ -36,7 +36,7 @@ const CustomTooltip = ({
           key={p.name}
           style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "#c6c6c6", padding: "2px 0" }}
         >
-          <span style={{ width: 8, height: 8, borderRadius: 2, background: p.color, flexShrink: 0 }} />
+          <span style={{ width: 8, height: 8, borderRadius: 0, background: p.color, flexShrink: 0 }} />
           <span>{p.name}</span>
           <span style={{ marginLeft: "auto", fontWeight: 600, color: "#f4f4f4", fontFamily: "monospace" }}>
             {p.value}
@@ -89,7 +89,7 @@ const CpuCompareChart = ({ models }: CpuCompareChartProps) => {
                 dataKey={`model${i}`}
                 name={shortName(m.name)}
                 fill={COMPARE_COLORS[i % COMPARE_COLORS.length]}
-                radius={[0, 3, 3, 0]}
+                radius={0}
                 barSize={barSize}
               />
             ))}
@@ -100,7 +100,7 @@ const CpuCompareChart = ({ models }: CpuCompareChartProps) => {
         {models.map((m, i) => (
           <div key={m.id} className="flex items-center gap-1.5 text-xs" style={{ color: "#f4f4f4" }}>
             <span
-              className="inline-block h-2.5 w-2.5 rounded-sm"
+              className="inline-block h-2.5 w-2.5"
               style={{ background: COMPARE_COLORS[i % COMPARE_COLORS.length] }}
             />
             {shortName(m.name)}

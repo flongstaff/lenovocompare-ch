@@ -24,9 +24,17 @@ const NotFound = () => (
 
     <div className="flex flex-wrap justify-center gap-2">
       {[
-        { icon: Briefcase, label: "ThinkPad", color: "border-zinc-600 text-zinc-300 hover:bg-zinc-800/40" },
-        { icon: Laptop, label: "IdeaPad Pro", color: "border-sky-700 text-sky-400 hover:bg-sky-900/30" },
-        { icon: Gamepad2, label: "Legion", color: "border-orange-700 text-orange-400 hover:bg-orange-900/30" },
+        { icon: Briefcase, label: "ThinkPad", color: "border-carbon-600 text-carbon-300 hover:bg-carbon-700/40" },
+        {
+          icon: Laptop,
+          label: "IdeaPad Pro",
+          color: "border-lineup-ideapad/40 text-lineup-ideapad hover:bg-lineup-ideapad/10",
+        },
+        {
+          icon: Gamepad2,
+          label: "Legion",
+          color: "border-lineup-legion/40 text-lineup-legion hover:bg-lineup-legion/10",
+        },
       ].map((lineup) => (
         <Link
           key={lineup.label}

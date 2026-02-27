@@ -69,9 +69,9 @@ const MetricRow = ({ metric, models }: { metric: MetricDef; models: readonly Lap
 
         return (
           <div key={m.id} className="flex items-center gap-2">
-            <div className="relative h-5 flex-1 rounded-sm" style={{ background: "var(--surface)" }}>
+            <div className="relative h-5 flex-1" style={{ background: "var(--surface)" }}>
               <div
-                className="absolute inset-y-0 left-0 rounded-sm transition-all"
+                className="absolute inset-y-0 left-0 transition-all"
                 style={{
                   width: `${range === 0 ? 100 : barPct}%`,
                   background: COMPARE_COLORS[i % COMPARE_COLORS.length],
@@ -102,7 +102,7 @@ const PortabilityCompareChart = ({ models }: PortabilityCompareChartProps) => (
       {models.map((m, i) => (
         <div key={m.id} className="flex items-center gap-1.5 text-xs" style={{ color: "#f4f4f4" }}>
           <span
-            className="inline-block h-2.5 w-2.5 rounded-sm"
+            className="inline-block h-2.5 w-2.5"
             style={{ background: COMPARE_COLORS[i % COMPARE_COLORS.length] }}
           />
           {shortName(m.name)}

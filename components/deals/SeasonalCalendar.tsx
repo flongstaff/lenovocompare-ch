@@ -50,7 +50,7 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
   const totalH = padding.top + (maxLane + 1) * (laneH + 4) + padding.bottom;
 
   return (
-    <div className="carbon-card overflow-hidden rounded-lg p-4">
+    <div className="carbon-card overflow-hidden p-4">
       <h3 className="mb-3 text-sm font-semibold" style={{ color: "var(--foreground)" }}>
         Swiss Sale Calendar
       </h3>
@@ -153,7 +153,7 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
       </div>
       {hoveredEvent && (
         <div
-          className="mt-3 rounded border px-3 py-2 text-xs"
+          className="mt-3 border px-3 py-2 text-xs"
           style={{ borderColor: "var(--border-subtle)", background: "var(--surface-alt)" }}
         >
           <div className="flex items-center gap-2">

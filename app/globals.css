@@ -18,6 +18,14 @@
   --trackpoint: #da1e28;
   --surface-inset: #1e1e1e;
   --icon-muted: #525252;
+  --status-success: #42be65;
+  --status-warning: #f1c21b;
+  --status-low: #a8a8a8;
+  --status-info: #4589ff;
+  --lineup-thinkpad: #a8a8a8;
+  --lineup-ideapad: #78a9ff;
+  --lineup-legion: #ff832b;
+  --lineup-yoga: #ee5396;
 }
 
 body {
@@ -63,7 +71,77 @@ body {
   }
 
   .carbon-chip-success {
-    @apply inline-flex items-center border border-green-700 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-green-400;
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--status-success) 50%, transparent);
+    color: var(--status-success);
+  }
+
+  .carbon-chip-warning {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--status-warning) 50%, transparent);
+    color: var(--status-warning);
+  }
+
+  .carbon-chip-low {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: var(--muted);
+    color: var(--muted);
+  }
+
+  .carbon-chip-thinkpad {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--lineup-thinkpad) 40%, transparent);
+    color: var(--lineup-thinkpad);
+    background: color-mix(in srgb, var(--lineup-thinkpad) 10%, transparent);
+  }
+
+  .carbon-chip-ideapad {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--lineup-ideapad) 40%, transparent);
+    color: var(--lineup-ideapad);
+    background: color-mix(in srgb, var(--lineup-ideapad) 10%, transparent);
+  }
+
+  .carbon-chip-legion {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--lineup-legion) 40%, transparent);
+    color: var(--lineup-legion);
+    background: color-mix(in srgb, var(--lineup-legion) 10%, transparent);
+  }
+
+  .carbon-chip-yoga {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--lineup-yoga) 40%, transparent);
+    color: var(--lineup-yoga);
+    background: color-mix(in srgb, var(--lineup-yoga) 10%, transparent);
+  }
+
+  .carbon-verdict-excellent {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--status-success) 40%, transparent);
+    color: var(--status-success);
+    background: color-mix(in srgb, var(--status-success) 15%, transparent);
+  }
+
+  .carbon-verdict-good {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    color: var(--accent-light);
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+  }
+
+  .carbon-verdict-fair {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--status-warning) 40%, transparent);
+    color: var(--status-warning);
+    background: color-mix(in srgb, var(--status-warning) 15%, transparent);
+  }
+
+  .carbon-verdict-low {
+    @apply inline-flex items-center border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider;
+    border-color: color-mix(in srgb, var(--muted) 30%, transparent);
+    color: var(--muted);
+    background: color-mix(in srgb, var(--muted) 10%, transparent);
   }
 }
 

@@ -10,7 +10,7 @@ interface EditorialCardProps {
 
 const EditorialCard = ({ editorial, linuxStatus }: EditorialCardProps) => {
   return (
-    <div className="carbon-card space-y-4 rounded-lg p-4">
+    <div className="carbon-card space-y-4 p-4">
       <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
         Editorial Notes
       </h2>
@@ -23,12 +23,12 @@ const EditorialCard = ({ editorial, linuxStatus }: EditorialCardProps) => {
 
       {editorial.knownIssues && (
         <div
-          className="rounded p-3"
+          className="p-3"
           style={{ backgroundColor: "rgba(218, 163, 30, 0.08)", border: "1px solid rgba(218, 163, 30, 0.2)" }}
         >
           <div className="mb-1.5 flex items-center gap-1.5">
             <AlertTriangle size={13} style={{ color: "var(--warning)" }} />
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--warning)" }}>
+            <span className="font-mono text-xs font-bold uppercase tracking-widest" style={{ color: "var(--warning)" }}>
               Known Issues
             </span>
           </div>
@@ -42,7 +42,10 @@ const EditorialCard = ({ editorial, linuxStatus }: EditorialCardProps) => {
         <div className="flex items-start gap-2">
           <Globe size={14} className="mt-0.5 shrink-0" style={{ color: "var(--accent-light)" }} />
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--accent-light)" }}>
+            <span
+              className="font-mono text-xs font-bold uppercase tracking-widest"
+              style={{ color: "var(--accent-light)" }}
+            >
               Swiss Market
             </span>
             <p className="mt-1 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
@@ -56,7 +59,7 @@ const EditorialCard = ({ editorial, linuxStatus }: EditorialCardProps) => {
         <div className="flex items-start gap-2">
           <Terminal size={14} className="mt-0.5 shrink-0" style={{ color: "var(--success)" }} />
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--success)" }}>
+            <span className="font-mono text-xs font-bold uppercase tracking-widest" style={{ color: "var(--success)" }}>
               Linux
             </span>
             <p className="mt-1 text-sm leading-relaxed" style={{ color: "var(--muted)" }}>

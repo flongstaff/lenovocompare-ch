@@ -87,7 +87,7 @@ const ValidateClient = () => {
             {result.info.map((item, i) => (
               <div key={i} className="carbon-card flex items-center gap-2 px-4 py-3">
                 <Info size={14} style={{ color: "#42be65", flexShrink: 0 }} />
-                <span className="text-sm text-gray-300">{item.message}</span>
+                <span className="text-sm text-carbon-300">{item.message}</span>
               </div>
             ))}
           </div>
@@ -129,7 +129,7 @@ const SummaryCard = ({
     <span style={{ color }}>{icon}</span>
     <div>
       <div className="text-2xl font-bold text-white">{count}</div>
-      <div className="text-xs uppercase tracking-wider text-gray-400">{label}</div>
+      <div className="font-mono text-xs uppercase tracking-wider text-carbon-400">{label}</div>
     </div>
   </div>
 );
@@ -164,22 +164,22 @@ const CategoryGroup = ({
         className="flex w-full items-center gap-2 px-4 py-3 text-left text-sm font-medium text-white hover:bg-white/5"
       >
         {open ? (
-          <ChevronDown size={16} className="text-gray-400" />
+          <ChevronDown size={16} className="text-carbon-400" />
         ) : (
-          <ChevronRight size={16} className="text-gray-400" />
+          <ChevronRight size={16} className="text-carbon-400" />
         )}
         <span>{category}</span>
-        <span className="ml-auto text-xs text-gray-500">{issues.length}</span>
+        <span className="ml-auto text-xs text-carbon-500">{issues.length}</span>
       </button>
       {open && (
         <div className="border-t border-white/5 px-4 py-2">
           {issues.map((issue, i) => (
-            <div key={i} className="flex items-start gap-2 py-1.5 text-sm text-gray-300">
+            <div key={i} className="flex items-start gap-2 py-1.5 text-sm text-carbon-300">
               <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: dotColor }} />
               {issue.modelId ? (
                 <span>
                   {isOrphan ? (
-                    <code className="font-mono text-xs text-gray-500 line-through">{issue.modelId}</code>
+                    <code className="font-mono text-xs text-carbon-500 line-through">{issue.modelId}</code>
                   ) : (
                     <Link
                       href={`/model/${issue.modelId}`}

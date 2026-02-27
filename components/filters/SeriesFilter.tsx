@@ -6,6 +6,7 @@ const LINEUP_SERIES: Record<Lineup, readonly Series[]> = {
   ThinkPad: ["X1", "T", "P", "L", "E"],
   "IdeaPad Pro": ["Pro 5", "Pro 5i", "Pro 7"],
   Legion: ["5", "5i", "7", "7i", "Pro", "Slim"],
+  Yoga: ["Yoga 6", "Yoga 7", "Yoga 9", "Yoga Slim", "Yoga Book"],
 };
 
 const ALL_SERIES: readonly Series[] = Object.values(LINEUP_SERIES).flat() as Series[];
@@ -32,9 +33,14 @@ export const SeriesFilter = ({ selected, selectedLineups, onToggle }: SeriesFilt
             aria-label={`${s} series${active ? " (active)" : ""}`}
             className={`rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
               active
-                ? `${colors.bg} ${colors.text} ${colors.border}`
+                ? colors.chipClass
                 : "border-carbon-500 text-carbon-300 hover:border-carbon-400 hover:text-carbon-100"
             }`}
+            style={
+              active
+                ? { color: colors.accent, borderColor: colors.accent + "40", background: colors.accent + "15" }
+                : undefined
+            }
           >
             {s}
           </button>

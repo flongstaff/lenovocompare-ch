@@ -85,7 +85,7 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
   return (
     <form
       onSubmit={handleSubmit}
-      className="carbon-card space-y-4 rounded-lg p-4"
+      className="carbon-card space-y-4 p-4"
       aria-describedby={error ? "price-form-error" : undefined}
     >
       <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
@@ -96,7 +96,7 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
         <div
           id="price-form-error"
           role="alert"
-          className="rounded border border-red-700 bg-red-900/30 px-3 py-2 text-sm text-red-400"
+          className="border border-carbon-600 bg-carbon-800 px-3 py-2 text-sm text-trackpoint"
         >
           {error}
         </div>

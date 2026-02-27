@@ -15,7 +15,7 @@ const trendIcons = {
 } as const;
 
 const ComponentTracker = ({ markets }: ComponentTrackerProps) => (
-  <div className="carbon-card rounded-lg p-4">
+  <div className="carbon-card p-4">
     <h3 className="mb-3 text-sm font-semibold" style={{ color: "var(--foreground)" }}>
       Component Market Tracker
     </h3>
@@ -26,7 +26,7 @@ const ComponentTracker = ({ markets }: ComponentTrackerProps) => (
         return (
           <div
             key={cm.component}
-            className="rounded border p-3"
+            className="border p-3"
             style={{ borderColor: "var(--border-subtle)", background: "var(--surface-alt)" }}
           >
             <div className="flex items-center justify-between">
@@ -48,7 +48,7 @@ const ComponentTracker = ({ markets }: ComponentTrackerProps) => (
               {cm.affectedTiers.map((tier) => (
                 <span
                   key={tier}
-                  className="rounded px-1.5 py-0.5 text-xs"
+                  className="px-1.5 py-0.5 text-xs"
                   style={{ background: "var(--carbon-700)", color: "var(--muted)" }}
                 >
                   {tier}

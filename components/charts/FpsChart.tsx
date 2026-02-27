@@ -84,7 +84,7 @@ const FpsChart = ({ estimates }: FpsChartProps) => {
                     style={{
                       background: "#262626",
                       border: "1px solid #525252",
-                      borderRadius: 6,
+                      borderRadius: 0,
                       padding: "8px 12px",
                       boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
                     }}
@@ -101,7 +101,7 @@ const FpsChart = ({ estimates }: FpsChartProps) => {
                 );
               }}
             />
-            <Bar dataKey="fps" radius={[0, 4, 4, 0]} barSize={18}>
+            <Bar dataKey="fps" radius={0} barSize={18}>
               {data.map((d, i) => (
                 <Cell key={i} fill={getBarColor(d.fps)} />
               ))}
@@ -116,13 +116,13 @@ const FpsChart = ({ estimates }: FpsChartProps) => {
       </div>
       <div className="mb-2 mt-1 flex items-center gap-4 text-[10px]" style={{ color: "#a8a8a8" }}>
         <span className="flex items-center gap-1">
-          <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: "#ff832b" }} /> &lt;30 FPS
+          <span className="inline-block h-2 w-2" style={{ backgroundColor: "#ff832b" }} /> &lt;30 FPS
         </span>
         <span className="flex items-center gap-1">
-          <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: "#f1c21b" }} /> 30-59 FPS
+          <span className="inline-block h-2 w-2" style={{ backgroundColor: "#f1c21b" }} /> 30-59 FPS
         </span>
         <span className="flex items-center gap-1">
-          <span className="inline-block h-2 w-2 rounded-sm" style={{ backgroundColor: "#42be65" }} /> 60+ FPS
+          <span className="inline-block h-2 w-2" style={{ backgroundColor: "#42be65" }} /> 60+ FPS
         </span>
       </div>
     </div>
