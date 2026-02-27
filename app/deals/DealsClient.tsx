@@ -93,6 +93,7 @@ const DealsClient = () => {
           <button
             key={l}
             onClick={() => setLineupFilter(l)}
+            aria-pressed={lineupFilter === l}
             className={`rounded px-3 py-1.5 text-xs font-medium transition-colors ${
               lineupFilter === l
                 ? "bg-accent text-white"

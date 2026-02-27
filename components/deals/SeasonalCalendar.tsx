@@ -117,9 +117,14 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
             return (
               <g
                 key={event.id}
+                tabIndex={0}
+                role="button"
+                aria-label={`${event.name} — ${event.retailer === "all" ? "All retailers" : event.retailer}`}
                 onMouseEnter={() => setHoveredEvent(event)}
                 onMouseLeave={() => setHoveredEvent(null)}
-                style={{ cursor: "pointer" }}
+                onFocus={() => setHoveredEvent(event)}
+                onBlur={() => setHoveredEvent(null)}
+                style={{ cursor: "pointer", outline: "none" }}
               >
                 <rect
                   x={startX}
