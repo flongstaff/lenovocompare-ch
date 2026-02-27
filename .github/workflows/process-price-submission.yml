@@ -1,0 +1,109 @@
+name: Process price submission
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  process:
+    if: contains(github.event.issue.labels.*.name, 'price-approved')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Parse issue body
+        id: parse
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || '';
+            const get = (label) => {
+              const re = new RegExp(`### ${label}\\s*\\n\\s*(.+)`, 'i');
+              const m = body.match(re);
+              return m ? m[1].trim() : '';
+            };
+
+            const laptopId = get('Laptop Model ID');
+            const retailer = get('Retailer');
+            const price = parseFloat(get('Price \\(CHF\\)'));
+            const priceType = get('Price Type');
+            const url = get('Product URL');
+            const dateAdded = get('Date Observed');
+            const notes = get('Notes');
+
+            if (!laptopId || !retailer || isNaN(price) || !dateAdded) {
+              core.setFailed('Missing required fields in issue body');
+              return;
+            }
+
+            const entry = {
+              id: `cp-issue-${context.payload.issue.number}`,
+              laptopId,
+              retailer,
+              price,
+              dateAdded,
+              isUserAdded: false,
+              priceType: priceType || 'retail',
+            };
+            if (url) entry.url = url;
+            if (notes) entry.note = notes;
+
+            core.setOutput('entry', JSON.stringify(entry));
+            core.setOutput('laptopId', laptopId);
+
+      - name: Append to community-prices.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = 'data/community-prices.json';
+            const prices = JSON.parse(fs.readFileSync(path, 'utf-8'));
+            const entry = JSON.parse(process.env.ENTRY);
+            // Skip if duplicate issue number
+            if (!prices.some(p => p.id === entry.id)) {
+              prices.push(entry);
+              fs.writeFileSync(path, JSON.stringify(prices, null, 2) + '\n');
+              console.log('Added:', entry.id);
+            } else {
+              console.log('Skipped duplicate:', entry.id);
+            }
+          "
+        env:
+          ENTRY: ${{ steps.parse.outputs.entry }}
+
+      - run: npm ci
+
+      - run: npm run generate-prices
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/community-prices.json public/data/prices.json
+          git diff --cached --quiet || git commit -m "feat: add price from #${{ github.event.issue.number }}"
+          git push
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `Price added to the database. It will appear on the site after the next deployment. Thanks for contributing!`
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: 'closed'
+            });

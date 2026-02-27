@@ -8,6 +8,7 @@ import type { SwissPrice, PriceBaseline } from "@/lib/types";
 import { seedPrices } from "@/data/seed-prices";
 import { priceBaselines } from "@/data/price-baselines";
 import { useLocalStorage } from "./useLocalStorage";
+import { useRemotePrices } from "./useRemotePrices";
 import { STORAGE_KEYS } from "@/lib/constants";
 
 interface ImportResult {
@@ -32,9 +33,18 @@ const isValidPrice = (item: unknown): item is SwissPrice => {
 export const usePrices = () => {
   const isSwissPriceArray = (v: unknown): v is SwissPrice[] => Array.isArray(v) && v.every(isValidPrice);
 
+  const { prices: remotePrices } = useRemotePrices();
   const [userPrices, setUserPrices] = useLocalStorage<SwissPrice[]>(STORAGE_KEYS.prices, [], isSwissPriceArray);
 
-  const allPrices = useMemo<SwissPrice[]>(() => [...seedPrices, ...userPrices], [userPrices]);
+  // Merge chain: remote (includes seed+community) → seed fallback → user localStorage
+  // Remote prices override seed when available; seed is always included as baseline
+  const allPrices = useMemo<SwissPrice[]>(() => {
+    const byId = new Map<string, SwissPrice>();
+    for (const p of seedPrices) byId.set(p.id, p);
+    for (const p of remotePrices) byId.set(p.id, p);
+    for (const p of userPrices) byId.set(p.id, p);
+    return Array.from(byId.values());
+  }, [remotePrices, userPrices]);
 
   const getBaseline = useCallback((laptopId: string): PriceBaseline | null => priceBaselines[laptopId] ?? null, []);
 

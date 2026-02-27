@@ -1,0 +1,154 @@
+[
+  {
+    "id": "cp-1",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Digitec",
+    "price": 2299,
+    "url": "https://www.digitec.ch/en/s1/product/lenovo-thinkpad-x1-carbon-gen-13",
+    "dateAdded": "2026-02-10",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-2",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Interdiscount",
+    "price": 2379,
+    "url": "https://www.interdiscount.ch/de/computer/notebooks",
+    "dateAdded": "2026-02-12",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-3",
+    "laptopId": "x1-carbon-gen13",
+    "retailer": "Lenovo CH",
+    "price": 2499,
+    "url": "https://www.lenovo.com/ch/de/p/laptops/thinkpad/thinkpadx1/thinkpad-x1-carbon-gen-13",
+    "dateAdded": "2026-02-15",
+    "isUserAdded": false,
+    "priceType": "sale",
+    "note": "Winter sale pricing"
+  },
+  {
+    "id": "cp-4",
+    "laptopId": "t14s-gen6-amd",
+    "retailer": "Digitec",
+    "price": 1799,
+    "url": "https://www.digitec.ch/en/s1/product/lenovo-thinkpad-t14s-gen-6-amd",
+    "dateAdded": "2026-02-08",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-5",
+    "laptopId": "t14s-gen6-amd",
+    "retailer": "Interdiscount",
+    "price": 1849,
+    "dateAdded": "2026-02-14",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-6",
+    "laptopId": "t14s-gen6-amd",
+    "retailer": "Lenovo CH",
+    "price": 1929,
+    "url": "https://www.lenovo.com/ch/de/p/laptops/thinkpad/thinkpadt/thinkpad-t14s-gen-6-amd",
+    "dateAdded": "2026-02-15",
+    "isUserAdded": false,
+    "priceType": "msrp"
+  },
+  {
+    "id": "cp-7",
+    "laptopId": "t14s-gen6-intel",
+    "retailer": "Digitec",
+    "price": 1699,
+    "dateAdded": "2026-02-10",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-8",
+    "laptopId": "t14s-gen6-intel",
+    "retailer": "Lenovo CH",
+    "price": 1899,
+    "dateAdded": "2026-02-15",
+    "isUserAdded": false,
+    "priceType": "sale"
+  },
+  {
+    "id": "cp-9",
+    "laptopId": "t14-gen6-intel",
+    "retailer": "Digitec",
+    "price": 1289,
+    "dateAdded": "2026-02-09",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-10",
+    "laptopId": "t14-gen6-intel",
+    "retailer": "Interdiscount",
+    "price": 1329,
+    "dateAdded": "2026-02-13",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-11",
+    "laptopId": "t14-gen6-amd",
+    "retailer": "Digitec",
+    "price": 1249,
+    "dateAdded": "2026-02-10",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-12",
+    "laptopId": "t14-gen6-amd",
+    "retailer": "Lenovo CH",
+    "price": 1399,
+    "dateAdded": "2026-02-15",
+    "isUserAdded": false,
+    "priceType": "msrp"
+  },
+  {
+    "id": "cp-13",
+    "laptopId": "legion-pro-5i-16-gen9",
+    "retailer": "Digitec",
+    "price": 2199,
+    "url": "https://www.digitec.ch/en/s1/product/lenovo-legion-pro-5i-16-gen-9",
+    "dateAdded": "2026-02-11",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-14",
+    "laptopId": "legion-pro-5i-16-gen9",
+    "retailer": "Interdiscount",
+    "price": 2249,
+    "dateAdded": "2026-02-14",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-15",
+    "laptopId": "ideapad-pro-5i-16-gen10",
+    "retailer": "Digitec",
+    "price": 1149,
+    "dateAdded": "2026-02-12",
+    "isUserAdded": false,
+    "priceType": "retail"
+  },
+  {
+    "id": "cp-16",
+    "laptopId": "ideapad-pro-5i-16-gen10",
+    "retailer": "Lenovo CH",
+    "price": 1299,
+    "url": "https://www.lenovo.com/ch/de/p/laptops/ideapad/ideapad-pro-5i-gen-10-16",
+    "dateAdded": "2026-02-15",
+    "isUserAdded": false,
+    "priceType": "msrp"
+  }
+]

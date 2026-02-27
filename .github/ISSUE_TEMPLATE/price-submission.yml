@@ -1,0 +1,83 @@
+name: Price Submission
+description: Submit a Swiss retail price for a Lenovo laptop
+title: "[Price] "
+labels: ["price-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing a price! All prices should be in CHF and from a Swiss retailer.
+
+  - type: input
+    id: laptop-id
+    attributes:
+      label: Laptop Model ID
+      description: "The model ID as used on the site (e.g., x1-carbon-gen13, t14s-gen6-amd)"
+      placeholder: "x1-carbon-gen13"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: retailer
+    attributes:
+      label: Retailer
+      options:
+        - Digitec
+        - Galaxus
+        - Brack
+        - Lenovo CH
+        - Interdiscount
+        - Fust
+        - MediaMarkt
+        - Toppreise
+        - Revendo
+        - Back Market
+        - Ricardo
+        - Tutti
+    validations:
+      required: true
+
+  - type: input
+    id: price
+    attributes:
+      label: Price (CHF)
+      description: "Price including Swiss VAT (8.1%). Numbers only, no currency symbol."
+      placeholder: "1849"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: price-type
+    attributes:
+      label: Price Type
+      options:
+        - retail
+        - sale
+        - msrp
+        - refurbished
+        - used
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Product URL
+      description: "Direct link to the product page (optional but helpful for verification)"
+      placeholder: "https://www.digitec.ch/en/s1/product/..."
+
+  - type: input
+    id: date
+    attributes:
+      label: Date Observed
+      description: "Date you saw this price (YYYY-MM-DD)"
+      placeholder: "2026-02-15"
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: "Any additional context (e.g., specific config, limited time offer)"
+      placeholder: "i7-1365U / 16GB / 512GB config"
