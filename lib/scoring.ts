@@ -45,11 +45,11 @@ export const getValueScore = (model: Laptop, prices: readonly SwissPrice[]): num
 
 export const getPortabilityScore = (model: Laptop): number => {
   // 0.8 kg = floor (lightest ultraportable); 40 = sensitivity (softened from 50 for better mid-range differentiation)
-  const weightScore = Math.max(0, 100 - (model.weight - 0.8) * 40);
+  const weightScore = Math.max(0, Math.min(100, 100 - (model.weight - 0.8) * 40));
   // 100 Whr = ceiling for full battery score
   const batteryScore = Math.min(100, (model.battery.whr / 100) * 100);
   // 60/40 split: weight matters more than battery for portability
-  return Math.round(weightScore * 0.6 + batteryScore * 0.4);
+  return Math.min(100, Math.round(weightScore * 0.6 + batteryScore * 0.4));
 };
 
 /**

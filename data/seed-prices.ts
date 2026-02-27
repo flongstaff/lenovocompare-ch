@@ -1415,7 +1415,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-149",
     laptopId: "ideapad-pro-5-14-gen9-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1299,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1436,7 +1436,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-151",
     laptopId: "ideapad-pro-5-16-gen9-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1349,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1457,7 +1457,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-153",
     laptopId: "ideapad-pro-5i-14-gen9",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1399,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1478,7 +1478,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-155",
     laptopId: "ideapad-pro-5i-16-gen9",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1449,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1499,7 +1499,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-157",
     laptopId: "ideapad-pro-5-14-gen8-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1099,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1520,7 +1520,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-159",
     laptopId: "ideapad-pro-5-16-gen8-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1149,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1541,7 +1541,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-161",
     laptopId: "ideapad-pro-5i-14-gen8",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1199,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1562,7 +1562,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-163",
     laptopId: "ideapad-pro-5i-16-gen8",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1249,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1583,7 +1583,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-165",
     laptopId: "ideapad-pro-5-14-gen10-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1399,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1604,7 +1604,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-167",
     laptopId: "ideapad-pro-5-16-gen10-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1449,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1656,7 +1656,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-171",
     laptopId: "ideapad-pro-5i-16-gen10",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1549,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1677,7 +1677,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-173",
     laptopId: "ideapad-pro-7-14-gen9",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1899,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1698,7 +1698,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-175",
     laptopId: "ideapad-pro-7-16-gen9",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1999,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1719,7 +1719,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-177",
     laptopId: "legion-5-16-gen9-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1799,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1740,7 +1740,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-179",
     laptopId: "legion-5i-16-gen9",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1849,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1761,7 +1761,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-181",
     laptopId: "legion-7i-16-gen9",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 2499,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1782,7 +1782,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-183",
     laptopId: "legion-pro-5-16-gen9-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 2199,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1803,7 +1803,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-185",
     laptopId: "legion-pro-5i-16-gen9",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 2399,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1824,7 +1824,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-187",
     laptopId: "legion-slim-5-14-gen9-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1599,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1845,7 +1845,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-189",
     laptopId: "legion-slim-5-16-gen9-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1699,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1866,7 +1866,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-191",
     laptopId: "legion-5-15-gen8-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1399,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1887,7 +1887,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-193",
     laptopId: "legion-5i-16-gen8",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1449,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1908,7 +1908,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-195",
     laptopId: "legion-pro-5i-16-gen8",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1999,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1929,7 +1929,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-197",
     laptopId: "legion-5-15-gen7-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1099,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1950,7 +1950,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-199",
     laptopId: "legion-5i-15-gen7",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1199,
     dateAdded: "2025-02-01",
     isUserAdded: false,
@@ -1971,7 +1971,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-201",
     laptopId: "legion-5-15-gen10-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1949,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -1992,7 +1992,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-203",
     laptopId: "legion-5i-15-gen10",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 1999,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -2013,7 +2013,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-205",
     laptopId: "legion-pro-7i-16-gen10",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 3399,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -2034,7 +2034,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-208",
     laptopId: "legion-7i-16-gen10",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 2999,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -2055,7 +2055,7 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-210",
     laptopId: "legion-pro-5-16-gen10-amd",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 2399,
     dateAdded: "2025-02-05",
     isUserAdded: false,
@@ -2076,11 +2076,496 @@ export const seedPrices: readonly SwissPrice[] = [
   {
     id: "sp-212",
     laptopId: "legion-pro-5i-16-gen10",
-    retailer: "Lenovo",
+    retailer: "Lenovo CH",
     price: 2499,
     dateAdded: "2025-02-05",
     isUserAdded: false,
     priceType: "msrp",
     note: "Lenovo CH MSRP",
+  },
+
+  // === Feb 2026 price refresh for stale 2024 models ===
+
+  // X1 Carbon Gen 12
+  {
+    id: "sp-213",
+    laptopId: "x1-carbon-gen12",
+    retailer: "Digitec",
+    price: 1499,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-x1-carbon-gen-12-14-intel-core-ultra-5-125u-32-gb-512-gb-ch-notebooks-44744301",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 5 125U / 32GB / 512GB",
+  },
+  {
+    id: "sp-214",
+    laptopId: "x1-carbon-gen12",
+    retailer: "Lenovo CH",
+    price: 1127,
+    url: "https://www.lenovo.com/ch/de/p/laptops/thinkpad/thinkpadx1/thinkpad-x1-carbon-gen-12-14-inch-intel/21kc0056mz",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "msrp",
+    note: "Ultra 5 125U / 16GB / 512GB — Lenovo CH direct",
+  },
+  {
+    id: "sp-215",
+    laptopId: "x1-carbon-gen12",
+    retailer: "Brack",
+    price: 1579,
+    url: "https://www.brack.ch/lenovo-notebook-thinkpad-x1-carbon-gen-12-1732495",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155H / 32GB / 512GB",
+  },
+
+  // X1 Yoga Gen 9
+  {
+    id: "sp-216",
+    laptopId: "x1-yoga-gen9",
+    retailer: "Digitec",
+    price: 2139,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-x1-2-in-1-gen-9-14-1000-gb-32-gb-de-intel-core-ultra-5-125u-notebook-44745273",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155U / 32GB / 1TB",
+  },
+  {
+    id: "sp-217",
+    laptopId: "x1-yoga-gen9",
+    retailer: "Brack",
+    price: 2190,
+    url: "https://www.brack.ch/lenovo-notebook-thinkpad-x1-2in1-gen-9-intel-1732490",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155U / 32GB / 512GB",
+  },
+
+  // T14s Gen 5 Intel
+  {
+    id: "sp-218",
+    laptopId: "t14s-gen5-intel",
+    retailer: "Digitec",
+    price: 1099,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-t14s-gen-5-14-intel-core-ultra-7-155u-32-gb-512-gb-ch-notebooks-46144658",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155U / 32GB / 512GB",
+  },
+  {
+    id: "sp-219",
+    laptopId: "t14s-gen5-intel",
+    retailer: "Brack",
+    price: 1635,
+    url: "https://www.brack.ch/lenovo-notebook-thinkpad-t14s-gen-5-intel-1732482",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "sale",
+    note: "Ultra 7 155U / 32GB / 1TB — was CHF 1923, -15%",
+  },
+
+  // T14s Gen 5 AMD
+  {
+    id: "sp-220",
+    laptopId: "t14s-gen5-amd",
+    retailer: "Digitec",
+    price: 1199,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ryzen 7 PRO 8840U / 32GB / 1TB — via Toppreise",
+  },
+
+  // T14 Gen 5 Intel
+  {
+    id: "sp-221",
+    laptopId: "t14-gen5-intel",
+    retailer: "Digitec",
+    price: 1380,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-t14-gen-5-14-intel-core-ultra-5-125u-16-gb-512-gb-ch-notebooks-46143866",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 5 125U / 16GB / 256GB",
+  },
+  {
+    id: "sp-222",
+    laptopId: "t14-gen5-intel",
+    retailer: "Brack",
+    price: 1317,
+    url: "https://www.brack.ch/lenovo-notebook-thinkpad-t14-gen-5-intel-1732475",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "sale",
+    note: "Ultra 5 125U / 16GB / 512GB / 5G — was CHF 1549, -15%",
+  },
+
+  // T14 Gen 5 AMD
+  {
+    id: "sp-223",
+    laptopId: "t14-gen5-amd",
+    retailer: "Digitec",
+    price: 1199,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-t14-gen-5-14-512-gb-16-gb-ch-amd-ryzen-7-pro-8840u-notebooks-46142629",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ryzen 7 PRO 8840U / 32GB / 1TB",
+  },
+  {
+    id: "sp-224",
+    laptopId: "t14-gen5-amd",
+    retailer: "Brack",
+    price: 1327,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ryzen 5 PRO 8540U / 16GB / 512GB",
+  },
+
+  // T16 Gen 3 Intel
+  {
+    id: "sp-225",
+    laptopId: "t16-gen3-intel",
+    retailer: "Digitec",
+    price: 1065,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Collection starting price via Toppreise",
+  },
+  {
+    id: "sp-226",
+    laptopId: "t16-gen3-intel",
+    retailer: "Brack",
+    price: 1199,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+  },
+
+  // P16s Gen 3 Intel
+  {
+    id: "sp-227",
+    laptopId: "p16s-gen3-intel",
+    retailer: "Digitec",
+    price: 1285,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-p16s-gen-3-16-intel-core-ultra-7-155h-64-gb-1000-gb-ch-notebooks-46143710",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155H / 64GB / 1TB",
+  },
+  {
+    id: "sp-228",
+    laptopId: "p16s-gen3-intel",
+    retailer: "Lenovo CH",
+    price: 992,
+    url: "https://www.lenovo.com/ch/de/p/laptops/thinkpad/thinkpadp/lenovo-thinkpad-p16s-gen-3-16-inch-intel-mobile-workstation/len101t0105",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "msrp",
+    note: "Starting config — Lenovo CH direct",
+  },
+
+  // P14s Gen 5 Intel
+  {
+    id: "sp-229",
+    laptopId: "p14s-gen5-intel",
+    retailer: "Brack",
+    price: 1319,
+    url: "https://www.brack.ch/lenovo-notebook-thinkpad-p14s-gen-5-intel-1732503",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "sale",
+    note: "Ultra 7 155H / 16GB / 512GB / RTX 500 Ada — was CHF 1649, -20%",
+  },
+  {
+    id: "sp-230",
+    laptopId: "p14s-gen5-intel",
+    retailer: "Digitec",
+    price: 1380,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-p14s-gen-5-14-intel-core-ultra-7-155h-16-gb-512-gb-ch-notebooks-46144338",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155H / 16GB / 512GB",
+  },
+
+  // P1 Gen 7
+  {
+    id: "sp-231",
+    laptopId: "p1-gen7",
+    retailer: "Digitec",
+    price: 2222,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-p1-gen-7-16-intel-core-ultra-7-165h-64-gb-1000-gb-ch-notebooks-46143256",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 165H / 64GB / 1TB",
+  },
+  {
+    id: "sp-232",
+    laptopId: "p1-gen7",
+    retailer: "Lenovo CH",
+    price: 2441,
+    url: "https://www.lenovo.com/ch/de/p/laptops/thinkpad/thinkpadp/thinkpad-p1-gen-7-16-inch-intel/len101t0107",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "msrp",
+    note: "Starting config — Lenovo CH direct",
+  },
+
+  // L14 Gen 5 Intel
+  {
+    id: "sp-233",
+    laptopId: "l14-gen5-intel",
+    retailer: "Digitec",
+    price: 1044,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155U / 32GB / 1TB",
+  },
+  {
+    id: "sp-234",
+    laptopId: "l14-gen5-intel",
+    retailer: "Brack",
+    price: 1232,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 5 125U / 16GB / 512GB",
+  },
+
+  // L14 Gen 5 AMD
+  {
+    id: "sp-235",
+    laptopId: "l14-gen5-amd",
+    retailer: "Digitec",
+    price: 1104,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ryzen 5 PRO 7535U / 16GB / 512GB",
+  },
+
+  // L16 Gen 3 Intel
+  {
+    id: "sp-236",
+    laptopId: "l16-gen3-intel",
+    retailer: "Digitec",
+    price: 1215,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Gen 1 equivalent — via Toppreise collection",
+  },
+
+  // E14 Gen 6 Intel
+  {
+    id: "sp-237",
+    laptopId: "e14-gen6-intel",
+    retailer: "Digitec",
+    price: 849,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-e14-gen-6-14-intel-core-ultra-5-125u-16-gb-512-gb-ch-notebooks-44743809",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 5 125U / 16GB / 512GB",
+  },
+  {
+    id: "sp-238",
+    laptopId: "e14-gen6-intel",
+    retailer: "Brack",
+    price: 895,
+    url: "https://www.brack.ch/lenovo-notebook-thinkpad-e14-gen-6-intel-1728179",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ultra 7 155H / 32GB / 1TB",
+  },
+
+  // E16 Gen 2 AMD
+  {
+    id: "sp-239",
+    laptopId: "e16-gen2-amd",
+    retailer: "Digitec",
+    price: 759,
+    url: "https://www.digitec.ch/de/s1/product/lenovo-thinkpad-e16-gen-2-16-amd-ryzen-5-7535hs-16-gb-512-gb-de-notebooks-45129941",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ryzen 5 7535HS / 16GB / 1TB",
+  },
+  {
+    id: "sp-240",
+    laptopId: "e16-gen2-amd",
+    retailer: "Brack",
+    price: 899,
+    url: "https://www.brack.ch/lenovo-notebook-thinkpad-e16-gen-2-amd-1794084",
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Ryzen 7 7735HS / 32GB / 1TB",
+  },
+
+  // X13 Gen 4 Intel
+  {
+    id: "sp-241",
+    laptopId: "x13-gen4-intel",
+    retailer: "Digitec",
+    price: 1024,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Collection starting price via Toppreise",
+  },
+  {
+    id: "sp-242",
+    laptopId: "x13-gen4-intel",
+    retailer: "Brack",
+    price: 1259,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "i5-1335U / 16GB / 512GB",
+  },
+
+  // === Feb 2026 multi-retailer expansion for Digitec-only models ===
+
+  // E14 Gen 4 (2022)
+  {
+    id: "sp-243",
+    laptopId: "e14-gen4",
+    retailer: "Brack",
+    price: 1185,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Old stock via Bechtle/Manor pricing",
+  },
+
+  // E14 Gen 5 (2023)
+  {
+    id: "sp-244",
+    laptopId: "e14-gen5",
+    retailer: "Toppreise",
+    price: 949,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "i5-1335U / 16GB / 512GB — best price",
+  },
+  {
+    id: "sp-245",
+    laptopId: "e14-gen5",
+    retailer: "Brack",
+    price: 1291,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "i7-13700H / 32GB / 1TB",
+  },
+
+  // P14s Gen 4 (2023)
+  {
+    id: "sp-246",
+    laptopId: "p14s-gen4",
+    retailer: "Toppreise",
+    price: 1099,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "i7-1360P / 16GB / 512GB — collection best",
+  },
+
+  // T14 Gen 3 Intel (2022)
+  {
+    id: "sp-247",
+    laptopId: "t14-gen3-intel",
+    retailer: "Brack",
+    price: 941,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Limited old stock",
+  },
+
+  // T14 Gen 4 Intel (2023)
+  {
+    id: "sp-248",
+    laptopId: "t14-gen4-intel",
+    retailer: "Toppreise",
+    price: 939,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "i5-1335U / 16GB / 512GB — best price",
+  },
+
+  // T14s Gen 3 Intel (2022)
+  {
+    id: "sp-249",
+    laptopId: "t14s-gen3-intel",
+    retailer: "Brack",
+    price: 1420,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Old stock",
+  },
+
+  // T14s Gen 4 AMD (2023)
+  {
+    id: "sp-250",
+    laptopId: "t14s-gen4-amd",
+    retailer: "Toppreise",
+    price: 1181,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Collection starting price",
+  },
+
+  // T16 Gen 1 Intel (2022)
+  {
+    id: "sp-251",
+    laptopId: "t16-gen1-intel",
+    retailer: "Toppreise",
+    price: 679,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Collection best price — clearance",
+  },
+
+  // T16 Gen 2 Intel (2023)
+  {
+    id: "sp-252",
+    laptopId: "t16-gen2-intel",
+    retailer: "Toppreise",
+    price: 777,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "i5-1335U / 16GB / 512GB — best price",
+  },
+
+  // X1 Nano Gen 2 (2022)
+  {
+    id: "sp-253",
+    laptopId: "x1-nano-gen2",
+    retailer: "Brack",
+    price: 2694,
+    dateAdded: "2026-02-26",
+    isUserAdded: false,
+    priceType: "retail",
+    note: "Limited availability",
   },
 ];
