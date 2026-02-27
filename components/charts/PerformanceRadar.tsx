@@ -5,6 +5,7 @@ import type { PerformanceDimensions } from "@/lib/types";
 import { COMPARE_COLORS, COMPARE_DASHES } from "@/lib/constants";
 import { shortName } from "@/lib/formatters";
 import { ChartTooltip } from "@/components/charts/ChartTooltip";
+import { PolarBar } from "@/components/charts/PolarBar";
 
 interface ModelData {
   readonly name: string;
@@ -63,6 +64,14 @@ const CustomTooltip = ({
 };
 
 const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
+  if (models.length === 1) {
+    return (
+      <div className="flex w-full justify-center">
+        <PolarBar scores={models[0].dimensions} />
+      </div>
+    );
+  }
+
   const axes = Object.keys(DIMENSION_LABELS) as (keyof PerformanceDimensions)[];
   const data = axes.map((key) => {
     const entry: Record<string, string | number> = { dimension: DIMENSION_LABELS[key] };
