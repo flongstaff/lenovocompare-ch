@@ -596,7 +596,7 @@ const ModelDetailClient = () => {
           <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
             Value Calculator
           </h2>
-          <ValueScoring model={model} />
+          <ValueScoring model={configuredModel} />
         </div>
       </div>
 
