@@ -2,6 +2,7 @@
 
 import type { Laptop } from "@/lib/types";
 import { getModelBenchmarks, getCpuRawBenchmarks, getGpuBenchmark } from "@/lib/scoring";
+import { getCpuSinglePercentile, getCpuMultiPercentile, getGpuPercentile } from "@/lib/benchmark-percentiles";
 import { BENCHMARK_CAT_COLORS } from "@/lib/constants";
 import { ThermalProfileBar } from "@/components/models/ThermalProfileBar";
 import { StatBox, MiniBar, SubSection, Divider, InsightRow, NoiseScale } from "@/components/models/BenchmarkWidgets";
@@ -108,6 +109,31 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                       color="#be95ff"
                     />
                   )}
+                  {(() => {
+                    const pctSingle = getCpuSinglePercentile(model.processor.name);
+                    const pctMulti = getCpuMultiPercentile(model.processor.name);
+                    if (!pctSingle && !pctMulti) return null;
+                    return (
+                      <div className="mt-1 flex flex-wrap gap-2">
+                        {pctSingle !== null && (
+                          <span
+                            className="rounded px-1.5 py-0.5 text-[10px]"
+                            style={{ background: "#4589ff20", color: "#4589ff" }}
+                          >
+                            Top {100 - pctSingle}% single-core
+                          </span>
+                        )}
+                        {pctMulti !== null && (
+                          <span
+                            className="rounded px-1.5 py-0.5 text-[10px]"
+                            style={{ background: "#0f62fe20", color: "#0f62fe" }}
+                          >
+                            Top {100 - pctMulti}% multi-core
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
               </SubSection>
             )}
@@ -127,6 +153,20 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                       unit="FPS"
                     />
                   )}
+                  {(() => {
+                    const pctGpu = getGpuPercentile(model.gpu.name);
+                    if (pctGpu === null) return null;
+                    return (
+                      <div className="mt-1">
+                        <span
+                          className="rounded px-1.5 py-0.5 text-[10px]"
+                          style={{ background: "#42be6520", color: "#42be65" }}
+                        >
+                          Top {100 - pctGpu}% GPU
+                        </span>
+                      </div>
+                    );
+                  })()}
                 </div>
               </SubSection>
             ) : (
