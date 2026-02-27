@@ -1,0 +1,24 @@
+#!/bin/sh
+# Pre-commit hook: run Prettier on staged files
+# Ensures formatting is always correct before commit
+#
+# Setup: git config core.hooksPath .githooks
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts|tsx|css|json|md|yml|yaml|mjs|cjs|js)$')
+
+if [ -z "$STAGED" ]; then
+  exit 0
+fi
+
+echo "Running Prettier on staged files..."
+
+echo "$STAGED" | xargs npx prettier --check 2>&1
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo ""
+  echo "Prettier check failed. Run 'npx prettier --write .' to fix, then re-stage."
+  exit 1
+fi
+
+exit 0
