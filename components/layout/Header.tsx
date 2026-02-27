@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Menu, X, LayoutGrid, GitCompareArrows, Cpu, Tag } from "lucide-react";
+import { Menu, X, LayoutGrid, GitCompareArrows, Cpu, Tag, Flame } from "lucide-react";
 import { useState } from "react";
 
 const navLinks = [
@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/compare", label: "Compare", icon: GitCompareArrows },
   { href: "/hardware", label: "Hardware", icon: Cpu },
   { href: "/pricing", label: "Pricing", icon: Tag },
+  { href: "/deals", label: "Deals", icon: Flame },
 ] as const;
 
 const Header = () => {
