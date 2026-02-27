@@ -2,35 +2,17 @@
 
 import { useState, useCallback } from "react";
 import { Settings2, RotateCcw } from "lucide-react";
-import type { Laptop, Processor, Display, Gpu, Ram } from "@/lib/types";
-
-interface ConfigState {
-  processor: number | null;
-  display: number | null;
-  gpu: number | null;
-  ram: number | null;
-  storage: number | null;
-}
-
-const initialState: ConfigState = {
-  processor: null,
-  display: null,
-  gpu: null,
-  ram: null,
-  storage: null,
-};
-
-const formatProcessor = (p: Processor) => `${p.name} (${p.cores}C/${p.threads}T, ${p.tdp}W)`;
-
-const formatDisplay = (d: Display) =>
-  `${d.size}" ${d.resolutionLabel} ${d.panel}, ${d.refreshRate}Hz, ${d.nits} nits${d.touchscreen ? ", Touch" : ""}`;
-
-const formatGpu = (g: Gpu) => `${g.name}${g.vram ? ` ${g.vram}GB` : ""}`;
-
-const formatRam = (r: Ram) => `${r.size}GB ${r.type}-${r.speed}${r.soldered ? " (soldered)" : ""}`;
-
-const formatStorage = (s: { type: string; size: number; slots: number }) =>
-  `${s.size >= 1024 ? `${s.size / 1024}TB` : `${s.size}GB`} ${s.type} (${s.slots} slot${s.slots > 1 ? "s" : ""})`;
+import type { Laptop } from "@/lib/types";
+import {
+  type ConfigState,
+  initialConfigState,
+  formatProcessor,
+  formatDisplay,
+  formatGpu,
+  formatRam,
+  formatStorageOption,
+  buildConfiguredModel,
+} from "@/lib/configUtils";
 
 interface ConfigSelectorProps {
   readonly model: Laptop;
@@ -38,7 +20,7 @@ interface ConfigSelectorProps {
 }
 
 const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
-  const [config, setConfig] = useState<ConfigState>(initialState);
+  const [config, setConfig] = useState<ConfigState>(initialConfigState);
 
   const hasOptions =
     (model.processorOptions && model.processorOptions.length > 0) ||
@@ -47,40 +29,17 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
     (model.ramOptions && model.ramOptions.length > 0) ||
     (model.storageOptions && model.storageOptions.length > 0);
 
-  const buildConfiguredModel = useCallback(
-    (next: ConfigState): Laptop => {
-      return {
-        ...model,
-        processor:
-          next.processor !== null && model.processorOptions?.[next.processor]
-            ? model.processorOptions[next.processor]
-            : model.processor,
-        display:
-          next.display !== null && model.displayOptions?.[next.display]
-            ? model.displayOptions[next.display]
-            : model.display,
-        gpu: next.gpu !== null && model.gpuOptions?.[next.gpu] ? model.gpuOptions[next.gpu] : model.gpu,
-        ram: next.ram !== null && model.ramOptions?.[next.ram] ? model.ramOptions[next.ram] : model.ram,
-        storage:
-          next.storage !== null && model.storageOptions?.[next.storage]
-            ? model.storageOptions[next.storage]
-            : model.storage,
-      } as Laptop;
-    },
-    [model],
-  );
-
   const handleChange = useCallback(
     (key: keyof ConfigState, value: string) => {
       const next = { ...config, [key]: value === "" ? null : Number(value) };
       setConfig(next);
-      onConfigChange(buildConfiguredModel(next));
+      onConfigChange(buildConfiguredModel(model, next));
     },
-    [config, buildConfiguredModel, onConfigChange],
+    [config, model, onConfigChange],
   );
 
   const handleReset = useCallback(() => {
-    setConfig(initialState);
+    setConfig(initialConfigState);
     onConfigChange(model);
   }, [model, onConfigChange]);
 
@@ -195,10 +154,10 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
               value={config.storage ?? ""}
               onChange={(e) => handleChange("storage", e.target.value)}
             >
-              <option value="">Default: {formatStorage(model.storage)}</option>
+              <option value="">Default: {formatStorageOption(model.storage)}</option>
               {model.storageOptions.map((s, i) => (
                 <option key={i} value={i}>
-                  {formatStorage(s)}
+                  {formatStorageOption(s)}
                 </option>
               ))}
             </select>
