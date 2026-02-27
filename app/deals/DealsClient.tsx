@@ -10,6 +10,7 @@ import DealCard from "@/components/deals/DealCard";
 import BuyWaitSignal from "@/components/deals/BuyWaitSignal";
 import SeasonalCalendar from "@/components/deals/SeasonalCalendar";
 import ComponentTracker from "@/components/deals/ComponentTracker";
+import { LINEUP_COLORS } from "@/lib/constants";
 import type { Laptop, BuySignal, Lineup } from "@/lib/types";
 
 type LineupFilter = Lineup | "All";
@@ -67,15 +68,22 @@ const DealsClient = () => {
     return buySignals.filter((s) => s.model.lineup === lineupFilter);
   }, [buySignals, lineupFilter]);
 
-  const lineups: LineupFilter[] = ["All", "ThinkPad", "IdeaPad Pro", "Legion"];
+  const lineups: LineupFilter[] = ["All", "ThinkPad", "Yoga", "IdeaPad Pro", "Legion"];
+
+  const signalCounts = useMemo(() => {
+    const counts = { "buy-now": 0, "good-deal": 0, hold: 0, wait: 0 };
+    for (const s of filteredSignals) counts[s.signal]++;
+    return counts;
+  }, [filteredSignals]);
 
   return (
-    <div className="animate-fade-in space-y-6">
+    <div className="animate-fade-in space-y-8">
+      {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold" style={{ color: "var(--foreground)" }}>
+        <h1 className="text-2xl font-bold tracking-tight" style={{ color: "var(--foreground)" }}>
           Deals & Market
         </h1>
-        <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
+        <p className="mt-1.5 text-sm" style={{ color: "var(--muted)" }}>
           Current deals, buying signals, and component market conditions for Swiss Lenovo laptops.
         </p>
       </div>
@@ -88,27 +96,43 @@ const DealsClient = () => {
         componentMarkets={componentMarkets}
       />
 
-      <div className="flex gap-2">
-        {lineups.map((l) => (
-          <button
-            key={l}
-            onClick={() => setLineupFilter(l)}
-            aria-pressed={lineupFilter === l}
-            className={`px-3 py-1.5 text-xs font-medium transition-colors ${
-              lineupFilter === l
-                ? "bg-accent text-white"
-                : "text-carbon-300 hover:bg-carbon-600/30 hover:text-carbon-100"
-            }`}
-            style={lineupFilter !== l ? { background: "var(--surface-alt)" } : undefined}
-          >
-            {l}
-          </button>
-        ))}
+      {/* Lineup filter pills */}
+      <div className="flex flex-wrap gap-2">
+        {lineups.map((l) => {
+          const isActive = lineupFilter === l;
+          const lineupAccent = l !== "All" ? LINEUP_COLORS[l].accent : "#0f62fe";
+          return (
+            <button
+              key={l}
+              onClick={() => setLineupFilter(l)}
+              aria-pressed={isActive}
+              className="rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-150"
+              style={
+                isActive
+                  ? {
+                      background: lineupAccent,
+                      color: "#fff",
+                      boxShadow: `0 0 12px ${lineupAccent}40`,
+                    }
+                  : {
+                      background: "var(--surface-alt)",
+                      color: "var(--muted)",
+                    }
+              }
+            >
+              {l}
+            </button>
+          );
+        })}
       </div>
 
+      {/* Top Deals */}
       <section>
-        <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
-          Top Deals ({filteredDeals.length})
+        <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+          Top Deals
+          <span className="ml-2 text-sm font-normal" style={{ color: "var(--muted)" }}>
+            {filteredDeals.length}
+          </span>
         </h2>
         {filteredDeals.length > 0 ? (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -130,11 +154,37 @@ const DealsClient = () => {
         )}
       </section>
 
+      {/* Buy / Wait Signals */}
       <section>
-        <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
-          Buy / Wait Signals ({filteredSignals.length})
-        </h2>
-        <div className="space-y-2">
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+            Buy / Wait Signals
+            <span className="ml-2 text-sm font-normal" style={{ color: "var(--muted)" }}>
+              {filteredSignals.length}
+            </span>
+          </h2>
+          <div className="hidden gap-3 sm:flex">
+            {signalCounts["buy-now"] > 0 && (
+              <span className="text-xs font-medium text-status-success">{signalCounts["buy-now"]} buy now</span>
+            )}
+            {signalCounts["good-deal"] > 0 && (
+              <span className="text-xs font-medium" style={{ color: "var(--accent-light)" }}>
+                {signalCounts["good-deal"]} good deal
+              </span>
+            )}
+            {signalCounts.hold > 0 && (
+              <span className="text-xs font-medium" style={{ color: "var(--status-warning)" }}>
+                {signalCounts.hold} hold
+              </span>
+            )}
+            {signalCounts.wait > 0 && (
+              <span className="text-xs font-medium" style={{ color: "var(--muted)" }}>
+                {signalCounts.wait} wait
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="space-y-1.5">
           {filteredSignals.map((s) => (
             <BuyWaitSignal
               key={s.model.id}
@@ -147,13 +197,15 @@ const DealsClient = () => {
         </div>
       </section>
 
+      {/* When to Buy */}
       <section>
-        <h2 className="mb-3 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+        <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
           When to Buy
         </h2>
         <SeasonalCalendar events={saleEvents} />
       </section>
 
+      {/* Component Tracker */}
       <section>
         <ComponentTracker markets={componentMarkets} />
       </section>

@@ -22,11 +22,12 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
   const [hoveredEvent, setHoveredEvent] = useState<SaleEvent | null>(null);
   const currentMonth = new Date().getMonth();
 
-  const w = 720;
-  const padding = { top: 30, bottom: 60, left: 10, right: 10 };
+  const w = 780;
+  const padding = { top: 36, bottom: 60, left: 10, right: 10 };
   const chartW = w - padding.left - padding.right;
   const monthW = chartW / 12;
-  const laneH = 18;
+  const laneH = 22;
+  const laneGap = 5;
 
   const lanes: { event: SaleEvent; lane: number }[] = [];
   for (const event of events) {
@@ -47,15 +48,25 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
   }
 
   const maxLane = Math.max(0, ...lanes.map((l) => l.lane));
-  const totalH = padding.top + (maxLane + 1) * (laneH + 4) + padding.bottom;
+  const totalH = padding.top + (maxLane + 1) * (laneH + laneGap) + padding.bottom;
 
   return (
-    <div className="carbon-card overflow-hidden p-4">
-      <h3 className="mb-3 text-sm font-semibold" style={{ color: "var(--foreground)" }}>
+    <div className="carbon-card overflow-hidden p-5">
+      <h3 className="mb-4 text-sm font-semibold" style={{ color: "var(--foreground)" }}>
         Swiss Sale Calendar
       </h3>
-      <div className="overflow-x-auto">
-        <svg width={w} height={totalH} viewBox={`0 0 ${w} ${totalH}`} className="min-w-[600px]">
+      <div className="scrollbar-thin overflow-x-auto">
+        <svg width={w} height={totalH} viewBox={`0 0 ${w} ${totalH}`} className="min-w-[640px]">
+          <defs>
+            {Object.entries(eventColors).map(([key, color]) => (
+              <linearGradient key={key} id={`grad-${key.replace(/\s/g, "")}`} x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor={color} stopOpacity={0.85} />
+                <stop offset="100%" stopColor={color} stopOpacity={0.55} />
+              </linearGradient>
+            ))}
+          </defs>
+
+          {/* Month columns */}
           {MONTHS.map((month, i) => {
             const x = padding.left + i * monthW;
             const isCurrent = i === currentMonth;
@@ -63,57 +74,69 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
               <g key={month}>
                 {isCurrent && (
                   <rect
-                    x={x}
-                    y={padding.top - 5}
-                    width={monthW}
-                    height={totalH - padding.top - padding.bottom + 15}
+                    x={x + 1}
+                    y={padding.top - 4}
+                    width={monthW - 2}
+                    height={totalH - padding.top - padding.bottom + 14}
                     fill="#4589ff"
-                    opacity={0.08}
-                    rx={4}
+                    opacity={0.06}
+                    rx={6}
                   />
                 )}
-                <line
-                  x1={x}
-                  y1={padding.top}
-                  x2={x}
-                  y2={totalH - padding.bottom + 10}
-                  stroke="var(--border-subtle)"
-                  strokeWidth={0.5}
-                  opacity={0.4}
-                />
+                {i > 0 && (
+                  <line
+                    x1={x}
+                    y1={padding.top}
+                    x2={x}
+                    y2={totalH - padding.bottom + 10}
+                    stroke="var(--border-subtle)"
+                    strokeWidth={0.5}
+                    opacity={0.3}
+                    strokeDasharray="2,3"
+                  />
+                )}
                 <text
                   x={x + monthW / 2}
-                  y={padding.top - 10}
+                  y={padding.top - 12}
                   textAnchor="middle"
                   fill={isCurrent ? "#4589ff" : "var(--muted)"}
                   fontSize={11}
-                  fontWeight={isCurrent ? 600 : 400}
+                  fontWeight={isCurrent ? 700 : 400}
                   fontFamily="var(--font-geist-sans)"
                 >
                   {month}
                 </text>
                 {isCurrent && (
-                  <text
-                    x={x + monthW / 2}
-                    y={totalH - padding.bottom + 25}
-                    textAnchor="middle"
-                    fill="#4589ff"
-                    fontSize={9}
-                    fontWeight={600}
-                    fontFamily="var(--font-geist-sans)"
-                  >
-                    ▲ NOW
-                  </text>
+                  <g>
+                    <text
+                      x={x + monthW / 2}
+                      y={totalH - padding.bottom + 28}
+                      textAnchor="middle"
+                      fill="#4589ff"
+                      fontSize={8}
+                      fontWeight={700}
+                      fontFamily="var(--font-geist-mono)"
+                      letterSpacing="0.1em"
+                    >
+                      ▲ NOW
+                    </text>
+                  </g>
                 )}
               </g>
             );
           })}
+
+          {/* Event bars */}
           {lanes.map(({ event, lane }) => {
             const startX = padding.left + (event.typicalMonth - 1) * monthW;
-            const barW = Math.max(monthW * 0.3, (event.durationDays / 30) * monthW);
-            const y = padding.top + lane * (laneH + 4);
+            const barW = Math.max(monthW * 0.4, (event.durationDays / 30) * monthW);
+            const y = padding.top + lane * (laneH + laneGap);
             const color = eventColors[event.retailer] ?? "#a8a8a8";
+            const gradId = `grad-${event.retailer.replace(/\s/g, "")}`;
             const isHovered = hoveredEvent?.id === event.id;
+            const maxChars = Math.floor(barW / 6.5);
+            const label = event.name.length > maxChars ? event.name.slice(0, maxChars - 1) + "…" : event.name;
+
             return (
               <g
                 key={event.id}
@@ -132,49 +155,57 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
                   width={barW}
                   height={laneH}
                   rx={4}
-                  fill={color}
-                  opacity={isHovered ? 0.9 : 0.6}
+                  fill={`url(#${gradId})`}
+                  opacity={isHovered ? 1 : 0.75}
+                  stroke={isHovered ? color : "transparent"}
+                  strokeWidth={isHovered ? 1 : 0}
                 />
                 <text
-                  x={startX + 6}
+                  x={startX + 7}
                   y={y + laneH / 2 + 1}
                   dominantBaseline="central"
                   fill="white"
-                  fontSize={9}
+                  fontSize={10}
                   fontWeight={500}
                   fontFamily="var(--font-geist-sans)"
+                  style={{ pointerEvents: "none" }}
                 >
-                  {event.name.length > barW / 6 ? event.name.slice(0, Math.floor(barW / 6)) + "…" : event.name}
+                  {label}
                 </text>
               </g>
             );
           })}
         </svg>
       </div>
+
+      {/* Hover detail panel */}
       {hoveredEvent && (
-        <div
-          className="mt-3 border px-3 py-2 text-xs"
-          style={{ borderColor: "var(--border-subtle)", background: "var(--surface-alt)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="font-semibold" style={{ color: "var(--foreground)" }}>
+        <div className="mt-4 border-t pt-3" style={{ borderColor: "var(--border-subtle)" }}>
+          <div className="flex items-center gap-3">
+            <div
+              className="h-2.5 w-2.5 rounded-sm"
+              style={{ background: eventColors[hoveredEvent.retailer] ?? "#a8a8a8" }}
+            />
+            <span className="text-sm font-semibold" style={{ color: "var(--foreground)" }}>
               {hoveredEvent.name}
             </span>
-            <span style={{ color: "var(--muted)" }}>
+            <span className="text-xs" style={{ color: "var(--muted)" }}>
               {hoveredEvent.retailer === "all" ? "All retailers" : hoveredEvent.retailer}
             </span>
           </div>
-          <div className="mt-1" style={{ color: "var(--muted)" }}>
-            Typical discount: {hoveredEvent.typicalDiscountRange[0]}–{hoveredEvent.typicalDiscountRange[1]}% off ·{" "}
-            {hoveredEvent.durationDays} days
+          <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 pl-5 text-xs" style={{ color: "var(--muted)" }}>
+            <span>
+              Typical discount: {hoveredEvent.typicalDiscountRange[0]}–{hoveredEvent.typicalDiscountRange[1]}% off
+            </span>
+            <span>{hoveredEvent.durationDays} days</span>
           </div>
           {hoveredEvent.bestFor.length > 0 && (
-            <div className="mt-1" style={{ color: "var(--muted)" }}>
+            <div className="mt-1 pl-5 text-xs" style={{ color: "var(--muted)" }}>
               Best for: {hoveredEvent.bestFor.join(", ")}
             </div>
           )}
           {hoveredEvent.note && (
-            <p className="mt-1" style={{ color: "var(--foreground)" }}>
+            <p className="mt-1.5 pl-5 text-xs" style={{ color: "var(--foreground)" }}>
               {hoveredEvent.note}
             </p>
           )}
