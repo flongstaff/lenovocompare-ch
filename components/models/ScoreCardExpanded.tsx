@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import type { Laptop } from "@/lib/types";
@@ -78,12 +78,30 @@ const getBreakdownComponents = (dim: Dimension, model: Laptop): ScoreComponent[]
   }
 };
 
+const useInView = (ref: React.RefObject<HTMLElement | null>) => {
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [ref]);
+  return inView;
+};
+
 const ScoreCardExpanded = ({ dimensions, model }: Props) => {
   const [expanded, setExpanded] = useState<Dimension | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef);
 
   return (
-    <div className="space-y-0">
-      {dimensions.map((dim) => {
+    <div ref={containerRef} className="space-y-0">
+      {dimensions.map((dim, index) => {
         const isOpen = expanded === dim.key;
         return (
           <div key={dim.key}>
@@ -110,7 +128,13 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                 </div>
               </div>
               <div className="h-2 w-24 shrink-0 rounded-full" style={{ background: "var(--surface)" }}>
-                <div className="h-full rounded-full" style={{ width: `${dim.score}%`, background: dim.color }} />
+                <motion.div
+                  className="h-full rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: inView ? `${dim.score}%` : 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 * index }}
+                  style={{ background: `linear-gradient(90deg, ${dim.color}60, ${dim.color})` }}
+                />
               </div>
               <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }} className="shrink-0">
                 <ChevronDown size={14} style={{ color: "var(--muted)" }} />
