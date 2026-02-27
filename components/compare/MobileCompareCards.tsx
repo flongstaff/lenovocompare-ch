@@ -8,7 +8,9 @@ import { Laptop, SwissPrice } from "@/lib/types";
 import { ScoreBar } from "@/components/ui/ScoreBar";
 import { LinuxBadge } from "@/components/ui/LinuxBadge";
 import { formatCHF, formatWeight, formatStorage } from "@/lib/formatters";
-import { getModelScores } from "@/lib/scoring";
+import { getModelScores, getModelBenchmarks } from "@/lib/scoring";
+import { generateAnalysis } from "@/lib/analysis";
+import { laptops } from "@/data/laptops";
 import dynamic from "next/dynamic";
 
 const PerformanceRadar = dynamic(() => import("@/components/charts/PerformanceRadar"), { ssr: false });
@@ -146,6 +148,44 @@ export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileComp
           <SpecItem label="Battery" value={`${model.battery.whr} Wh`} />
           <SpecItem label="Ports" value={model.ports.join(", ")} />
           <SpecItem label="Wireless" value={model.wireless.join(", ")} />
+
+          {(() => {
+            const b = getModelBenchmarks(model.id);
+            const a = generateAnalysis(model, laptops);
+            return (
+              <>
+                {b?.thermals && (
+                  <>
+                    <SpecItem label="Keyboard Temp" value={`${b.thermals.keyboardMaxC}°C`} />
+                    <SpecItem label="Underside Temp" value={`${b.thermals.undersideMaxC}°C`} />
+                  </>
+                )}
+                {b?.fanNoise != null && <SpecItem label="Fan Noise" value={`${b.fanNoise} dB`} />}
+                {b?.battery && (
+                  <>
+                    <SpecItem label="Office Hours" value={`${b.battery.officeHours}h`} />
+                    <SpecItem label="Video Hours" value={`${b.battery.videoHours}h`} />
+                  </>
+                )}
+                {b?.ssdSpeed && (
+                  <>
+                    <SpecItem label="SSD Read" value={`${b.ssdSpeed.seqReadMBs} MB/s`} />
+                    <SpecItem label="SSD Write" value={`${b.ssdSpeed.seqWriteMBs} MB/s`} />
+                  </>
+                )}
+                {b?.memoryBandwidthGBs != null && <SpecItem label="Memory BW" value={`${b.memoryBandwidthGBs} GB/s`} />}
+                {b?.pugetPremiere != null && <SpecItem label="Premiere" value={`${b.pugetPremiere}`} />}
+                {b?.pugetDavinci != null && <SpecItem label="DaVinci" value={`${b.pugetDavinci}`} />}
+                {a.scenarios && a.scenarios.length > 0 && (
+                  <>
+                    {a.scenarios.map((s) => (
+                      <SpecItem key={s.scenario} label={s.scenario} value={s.verdict} />
+                    ))}
+                  </>
+                )}
+              </>
+            );
+          })()}
 
           <div className="space-y-2 pt-3">
             <ScoreBar score={s.perf} label="Perf" color="#0f62fe" size="md" />
