@@ -7,6 +7,7 @@ on:
 permissions:
   contents: write
   issues: write
+  pull-requests: write
 
 jobs:
   process:
@@ -79,17 +80,22 @@ jobs:
         env:
           ENTRY: ${{ steps.parse.outputs.entry }}
 
-      - run: npm ci
-
-      - run: npm run generate-prices
-
-      - name: Commit and push
+      - name: Create PR
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          BRANCH="price/issue-${{ github.event.issue.number }}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/community-prices.json && git add -f public/data/prices.json
-          git diff --cached --quiet || git commit -m "feat: add price from #${{ github.event.issue.number }}"
-          git push
+          git checkout -b "$BRANCH"
+          git add data/community-prices.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "feat: add community price from #${{ github.event.issue.number }}"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "Add community price from #${{ github.event.issue.number }}" \
+            --body "Adds community-submitted price for **${{ steps.parse.outputs.laptopId }}** from issue #${{ github.event.issue.number }}." \
+            --label "community-price"
 
       - name: Comment on issue
         uses: actions/github-script@v7
@@ -99,11 +105,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.payload.issue.number,
-              body: `Price added to the database. It will appear on the site after the next deployment. Thanks for contributing!`
-            });
-            await github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.issue.number,
-              state: 'closed'
+              body: `Price submission has been created as a pull request. It will appear on the site after review and merge. Thanks for contributing!`
             });
