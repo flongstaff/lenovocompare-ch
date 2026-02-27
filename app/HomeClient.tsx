@@ -16,6 +16,7 @@ import { useLaptops } from "@/lib/hooks/useLaptops";
 import { cpuBenchmarksExpanded } from "@/data/cpu-benchmarks";
 import { gpuBenchmarks } from "@/data/gpu-benchmarks";
 import { usePrices } from "@/lib/hooks/usePrices";
+import { priceBaselines } from "@/data/price-baselines";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { useCompare } from "@/lib/hooks/useCompare";
 import { getModelScores } from "@/lib/scoring";
@@ -152,9 +153,20 @@ const HomeClient = () => {
       filtered
         .map((m) => {
           const s = scoresMap.get(m.id);
-          return s?.lowestPrice
-            ? { id: m.id, name: m.name, lineup: m.lineup, price: s.lowestPrice, perf: s.perf }
-            : null;
+          if (!s?.lowestPrice) return null;
+          const baseline = priceBaselines[m.id];
+          return {
+            id: m.id,
+            name: m.name,
+            lineup: m.lineup,
+            price: s.lowestPrice,
+            perf: s.perf,
+            cpu: m.processor.name,
+            ram: `${m.ram.size} GB ${m.ram.type}`,
+            display: `${m.display.size}" ${m.display.resolutionLabel} ${m.display.panel}`,
+            msrp: baseline?.msrp,
+            dimensions: s.dimensions,
+          };
         })
         .filter((d): d is NonNullable<typeof d> => d !== null),
     [filtered, scoresMap],

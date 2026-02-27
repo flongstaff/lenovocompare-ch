@@ -1,6 +1,6 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { PolarBar } from "../PolarBar";
 import type { PerformanceDimensions } from "@/lib/types";
 
@@ -77,6 +77,52 @@ describe("PolarBar", () => {
     const petals = container.querySelectorAll("path[data-petal]");
     petals.forEach((petal) => {
       expect(petal).toHaveAttribute("fill", "#ff0000");
+    });
+  });
+
+  /* Task 4: Hover tooltip */
+  it("shows tooltip on petal hover in normal mode", () => {
+    const { container } = render(<PolarBar scores={mockScores} />);
+    const cpuPetal = container.querySelector("path[data-petal='cpu']")!;
+    fireEvent.mouseEnter(cpuPetal);
+    // Tooltip should show score and tier
+    expect(container.textContent).toContain("CPU");
+    expect(container.textContent).toContain("80");
+    expect(container.textContent).toContain("Excellent");
+  });
+
+  it("dims non-hovered petals", () => {
+    const { container } = render(<PolarBar scores={mockScores} />);
+    const cpuPetal = container.querySelector("path[data-petal='cpu']")!;
+    fireEvent.mouseEnter(cpuPetal);
+    const gpuPetal = container.querySelector("path[data-petal='gpu']")!;
+    expect(gpuPetal.getAttribute("fill-opacity")).toBe("0.4");
+    expect(cpuPetal.getAttribute("fill-opacity")).toBe("0.9");
+  });
+
+  it("does not show tooltip in compact mode on hover", () => {
+    const { container } = render(<PolarBar scores={mockScores} compact />);
+    const cpuPetal = container.querySelector("path[data-petal='cpu']")!;
+    fireEvent.mouseEnter(cpuPetal);
+    // All petals stay at 0.7 opacity (no hover effect in compact mode)
+    expect(cpuPetal.getAttribute("fill-opacity")).toBe("0.7");
+  });
+
+  /* Task 5: Compare mode */
+  it("renders compare petals when compareScores provided", () => {
+    const compare = [
+      {
+        name: "Model B",
+        scores: { cpu: 60, gpu: 70, memory: 50, display: 80, connectivity: 40, portability: 90 },
+        color: "#4589ff",
+      },
+    ];
+    const { container } = render(<PolarBar scores={mockScores} compareScores={compare} color="#d4437a" />);
+    const comparePetals = container.querySelectorAll("path[data-compare-petal]");
+    expect(comparePetals).toHaveLength(6);
+    comparePetals.forEach((p) => {
+      expect(p.getAttribute("fill")).toBe("#4589ff");
+      expect(p.getAttribute("fill-opacity")).toBe("0.4");
     });
   });
 });

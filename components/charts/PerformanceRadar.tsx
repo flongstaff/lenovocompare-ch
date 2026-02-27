@@ -1,11 +1,10 @@
 "use client";
 
-import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Tooltip } from "recharts";
 import type { PerformanceDimensions } from "@/lib/types";
-import { COMPARE_COLORS, COMPARE_DASHES } from "@/lib/constants";
+import { COMPARE_COLORS } from "@/lib/constants";
 import { shortName } from "@/lib/formatters";
-import { ChartTooltip } from "@/components/charts/ChartTooltip";
 import { PolarBar } from "@/components/charts/PolarBar";
+import type { CompareEntry } from "@/components/charts/PolarBar";
 
 interface ModelData {
   readonly name: string;
@@ -34,35 +33,6 @@ const DIMENSION_HINTS: Record<keyof PerformanceDimensions, string> = {
   connectivity: "Ports, Thunderbolt, Wi-Fi & Bluetooth",
 };
 
-const CustomTooltip = ({
-  active,
-  payload,
-  label,
-}: {
-  active?: boolean;
-  payload?: { name: string; value: number; color: string }[];
-  label?: string;
-}) => {
-  if (!active || !payload?.length) return null;
-  return (
-    <ChartTooltip>
-      <p style={{ color: "#f4f4f4", fontSize: 12, fontWeight: 600, marginBottom: 4 }}>{label}</p>
-      {payload.map((p) => (
-        <div
-          key={p.name}
-          style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: "#c6c6c6", padding: "1px 0" }}
-        >
-          <span style={{ width: 8, height: 8, borderRadius: 2, background: p.color, flexShrink: 0 }} />
-          <span>{p.name}</span>
-          <span style={{ marginLeft: "auto", fontWeight: 600, color: "#f4f4f4", fontFamily: "monospace" }}>
-            {p.value}
-          </span>
-        </div>
-      ))}
-    </ChartTooltip>
-  );
-};
-
 const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
   if (models.length === 1) {
     return (
@@ -73,41 +43,19 @@ const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
   }
 
   const axes = Object.keys(DIMENSION_LABELS) as (keyof PerformanceDimensions)[];
-  const data = axes.map((key) => {
-    const entry: Record<string, string | number> = { dimension: DIMENSION_LABELS[key] };
-    models.forEach((m, i) => {
-      entry[`model${i}`] = m.dimensions[key];
-    });
-    return entry;
-  });
 
-  const compact = models.length === 1;
-  const chartHeight = compact ? 150 : 210;
-  const outerRadius = compact ? "55%" : "62%";
-  const margin = compact ? { top: 12, right: 35, bottom: 12, left: 35 } : { top: 18, right: 42, bottom: 18, left: 42 };
+  // First model is primary, rest are compare overlays
+  const primary = models[0];
+  const compareScores: CompareEntry[] = models.slice(1).map((m, i) => ({
+    name: shortName(m.name),
+    scores: m.dimensions,
+    color: COMPARE_COLORS[(i + 1) % COMPARE_COLORS.length],
+  }));
 
   return (
     <div className="w-full">
-      <div style={{ height: chartHeight }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart data={data} cx="50%" cy="50%" outerRadius={outerRadius} margin={margin}>
-            <PolarGrid stroke="#393939" strokeDasharray="3 3" />
-            <PolarAngleAxis dataKey="dimension" tick={{ fill: "#f4f4f4", fontSize: 12, fontWeight: 500 }} />
-            <Tooltip content={<CustomTooltip />} />
-            {models.map((m, i) => (
-              <Radar
-                key={m.name}
-                name={shortName(m.name)}
-                dataKey={`model${i}`}
-                stroke={COMPARE_COLORS[i % COMPARE_COLORS.length]}
-                fill={COMPARE_COLORS[i % COMPARE_COLORS.length]}
-                fillOpacity={0.12}
-                strokeWidth={2}
-                strokeDasharray={models.length > 1 ? COMPARE_DASHES[i % COMPARE_DASHES.length] : undefined}
-              />
-            ))}
-          </RadarChart>
-        </ResponsiveContainer>
+      <div className="flex justify-center">
+        <PolarBar scores={primary.dimensions} color={COMPARE_COLORS[0]} compareScores={compareScores} />
       </div>
       {models.length > 1 && (
         <div className="flex flex-wrap justify-center gap-3 pb-2 pt-1">
