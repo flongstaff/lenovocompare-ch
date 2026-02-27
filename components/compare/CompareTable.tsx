@@ -13,7 +13,10 @@ import {
   getCpuMultiCore,
   getGpuScore,
   getGamingTier,
+  getModelBenchmarks,
 } from "@/lib/scoring";
+import { generateAnalysis } from "@/lib/analysis";
+import { laptops } from "@/data/laptops";
 import { linuxCompat } from "@/data/linux-compat";
 import { priceBaselines } from "@/data/price-baselines";
 
@@ -37,6 +40,16 @@ const Delta = ({ score, bestScore }: { score: number; bestScore: number }) => {
   if (diff === 0) return <span className="ml-1 text-[10px] text-status-success">Best</span>;
   return <span className="ml-1 text-[10px] text-status-warning">{diff}</span>;
 };
+
+const VERDICT_COLORS: Record<string, string> = {
+  overkill: "text-blue-400",
+  excellent: "text-status-success",
+  good: "text-green-400",
+  marginal: "text-yellow-400",
+  insufficient: "text-red-400",
+};
+
+const isVerdict = (val: string): boolean => val in VERDICT_COLORS;
 
 /**
  * Spec row definitions for the compare table.
@@ -127,7 +140,167 @@ const SPEC_ROWS: readonly SpecRow[] = [
       m.linuxStatus === "certified" ? "Certified" : m.linuxStatus === "community" ? "Community" : "Unknown",
   },
   { label: "Recommended Kernel", getValue: (m) => linuxCompat[m.id]?.recommendedKernel ?? "—" },
-] as const;
+  // Thermals & Noise
+  {
+    section: "Thermals & Noise",
+    label: "Keyboard Temp",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.thermals ? `${b.thermals.keyboardMaxC}°C` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.thermals?.keyboardMaxC ?? 0,
+    highlight: "min" as const,
+  },
+  {
+    label: "Underside Temp",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.thermals ? `${b.thermals.undersideMaxC}°C` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.thermals?.undersideMaxC ?? 0,
+    highlight: "min" as const,
+  },
+  {
+    label: "Fan Noise",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.fanNoise ? `${b.fanNoise} dB` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.fanNoise ?? 0,
+    highlight: "min" as const,
+  },
+  // Battery Life
+  {
+    section: "Battery Life",
+    label: "Office Hours",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.battery ? `${b.battery.officeHours} hrs` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.battery?.officeHours ?? 0,
+    highlight: "max" as const,
+  },
+  {
+    label: "Video Hours",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.battery ? `${b.battery.videoHours} hrs` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.battery?.videoHours ?? 0,
+    highlight: "max" as const,
+  },
+  {
+    label: "Perf Plugged In",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.batteryPerformance ? `${b.batteryPerformance.pluggedIn}%` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.batteryPerformance?.pluggedIn ?? 0,
+    highlight: "max" as const,
+  },
+  {
+    label: "Perf on Battery",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.batteryPerformance ? `${b.batteryPerformance.onBattery}%` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.batteryPerformance?.onBattery ?? 0,
+    highlight: "max" as const,
+  },
+  // Storage & Memory Perf
+  {
+    section: "Storage & Memory Perf",
+    label: "SSD Read MB/s",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.ssdSpeed ? `${b.ssdSpeed.seqReadMBs}` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.ssdSpeed?.seqReadMBs ?? 0,
+    highlight: "max" as const,
+  },
+  {
+    label: "SSD Write MB/s",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.ssdSpeed ? `${b.ssdSpeed.seqWriteMBs}` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.ssdSpeed?.seqWriteMBs ?? 0,
+    highlight: "max" as const,
+  },
+  {
+    label: "Memory BW GB/s",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.memoryBandwidthGBs ? `${b.memoryBandwidthGBs}` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.memoryBandwidthGBs ?? 0,
+    highlight: "max" as const,
+  },
+  // Content Creation
+  {
+    section: "Content Creation",
+    label: "Premiere Score",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.pugetPremiere ? `${b.pugetPremiere}` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.pugetPremiere ?? 0,
+    highlight: "max" as const,
+  },
+  {
+    label: "DaVinci Score",
+    getValue: (m) => {
+      const b = getModelBenchmarks(m.id);
+      return b?.pugetDavinci ? `${b.pugetDavinci}` : "—";
+    },
+    getNumeric: (m) => getModelBenchmarks(m.id)?.pugetDavinci ?? 0,
+    highlight: "max" as const,
+  },
+  // Use Cases
+  {
+    section: "Use Cases",
+    label: "Office",
+    getValue: (m) => {
+      const a = generateAnalysis(m, laptops);
+      return a.scenarios?.find((s) => s.scenario === "Office / Productivity")?.verdict ?? "—";
+    },
+  },
+  {
+    label: "Development",
+    getValue: (m) => {
+      const a = generateAnalysis(m, laptops);
+      return a.scenarios?.find((s) => s.scenario === "Software Development")?.verdict ?? "—";
+    },
+  },
+  {
+    label: "Gaming",
+    getValue: (m) => {
+      const a = generateAnalysis(m, laptops);
+      return a.scenarios?.find((s) => s.scenario === "Gaming")?.verdict ?? "—";
+    },
+  },
+  {
+    label: "Video Editing",
+    getValue: (m) => {
+      const a = generateAnalysis(m, laptops);
+      return a.scenarios?.find((s) => s.scenario === "Video Editing")?.verdict ?? "—";
+    },
+  },
+  {
+    label: "Data Science / ML",
+    getValue: (m) => {
+      const a = generateAnalysis(m, laptops);
+      return a.scenarios?.find((s) => s.scenario === "Data Science / ML")?.verdict ?? "—";
+    },
+  },
+  {
+    label: "Virtualization",
+    getValue: (m) => {
+      const a = generateAnalysis(m, laptops);
+      return a.scenarios?.find((s) => s.scenario === "Virtualization")?.verdict ?? "—";
+    },
+  },
+];
 
 /** Sections shown by default in "Quick Compare" mode */
 const QUICK_SECTIONS = new Set(["Pricing", "Performance", "Display", "Chassis"]);
@@ -262,6 +435,8 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                                     </div>
                                   ))}
                                 </div>
+                              ) : isVerdict(val) ? (
+                                <span className={`line-clamp-2 capitalize ${VERDICT_COLORS[val]}`}>{val}</span>
                               ) : (
                                 <span className="line-clamp-2">{val}</span>
                               )}
@@ -358,7 +533,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
       </div>
       {!showAll && (
         <button onClick={() => setShowAll(true)} className="carbon-btn-ghost mt-3 w-full justify-center text-sm">
-          Show all sections (Memory, Connectivity, Linux)
+          Show all sections
           <ChevronDown size={14} />
         </button>
       )}
