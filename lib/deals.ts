@@ -1,4 +1,4 @@
-import type { PriceBaseline, SaleEvent, ComponentMarket, BuySignal } from "./types";
+import type { DealHighlight, PriceBaseline, SaleEvent, ComponentMarket, BuySignal } from "./types";
 
 /**
  * Determine buy/wait recommendation for a model based on current best price,
@@ -35,6 +35,15 @@ const saleEventWithinDays = (events: readonly SaleEvent[], days: number): boolea
     }
   }
   return false;
+};
+
+/** Check if a deal's lastVerified date is older than thresholdDays (default 14). */
+export const isDealStale = (deal: DealHighlight, thresholdDays = 14): boolean => {
+  if (!deal.lastVerified) return true;
+  const verifiedDate = new Date(deal.lastVerified);
+  const now = new Date();
+  const diffDays = Math.floor((now.getTime() - verifiedDate.getTime()) / 86_400_000);
+  return diffDays > thresholdDays;
 };
 
 /** Display metadata for each buy signal */

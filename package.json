@@ -32,6 +32,7 @@
     "lint": "next lint",
     "scrape-psref": "npx tsx scripts/scrape-psref.ts",
     "merge-psref": "npx tsx scripts/merge-psref.ts",
+    "verify-deals": "npx tsx scripts/verify-deals.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

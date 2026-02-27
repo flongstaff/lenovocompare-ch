@@ -336,4 +336,6 @@ export interface DealHighlight {
   readonly addedDate: string;
   readonly expiryDate?: string;
   readonly verified: boolean;
+  readonly lastVerified?: string;
+  readonly toppreiseQuery?: string;
 }

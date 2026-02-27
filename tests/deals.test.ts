@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { computeBuySignal } from "@/lib/deals";
-import type { PriceBaseline, SaleEvent, ComponentMarket } from "@/lib/types";
+import { computeBuySignal, isDealStale } from "@/lib/deals";
+import type { DealHighlight, PriceBaseline, SaleEvent, ComponentMarket } from "@/lib/types";
 
 const makeBaseline = (overrides: Partial<PriceBaseline> = {}): PriceBaseline => ({
   laptopId: "test-model",
@@ -11,6 +11,24 @@ const makeBaseline = (overrides: Partial<PriceBaseline> = {}): PriceBaseline => 
   historicalLowRetailer: "Digitec",
   ...overrides,
 });
+
+const makeDeal = (overrides: Partial<DealHighlight> = {}): DealHighlight => ({
+  id: "test-deal",
+  laptopId: "test-model",
+  retailer: "Digitec",
+  price: 1500,
+  priceType: "sale",
+  note: "Test deal",
+  addedDate: "2026-01-01",
+  verified: true,
+  ...overrides,
+});
+
+const daysAgo = (n: number): string => {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return d.toISOString().slice(0, 10);
+};
 
 const noEvents: readonly SaleEvent[] = [];
 const noMarkets: readonly ComponentMarket[] = [];
@@ -59,5 +77,28 @@ describe("computeBuySignal", () => {
   it("handles edge case of msrp 0 gracefully", () => {
     const baseline = makeBaseline({ msrp: 0, typicalRetail: 0, historicalLow: 0 });
     expect(computeBuySignal(baseline, 100, noEvents, noMarkets)).toBe("wait");
+  });
+});
+
+describe("isDealStale", () => {
+  it("returns true when lastVerified is missing", () => {
+    expect(isDealStale(makeDeal({ lastVerified: undefined }))).toBe(true);
+  });
+
+  it("returns false when lastVerified is today", () => {
+    expect(isDealStale(makeDeal({ lastVerified: daysAgo(0) }))).toBe(false);
+  });
+
+  it("returns false when lastVerified is exactly at threshold", () => {
+    expect(isDealStale(makeDeal({ lastVerified: daysAgo(14) }))).toBe(false);
+  });
+
+  it("returns true when lastVerified is beyond threshold", () => {
+    expect(isDealStale(makeDeal({ lastVerified: daysAgo(15) }))).toBe(true);
+  });
+
+  it("respects custom threshold", () => {
+    expect(isDealStale(makeDeal({ lastVerified: daysAgo(8) }), 7)).toBe(true);
+    expect(isDealStale(makeDeal({ lastVerified: daysAgo(5) }), 7)).toBe(false);
   });
 });

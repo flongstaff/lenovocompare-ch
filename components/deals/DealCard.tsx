@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import type { DealHighlight, Laptop, PriceBaseline } from "@/lib/types";
 import { formatCHF, getPriceDiscount } from "@/lib/formatters";
+import { isDealStale } from "@/lib/deals";
 import { LINEUP_COLORS } from "@/lib/constants";
 
 interface DealCardProps {
@@ -22,6 +23,7 @@ const DealCard = ({ deal, model, baseline }: DealCardProps) => {
   const badge = priceTypeBadge[deal.priceType] ?? priceTypeBadge.sale;
   const lineupColor = model ? LINEUP_COLORS[model.lineup] : null;
   const isExpired = deal.expiryDate ? new Date(deal.expiryDate) < new Date() : false;
+  const stale = !isExpired && isDealStale(deal);
 
   return (
     <div
@@ -42,6 +44,9 @@ const DealCard = ({ deal, model, baseline }: DealCardProps) => {
               )}
               <span className={`rounded px-1.5 py-0.5 text-xs ${badge.bg} ${badge.text}`}>{deal.priceType}</span>
               {isExpired && <span className="rounded bg-zinc-800 px-1.5 py-0.5 text-xs text-zinc-500">expired</span>}
+              {stale && (
+                <span className="rounded bg-amber-900/40 px-1.5 py-0.5 text-xs text-amber-400">Unverified</span>
+              )}
             </div>
           </div>
           <div className="flex-shrink-0 text-right">
