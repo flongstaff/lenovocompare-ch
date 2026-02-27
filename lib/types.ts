@@ -295,3 +295,45 @@ export interface ModelBenchmarks {
   readonly sources?: readonly BenchmarkSource[];
   readonly sourceUrls?: readonly string[];
 }
+
+// Market insight types for /deals page
+export type ComponentId = "ddr4" | "ddr5" | "nand-tlc" | "nand-qlc";
+export type MarketTrend = "rising" | "stable" | "falling";
+export type BuySignal = "buy-now" | "good-deal" | "hold" | "wait";
+export type DealPriceType = "sale" | "clearance" | "refurbished";
+
+export interface ComponentMarket {
+  readonly component: ComponentId;
+  readonly label: string;
+  readonly trend: MarketTrend;
+  readonly changePercent: number;
+  readonly since: string;
+  readonly affectedTiers: readonly string[];
+  readonly summary: string;
+  readonly source?: string;
+}
+
+export interface SaleEvent {
+  readonly id: string;
+  readonly name: string;
+  readonly retailer: string;
+  readonly typicalMonth: number;
+  readonly typicalWeek?: number;
+  readonly durationDays: number;
+  readonly typicalDiscountRange: readonly [number, number];
+  readonly bestFor: readonly string[];
+  readonly note?: string;
+}
+
+export interface DealHighlight {
+  readonly id: string;
+  readonly laptopId: string;
+  readonly retailer: string;
+  readonly price: number;
+  readonly priceType: DealPriceType;
+  readonly url?: string;
+  readonly note: string;
+  readonly addedDate: string;
+  readonly expiryDate?: string;
+  readonly verified: boolean;
+}
