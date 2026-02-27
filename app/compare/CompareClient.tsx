@@ -10,7 +10,7 @@ import { usePrices } from "@/lib/hooks/usePrices";
 import { useCompare } from "@/lib/hooks/useCompare";
 import CompareTable from "@/components/compare/CompareTable";
 import { MobileCompareCards } from "@/components/compare/MobileCompareCards";
-import { CompareSelector } from "@/components/compare/CompareSelector";
+import { CompareSearchSelector } from "@/components/compare/CompareSearchSelector";
 import { MAX_COMPARE } from "@/lib/constants";
 import dynamic from "next/dynamic";
 import { getPerformanceDimensions } from "@/lib/scoring";
@@ -29,6 +29,14 @@ const GpuCompareChart = dynamic(() => import("@/components/charts/GpuCompareChar
   loading: ChartSkeleton,
 });
 const PortabilityCompareChart = dynamic(() => import("@/components/charts/PortabilityCompareChart"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
+const ThermalCompareChart = dynamic(() => import("@/components/charts/ThermalCompareChart"), {
+  ssr: false,
+  loading: ChartSkeleton,
+});
+const BatteryLifeCompareChart = dynamic(() => import("@/components/charts/BatteryLifeCompareChart"), {
   ssr: false,
   loading: ChartSkeleton,
 });
@@ -166,6 +174,24 @@ const ComparePageContent = () => {
               </h2>
               <GpuCompareChart models={configuredModels} />
             </div>
+            <div className="carbon-card p-4">
+              <h2
+                className="mb-2 font-mono text-sm font-semibold uppercase tracking-wider"
+                style={{ color: "var(--muted)" }}
+              >
+                Thermals & Noise
+              </h2>
+              <ThermalCompareChart models={configuredModels} />
+            </div>
+            <div className="carbon-card p-4">
+              <h2
+                className="mb-2 font-mono text-sm font-semibold uppercase tracking-wider"
+                style={{ color: "var(--muted)" }}
+              >
+                Battery Life
+              </h2>
+              <BatteryLifeCompareChart models={configuredModels} />
+            </div>
           </div>
           <div className="carbon-card hidden overflow-hidden p-4 sm:block">
             <CompareTable models={configuredModels} prices={allPrices} onRemove={removeFromCompare} />
@@ -188,9 +214,7 @@ const ComparePageContent = () => {
       )}
 
       {selectedIds.length < MAX_COMPARE && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <CompareSelector models={models} excludeIds={selectedIds} onSelect={toggleCompare} />
-        </div>
+        <CompareSearchSelector models={models} excludeIds={selectedIds} onSelect={toggleCompare} />
       )}
     </div>
   );
