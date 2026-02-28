@@ -44,7 +44,10 @@ export type ValidationCategory =
   | "Orphan Model Benchmark"
   | "Model Count"
   | "Benchmark Count"
-  | "Coverage";
+  | "Coverage"
+  | "Invalid PSREF URL"
+  | "Seed Price Out of Range"
+  | "Stale Seed Price";
 
 export interface ValidationIssue {
   readonly level: IssueLevel;
@@ -67,6 +70,13 @@ const VALID_SERIES = {
   Legion: ["5", "5i", "7", "7i", "Pro", "Slim"],
   Yoga: ["Yoga 6", "Yoga 7", "Yoga 9", "Yoga Slim", "Yoga Book"],
 } as const satisfies Record<Lineup, readonly Series[]>;
+
+const PSREF_PREFIXES: Record<Lineup, string> = {
+  ThinkPad: "https://psref.lenovo.com/Product/ThinkPad/",
+  "IdeaPad Pro": "https://psref.lenovo.com/Product/IdeaPad/",
+  Legion: "https://psref.lenovo.com/Product/Legion/",
+  Yoga: "https://psref.lenovo.com/Product/Yoga/",
+};
 
 // --- Issue dispatcher (keeps level and array in sync) ---
 
@@ -115,6 +125,17 @@ export const validateAllData = (): ValidationResult => {
           "error",
           "Invalid Lineup/Series",
           `Series "${laptop.series}" is not valid for lineup "${laptop.lineup}" (valid: ${validSeries?.join(", ")})`,
+          laptop.id,
+        );
+      }
+
+      // --- PSREF URL structural check ---
+      const expectedPrefix = PSREF_PREFIXES[laptop.lineup];
+      if (!laptop.psrefUrl.startsWith(expectedPrefix)) {
+        push(
+          "error",
+          "Invalid PSREF URL",
+          `psrefUrl "${laptop.psrefUrl}" does not start with "${expectedPrefix}"`,
           laptop.id,
         );
       }
@@ -229,6 +250,43 @@ export const validateAllData = (): ValidationResult => {
       push("error", "Duplicate Seed Price ID", `Duplicate seed price ID: "${price.id}"`, price.laptopId);
     }
     seedPriceIds.add(price.id);
+
+    // --- Seed price range check ---
+    if (price.price <= 0) {
+      push(
+        "error",
+        "Seed Price Out of Range",
+        `Seed price "${price.id}" has non-positive price ${price.price} CHF`,
+        price.laptopId,
+      );
+    } else if (price.price > 15_000) {
+      push(
+        "warning",
+        "Seed Price Out of Range",
+        `Seed price "${price.id}" exceeds 15 000 CHF (${price.price}) — verify`,
+        price.laptopId,
+      );
+    }
+
+    // --- Seed price date staleness ---
+    const ageMs = Date.now() - new Date(price.dateAdded).getTime();
+    if (Number.isNaN(ageMs)) {
+      push(
+        "error",
+        "Stale Seed Price",
+        `Seed price "${price.id}" has unparseable date "${price.dateAdded}"`,
+        price.laptopId,
+      );
+    }
+    const ageDays = ageMs / (1000 * 60 * 60 * 24);
+    if (!Number.isNaN(ageDays) && ageDays > 365) {
+      push(
+        "warning",
+        "Stale Seed Price",
+        `Seed price "${price.id}" date "${price.dateAdded}" is ${Math.round(ageDays)} days old`,
+        price.laptopId,
+      );
+    }
   }
 
   // --- Price baseline orphans ---
