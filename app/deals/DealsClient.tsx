@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useLaptops } from "@/lib/hooks/useLaptops";
 import { usePrices } from "@/lib/hooks/usePrices";
-import { computeBuySignal } from "@/lib/deals";
+import { computeBuySignal, getBuySignalMeta } from "@/lib/deals";
 import { marketSummary, componentMarkets, saleEvents, dealHighlights } from "@/data/market-insights";
 import MarketAlertBanner from "@/components/deals/MarketAlertBanner";
 import DealCard from "@/components/deals/DealCard";
@@ -15,10 +16,22 @@ import type { Laptop, BuySignal, Lineup } from "@/lib/types";
 
 type LineupFilter = Lineup | "All";
 
+const SIGNAL_ORDER: readonly BuySignal[] = ["buy-now", "good-deal", "hold", "wait"] as const;
+
 const DealsClient = () => {
   const models = useLaptops();
   const { allPrices, getBaseline } = usePrices();
   const [lineupFilter, setLineupFilter] = useState<LineupFilter>("All");
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<BuySignal>>(() => new Set<BuySignal>(["hold", "wait"]));
+
+  const toggleGroup = (signal: BuySignal) => {
+    setCollapsedGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(signal)) next.delete(signal);
+      else next.add(signal);
+      return next;
+    });
+  };
 
   const modelMap = useMemo(() => {
     const map = new Map<string, Laptop>();
@@ -68,13 +81,16 @@ const DealsClient = () => {
     return buySignals.filter((s) => s.model.lineup === lineupFilter);
   }, [buySignals, lineupFilter]);
 
-  const lineups: LineupFilter[] = ["All", "ThinkPad", "Yoga", "IdeaPad Pro", "Legion"];
-
-  const signalCounts = useMemo(() => {
-    const counts = { "buy-now": 0, "good-deal": 0, hold: 0, wait: 0 };
-    for (const s of filteredSignals) counts[s.signal]++;
-    return counts;
+  const groupedSignals = useMemo(() => {
+    const groups = new Map<BuySignal, typeof filteredSignals>();
+    for (const signal of SIGNAL_ORDER) groups.set(signal, []);
+    for (const s of filteredSignals) {
+      groups.get(s.signal)!.push(s);
+    }
+    return groups;
   }, [filteredSignals]);
+
+  const lineups: LineupFilter[] = ["All", "ThinkPad", "Yoga", "IdeaPad Pro", "Legion"];
 
   return (
     <div className="animate-fade-in space-y-8">
@@ -154,46 +170,68 @@ const DealsClient = () => {
         )}
       </section>
 
-      {/* Buy / Wait Signals */}
+      {/* Buy / Wait Signals — grouped by signal type */}
       <section>
-        <div className="mb-4 flex items-baseline justify-between">
-          <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>
-            Buy / Wait Signals
-            <span className="ml-2 text-sm font-normal" style={{ color: "var(--muted)" }}>
-              {filteredSignals.length}
-            </span>
-          </h2>
-          <div className="hidden gap-3 sm:flex">
-            {signalCounts["buy-now"] > 0 && (
-              <span className="text-xs font-medium text-status-success">{signalCounts["buy-now"]} buy now</span>
-            )}
-            {signalCounts["good-deal"] > 0 && (
-              <span className="text-xs font-medium" style={{ color: "var(--accent-light)" }}>
-                {signalCounts["good-deal"]} good deal
-              </span>
-            )}
-            {signalCounts.hold > 0 && (
-              <span className="text-xs font-medium" style={{ color: "var(--status-warning)" }}>
-                {signalCounts.hold} hold
-              </span>
-            )}
-            {signalCounts.wait > 0 && (
-              <span className="text-xs font-medium" style={{ color: "var(--muted)" }}>
-                {signalCounts.wait} wait
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="space-y-1.5">
-          {filteredSignals.map((s) => (
-            <BuyWaitSignal
-              key={s.model.id}
-              model={s.model}
-              baseline={s.baseline}
-              bestPrice={s.bestPrice}
-              signal={s.signal}
-            />
-          ))}
+        <h2 className="mb-4 text-lg font-semibold" style={{ color: "var(--foreground)" }}>
+          Buy / Wait Signals
+          <span className="ml-2 text-sm font-normal" style={{ color: "var(--muted)" }}>
+            {filteredSignals.length}
+          </span>
+        </h2>
+        <div className="space-y-3">
+          {SIGNAL_ORDER.map((signalType) => {
+            const items = groupedSignals.get(signalType);
+            if (!items || items.length === 0) return null;
+            const meta = getBuySignalMeta(signalType);
+            const isCollapsed = collapsedGroups.has(signalType);
+            return (
+              <div key={signalType} className="carbon-card overflow-hidden">
+                <button
+                  onClick={() => toggleGroup(signalType)}
+                  className="flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors hover:bg-carbon-700/30"
+                  aria-expanded={!isCollapsed}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="h-2 w-2 rounded-full" style={{ background: meta.color }} />
+                    <span className="text-sm font-semibold" style={{ color: meta.color }}>
+                      {meta.label}
+                    </span>
+                    <span
+                      className="rounded-full px-2 py-0.5 text-xs font-medium tabular-nums"
+                      style={{ background: `${meta.color}18`, color: meta.color }}
+                    >
+                      {items.length}
+                    </span>
+                  </div>
+                  {isCollapsed ? (
+                    <ChevronDown size={14} style={{ color: "var(--muted)" }} />
+                  ) : (
+                    <ChevronUp size={14} style={{ color: "var(--muted)" }} />
+                  )}
+                </button>
+                {!isCollapsed && (
+                  <div
+                    className="scrollbar-thin border-t"
+                    style={{
+                      borderColor: "var(--border-subtle)",
+                      maxHeight: items.length > 12 ? 480 : undefined,
+                      overflowY: items.length > 12 ? "auto" : undefined,
+                    }}
+                  >
+                    {items.map((s) => (
+                      <BuyWaitSignal
+                        key={s.model.id}
+                        model={s.model}
+                        baseline={s.baseline}
+                        bestPrice={s.bestPrice}
+                        signal={s.signal}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 

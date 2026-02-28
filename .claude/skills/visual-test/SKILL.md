@@ -30,14 +30,15 @@ Unified visual testing skill — screenshots, diffs, chart audits, and regressio
 
 Default routes (all modes unless `--route` specified):
 
-| Route                                        | Description             | Key Elements                          |
-| -------------------------------------------- | ----------------------- | ------------------------------------- |
-| `/`                                          | Home grid               | Laptop cards, filters, lineup pills   |
-| `/model/x1-carbon-gen12`                     | Model detail (flagship) | Dashboard, scores, charts, benchmarks |
-| `/model/legion-pro-7i-16-gen9`               | Model detail (Legion)   | Gaming section, high GPU scores       |
-| `/compare?ids=x1-carbon-gen12,t14s-gen5-amd` | Compare page            | Charts, table, radar                  |
-| `/pricing`                                   | Pricing page            | Price cards, import UI                |
-| `/hardware`                                  | Hardware guide          | CPU/GPU analysis cards                |
+| Route                                        | Description             | Key Elements                                |
+| -------------------------------------------- | ----------------------- | ------------------------------------------- |
+| `/`                                          | Home grid               | Laptop cards, filters, lineup pills         |
+| `/model/x1-carbon-gen12`                     | Model detail (flagship) | Dashboard, scores, charts, benchmarks       |
+| `/model/legion-pro-7i-16-gen9`               | Model detail (Legion)   | Gaming section, high GPU scores             |
+| `/compare?ids=x1-carbon-gen12,t14s-gen5-amd` | Compare page            | Charts, table, radar                        |
+| `/pricing`                                   | Pricing page            | Price cards, import UI                      |
+| `/deals`                                     | Deals & Market          | Buy/Wait signals, sale calendar, deal cards |
+| `/hardware`                                  | Hardware guide          | CPU/GPU analysis cards                      |
 
 ## Mode: Quick Check (default)
 
@@ -62,6 +63,7 @@ Home:         ✅/❌ [notes]
 Model Detail: ✅/❌ [notes]
 Model Legion: ✅/❌ [notes]
 Compare:      ✅/❌ [notes]
+Deals:        ✅/❌ [notes]
 Pricing:      ✅/❌ [notes]
 Hardware:     ✅/❌ [notes]
 Mobile:       ✅/❌ [notes]

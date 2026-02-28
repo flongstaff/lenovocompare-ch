@@ -22,11 +22,11 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
   const [hoveredEvent, setHoveredEvent] = useState<SaleEvent | null>(null);
   const currentMonth = new Date().getMonth();
 
-  const w = 780;
+  const w = 960;
   const padding = { top: 36, bottom: 60, left: 10, right: 10 };
   const chartW = w - padding.left - padding.right;
   const monthW = chartW / 12;
-  const laneH = 22;
+  const laneH = 24;
   const laneGap = 5;
 
   const lanes: { event: SaleEvent; lane: number }[] = [];
@@ -56,7 +56,12 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
         Swiss Sale Calendar
       </h3>
       <div className="scrollbar-thin overflow-x-auto">
-        <svg width={w} height={totalH} viewBox={`0 0 ${w} ${totalH}`} className="min-w-[640px]">
+        <svg
+          viewBox={`0 0 ${w} ${totalH}`}
+          className="w-full"
+          style={{ minWidth: 640, maxHeight: 200 }}
+          preserveAspectRatio="xMidYMid meet"
+        >
           <defs>
             {Object.entries(eventColors).map(([key, color]) => (
               <linearGradient key={key} id={`grad-${key.replace(/\s/g, "")}`} x1="0" y1="0" x2="1" y2="0">
@@ -129,7 +134,7 @@ const SeasonalCalendar = ({ events }: SeasonalCalendarProps) => {
           {/* Event bars */}
           {lanes.map(({ event, lane }) => {
             const startX = padding.left + (event.typicalMonth - 1) * monthW;
-            const barW = Math.max(monthW * 0.4, (event.durationDays / 30) * monthW);
+            const barW = Math.max(monthW * 0.85, (event.durationDays / 30) * monthW);
             const y = padding.top + lane * (laneH + laneGap);
             const color = eventColors[event.retailer] ?? "#a8a8a8";
             const gradId = `grad-${event.retailer.replace(/\s/g, "")}`;
