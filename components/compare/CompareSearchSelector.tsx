@@ -17,14 +17,16 @@ export const CompareSearchSelector = ({ models, excludeIds, onSelect }: CompareS
 
   const available = models.filter((m) => !excludeIds.includes(m.id));
 
-  const filtered = query.trim()
+  const hasQuery = query.trim().length > 0;
+
+  const filtered = hasQuery
     ? available.filter((m) => {
         const q = query.toLowerCase();
         return (
           m.name.toLowerCase().includes(q) || m.series.toLowerCase().includes(q) || m.lineup.toLowerCase().includes(q)
         );
       })
-    : available;
+    : [];
 
   const results = filtered.slice(0, 8);
 
@@ -64,19 +66,21 @@ export const CompareSearchSelector = ({ models, excludeIds, onSelect }: CompareS
             setQuery(e.target.value);
             setOpen(true);
           }}
-          onFocus={() => setOpen(true)}
+          onFocus={() => {
+            if (hasQuery) setOpen(true);
+          }}
         />
       </div>
       {open && results.length > 0 && (
         <div
-          className="absolute z-20 mt-1 w-full overflow-hidden border border-carbon-500 shadow-lg"
+          className="absolute z-20 mt-1 max-h-72 w-full overflow-y-auto border border-carbon-500 shadow-lg"
           style={{ background: "var(--card-bg)" }}
         >
           {results.map((m) => (
             <button
               key={m.id}
               onClick={() => handleSelect(m.id)}
-              className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm transition-colors hover:bg-carbon-600"
+              className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-carbon-600"
             >
               <Plus size={14} className="shrink-0" style={{ color: "var(--accent)" }} />
               <div className="min-w-0 flex-1">
@@ -94,7 +98,7 @@ export const CompareSearchSelector = ({ models, excludeIds, onSelect }: CompareS
           )}
         </div>
       )}
-      {open && query.trim() && results.length === 0 && (
+      {open && hasQuery && results.length === 0 && (
         <div
           className="absolute z-20 mt-1 w-full border border-carbon-500 px-3 py-3 text-sm shadow-lg"
           style={{ background: "var(--card-bg)", color: "var(--muted)" }}
