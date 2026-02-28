@@ -7,6 +7,7 @@ import { linuxCompat } from "@/data/linux-compat";
 import { modelEditorial } from "@/data/model-editorial";
 import { priceBaselines } from "@/data/price-baselines";
 import { seedPrices } from "@/data/seed-prices";
+import type { Lineup } from "@/lib/types";
 
 describe("data integrity", () => {
   it("has no duplicate laptop IDs", () => {
@@ -100,6 +101,34 @@ describe("data integrity", () => {
     const priced = new Set(seedPrices.map((p) => p.laptopId));
     const missing = laptops.filter((l) => !priced.has(l.id));
     expect(missing.map((l) => l.id)).toEqual([]);
+  });
+
+  it("every laptop psrefUrl starts with the correct lineup prefix", () => {
+    const PSREF_PREFIXES: Record<Lineup, string> = {
+      ThinkPad: "https://psref.lenovo.com/Product/ThinkPad/",
+      "IdeaPad Pro": "https://psref.lenovo.com/Product/IdeaPad/",
+      Legion: "https://psref.lenovo.com/Product/Legion/",
+      Yoga: "https://psref.lenovo.com/Product/Yoga/",
+    };
+    const invalid = laptops.filter((l) => !l.psrefUrl.startsWith(PSREF_PREFIXES[l.lineup]));
+    expect(invalid.map((l) => l.id)).toEqual([]);
+  });
+
+  it("all seed price laptopIds reference valid laptops", () => {
+    const laptopIds = new Set(laptops.map((l) => l.id));
+    const orphaned = seedPrices.filter((p) => !laptopIds.has(p.laptopId));
+    expect(orphaned.map((p) => `${p.id}: ${p.laptopId}`)).toEqual([]);
+  });
+
+  it("all seed prices have a positive CHF value", () => {
+    const invalid = seedPrices.filter((p) => p.price <= 0);
+    expect(invalid.map((p) => `${p.id}: ${p.price} CHF`)).toEqual([]);
+  });
+
+  it("all seed price dates are valid ISO format", () => {
+    const dateRe = /^\d{4}-\d{2}-\d{2}$/;
+    const invalid = seedPrices.filter((p) => !dateRe.test(p.dateAdded));
+    expect(invalid.map((p) => `${p.id}: ${p.dateAdded}`)).toEqual([]);
   });
 
   it("thermal values are plausible", () => {

@@ -1,7 +1,7 @@
 {
   "name": "lenovocompare-ch",
   "version": "0.2.0",
-  "description": "Swiss-market Lenovo laptop comparison tool — 98+ models across ThinkPad, IdeaPad Pro, and Legion with scoring, pricing, and hardware analysis",
+  "description": "Swiss-market Lenovo laptop comparison tool — 124+ models across ThinkPad, IdeaPad Pro, Legion, and Yoga with scoring, pricing, and hardware analysis",
   "author": "flong",
   "license": "MIT",
   "repository": {
@@ -34,7 +34,8 @@
     "merge-psref": "npx tsx scripts/merge-psref.ts",
     "verify-deals": "npx tsx scripts/verify-deals.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "framer-motion": "^12.34.2",
@@ -46,6 +47,7 @@
     "recharts": "^3.7.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "14.2.35",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^20",
