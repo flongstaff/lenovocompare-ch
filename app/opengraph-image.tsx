@@ -54,9 +54,9 @@ const OgImage = () =>
           color: "#6f6f6f",
         }}
       >
-        <span>98+ Models</span>
+        <span>124+ Models</span>
         <span style={{ color: "#393939" }}>|</span>
-        <span>ThinkPad · IdeaPad Pro · Legion</span>
+        <span>ThinkPad · IdeaPad Pro · Legion · Yoga</span>
         <span style={{ color: "#393939" }}>|</span>
         <span>Swiss Pricing in CHF</span>
       </div>

@@ -4,7 +4,7 @@ import CompareClient from "./CompareClient";
 export const metadata: Metadata = {
   title: "Compare Laptops",
   description:
-    "Compare Lenovo laptop specs side by side. Select up to 4 ThinkPad, IdeaPad Pro, or Legion models to see how they stack up in performance, display, weight, and Swiss pricing.",
+    "Compare Lenovo laptop specs side by side. Select up to 4 ThinkPad, IdeaPad Pro, Legion, or Yoga models to see how they stack up in performance, display, weight, and Swiss pricing.",
   alternates: { canonical: "/compare" },
   openGraph: {
     title: "Compare Laptops",

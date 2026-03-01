@@ -4,7 +4,7 @@ import DealsClient from "./DealsClient";
 export const metadata: Metadata = {
   title: "Deals & Market",
   description:
-    "Current Lenovo laptop deals in Switzerland, buy/wait signals, Swiss sale calendar, and RAM/storage market tracker. Find the best time to buy ThinkPad, IdeaPad Pro, and Legion models.",
+    "Current Lenovo laptop deals in Switzerland, buy/wait signals, Swiss sale calendar, and RAM/storage market tracker. Find the best time to buy ThinkPad, IdeaPad Pro, Legion, and Yoga models.",
   alternates: { canonical: "/deals" },
   openGraph: {
     title: "Deals & Market",

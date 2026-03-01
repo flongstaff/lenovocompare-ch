@@ -59,7 +59,7 @@ const HardwareClient = () => {
           Hardware Guide
         </h1>
         <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
-          In-depth analysis of every CPU and GPU across ThinkPad, IdeaPad Pro, and Legion
+          In-depth analysis of every CPU and GPU across ThinkPad, IdeaPad Pro, Legion, and Yoga
         </p>
       </div>
 

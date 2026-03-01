@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s — LenovoCompare CH",
   },
   description:
-    "Compare 98+ Lenovo laptops across ThinkPad, IdeaPad Pro, and Legion lineups with Swiss pricing, scoring, and hardware analysis.",
+    "Compare 124+ Lenovo laptops across ThinkPad, IdeaPad Pro, Legion, and Yoga lineups with Swiss pricing, scoring, and hardware analysis.",
   openGraph: {
     type: "website",
     locale: "de_CH",

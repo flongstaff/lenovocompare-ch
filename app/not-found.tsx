@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Search, Laptop, Gamepad2, Briefcase } from "lucide-react";
+import { Search, Laptop, Gamepad2, Briefcase, FlipVertical2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
@@ -12,7 +12,7 @@ const NotFound = () => (
     <p className="mb-2 text-6xl font-bold text-trackpoint">404</p>
     <h1 className="mb-2 text-xl font-semibold text-carbon-100">Page not found</h1>
     <p className="mb-6 max-w-md text-sm text-carbon-400">
-      The model ID may be invalid or this page has moved. Browse all 98+ models or try a different lineup below.
+      The model ID may be invalid or this page has moved. Browse all 124+ models or try a different lineup below.
     </p>
 
     <div className="mb-6 flex flex-wrap justify-center gap-2">
@@ -34,6 +34,11 @@ const NotFound = () => (
           icon: Gamepad2,
           label: "Legion",
           color: "border-lineup-legion/40 text-lineup-legion hover:bg-lineup-legion/10",
+        },
+        {
+          icon: FlipVertical2,
+          label: "Yoga",
+          color: "border-lineup-yoga/40 text-lineup-yoga hover:bg-lineup-yoga/10",
         },
       ].map((lineup) => (
         <Link
