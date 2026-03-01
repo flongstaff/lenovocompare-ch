@@ -99,7 +99,14 @@ describe("filterThinkPads", () => {
 
   it("filters by price range includes models with matching prices", () => {
     const prices: SwissPrice[] = [
-      { id: "test-1", laptopId: "x1-carbon-gen12", price: 1500, retailer: "Digitec", date: "2024-06-01" },
+      {
+        id: "test-1",
+        laptopId: "x1-carbon-gen12",
+        price: 1500,
+        retailer: "Digitec",
+        dateAdded: "2024-06-01",
+        isUserAdded: false,
+      },
     ];
     const filter: FilterState = { ...defaultFilter, minPrice: 1000, maxPrice: 2000 };
     const result = filterThinkPads(laptops, filter, prices);

@@ -16,7 +16,8 @@ describe("generateAnalysis", () => {
 
   it("includes scenarios array", () => {
     const analysis = generateAnalysis(thinkpad, laptops);
-    expect(analysis.scenarios.length).toBeGreaterThan(0);
+    expect(analysis.scenarios).toBeDefined();
+    expect(analysis.scenarios!.length).toBeGreaterThan(0);
   });
 
   it("returns gamingTier", () => {
@@ -52,9 +53,9 @@ describe("generateUseCaseScenarios (via generateAnalysis)", () => {
   it("returns array of scenario verdicts", () => {
     const analysis = generateAnalysis(thinkpad, laptops);
     expect(Array.isArray(analysis.scenarios)).toBe(true);
-    expect(analysis.scenarios.length).toBeGreaterThan(0);
+    expect(analysis.scenarios!.length).toBeGreaterThan(0);
 
-    for (const s of analysis.scenarios) {
+    for (const s of analysis.scenarios!) {
       expect(s).toHaveProperty("scenario");
       expect(s).toHaveProperty("verdict");
       expect(s).toHaveProperty("explanation");
@@ -64,21 +65,21 @@ describe("generateUseCaseScenarios (via generateAnalysis)", () => {
 
   it("ThinkPad gets favorable Business/Office verdict", () => {
     const analysis = generateAnalysis(thinkpad, laptops);
-    const office = analysis.scenarios.find((s) => s.scenario.includes("Office"));
+    const office = analysis.scenarios!.find((s) => s.scenario.includes("Office"));
     expect(office).toBeDefined();
     expect(["good", "excellent", "overkill"]).toContain(office!.verdict);
   });
 
   it("Legion gets favorable Gaming verdict", () => {
     const analysis = generateAnalysis(legion, laptops);
-    const gaming = analysis.scenarios.find((s) => s.scenario === "Gaming");
+    const gaming = analysis.scenarios!.find((s) => s.scenario === "Gaming");
     expect(gaming).toBeDefined();
     expect(["good", "excellent", "overkill"]).toContain(gaming!.verdict);
   });
 
   it("covers standard scenario set", () => {
     const analysis = generateAnalysis(thinkpad, laptops);
-    const names = analysis.scenarios.map((s) => s.scenario);
+    const names = analysis.scenarios!.map((s) => s.scenario);
     expect(names).toContain("Office / Productivity");
     expect(names).toContain("Software Development");
     expect(names).toContain("Gaming");

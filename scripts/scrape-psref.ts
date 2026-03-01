@@ -238,7 +238,6 @@ const discoverProductUrl = async (page: Page, modelName: string, lineup: string)
           const items = document.querySelectorAll("#home_suggestions .global_suggestions_array_item");
           for (const item of items) {
             const href = (item as HTMLElement).dataset.href || "";
-            const text = (item as HTMLElement).textContent?.toLowerCase() || "";
 
             // Must be a Product link matching our lineup
             if (!href.includes("/Product/")) continue;

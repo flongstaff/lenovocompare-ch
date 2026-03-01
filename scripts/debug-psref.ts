@@ -62,8 +62,6 @@ async function debug() {
         const graphicsStart = text.indexOf("Graphics\n", procStart);
         const memoryKeyword = text.indexOf("MEMORY\n");
         const storageKeyword = text.indexOf("STORAGE\n");
-        const designKeyword = text.indexOf("DESIGN\n");
-
         // Processor section
         if (procStart >= 0) {
           const end = graphicsStart > procStart ? graphicsStart : procStart + 1500;

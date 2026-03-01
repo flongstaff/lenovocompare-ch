@@ -22,53 +22,14 @@ Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and
 
 ## Gotchas
 
-- After deleting/moving files, `rm -rf .next` before rebuilding — stale cache causes 500 errors
-- If `rm -rf .next` still gives `_document` errors, also `rm -rf node_modules/.cache`
-- lucide-react `Keyboard` icon shadows `Keyboard` type from `lib/types.ts` — use `as KeyboardIcon` alias; check for similar name collisions with `Monitor`, `Battery`, etc.
-- `useSearchParams()` requires a `<Suspense>` boundary wrapping the component
-- lucide-react icon `size` prop type is `string | number`, not just `number`
-- Footer uses named export (`export const Footer`), Header uses default export
-- When adding MCP servers, edit `.mcp.json` directly — `claude mcp add` cannot run inside a session. All servers use Docker (`docker run`), not npx
-- GitHub tools are provided via Docker MCP (MCP_DOCKER), not a standalone server — use `mcp__MCP_DOCKER__` prefixed tools for PRs, issues, and code search
-- New fields on `Laptop` interface must be optional (`?`) unless you update all models — `psrefUrl` is the only required non-optional field added post-launch
-- PSREF URL pattern: ThinkPad uses `Product/ThinkPad/Lenovo_ThinkPad_{Model}_{MachineType}`. IdeaPad Pro uses `Product/IdeaPad/IdeaPad_Pro_{Model}_{MachineType}` (no `Lenovo_` prefix, drop "i" from slug). Legion uses `Product/Legion/Legion_{Model}_{MachineType}` (no `Lenovo_` prefix, drop "i" from slug for Gen 9+). Spaces → underscores, no Intel/AMD suffix in URL
-- Model IDs use platform suffixes: `t14-gen5-intel`, `t14s-gen5-amd` — omit suffix only for single-platform models (e.g., `p1-gen7`)
-- PostToolUse hooks auto-modify files on save — always re-read files before writing if time has passed
-- PostToolUse ESLint hook strips "unused" imports immediately — if adding imports + code that uses them, do it in a single Edit or the imports vanish before the code referencing them lands
-- `import type` vs `import` — the linter auto-converts to `import type` when values aren't used at runtime; types used in function return annotations may get stripped if the function body isn't present yet
-- recharts components must be in `"use client"` files — they fail during SSR/prerendering without it
-- recharts `RadarChart` with long axis labels (e.g. "Connectivity", "Portability") overflows container — use `outerRadius="60%"` with generous `margin` and strip lineup prefix from legend names
-- ScoreBar `color` prop must be a raw hex value (e.g. `"#0f62fe"`), NOT a CSS variable — `var(--accent)90` creates invalid CSS when hex opacity suffix is appended in the gradient
-- `npm start` (standalone mode) doesn't serve CSS properly — use `npm run dev` for visual testing
-- Editing `.claude/settings.json` with grep patterns containing `(` breaks JSON validation in the Edit tool — use Write (full file) instead
-- `laptops.ts` array ends with `] as const;` (not `];`) — use `Read` on last 5 lines to find insertion point for new models
-- `.mcp.json` is gitignored (machine-specific) — MCP server config won't transfer via git clone
-- Use `laptops.ts` and `laptopId` in new/updated skill/agent files (not deprecated `thinkpads.ts`/`thinkpadId`). Run `/stale-ref-check` to audit
-- `x?.length > 0` fails TypeScript — optional chaining returns `number | undefined`, use `(x?.length ?? 0) > 0`
-- `Math.min(...[])` returns `Infinity` — always guard empty arrays before spread into min/max
-- Scoring sub-scores must use `Math.max(0, Math.min(max, ...))` (double clamp) — `Math.min` alone allows negative values from formulas like `(value - baseline) / range`
-- `getValueScore` and all score functions must cap at 100 — uncapped scores break compare delta calculations
-- `getPriceDiscount(price, msrp)` — guard `msrp === 0` to avoid NaN from division by zero
-- Hook tests using `sessionStorage` or `localStorage` need `beforeEach(() => { sessionStorage.clear(); localStorage.clear(); })` — state leaks between test cases via storage initializers
-- URL param parsers that build result objects: only assign non-null values — assigning `null` creates keys that inflate `Object.keys().length` and trigger false-positive state updates
-- recharts `ScatterChart` with `lineType="joint"` is preferred for sparse time-irregular data (e.g., price entries) over LineChart
-- Content filter may block Code of Conduct text — reference Contributor Covenant by URL link instead of embedding full policy text
-- Community health files: `CODE_OF_CONDUCT.md`, `SECURITY.md`, `SUPPORT.md`, `CHANGELOG.md`, `.github/FUNDING.yml` — keep version in SECURITY.md synced with `package.json`
-- Bulk renames across codebase: use `Grep` to find all occurrences first, then `Edit` with `replace_all: true` per file — confirm the target name with user before starting
-- Playwright MCP runs in Docker — cannot reach `localhost:3000` on the host. Use `npx playwright screenshot` (native CLI) instead of MCP for local screenshots
-- PostToolUse hooks may make large autonomous refactors (e.g., replacing framer-motion with CSS animations, rewriting recharts components as pure SVG, extracting shared constants) — review `git diff` before committing to understand what hooks changed vs what you changed. Hooks can introduce unused imports that break builds — always run `npm run build` after hook-modified files
-- Home page (`HomeClient.tsx`) uses `mx-auto max-w-7xl px-4 sm:px-6` container — matches header's max-width. Other page clients may need similar wrapping
-- BenchmarksSection should only show benchmark-derived data (scores, measured values, computed insights like ratios/tier ratings/accuracy) — never raw model specs (cores, RAM type, display resolution) which are already in the Specs card. Use `InsightRow` for contextual assessments, not `SpecRow` for duplicated specs
-- `.claude/settings.json` hooks use long shell commands in JSON — always use Write (full file) for edits, and validate with `python3 -c "import json; json.load(open('.claude/settings.json'))"` after
-- `useMemo`/`useCallback` must be called before early returns — wrap in null-safe lambdas (e.g., `useMemo(() => model ? compute(model) : null, [model])`) and include the null case in the guard
-- Named export dynamic imports: `dynamic(() => import('...').then(m => ({ default: m.NamedExport })), { ssr: false })`
-- Replacing recharts with pure SVG for small visualizations (e.g., MiniRadar) dramatically reduces bundle — recharts + d3 chain is ~324 KB
-- CSS `@keyframes` + `animationDelay` style prop replaces `framer-motion` for simple stagger animations without the ~185 KB bundle cost
-- Home page precomputes scores via `useMemo` map in HomeClient, passes `precomputedScores` prop to LaptopCard — avoids per-card `getModelScores()` calls
-- `useCompare` uses `sessionStorage` (not `localStorage`) — compare selections persist during navigation/refresh within a tab but clear on new tab/session. Don't switch to `localStorage` or plain `useState`
-- Cross-page shared React state: `useState` in a hook called from different page components creates independent instances. Use `sessionStorage` with lazy initializer or a context provider in layout for state that must persist across navigation
-- Permission rules live in `.claude/settings.local.json` (machine-specific, 104 allow rules) — check there before adding to `settings.json`
-- When adding a new lineup or series, update `VALID_LINEUPS` and `VALID_SERIES` in `lib/hooks/useFilters.ts` and `SERIES_DESCRIPTIONS` in `lib/analysis.ts` — without this, filter selections silently drop on URL deserialization
+See project rules for full details:
+
+@rules/gotchas-build-hooks.md
+@rules/gotchas-charts.md
+@rules/gotchas-data.md
+@rules/gotchas-scoring-ts.md
+@rules/gotchas-react.md
+@rules/gotchas-config.md
 
 ## Claude Code Automations
 
