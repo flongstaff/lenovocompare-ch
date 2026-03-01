@@ -38,7 +38,6 @@
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
-    "framer-motion": "^12.34.2",
     "geist": "^1.7.0",
     "lucide-react": "^0.575.0",
     "next": "14.2.35",
@@ -48,6 +47,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "14.2.35",
+    "@playwright/test": "^1.58.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^20",

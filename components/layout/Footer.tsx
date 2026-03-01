@@ -59,7 +59,7 @@ export const Footer = () => (
         <div>
           <h3 className="mb-3 font-mono text-[10px] uppercase tracking-wider text-carbon-400">About</h3>
           <p className="text-xs leading-relaxed text-carbon-400">
-            Swiss-market Lenovo comparison tool covering ThinkPad, IdeaPad Pro, and Legion lineups.
+            Swiss-market Lenovo comparison tool covering ThinkPad, IdeaPad Pro, Legion, and Yoga lineups.
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <a
@@ -79,7 +79,7 @@ export const Footer = () => (
               Report Bug <ExternalLink size={9} className="opacity-50" />
             </a>
           </div>
-          <p className="mt-3 font-mono text-[10px] text-carbon-500">Built with Next.js · v0.2 · 98+ models</p>
+          <p className="mt-3 font-mono text-[10px] text-carbon-500">Built with Next.js · v0.2 · 124+ models</p>
         </div>
       </div>
 
@@ -89,8 +89,8 @@ export const Footer = () => (
           retailer&apos;s site. Not affiliated with Lenovo.
         </p>
         <p className="max-w-2xl text-[10px] leading-relaxed text-carbon-600">
-          ThinkPad, IdeaPad, and Legion are trademarks of Lenovo. Cinebench is a trademark of Maxon. Geekbench is a
-          trademark of Primate Labs. 3DMark is a trademark of UL. PugetBench is a trademark of Puget Systems. Game
+          ThinkPad, IdeaPad, Yoga, and Legion are trademarks of Lenovo. Cinebench is a trademark of Maxon. Geekbench is
+          a trademark of Primate Labs. 3DMark is a trademark of UL. PugetBench is a trademark of Puget Systems. Game
           titles are trademarks of their respective publishers.
         </p>
       </div>

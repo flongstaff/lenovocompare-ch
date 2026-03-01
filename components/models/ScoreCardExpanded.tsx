@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import type { Laptop } from "@/lib/types";
 import type { ScoreComponent } from "@/lib/scoring";
@@ -128,59 +127,58 @@ const ScoreCardExpanded = ({ dimensions, model }: Props) => {
                 </div>
               </div>
               <div className="h-2 w-24 shrink-0 rounded-full" style={{ background: "var(--surface)" }}>
-                <motion.div
+                <div
                   className="h-full rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: inView ? `${dim.score}%` : 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 * index }}
-                  style={{ background: `linear-gradient(90deg, ${dim.color}60, ${dim.color})` }}
+                  style={{
+                    width: inView ? `${dim.score}%` : 0,
+                    background: `linear-gradient(90deg, ${dim.color}60, ${dim.color})`,
+                    transition: `width 0.6s ease-out ${0.1 * index}s`,
+                  }}
                 />
               </div>
-              <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }} className="shrink-0">
+              <div
+                className="shrink-0 transition-transform duration-200"
+                style={{ transform: `rotate(${isOpen ? 180 : 0}deg)` }}
+              >
                 <ChevronDown size={14} style={{ color: "var(--muted)" }} />
-              </motion.div>
+              </div>
             </button>
-            <AnimatePresence>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="overflow-hidden"
-                >
-                  <div className="mb-1 p-3" style={{ background: "var(--surface)" }}>
-                    {/* Score Breakdown */}
-                    <div className="mb-2 space-y-1">
-                      <span
-                        className="font-mono text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: "var(--muted)" }}
-                      >
-                        Breakdown
-                      </span>
-                      {dim.key === "gpu" && (
-                        <div className="text-xs" style={{ color: "var(--muted)" }}>
-                          Tier: {getGpuScoreBreakdown(model.gpu.name).tier}
-                        </div>
-                      )}
-                      {getBreakdownComponents(dim.key, model).map((comp) => (
-                        <SubScore key={comp.label} component={comp} color={dim.color} />
-                      ))}
-                    </div>
-
-                    {/* Contextual Comparison */}
-                    <div className="mb-2 text-xs" style={{ color: "var(--muted)" }}>
-                      {getScoreContext(dim.key, model).comparisonText}
-                    </div>
-
-                    {/* Practical Interpretation */}
-                    <div className="text-xs italic" style={{ color: "var(--muted)" }}>
-                      {getInterpretation(dim.key, dim.score)}
-                    </div>
+            <div
+              className="grid transition-[grid-template-rows] duration-200"
+              style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+            >
+              <div className="overflow-hidden">
+                <div className="mb-1 p-3" style={{ background: "var(--surface)" }}>
+                  {/* Score Breakdown */}
+                  <div className="mb-2 space-y-1">
+                    <span
+                      className="font-mono text-xs font-semibold uppercase tracking-wider"
+                      style={{ color: "var(--muted)" }}
+                    >
+                      Breakdown
+                    </span>
+                    {dim.key === "gpu" && (
+                      <div className="text-xs" style={{ color: "var(--muted)" }}>
+                        Tier: {getGpuScoreBreakdown(model.gpu.name).tier}
+                      </div>
+                    )}
+                    {getBreakdownComponents(dim.key, model).map((comp) => (
+                      <SubScore key={comp.label} component={comp} color={dim.color} />
+                    ))}
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+
+                  {/* Contextual Comparison */}
+                  <div className="mb-2 text-xs" style={{ color: "var(--muted)" }}>
+                    {getScoreContext(dim.key, model).comparisonText}
+                  </div>
+
+                  {/* Practical Interpretation */}
+                  <div className="text-xs italic" style={{ color: "var(--muted)" }}>
+                    {getInterpretation(dim.key, dim.score)}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         );
       })}

@@ -22,5 +22,10 @@ export const MiniRadar = ({ scores, color }: MiniRadarProps) => {
     portability: scores.portability,
   };
 
-  return <PolarBar scores={dimensions} compact color={color} />;
+  return (
+    <div className="relative">
+      <div className="absolute inset-0 rounded-full opacity-[0.12] blur-xl" style={{ background: color }} />
+      <PolarBar scores={dimensions} compact color={color} />
+    </div>
+  );
 };

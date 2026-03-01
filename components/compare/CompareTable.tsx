@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { Laptop, SwissPrice } from "@/lib/types";
@@ -326,7 +325,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
   };
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+    <div className="animate-fade-in-up">
       <div className="scrollbar-thin overflow-x-auto border border-carbon-500">
         <table className="w-full min-w-[600px] table-fixed border-collapse text-sm">
           <thead>
@@ -543,7 +542,7 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
           <ChevronUp size={14} />
         </button>
       )}
-    </motion.div>
+    </div>
   );
 };
 

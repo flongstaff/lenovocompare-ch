@@ -53,7 +53,13 @@ const LaptopCard = ({
   return (
     <div
       className="carbon-card card-glow group flex animate-card-in flex-col"
-      style={{ color: accent, animationDelay: `${Math.min(index * 40, 600)}ms` }}
+      style={
+        {
+          color: accent,
+          animationDelay: `${Math.min(index * 40, 600)}ms`,
+          "--card-accent": accent,
+        } as React.CSSProperties
+      }
     >
       {/* Series accent bar with gradient fade */}
       <div
@@ -149,7 +155,7 @@ const LaptopCard = ({
 
         {/* Scores */}
         {scores.perf > 0 && (
-          <div className="mt-4 space-y-1.5 border-t border-carbon-600/60 pt-3">
+          <div className="mt-4 space-y-1.5 border-t border-carbon-600/40 pt-3">
             <div className="mb-2 flex justify-center">
               <MiniRadar
                 scores={{
@@ -179,22 +185,22 @@ const LaptopCard = ({
         )}
 
         {/* Price + Action */}
-        <div className="mt-4 flex items-end justify-between border-t border-carbon-600/60 pt-3">
+        <div className="mt-4 flex items-end justify-between border-t border-carbon-600/40 pt-3">
           <div>
             {scores.lowestPrice !== null ? (
               <>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-carbon-500">From</p>
-                <p className="font-mono text-xl font-semibold tracking-tight text-carbon-50">
+                <p className="font-mono text-[9px] uppercase tracking-[0.15em] text-carbon-500">From</p>
+                <p className="font-mono text-[22px] font-bold tabular-nums leading-tight text-carbon-50">
                   {formatCHF(scores.lowestPrice)}
                 </p>
               </>
             ) : (
-              <p className="text-sm italic text-carbon-500">No price yet</p>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-carbon-500">Price TBD</p>
             )}
           </div>
           <Link
             href={`/model/${model.id}`}
-            className="carbon-btn-ghost !px-3 !py-1.5 !text-xs opacity-70 transition-opacity duration-200 group-hover:opacity-100"
+            className="border border-transparent px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-carbon-400 transition-all duration-200 hover:border-carbon-500 hover:text-carbon-100 group-hover:text-carbon-200"
           >
             Details →
           </Link>

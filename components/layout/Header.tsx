@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import { Menu, X, LayoutGrid, GitCompareArrows, Cpu, Tag, Flame } from "lucide-react";
 import { useState } from "react";
 
@@ -21,15 +20,11 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-carbon-600 bg-carbon-700/80 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
-        <motion.div
-          className="flex-shrink-0"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400 }}
-        >
+        <div className="flex-shrink-0 transition-transform duration-200 hover:scale-105">
           <Link href="/" className="flex h-8 w-8 items-center justify-center border border-carbon-500 bg-carbon-800">
             <div className="h-2.5 w-2.5 rounded-full bg-trackpoint shadow-[0_0_6px_rgba(218,30,40,0.5)]" />
           </Link>
-        </motion.div>
+        </div>
 
         <Link href="/" className="flex items-baseline gap-1.5">
           <span className="text-lg font-semibold tracking-tight">

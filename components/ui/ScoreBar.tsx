@@ -44,12 +44,12 @@ export const ScoreBar = ({
           {label}
         </span>
       )}
-      <div className={`relative flex-1 ${isMd ? "h-2.5" : "h-1.5"} bg-carbon-600/50`}>
+      <div className={`relative flex-1 overflow-hidden rounded-full ${isMd ? "h-2" : "h-1.5"} bg-carbon-600/40`}>
         <div
-          className="score-fill h-full overflow-hidden transition-all duration-700 ease-out"
+          className="score-fill h-full rounded-full transition-all duration-700 ease-out"
           style={{
             width: `${Math.max(pct, 8)}%`,
-            background: `linear-gradient(90deg, ${color}90, ${color})`,
+            background: `linear-gradient(90deg, ${color}70, ${color})`,
           }}
         />
         {maxRef !== undefined && maxRef > 0 && (

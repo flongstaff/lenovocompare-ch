@@ -31,10 +31,10 @@ export const SeriesFilter = ({ selected, selectedLineups, onToggle }: SeriesFilt
             onClick={() => onToggle(s)}
             aria-pressed={active}
             aria-label={`${s} series${active ? " (active)" : ""}`}
-            className={`rounded-full border px-3 py-1 text-sm font-medium transition-colors ${
+            className={`border px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wide transition-colors ${
               active
                 ? colors.chipClass
-                : "border-carbon-500 text-carbon-300 hover:border-carbon-400 hover:text-carbon-100"
+                : "border-carbon-600 text-carbon-400 hover:border-carbon-400 hover:text-carbon-100"
             }`}
             style={
               active

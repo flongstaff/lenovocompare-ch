@@ -223,7 +223,7 @@ const HomeClient = () => {
           </span>
         </h1>
         <p className="mt-3 max-w-lg text-sm leading-relaxed text-carbon-400">
-          Compare specs and Swiss pricing across ThinkPad, IdeaPad Pro, and Legion
+          Compare specs and Swiss pricing across ThinkPad, IdeaPad Pro, Legion, and Yoga
         </p>
 
         {/* Stats row */}
@@ -233,7 +233,7 @@ const HomeClient = () => {
               { value: modelCounter, label: "Models", suffix: "+" },
               { value: cpuCounter, label: "CPUs", suffix: "+" },
               { value: gpuCounter, label: "GPUs", suffix: "+" },
-              { value: 3, label: "Lineups", suffix: "" },
+              { value: 4, label: "Lineups", suffix: "" },
             ] as const
           ).map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-6 sm:gap-8">

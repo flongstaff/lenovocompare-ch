@@ -42,6 +42,7 @@ const config: Config = {
           thinkpad: "var(--lineup-thinkpad)",
           ideapad: "var(--lineup-ideapad)",
           legion: "var(--lineup-legion)",
+          yoga: "var(--lineup-yoga)",
         },
       },
       keyframes: {

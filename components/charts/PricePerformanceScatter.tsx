@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+
 import { computeEfficiencyFrontier, mapRange, clamp } from "@/lib/chart-utils";
 import { BENCHMARK_CAT_COLORS } from "@/lib/constants";
 
@@ -574,37 +574,36 @@ export const PricePerformanceScatter = ({ models }: PricePerformanceScatterProps
           })()}
 
         {/* Data points */}
-        <AnimatePresence>
-          {visibleModels.map((model, i) => {
-            const cx = xScale(model.price);
-            const cy = yScale(model.perf);
-            const r = mapRange(model.perf, 20, 100, 3.5, 7);
-            const isHovered = hoveredId === model.id;
-            const color = LINEUP_COLORS[model.lineup] ?? "#a8a8a8";
-            const filterName = `glow-${model.lineup.replace(/\s/g, "")}`;
+        {visibleModels.map((model, i) => {
+          const cx = xScale(model.price);
+          const cy = yScale(model.perf);
+          const r = mapRange(model.perf, 20, 100, 3.5, 7);
+          const isHovered = hoveredId === model.id;
+          const color = LINEUP_COLORS[model.lineup] ?? "#a8a8a8";
+          const filterName = `glow-${model.lineup.replace(/\s/g, "")}`;
 
-            return (
-              <motion.circle
-                key={model.id}
-                data-model-id={model.id}
-                cx={cx}
-                cy={cy}
-                r={isHovered ? r * 1.3 : r}
-                fill={color}
-                opacity={dotOpacity(model)}
-                filter={isHovered ? `url(#${filterName})` : undefined}
-                cursor="pointer"
-                initial={{ opacity: 0, r: 0 }}
-                animate={{ opacity: dotOpacity(model), r: isHovered ? r * 1.3 : r }}
-                exit={{ opacity: 0, r: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.03 }}
-                onMouseEnter={(e) => handleMouseEnter(model, e as unknown as React.MouseEvent<SVGCircleElement>)}
-                onMouseLeave={handleMouseLeave}
-                onClick={() => handleClick(model)}
-              />
-            );
-          })}
-        </AnimatePresence>
+          return (
+            <circle
+              key={model.id}
+              data-model-id={model.id}
+              className="scatter-dot-enter"
+              cx={cx}
+              cy={cy}
+              r={isHovered ? r * 1.3 : r}
+              fill={color}
+              opacity={dotOpacity(model)}
+              filter={isHovered ? `url(#${filterName})` : undefined}
+              cursor="pointer"
+              style={{
+                animationDelay: `${i * 0.03}s`,
+                transition: "r 0.2s ease-out, opacity 0.2s ease-out",
+              }}
+              onMouseEnter={(e) => handleMouseEnter(model, e as unknown as React.MouseEvent<SVGCircleElement>)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleClick(model)}
+            />
+          );
+        })}
 
         {/* Drag selection rectangle */}
         {drag && (

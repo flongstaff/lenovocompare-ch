@@ -80,102 +80,119 @@ export const FilterBar = ({
       </div>
 
       {expanded && (
-        <fieldset
-          id="filter-panel"
-          className="carbon-card grid animate-slide-up grid-cols-2 gap-4 border-0 p-4 sm:grid-cols-3 lg:grid-cols-6"
-        >
-          <div>
-            <label htmlFor="filter-min-price" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
-              Min Price (CHF)
-            </label>
-            <input
-              id="filter-min-price"
-              type="number"
-              placeholder="0"
-              value={filters.minPrice ?? ""}
-              onChange={(e) => onUpdateFilter("minPrice", e.target.value ? Number(e.target.value) : null)}
-              className="carbon-input text-sm"
-            />
-          </div>
-          <div>
-            <label htmlFor="filter-max-price" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
-              Max Price (CHF)
-            </label>
-            <input
-              id="filter-max-price"
-              type="number"
-              placeholder="5000"
-              value={filters.maxPrice ?? ""}
-              onChange={(e) => onUpdateFilter("maxPrice", e.target.value ? Number(e.target.value) : null)}
-              className="carbon-input text-sm"
-            />
-          </div>
-          <div>
-            <label htmlFor="filter-max-weight" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
-              Max Weight (kg)
-            </label>
-            <input
-              id="filter-max-weight"
-              type="number"
-              step="0.1"
-              placeholder="2.0"
-              value={filters.maxWeight ?? ""}
-              onChange={(e) => onUpdateFilter("maxWeight", e.target.value ? Number(e.target.value) : null)}
-              className="carbon-input text-sm"
-            />
-          </div>
-          <div>
-            <label htmlFor="filter-ram" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
-              Min RAM (GB)
-            </label>
-            <select
-              id="filter-ram"
-              value={filters.ramMin ?? ""}
-              onChange={(e) => onUpdateFilter("ramMin", e.target.value ? Number(e.target.value) : null)}
-              className="carbon-select text-sm"
-            >
-              <option value="">Any</option>
-              <option value="8">8 GB+</option>
-              <option value="16">16 GB+</option>
-              <option value="32">32 GB+</option>
-              <option value="64">64 GB+</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="filter-year" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
-              Year
-            </label>
-            <select
-              id="filter-year"
-              value={filters.year ?? ""}
-              onChange={(e) => onUpdateFilter("year", e.target.value ? Number(e.target.value) : null)}
-              className="carbon-select text-sm"
-            >
-              <option value="">Any</option>
-              {UNIQUE_YEARS.map((y) => (
-                <option key={y} value={y}>
-                  {y}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="filter-screen" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
-              Min Screen
-            </label>
-            <select
-              id="filter-screen"
-              value={filters.minScreenSize ?? ""}
-              onChange={(e) => onUpdateFilter("minScreenSize", e.target.value ? Number(e.target.value) : null)}
-              className="carbon-select text-sm"
-            >
-              <option value="">Any</option>
-              {SCREEN_SIZES.map((s) => (
-                <option key={s} value={s}>
-                  {s}&quot;+
-                </option>
-              ))}
-            </select>
+        <fieldset id="filter-panel" className="animate-slide-up border-t border-carbon-700 pt-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 lg:grid-cols-6">
+            <div>
+              <label
+                htmlFor="filter-min-price"
+                className="mb-1.5 block font-mono text-[10px] uppercase tracking-wider text-carbon-500"
+              >
+                Min Price (CHF)
+              </label>
+              <input
+                id="filter-min-price"
+                type="number"
+                placeholder="0"
+                value={filters.minPrice ?? ""}
+                onChange={(e) => onUpdateFilter("minPrice", e.target.value ? Number(e.target.value) : null)}
+                className="carbon-input text-sm"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="filter-max-price"
+                className="mb-1.5 block font-mono text-[10px] uppercase tracking-wider text-carbon-500"
+              >
+                Max Price (CHF)
+              </label>
+              <input
+                id="filter-max-price"
+                type="number"
+                placeholder="5000"
+                value={filters.maxPrice ?? ""}
+                onChange={(e) => onUpdateFilter("maxPrice", e.target.value ? Number(e.target.value) : null)}
+                className="carbon-input text-sm"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="filter-max-weight"
+                className="mb-1.5 block font-mono text-[10px] uppercase tracking-wider text-carbon-500"
+              >
+                Max Weight (kg)
+              </label>
+              <input
+                id="filter-max-weight"
+                type="number"
+                step="0.1"
+                placeholder="2.0"
+                value={filters.maxWeight ?? ""}
+                onChange={(e) => onUpdateFilter("maxWeight", e.target.value ? Number(e.target.value) : null)}
+                className="carbon-input text-sm"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="filter-ram"
+                className="mb-1.5 block font-mono text-[10px] uppercase tracking-wider text-carbon-500"
+              >
+                Min RAM (GB)
+              </label>
+              <select
+                id="filter-ram"
+                value={filters.ramMin ?? ""}
+                onChange={(e) => onUpdateFilter("ramMin", e.target.value ? Number(e.target.value) : null)}
+                className="carbon-select text-sm"
+              >
+                <option value="">Any</option>
+                <option value="8">8 GB+</option>
+                <option value="16">16 GB+</option>
+                <option value="32">32 GB+</option>
+                <option value="64">64 GB+</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="filter-year"
+                className="mb-1.5 block font-mono text-[10px] uppercase tracking-wider text-carbon-500"
+              >
+                Year
+              </label>
+              <select
+                id="filter-year"
+                value={filters.year ?? ""}
+                onChange={(e) => onUpdateFilter("year", e.target.value ? Number(e.target.value) : null)}
+                className="carbon-select text-sm"
+              >
+                <option value="">Any</option>
+                {UNIQUE_YEARS.map((y) => (
+                  <option key={y} value={y}>
+                    {y}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="filter-screen"
+                className="mb-1.5 block font-mono text-[10px] uppercase tracking-wider text-carbon-500"
+              >
+                Min Screen
+              </label>
+              <select
+                id="filter-screen"
+                value={filters.minScreenSize ?? ""}
+                onChange={(e) => onUpdateFilter("minScreenSize", e.target.value ? Number(e.target.value) : null)}
+                className="carbon-select text-sm"
+              >
+                <option value="">Any</option>
+                {SCREEN_SIZES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}&quot;+
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </fieldset>
       )}

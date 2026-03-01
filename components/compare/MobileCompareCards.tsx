@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, useRef, memo } from "react";
 import Link from "next/link";
-import { motion, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Laptop, SwissPrice } from "@/lib/types";
 import { ScoreBar } from "@/components/ui/ScoreBar";
@@ -35,18 +34,31 @@ const SpecItem = ({ label, value }: { label: string; value: string }) => (
 export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileCompareCardsProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const clampedIndex = Math.min(activeIndex, models.length - 1);
+  const [dragOffset, setDragOffset] = useState(0);
+  const dragStartRef = useRef<number | null>(null);
 
-  const handleDragEnd = useCallback(
-    (_e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      const threshold = 50;
-      if (info.offset.x < -threshold) {
-        setActiveIndex((i) => Math.min(models.length - 1, i + 1));
-      } else if (info.offset.x > threshold) {
-        setActiveIndex((i) => Math.max(0, i - 1));
-      }
-    },
-    [models.length],
-  );
+  const handlePointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    dragStartRef.current = e.clientX;
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+  }, []);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStartRef.current === null) return;
+    const dx = e.clientX - dragStartRef.current;
+    setDragOffset(dx * 0.2); // elastic resistance
+  }, []);
+
+  const handlePointerUp = useCallback(() => {
+    if (dragStartRef.current === null) return;
+    const threshold = 10; // 50px * 0.2 elastic = 10px offset threshold
+    if (dragOffset < -threshold) {
+      setActiveIndex((i) => Math.min(models.length - 1, i + 1));
+    } else if (dragOffset > threshold) {
+      setActiveIndex((i) => Math.max(0, i - 1));
+    }
+    dragStartRef.current = null;
+    setDragOffset(0);
+  }, [dragOffset, models.length]);
 
   const model = models[clampedIndex];
   if (!model) return null;
@@ -86,16 +98,16 @@ export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileComp
         </button>
       </div>
 
-      <motion.div
+      <div
         key={model.id}
-        className="carbon-card touch-pan-y overflow-hidden"
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.2}
-        onDragEnd={handleDragEnd}
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.2 }}
+        className="carbon-card animate-card-in touch-pan-y overflow-hidden"
+        style={{
+          transform: dragOffset ? `translateX(${dragOffset}px)` : undefined,
+          transition: dragOffset ? "none" : "transform 0.2s ease-out",
+        }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
       >
         <div className="flex items-center justify-between p-4" style={{ background: "var(--accent)" }}>
           <div>
@@ -213,7 +225,7 @@ export const MobileCompareCards = memo(({ models, prices, onRemove }: MobileComp
             />
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 });
