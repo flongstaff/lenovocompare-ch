@@ -8,6 +8,8 @@
 
 # testing
 /coverage
+/playwright-report/
+/test-results/
 
 # next.js
 /.next/
@@ -61,3 +63,6 @@ next-env.d.ts
 
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
+
+# RPI workflow artifacts
+rpi/
