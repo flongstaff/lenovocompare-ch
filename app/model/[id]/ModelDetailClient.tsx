@@ -24,13 +24,7 @@ import { usePrices } from "@/lib/hooks/usePrices";
 import { SeriesBadge } from "@/components/models/SeriesBadge";
 import { ScoreBar } from "@/components/ui/ScoreBar";
 import { LinuxBadge } from "@/components/ui/LinuxBadge";
-import { PriceCheck } from "@/components/pricing/PriceCheck";
-import { ValueScoring } from "@/components/pricing/ValueScoring";
-import PriceHistoryCard from "@/components/pricing/PriceHistoryCard";
-import { DeepDive } from "@/components/models/DeepDive";
-import ModelAnalysisCard from "@/components/models/ModelAnalysisCard";
-import EditorialCard from "@/components/models/EditorialCard";
-import UpgradeSimulator from "@/components/models/UpgradeSimulator";
+
 import { formatCHF, formatWeight, formatStorage, formatDate } from "@/lib/formatters";
 import { getModelScores, getPricesForModel, getScorePercentile, getLineupMaxScore } from "@/lib/scoring";
 import { generateAnalysis } from "@/lib/analysis";
@@ -61,11 +55,39 @@ const AiDevReadiness = dynamic(() => import("@/components/models/AiDevReadiness"
   ssr: false,
   loading: ChartSkeleton,
 });
-import UseCaseScenarios from "@/components/models/UseCaseScenarios";
-import LinuxSection from "@/components/models/LinuxSection";
-import HardwareGuide from "@/components/models/HardwareGuide";
-import ConfigSelector from "@/components/models/ConfigSelector";
-import { BlueprintDiagram } from "@/components/models/BlueprintDiagram";
+const SectionSkeleton = () => <div className="carbon-card animate-pulse" style={{ height: 120 }} />;
+const PriceCheck = dynamic(() => import("@/components/pricing/PriceCheck").then((m) => ({ default: m.PriceCheck })), {
+  loading: SectionSkeleton,
+});
+const ValueScoring = dynamic(
+  () => import("@/components/pricing/ValueScoring").then((m) => ({ default: m.ValueScoring })),
+  { loading: SectionSkeleton },
+);
+const PriceHistoryCard = dynamic(() => import("@/components/pricing/PriceHistoryCard"), {
+  ssr: false,
+  loading: SectionSkeleton,
+});
+const DeepDive = dynamic(() => import("@/components/models/DeepDive").then((m) => ({ default: m.DeepDive })), {
+  loading: SectionSkeleton,
+});
+const ModelAnalysisCard = dynamic(() => import("@/components/models/ModelAnalysisCard"), {
+  loading: SectionSkeleton,
+});
+const EditorialCard = dynamic(() => import("@/components/models/EditorialCard"), { loading: SectionSkeleton });
+const UpgradeSimulator = dynamic(() => import("@/components/models/UpgradeSimulator"), {
+  loading: SectionSkeleton,
+});
+const UseCaseScenarios = dynamic(() => import("@/components/models/UseCaseScenarios"), {
+  loading: SectionSkeleton,
+});
+const LinuxSection = dynamic(() => import("@/components/models/LinuxSection"), { loading: SectionSkeleton });
+const HardwareGuide = dynamic(() => import("@/components/models/HardwareGuide"), { loading: SectionSkeleton });
+const ConfigSelector = dynamic(() => import("@/components/models/ConfigSelector"), { loading: SectionSkeleton });
+const BlueprintDiagram = dynamic(
+  () => import("@/components/models/BlueprintDiagram").then((m) => ({ default: m.BlueprintDiagram })),
+  { loading: SectionSkeleton },
+);
+import SectionErrorBoundary from "@/components/ui/SectionErrorBoundary";
 
 const SpecRow = ({
   label,
@@ -601,7 +623,9 @@ const ModelDetailClient = () => {
       </div>
 
       {/* Price History */}
-      <PriceHistoryCard baseline={baseline} priceHistory={priceHistory} />
+      <SectionErrorBoundary section="Price History">
+        <PriceHistoryCard baseline={baseline} priceHistory={priceHistory} />
+      </SectionErrorBoundary>
 
       {/* Full-width stacked sections */}
       <div className="space-y-6">
@@ -674,94 +698,102 @@ const ModelDetailClient = () => {
         </div>
 
         {/* Performance Overview */}
-        <div id="performance" className="carbon-card scroll-mt-14 p-4">
-          <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
-            Performance Overview
-          </h2>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <div className="space-y-4">
-              <PerformanceRadar models={[{ name: model.name, dimensions: sc.dimensions }]} />
-              <AiDevReadiness
-                ramGb={configuredModel.ram.size}
-                cores={configuredModel.processor.cores}
-                threads={configuredModel.processor.threads}
-              />
+        <SectionErrorBoundary section="Performance Overview">
+          <div id="performance" className="carbon-card scroll-mt-14 p-4">
+            <h2 className="mb-3 text-lg font-semibold sm:text-xl" style={{ color: "var(--foreground)" }}>
+              Performance Overview
+            </h2>
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <div className="space-y-4">
+                <PerformanceRadar models={[{ name: model.name, dimensions: sc.dimensions }]} />
+                <AiDevReadiness
+                  ramGb={configuredModel.ram.size}
+                  cores={configuredModel.processor.cores}
+                  threads={configuredModel.processor.threads}
+                />
+              </div>
+              <div className="space-y-2">
+                {/* Dimension score cards */}
+                <ScoreCardExpanded
+                  model={configuredModel}
+                  dimensions={[
+                    {
+                      key: "cpu",
+                      label: "CPU",
+                      score: sc.dimensions.cpu,
+                      color: "#0f62fe",
+                      detail: `${configuredModel.processor.name} · ${configuredModel.processor.cores}C/${configuredModel.processor.threads}T`,
+                    },
+                    {
+                      key: "gpu",
+                      label: "GPU",
+                      score: sc.dimensions.gpu,
+                      color: "#42be65",
+                      detail: `${configuredModel.gpu.name}${configuredModel.gpu.integrated ? " (iGPU)" : ""}`,
+                    },
+                    {
+                      key: "memory",
+                      label: "Memory",
+                      score: sc.dimensions.memory,
+                      color: "#be95ff",
+                      detail: `${configuredModel.ram.size}GB ${configuredModel.ram.type} · ${formatStorage(configuredModel.storage.size)}`,
+                    },
+                    {
+                      key: "display",
+                      label: "Display",
+                      score: sc.dimensions.display,
+                      color: "#ee5396",
+                      detail: `${configuredModel.display.size}" ${configuredModel.display.resolutionLabel} ${configuredModel.display.panel} ${configuredModel.display.refreshRate}Hz`,
+                    },
+                    {
+                      key: "connectivity",
+                      label: "Connect",
+                      score: sc.dimensions.connectivity,
+                      color: "#08bdba",
+                      detail: `${configuredModel.ports.length} ports${model.wireless.length > 0 ? ` · ${model.wireless[0]}` : ""}`,
+                    },
+                    {
+                      key: "portability",
+                      label: "Portable",
+                      score: sc.dimensions.portability,
+                      color: "#42be65",
+                      detail: `${formatWeight(model.weight)} · ${model.battery.whr} Wh`,
+                    },
+                  ]}
+                />
+              </div>
             </div>
-            <div className="space-y-2">
-              {/* Dimension score cards */}
-              <ScoreCardExpanded
-                model={configuredModel}
-                dimensions={[
-                  {
-                    key: "cpu",
-                    label: "CPU",
-                    score: sc.dimensions.cpu,
-                    color: "#0f62fe",
-                    detail: `${configuredModel.processor.name} · ${configuredModel.processor.cores}C/${configuredModel.processor.threads}T`,
-                  },
-                  {
-                    key: "gpu",
-                    label: "GPU",
-                    score: sc.dimensions.gpu,
-                    color: "#42be65",
-                    detail: `${configuredModel.gpu.name}${configuredModel.gpu.integrated ? " (iGPU)" : ""}`,
-                  },
-                  {
-                    key: "memory",
-                    label: "Memory",
-                    score: sc.dimensions.memory,
-                    color: "#be95ff",
-                    detail: `${configuredModel.ram.size}GB ${configuredModel.ram.type} · ${formatStorage(configuredModel.storage.size)}`,
-                  },
-                  {
-                    key: "display",
-                    label: "Display",
-                    score: sc.dimensions.display,
-                    color: "#ee5396",
-                    detail: `${configuredModel.display.size}" ${configuredModel.display.resolutionLabel} ${configuredModel.display.panel} ${configuredModel.display.refreshRate}Hz`,
-                  },
-                  {
-                    key: "connectivity",
-                    label: "Connect",
-                    score: sc.dimensions.connectivity,
-                    color: "#08bdba",
-                    detail: `${configuredModel.ports.length} ports${model.wireless.length > 0 ? ` · ${model.wireless[0]}` : ""}`,
-                  },
-                  {
-                    key: "portability",
-                    label: "Portable",
-                    score: sc.dimensions.portability,
-                    color: "#42be65",
-                    detail: `${formatWeight(model.weight)} · ${model.battery.whr} Wh`,
-                  },
-                ]}
-              />
-            </div>
+            {(sc.singleCore > 0 || sc.multiCore > 0 || sc.gpu > 0) && (
+              <div className="mt-4">
+                <BenchmarkBar
+                  items={[
+                    ...(sc.singleCore > 0 ? [{ label: "Single-Core", value: sc.singleCore, color: "#4589ff" }] : []),
+                    ...(sc.multiCore > 0 ? [{ label: "Multi-Core", value: sc.multiCore, color: "#ee5396" }] : []),
+                    ...(sc.gpu > 0 ? [{ label: "GPU", value: sc.gpu, color: "#42be65" }] : []),
+                  ]}
+                />
+              </div>
+            )}
           </div>
-          {(sc.singleCore > 0 || sc.multiCore > 0 || sc.gpu > 0) && (
-            <div className="mt-4">
-              <BenchmarkBar
-                items={[
-                  ...(sc.singleCore > 0 ? [{ label: "Single-Core", value: sc.singleCore, color: "#4589ff" }] : []),
-                  ...(sc.multiCore > 0 ? [{ label: "Multi-Core", value: sc.multiCore, color: "#ee5396" }] : []),
-                  ...(sc.gpu > 0 ? [{ label: "GPU", value: sc.gpu, color: "#42be65" }] : []),
-                ]}
-              />
-            </div>
-          )}
-        </div>
+        </SectionErrorBoundary>
 
-        <div id="benchmarks" className="carbon-card scroll-mt-14 p-4">
-          <BenchmarksSection model={configuredModel} />
-        </div>
+        <SectionErrorBoundary section="Benchmarks">
+          <div id="benchmarks" className="carbon-card scroll-mt-14 p-4">
+            <BenchmarksSection model={configuredModel} />
+          </div>
+        </SectionErrorBoundary>
 
-        <div id="gaming" className="carbon-card scroll-mt-14 p-4">
-          <GamingSection gpuName={configuredModel.gpu.name} gamingTier={sc.gamingTier} benchmark={sc.gpuBenchmark} />
-        </div>
+        <SectionErrorBoundary section="Gaming">
+          <div id="gaming" className="carbon-card scroll-mt-14 p-4">
+            <GamingSection gpuName={configuredModel.gpu.name} gamingTier={sc.gamingTier} benchmark={sc.gpuBenchmark} />
+          </div>
+        </SectionErrorBoundary>
 
-        <div className="carbon-card p-4">
-          <HardwareGuide cpuName={configuredModel.processor.name} gpuName={configuredModel.gpu.name} />
-        </div>
+        <SectionErrorBoundary section="Hardware Guide">
+          <div className="carbon-card p-4">
+            <HardwareGuide cpuName={configuredModel.processor.name} gpuName={configuredModel.gpu.name} />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Use Case + Linux — side by side on desktop */}
         {((analysis.scenarios?.length ?? 0) > 0 || linux) && (
@@ -779,23 +811,29 @@ const ModelDetailClient = () => {
           </div>
         )}
 
-        <ModelAnalysisCard analysis={analysis} />
+        <SectionErrorBoundary section="Analysis">
+          <ModelAnalysisCard analysis={analysis} />
+        </SectionErrorBoundary>
 
         {editorial && (
-          <div id="editorial" className="carbon-card-editorial scroll-mt-14 p-4">
-            <EditorialCard editorial={editorial} linuxStatus={model.linuxStatus} />
-          </div>
+          <SectionErrorBoundary section="Editorial">
+            <div id="editorial" className="carbon-card-editorial scroll-mt-14 p-4">
+              <EditorialCard editorial={editorial} linuxStatus={model.linuxStatus} />
+            </div>
+          </SectionErrorBoundary>
         )}
 
         {/* Deep Dive + Price Check — compact row */}
-        <div id="research" className="grid scroll-mt-14 grid-cols-1 gap-4 lg:grid-cols-2">
-          <div className="carbon-card p-3">
-            <DeepDive model={model} />
+        <SectionErrorBoundary section="Research">
+          <div id="research" className="grid scroll-mt-14 grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="carbon-card p-3">
+              <DeepDive model={model} />
+            </div>
+            <div className="carbon-card p-3">
+              <PriceCheck model={model} />
+            </div>
           </div>
-          <div className="carbon-card p-3">
-            <PriceCheck model={model} />
-          </div>
-        </div>
+        </SectionErrorBoundary>
       </div>
     </div>
   );
