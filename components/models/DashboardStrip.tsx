@@ -189,6 +189,7 @@ export const DashboardStrip = ({
                         href={p.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="View price source"
                         style={{ color: "var(--accent-light)" }}
                       >
                         <ExternalLink size={12} />

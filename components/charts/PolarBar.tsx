@@ -48,11 +48,14 @@ interface PolarBarProps {
 const GRID_FRACTIONS = [0.25, 0.5, 0.75, 1.0] as const;
 const AXIS_COUNT = 6;
 
+/** Round to 2 decimal places to avoid SSR/client hydration float drift */
+const r2 = (n: number): number => Math.round(n * 100) / 100;
+
 /** Build an SVG arc path for a single petal (sector/wedge) */
 const petalPath = (cx: number, cy: number, radius: number, startAngle: number, endAngle: number): string => {
   const [startX, startY] = polarToCartesian(cx, cy, radius, startAngle);
   const [endX, endY] = polarToCartesian(cx, cy, radius, endAngle);
-  return `M ${cx} ${cy} L ${startX} ${startY} A ${radius} ${radius} 0 0 1 ${endX} ${endY} Z`;
+  return `M ${cx} ${cy} L ${r2(startX)} ${r2(startY)} A ${radius} ${radius} 0 0 1 ${r2(endX)} ${r2(endY)} Z`;
 };
 
 const PolarBarInner = ({ scores, compact = false, color, compareScores }: PolarBarProps) => {

@@ -21,7 +21,11 @@ const Header = () => {
     <header className="sticky top-0 z-50 border-b border-carbon-600 bg-carbon-700/80 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
         <div className="flex-shrink-0 transition-transform duration-200 hover:scale-105">
-          <Link href="/" className="flex h-8 w-8 items-center justify-center border border-carbon-500 bg-carbon-800">
+          <Link
+            href="/"
+            className="flex h-8 w-8 items-center justify-center border border-carbon-500 bg-carbon-800"
+            aria-label="Home"
+          >
             <div className="h-2.5 w-2.5 rounded-full bg-trackpoint shadow-[0_0_6px_rgba(218,30,40,0.5)]" />
           </Link>
         </div>
@@ -51,7 +55,7 @@ const Header = () => {
         </nav>
 
         <div className="ml-auto flex items-center gap-3">
-          <div className="flex h-5 w-5 items-center justify-center bg-trackpoint" aria-label="Swiss flag">
+          <div className="flex h-5 w-5 items-center justify-center bg-trackpoint" role="img" aria-label="Swiss flag">
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
               <rect x="4" y="1" width="4" height="10" fill="white" />
               <rect x="1" y="4" width="10" height="4" fill="white" />

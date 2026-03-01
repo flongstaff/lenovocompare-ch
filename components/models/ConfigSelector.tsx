@@ -66,10 +66,11 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {model.processorOptions && model.processorOptions.length > 0 && (
           <div>
-            <label className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
+            <label htmlFor="config-processor" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
               Processor
             </label>
             <select
+              id="config-processor"
               className="carbon-select w-full text-sm"
               value={config.processor ?? ""}
               onChange={(e) => handleChange("processor", e.target.value)}
@@ -86,10 +87,11 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
 
         {model.displayOptions && model.displayOptions.length > 0 && (
           <div>
-            <label className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
+            <label htmlFor="config-display" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
               Display
             </label>
             <select
+              id="config-display"
               className="carbon-select w-full text-sm"
               value={config.display ?? ""}
               onChange={(e) => handleChange("display", e.target.value)}
@@ -106,10 +108,11 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
 
         {model.gpuOptions && model.gpuOptions.length > 0 && (
           <div>
-            <label className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
+            <label htmlFor="config-gpu" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
               GPU
             </label>
             <select
+              id="config-gpu"
               className="carbon-select w-full text-sm"
               value={config.gpu ?? ""}
               onChange={(e) => handleChange("gpu", e.target.value)}
@@ -126,10 +129,11 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
 
         {model.ramOptions && model.ramOptions.length > 0 && (
           <div>
-            <label className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
+            <label htmlFor="config-memory" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
               Memory
             </label>
             <select
+              id="config-memory"
               className="carbon-select w-full text-sm"
               value={config.ram ?? ""}
               onChange={(e) => handleChange("ram", e.target.value)}
@@ -146,10 +150,11 @@ const ConfigSelector = ({ model, onConfigChange }: ConfigSelectorProps) => {
 
         {model.storageOptions && model.storageOptions.length > 0 && (
           <div>
-            <label className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
+            <label htmlFor="config-storage" className="mb-1 block text-xs" style={{ color: "var(--muted)" }}>
               Storage
             </label>
             <select
+              id="config-storage"
               className="carbon-select w-full text-sm"
               value={config.storage ?? ""}
               onChange={(e) => handleChange("storage", e.target.value)}

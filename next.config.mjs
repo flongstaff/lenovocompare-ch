@@ -10,6 +10,7 @@ const isGitHubPages = process.env.GITHUB_ACTIONS === "true";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
+  reactStrictMode: true,
   poweredByHeader: false,
   ...(isGitHubPages && {
     basePath: "/lenovocompare-ch",

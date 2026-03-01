@@ -52,7 +52,13 @@ export const PriceDisplay = ({ price, model, onRemove }: PriceDisplayProps) => (
         {formatCHF(price.price)}
       </span>
       {price.url && (
-        <a href={price.url} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-light)" }}>
+        <a
+          href={price.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View price source"
+          style={{ color: "var(--accent-light)" }}
+        >
           <ExternalLink size={14} />
         </a>
       )}
