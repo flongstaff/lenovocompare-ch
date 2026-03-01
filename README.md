@@ -1,6 +1,6 @@
 # LenovoCompare CH
 
-A local-first Swiss-market Lenovo laptop comparison tool covering **100 models** across three lineups: **ThinkPad**, **IdeaPad Pro**, and **Legion** (2018–2025).
+A local-first Swiss-market Lenovo laptop comparison tool covering **124 models** across four lineups: **ThinkPad**, **IdeaPad Pro**, **Legion**, and **Yoga** (2018–2025).
 
 Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are hardcoded from public [PSREF](https://psref.lenovo.com) data — no scraping, no external APIs, no tracking.
 
@@ -10,7 +10,7 @@ Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are ha
 
 ## Features
 
-- **Browse & filter** — Grid of 100 models filterable by lineup (ThinkPad / IdeaPad Pro / Legion), series, and sort order
+- **Browse & filter** — Grid of 124 models filterable by lineup (ThinkPad / IdeaPad Pro / Legion / Yoga), series, and sort order
 - **Model detail pages** — Full specs, config selector, performance radar, benchmark charts, thermal/battery data, Linux compatibility, editorial analysis
 - **Side-by-side compare** — Compare up to 4 models with CPU, GPU, portability, and performance radar charts
 - **Swiss pricing** — User-contributed CHF prices stored in localStorage with import/export, seed prices for all models

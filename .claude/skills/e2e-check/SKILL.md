@@ -49,7 +49,16 @@ Run Playwright end-to-end tests against the local dev server to verify key user 
    npx playwright test --reporter=list --screenshot=only-on-failure
    ```
 
-5. **Report results**:
+5. **Use Playwright MCP for interactive debugging** (if available):
+
+   When the local Playwright MCP server is configured in `.mcp.json`, use it for:
+   - Taking screenshots of specific pages for visual verification
+   - Clicking through flows interactively to diagnose failures
+   - Inspecting page elements and console errors
+
+   The MCP server connects to a local browser and can reach `localhost:3000` directly (unlike the Docker-based MCP).
+
+6. **Report results**:
 
 ```markdown
 ## E2E Test Results
@@ -79,6 +88,7 @@ Run Playwright end-to-end tests against the local dev server to verify key user 
 
 ## Notes
 
-- Playwright MCP (Docker) CANNOT reach `localhost:3000` — always use native `npx playwright` CLI
+- Native `npx playwright` CLI is preferred for running tests (reliable localhost access)
+- Playwright MCP (local, via `.mcp.json`) can be used for interactive debugging and screenshots
 - `npm start` (standalone mode) doesn't serve CSS properly — use `npm run dev` for E2E testing
 - If no E2E tests exist yet, use `/e2e-scaffold` to generate stubs
