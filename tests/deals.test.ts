@@ -49,7 +49,7 @@ describe("computeBuySignal", () => {
     const baseline = makeBaseline({ msrp: 2000, typicalRetail: 1800, historicalLow: 1500 });
     const now = new Date();
     const nextMonth = new Date(now);
-    nextMonth.setDate(nextMonth.getDate() + 30);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
     const upcomingSale: SaleEvent[] = [
       {
         id: "bf",
