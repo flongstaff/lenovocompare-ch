@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
-import { Laptop, SwissPrice } from "@/lib/types";
+import type { Laptop, SwissPrice } from "@/lib/types";
 import { ScoreBar } from "@/components/ui/ScoreBar";
 import { formatCHF, formatWeight, formatStorage, getPriceDiscount, getPriceDiscountClasses } from "@/lib/formatters";
 import {
@@ -255,50 +255,6 @@ const SPEC_ROWS: readonly SpecRow[] = [
     getNumeric: (m) => getModelBenchmarks(m.id)?.pugetDavinci ?? 0,
     highlight: "max" as const,
   },
-  // Use Cases
-  {
-    section: "Use Cases",
-    label: "Office",
-    getValue: (m) => {
-      const a = generateAnalysis(m, laptops);
-      return a.scenarios?.find((s) => s.scenario === "Office / Productivity")?.verdict ?? "—";
-    },
-  },
-  {
-    label: "Development",
-    getValue: (m) => {
-      const a = generateAnalysis(m, laptops);
-      return a.scenarios?.find((s) => s.scenario === "Software Development")?.verdict ?? "—";
-    },
-  },
-  {
-    label: "Gaming",
-    getValue: (m) => {
-      const a = generateAnalysis(m, laptops);
-      return a.scenarios?.find((s) => s.scenario === "Gaming")?.verdict ?? "—";
-    },
-  },
-  {
-    label: "Video Editing",
-    getValue: (m) => {
-      const a = generateAnalysis(m, laptops);
-      return a.scenarios?.find((s) => s.scenario === "Video Editing")?.verdict ?? "—";
-    },
-  },
-  {
-    label: "Data Science / ML",
-    getValue: (m) => {
-      const a = generateAnalysis(m, laptops);
-      return a.scenarios?.find((s) => s.scenario === "Data Science / ML")?.verdict ?? "—";
-    },
-  },
-  {
-    label: "Virtualization",
-    getValue: (m) => {
-      const a = generateAnalysis(m, laptops);
-      return a.scenarios?.find((s) => s.scenario === "Virtualization")?.verdict ?? "—";
-    },
-  },
 ];
 
 /** Sections shown by default in "Quick Compare" mode */
@@ -307,6 +263,21 @@ const QUICK_SECTIONS = new Set(["Pricing", "Performance", "Display", "Chassis"])
 const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
   const [showAll, setShowAll] = useState(false);
+  const [showDiffsOnly, setShowDiffsOnly] = useState(false);
+
+  // Memoize expensive computations — prevents redundant scoring per render
+  const analysisMap = useMemo(() => new Map(models.map((m) => [m.id, generateAnalysis(m, laptops)])), [models]);
+  const allScores = useMemo(() => models.map((m) => getModelScores(m, prices)), [models, prices]);
+
+  // Diff-toggle filter: excludes rows where all models share the same value.
+  // "Best Price" is always included; computes on render (max 4 models × ~35 rows).
+  const visibleRows = SPEC_ROWS.filter((row) => {
+    if (!showDiffsOnly) return true;
+    if (row.label === "Best Price") return true;
+    const vals = models.map((m) => row.getValue(m));
+    return new Set(vals).size > 1;
+  });
+  const hiddenCount = SPEC_ROWS.length - visibleRows.length;
 
   const toggleSection = (section: string) => {
     setCollapsedSections((prev) => {
@@ -334,7 +305,26 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
                 scope="col"
                 className="sticky left-0 z-10 w-36 min-w-[144px] bg-accent px-4 py-3 text-left font-medium text-white"
               >
-                Spec
+                <div className="space-y-1">
+                  <span>Spec</span>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setShowDiffsOnly((v) => !v)}
+                      className={`rounded px-1.5 py-0.5 font-mono text-[10px] font-normal uppercase tracking-wide transition-colors ${
+                        showDiffsOnly
+                          ? "bg-white text-accent"
+                          : "border border-carbon-400 text-carbon-300 hover:border-white hover:text-white"
+                      }`}
+                      aria-pressed={showDiffsOnly}
+                    >
+                      Diffs only
+                    </button>
+                    {showDiffsOnly && hiddenCount > 0 && (
+                      <span className="text-[10px] text-carbon-300">{hiddenCount} hidden</span>
+                    )}
+                  </div>
+                </div>
               </th>
               {models.map((m) => (
                 <th scope="col" key={m.id} className="max-w-[220px] px-4 py-3 text-left font-medium text-white">
@@ -365,23 +355,50 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
               const isHidden = !showAll && !QUICK_SECTIONS.has(currentSection);
               const isCollapsed = collapsedSections.has(currentSection);
 
+              // Hide rows filtered by diff toggle (after section/visibility checks so hiddenCount is accurate)
+              const isDiffFiltered =
+                showDiffsOnly &&
+                row.label !== "Best Price" &&
+                (() => {
+                  const vals = models.map((m) => row.getValue(m));
+                  return new Set(vals).size <= 1;
+                })();
+
+              // When a section header appears, check if all its rows are diff-filtered (hide the header too)
+              const isSectionHeaderHiddenByDiff =
+                row.section &&
+                showDiffsOnly &&
+                (() => {
+                  const sectionRows = SPEC_ROWS.filter((r) => {
+                    const rSection =
+                      r.section ?? SPEC_ROWS.slice(0, SPEC_ROWS.indexOf(r)).findLast((x) => x.section)?.section ?? "";
+                    return rSection === row.section;
+                  });
+                  return sectionRows.every((r) => {
+                    if (r.label === "Best Price") return false;
+                    const vals = models.map((m) => r.getValue(m));
+                    return new Set(vals).size <= 1;
+                  });
+                })();
+
               return (
                 <React.Fragment key={row.label}>
-                  {row.section && (
+                  {row.section && !isSectionHeaderHiddenByDiff && (
                     <tr>
-                      <td
-                        colSpan={models.length + 1}
-                        className="cursor-pointer select-none border-t border-carbon-500 bg-carbon-600 px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-carbon-200 transition-colors hover:bg-carbon-500"
-                        onClick={() => toggleSection(row.section!)}
-                      >
-                        <span className="flex items-center justify-between">
+                      <td colSpan={models.length + 1} className="border-t border-carbon-500 bg-carbon-600 p-0">
+                        <button
+                          type="button"
+                          className="flex w-full items-center justify-between px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-carbon-200 transition-colors hover:bg-carbon-500"
+                          onClick={() => toggleSection(row.section!)}
+                          aria-expanded={!collapsedSections.has(row.section)}
+                        >
                           {row.section}
                           {collapsedSections.has(row.section) ? <ChevronDown size={12} /> : <ChevronUp size={12} />}
-                        </span>
+                        </button>
                       </td>
                     </tr>
                   )}
-                  {isHidden || isCollapsed ? null : (
+                  {isHidden || isCollapsed || isDiffFiltered ? null : (
                     <tr className={i % 2 === 0 ? "bg-carbon-800" : "bg-carbon-700"}>
                       <td
                         className="sticky left-0 z-10 border-t border-carbon-600 px-4 py-3 font-medium text-carbon-200"
@@ -452,7 +469,57 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
               );
             })}
 
-            {/* Scores */}
+            {/* Use Cases (from memoized analysis) */}
+            {showAll && (
+              <>
+                <tr>
+                  <td colSpan={models.length + 1} className="border-t border-carbon-500 bg-carbon-600 p-0">
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-widest text-carbon-200 transition-colors hover:bg-carbon-500"
+                      onClick={() => toggleSection("Use Cases")}
+                      aria-expanded={!collapsedSections.has("Use Cases")}
+                    >
+                      Use Cases
+                      {collapsedSections.has("Use Cases") ? <ChevronDown size={12} /> : <ChevronUp size={12} />}
+                    </button>
+                  </td>
+                </tr>
+                {!collapsedSections.has("Use Cases") &&
+                  [
+                    "Office / Productivity",
+                    "Software Development",
+                    "Gaming",
+                    "Video Editing",
+                    "Data Science / ML",
+                    "Virtualization",
+                  ].map((scenario, si) => (
+                    <tr key={scenario} className={si % 2 === 0 ? "bg-carbon-800" : "bg-carbon-700"}>
+                      <td
+                        className="sticky left-0 z-10 border-t border-carbon-600 px-4 py-3 font-medium text-carbon-200"
+                        style={{ background: si % 2 === 0 ? "#161616" : "#262626" }}
+                      >
+                        {scenario.replace(" / Productivity", "").replace("Software ", "").replace(" / ML", "")}
+                      </td>
+                      {models.map((m) => {
+                        const analysis = analysisMap.get(m.id);
+                        const verdict = analysis?.scenarios?.find((s) => s.scenario === scenario)?.verdict ?? "—";
+                        return (
+                          <td key={m.id} className="border-t border-carbon-600 px-4 py-3">
+                            {isVerdict(verdict) ? (
+                              <span className={`capitalize ${VERDICT_COLORS[verdict]}`}>{verdict}</span>
+                            ) : (
+                              <span className="text-carbon-50">{verdict}</span>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+              </>
+            )}
+
+            {/* Scores (memoized) */}
             <tr>
               <td
                 colSpan={models.length + 1}
@@ -462,7 +529,6 @@ const CompareTable = ({ models, prices, onRemove }: CompareTableProps) => {
               </td>
             </tr>
             {(() => {
-              const allScores = models.map((m) => getModelScores(m, prices));
               if (allScores.length === 0) return null;
               const best = {
                 perf: Math.max(...allScores.map((s) => s.perf)),
