@@ -32,7 +32,15 @@ LenovoCompare CH v2 evolves a stable v1 product into a full static + serverless 
 3. Every benchmark score in BenchmarksSection is a clickable link to its source page; scores lacking a source are labeled "source needed"
 4. GET /api/prices returns CHF prices from D1 for all models, seeded from existing seed-prices.ts data
 5. Cloudflare Pages deployment is live at the configured domain with Workers and static site served from a single origin (no CORS)
-   **Plans**: TBD
+
+**Plans:** 4 plans
+
+Plans:
+
+- [ ] 01-01-PLAN.md — Diff toggle in CompareTable + benchmark source links in BenchmarksSection
+- [ ] 01-02-PLAN.md — Physical size comparison overlay (type, data, component, integration)
+- [ ] 01-03-PLAN.md — Cloudflare Workers scaffold with Hono, D1, price API, and seed data
+- [ ] 01-04-PLAN.md — Frontend price hook redirect + CI deploy + Playwright smoke tests
 
 ### Phase 2: Price Automation
 
@@ -107,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase               | Plans Complete | Status      | Completed |
 | ------------------- | -------------- | ----------- | --------- |
-| 1. Foundation       | 0/TBD          | Not started | -         |
+| 1. Foundation       | 0/4            | Planning    | -         |
 | 2. Price Automation | 0/TBD          | Not started | -         |
 | 3. Differentiators  | 0/TBD          | Not started | -         |
 | 4. Deep Data        | 0/TBD          | Not started | -         |
