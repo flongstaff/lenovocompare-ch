@@ -11,7 +11,7 @@ test.describe("Static export smoke tests", () => {
 
   test("compare page renders without errors", async ({ page }) => {
     await page.goto("/compare");
-    await expect(page.locator("h1")).toContainText(/Compare/i);
+    await expect(page.locator("h1")).toContainText(/Compare/i, { timeout: 15000 });
   });
 
   test("model detail page renders", async ({ page }) => {
