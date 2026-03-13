@@ -33,12 +33,12 @@ LenovoCompare CH v2 evolves a stable v1 product into a full static + serverless 
 4. GET /api/prices returns CHF prices from D1 for all models, seeded from existing seed-prices.ts data
 5. Cloudflare Pages deployment is live at the configured domain with Workers and static site served from a single origin (no CORS)
 
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 Plans:
 
-- [ ] 01-01-PLAN.md — Diff toggle in CompareTable + benchmark source links in BenchmarksSection
-- [ ] 01-02-PLAN.md — Physical size comparison overlay (type, data, component, integration)
+- [x] 01-01-PLAN.md — Diff toggle in CompareTable + benchmark source links in BenchmarksSection
+- [x] 01-02-PLAN.md — Physical size comparison overlay (type, data, component, integration)
 - [ ] 01-03-PLAN.md — Cloudflare Workers scaffold with Hono, D1, price API, and seed data
 - [ ] 01-04-PLAN.md — Frontend price hook redirect + CI deploy + Playwright smoke tests
 
