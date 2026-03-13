@@ -33,7 +33,7 @@ const makeModel = (overrides: Partial<Laptop>): Laptop =>
     year: 2024,
     lineup: "ThinkPad",
     series: "T",
-    processor: { name: "Intel Core i7", cores: 8, threads: 16, tdp: 15 },
+    processor: { name: "Intel Core i7", cores: 8, threads: 16, baseClock: 1.8, boostClock: 4.8, tdp: 15 },
     ram: { size: 16, type: "LPDDR5", maxSize: 64, soldered: true, slots: 0 },
     storage: { size: 512, type: "NVMe SSD" },
     display: {
