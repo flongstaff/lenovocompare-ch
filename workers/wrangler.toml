@@ -1,0 +1,9 @@
+name = "lenovocompare-prices"
+main = "src/index.ts"
+compatibility_date = "2026-03-13"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "lenovocompare-prices"
+database_id = "REPLACE_AFTER_CREATE"
+migrations_dir = "migrations"
