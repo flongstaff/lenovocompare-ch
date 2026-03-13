@@ -43,6 +43,8 @@ const BatteryLifeCompareChart = dynamic(() => import("@/components/charts/Batter
 import { QuickVerdict } from "@/components/compare/QuickVerdict";
 import { CompareConfigPanel } from "@/components/compare/CompareConfigPanel";
 import { type ConfigState, buildConfiguredModel } from "@/lib/configUtils";
+import ChartErrorBoundary from "@/components/ui/ChartErrorBoundary";
+import { PhysicalSizeComparison } from "@/components/compare/PhysicalSizeComparison";
 
 const ComparePageContent = () => {
   const models = useLaptops();
@@ -140,12 +142,14 @@ const ComparePageContent = () => {
               >
                 Performance Comparison
               </h2>
-              <PerformanceRadar
-                models={configuredModels.map((m) => ({
-                  name: m.name,
-                  dimensions: getPerformanceDimensions(m),
-                }))}
-              />
+              <ChartErrorBoundary chartName="Performance Radar">
+                <PerformanceRadar
+                  models={configuredModels.map((m) => ({
+                    name: m.name,
+                    dimensions: getPerformanceDimensions(m),
+                  }))}
+                />
+              </ChartErrorBoundary>
             </div>
             <div className="carbon-card p-4">
               <h2
@@ -154,7 +158,9 @@ const ComparePageContent = () => {
               >
                 Weight & Battery
               </h2>
-              <PortabilityCompareChart models={configuredModels} />
+              <ChartErrorBoundary chartName="Portability Compare">
+                <PortabilityCompareChart models={configuredModels} />
+              </ChartErrorBoundary>
             </div>
             <div className="carbon-card p-4">
               <h2
@@ -163,7 +169,9 @@ const ComparePageContent = () => {
               >
                 CPU Benchmarks
               </h2>
-              <CpuCompareChart models={configuredModels} />
+              <ChartErrorBoundary chartName="CPU Benchmarks">
+                <CpuCompareChart models={configuredModels} />
+              </ChartErrorBoundary>
             </div>
             <div className="carbon-card p-4">
               <h2
@@ -172,7 +180,9 @@ const ComparePageContent = () => {
               >
                 GPU Scores
               </h2>
-              <GpuCompareChart models={configuredModels} />
+              <ChartErrorBoundary chartName="GPU Scores">
+                <GpuCompareChart models={configuredModels} />
+              </ChartErrorBoundary>
             </div>
             <div className="carbon-card p-4">
               <h2
@@ -181,7 +191,9 @@ const ComparePageContent = () => {
               >
                 Thermals & Noise
               </h2>
-              <ThermalCompareChart models={configuredModels} />
+              <ChartErrorBoundary chartName="Thermals & Noise">
+                <ThermalCompareChart models={configuredModels} />
+              </ChartErrorBoundary>
             </div>
             <div className="carbon-card p-4">
               <h2
@@ -190,9 +202,12 @@ const ComparePageContent = () => {
               >
                 Battery Life
               </h2>
-              <BatteryLifeCompareChart models={configuredModels} />
+              <ChartErrorBoundary chartName="Battery Life">
+                <BatteryLifeCompareChart models={configuredModels} />
+              </ChartErrorBoundary>
             </div>
           </div>
+          <PhysicalSizeComparison models={configuredModels} />
           <div className="carbon-card hidden overflow-hidden p-4 sm:block">
             <CompareTable models={configuredModels} prices={allPrices} onRemove={removeFromCompare} />
           </div>
