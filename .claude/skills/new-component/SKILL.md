@@ -2,6 +2,7 @@
 name: new-component
 description: Scaffold a new React component following project conventions
 disable-model-invocation: true
+model: sonnet
 ---
 
 # New Component

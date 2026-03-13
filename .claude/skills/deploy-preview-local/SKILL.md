@@ -2,6 +2,7 @@
 name: deploy-preview-local
 description: Pre-deployment verification using local tooling (no Docker)
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Deploy Preview (Local)

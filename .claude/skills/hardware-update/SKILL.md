@@ -1,6 +1,7 @@
 ---
 name: hardware-update
 description: Add or update hardware guide entries when new CPUs/GPUs are added to benchmarks
+model: sonnet
 ---
 
 # Hardware Guide Update

@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Editorial Reviewer
 
 Cross-reference editorial content in `data/model-editorial.ts` against structured spec data in `data/laptops.ts` for factual accuracy.

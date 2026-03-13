@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Performance Analyzer
 
 Analyze LenovoCompare CH for bundle size, rendering performance, and optimization opportunities.

@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # License Compliance Auditor
 
 Audit all npm dependencies (production and dev) for MIT license compatibility. The project is MIT-licensed, so all dependencies must use compatible licenses.

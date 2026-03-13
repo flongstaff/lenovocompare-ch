@@ -20,6 +20,7 @@ import {
   getPriceDiscountClasses,
 } from "@/lib/formatters";
 import { ChartTooltip } from "@/components/charts/ChartTooltip";
+import { PriceAgeBadge } from "@/components/ui/PriceAgeBadge";
 import { RETAILER_COLORS } from "@/lib/constants";
 
 interface PriceHistoryCardProps {
@@ -393,8 +394,9 @@ const PriceHistoryCard = ({ baseline, priceHistory }: PriceHistoryCardProps) => 
                 )}
               </div>
               <div className="ml-2 flex shrink-0 items-center gap-2">
-                <span className="text-xs" style={{ color: "var(--muted)" }}>
+                <span className="flex items-center gap-1.5 text-xs" style={{ color: "var(--muted)" }}>
                   {formatDate(p.dateAdded)}
+                  <PriceAgeBadge dateAdded={p.dateAdded} />
                 </span>
                 <span
                   className="font-mono text-sm font-semibold"

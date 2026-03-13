@@ -40,8 +40,10 @@ const GpuCompareChart = ({ models }: GpuCompareChartProps) => {
   const chartHeight = Math.max(100, models.length * 36 + 30);
   const barSize = models.length >= 4 ? 10 : models.length >= 3 ? 12 : 16;
 
+  const modelNames = models.map((m) => shortName(m.name)).join(" vs ");
+
   return (
-    <div className="w-full">
+    <div className="w-full" aria-label={`GPU comparison chart: ${modelNames}`}>
       <div style={{ height: chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical" margin={{ left: 0, right: 20, top: 5, bottom: 5 }}>
@@ -106,6 +108,30 @@ const GpuCompareChart = ({ models }: GpuCompareChartProps) => {
           </BarChart>
         </ResponsiveContainer>
       </div>
+      <details className="sr-only">
+        <summary>View data table</summary>
+        <table>
+          <caption>GPU scores: {modelNames}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Model</th>
+              <th scope="col">GPU</th>
+              <th scope="col">Score</th>
+              <th scope="col">Gaming Tier</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((entry) => (
+              <tr key={entry.name}>
+                <td>{entry.name}</td>
+                <td>{entry.gpu}</td>
+                <td>{entry.score}/100</td>
+                <td>{entry.tierLabel}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </details>
     </div>
   );
 };

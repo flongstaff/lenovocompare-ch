@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Regression Tester
 
 Verify that scoring function outputs remain stable after code changes. Catches silent formula shifts that don't break tests but change user-visible scores.

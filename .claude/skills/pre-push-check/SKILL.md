@@ -2,6 +2,7 @@
 name: pre-push-check
 description: Run full CI checks locally before pushing to avoid failed builds
 disable-model-invocation: true
+model: haiku
 ---
 
 # Pre-Push Check

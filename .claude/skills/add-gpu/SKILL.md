@@ -1,6 +1,7 @@
 ---
 name: add-gpu
 description: Add a new GPU to the benchmarks database with scores and FPS estimates
+model: sonnet
 ---
 
 # Add GPU to Benchmarks

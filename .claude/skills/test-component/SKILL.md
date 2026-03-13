@@ -1,6 +1,7 @@
 ---
 name: test-component
 description: Scaffold a Vitest + @testing-library/react test file for a component
+model: sonnet
 ---
 
 # Test Component

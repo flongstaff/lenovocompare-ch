@@ -10,7 +10,7 @@
 
 The most impactful way to help is contributing data:
 
-- **New laptop models** — ThinkPad, IdeaPad Pro, or Legion models not yet in the database
+- **New laptop models** — ThinkPad, IdeaPad Pro, Legion, or Yoga models not yet in the database
 - **Benchmark updates** — Thermal, battery, or performance data from reviews
 - **Swiss prices** — Current CHF prices from Swiss retailers
 - **Linux compatibility** — Certification status, driver notes, distro support

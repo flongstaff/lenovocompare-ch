@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Data Reviewer
 
 Validate laptop hardware specs and data completeness across the LenovoCompare CH registry. Covers all three lineups: ThinkPad, IdeaPad Pro, and Legion.

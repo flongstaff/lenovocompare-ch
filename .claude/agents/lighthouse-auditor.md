@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Lighthouse Auditor
 
 Automated performance and accessibility auditor using Playwright MCP to run Lighthouse-style checks on key pages.

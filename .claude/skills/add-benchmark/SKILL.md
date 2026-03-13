@@ -1,6 +1,7 @@
 ---
 name: add-benchmark
 description: Add per-model benchmark data from NotebookCheck reviews to model-benchmarks.ts
+model: sonnet
 ---
 
 # Add Model Benchmark Data

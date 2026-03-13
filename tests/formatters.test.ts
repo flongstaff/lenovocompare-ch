@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { formatCHF, formatWeight, formatDate, formatStorage, shortName } from "@/lib/formatters";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import { formatCHF, formatWeight, formatDate, formatStorage, shortName, getPriceAgeBadge } from "@/lib/formatters";
 
 describe("formatCHF", () => {
   it("formats small prices", () => {
@@ -67,5 +67,65 @@ describe("shortName", () => {
 
   it("returns unchanged if no prefix", () => {
     expect(shortName("Custom Name")).toBe("Custom Name");
+  });
+});
+
+describe("getPriceAgeBadge", () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("should return Fresh (green) for prices less than 30 days old", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-03-15"));
+    const result = getPriceAgeBadge("2025-03-01");
+    expect(result.label).toBe("Fresh");
+    expect(result.color).toBe("#42be65");
+  });
+
+  it("should return month count (amber) for prices 30-90 days old", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-04-15"));
+    const result = getPriceAgeBadge("2025-03-01");
+    expect(result.label).toBe("1mo");
+    expect(result.color).toBe("#f1c21b");
+  });
+
+  it("should return month count with plus (red) for prices over 90 days old", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-07-01"));
+    const result = getPriceAgeBadge("2025-03-01");
+    expect(result.label).toBe("4mo+");
+    expect(result.color).toBe("#da1e28");
+  });
+
+  it("should return unknown for invalid dates", () => {
+    const result = getPriceAgeBadge("invalid");
+    expect(result.label).toBe("?");
+    expect(result.color).toBe("#6f6f6f");
+  });
+
+  it("should handle boundary at exactly 30 days", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-03-31"));
+    const result = getPriceAgeBadge("2025-03-01");
+    expect(result.label).toBe("1mo");
+    expect(result.color).toBe("#f1c21b");
+  });
+
+  it("should handle boundary at exactly 90 days", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-05-30"));
+    const result = getPriceAgeBadge("2025-03-01");
+    expect(result.label).toBe("3mo");
+    expect(result.color).toBe("#f1c21b");
+  });
+
+  it("should return red for 91+ days", () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2025-05-31"));
+    const result = getPriceAgeBadge("2025-03-01");
+    expect(result.label).toBe("3mo+");
+    expect(result.color).toBe("#da1e28");
   });
 });

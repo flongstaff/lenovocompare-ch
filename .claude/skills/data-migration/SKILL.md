@@ -2,6 +2,7 @@
 name: data-migration
 description: Batch transform data files when adding/changing fields on laptop models
 user-invocable: true
+model: sonnet
 ---
 
 # Data Migration

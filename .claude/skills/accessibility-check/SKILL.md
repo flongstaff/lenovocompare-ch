@@ -2,6 +2,7 @@
 name: accessibility-check
 description: Run accessibility audit on all routes using Playwright MCP and axe-core
 user-invocable: true
+model: haiku
 ---
 
 # Accessibility Check

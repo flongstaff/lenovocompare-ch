@@ -62,8 +62,10 @@ const CpuCompareChart = ({ models }: CpuCompareChartProps) => {
   const chartHeight = Math.max(120, models.length * 28 + 60);
   const barSize = models.length >= 4 ? 6 : models.length >= 3 ? 7 : 8;
 
+  const modelNames = models.map((m) => shortName(m.name)).join(" vs ");
+
   return (
-    <div className="w-full">
+    <div className="w-full" aria-label={`CPU comparison chart: ${modelNames}`}>
       <div style={{ height: chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -107,6 +109,36 @@ const CpuCompareChart = ({ models }: CpuCompareChartProps) => {
           </div>
         ))}
       </div>
+      <details className="sr-only">
+        <summary>View data table</summary>
+        <table>
+          <caption>CPU scores: {modelNames}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Metric</th>
+              {models.map((m) => (
+                <th key={m.id} scope="col">
+                  {shortName(m.name)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Single-Core</td>
+              {models.map((m) => (
+                <td key={m.id}>{getCpuSingleCore(m.processor.name)}</td>
+              ))}
+            </tr>
+            <tr>
+              <td>Multi-Core</td>
+              {models.map((m) => (
+                <td key={m.id}>{getCpuMultiCore(m.processor.name)}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </details>
     </div>
   );
 };

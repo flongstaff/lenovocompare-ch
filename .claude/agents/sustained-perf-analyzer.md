@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Sustained Performance Analyzer
 
 Analyze per-model chassis benchmark data to identify thermal throttling patterns, sustained vs peak performance gaps, and workload suitability across lineups.

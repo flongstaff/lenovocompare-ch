@@ -2,6 +2,7 @@
 name: e2e-check
 description: Run Playwright E2E tests against the local dev server
 disable-model-invocation: true
+model: sonnet
 ---
 
 # E2E Check

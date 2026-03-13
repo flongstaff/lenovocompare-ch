@@ -2,6 +2,7 @@
 name: add-editorial
 description: Add curated editorial notes for a laptop model
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Add Editorial Notes

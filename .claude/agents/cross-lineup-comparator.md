@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Cross-Lineup Comparator Agent
 
 Audit the compare UI for correctness when comparing models across different lineups (ThinkPad vs IdeaPad Pro vs Legion).

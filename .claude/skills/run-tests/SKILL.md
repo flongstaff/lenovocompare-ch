@@ -1,6 +1,7 @@
 ---
 name: run-tests
 description: Run the Vitest test suite and report results
+model: haiku
 ---
 
 # Run Tests

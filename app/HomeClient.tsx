@@ -25,6 +25,7 @@ import LaptopCard from "@/components/models/LaptopCard";
 import { CompareFloatingBar } from "@/components/compare/CompareFloatingBar";
 import { SkeletonGrid } from "@/components/ui/Skeleton";
 import dynamic from "next/dynamic";
+import ChartErrorBoundary from "@/components/ui/ChartErrorBoundary";
 
 const PricePerformanceScatter = dynamic(
   () => import("@/components/charts/PricePerformanceScatter").then((m) => ({ default: m.PricePerformanceScatter })),
@@ -296,7 +297,9 @@ const HomeClient = () => {
           <h2 className="mb-3 font-mono text-sm font-semibold uppercase tracking-wider text-carbon-400">
             Price vs Performance
           </h2>
-          <PricePerformanceScatter models={scatterData} />
+          <ChartErrorBoundary chartName="Price vs Performance">
+            <PricePerformanceScatter models={scatterData} />
+          </ChartErrorBoundary>
         </div>
       )}
 

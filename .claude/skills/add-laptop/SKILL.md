@@ -1,6 +1,7 @@
 ---
 name: add-laptop
 description: Add a new laptop model (ThinkPad, IdeaPad Pro, or Legion) with all required data across every data file
+model: sonnet
 ---
 
 # Add Laptop to Registry

@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Deals Reviewer Agent
 
 Review deal highlights, market insights, and buy-signal logic for accuracy and freshness.

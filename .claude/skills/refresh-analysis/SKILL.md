@@ -2,6 +2,7 @@
 name: refresh-analysis
 description: Regenerate analysis outputs (pros/cons, use cases, verdicts) for one or all models
 disable-model-invocation: true
+model: haiku
 ---
 
 # Refresh Analysis

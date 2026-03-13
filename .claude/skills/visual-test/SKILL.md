@@ -2,6 +2,7 @@
 name: visual-test
 description: Visual testing — screenshot key pages, compare before/after, audit charts, detect regressions
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Visual Test

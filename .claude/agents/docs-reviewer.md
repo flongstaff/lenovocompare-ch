@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # docs-reviewer
 
 Cross-reference README.md and CONTRIBUTING.md against the actual codebase to catch documentation drift.

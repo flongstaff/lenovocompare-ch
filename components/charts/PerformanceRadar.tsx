@@ -34,15 +34,35 @@ const DIMENSION_HINTS: Record<keyof PerformanceDimensions, string> = {
 };
 
 const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
+  const axes = Object.keys(DIMENSION_LABELS) as (keyof PerformanceDimensions)[];
+
   if (models.length === 1) {
     return (
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center" aria-label={`Performance radar chart for ${models[0].name}`}>
         <PolarBar scores={models[0].dimensions} />
+        <details className="sr-only">
+          <summary>View data table</summary>
+          <table>
+            <caption>Performance scores for {models[0].name}</caption>
+            <thead>
+              <tr>
+                <th scope="col">Dimension</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {axes.map((key) => (
+                <tr key={key}>
+                  <td>{DIMENSION_LABELS[key]}</td>
+                  <td>{models[0].dimensions[key]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </details>
       </div>
     );
   }
-
-  const axes = Object.keys(DIMENSION_LABELS) as (keyof PerformanceDimensions)[];
 
   // First model is primary, rest are compare overlays
   const primary = models[0];
@@ -52,11 +72,39 @@ const PerformanceRadar = ({ models }: PerformanceRadarProps) => {
     color: COMPARE_COLORS[(i + 1) % COMPARE_COLORS.length],
   }));
 
+  const modelNames = models.map((m) => shortName(m.name)).join(" vs ");
+
   return (
-    <div className="w-full">
+    <div className="w-full" aria-label={`Performance radar chart comparing ${modelNames}`}>
       <div className="flex justify-center">
         <PolarBar scores={primary.dimensions} color={COMPARE_COLORS[0]} compareScores={compareScores} />
       </div>
+      <details className="sr-only">
+        <summary>View data table</summary>
+        <table>
+          <caption>Performance scores for {modelNames}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Dimension</th>
+              {models.map((m) => (
+                <th key={m.name} scope="col">
+                  {shortName(m.name)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {axes.map((key) => (
+              <tr key={key}>
+                <td>{DIMENSION_LABELS[key]}</td>
+                {models.map((m) => (
+                  <td key={m.name}>{m.dimensions[key]}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </details>
       {models.length > 1 && (
         <div className="flex flex-wrap justify-center gap-3 pb-2 pt-1">
           {models.map((m, i) => (

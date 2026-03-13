@@ -1632,16 +1632,6 @@ export const seedPrices: readonly SwissPrice[] = [
     priceType: "msrp",
     note: "Lenovo CH MSRP",
   },
-  {
-    id: "sp-206",
-    laptopId: "ideapad-pro-5i-14-gen10",
-    retailer: "Lenovo CH",
-    price: 866,
-    dateAdded: "2026-02-20",
-    isUserAdded: false,
-    priceType: "sale",
-    note: "Web Price -9% (Core Ultra 7 255H config)",
-  },
 
   // IdeaPad Pro 5i Gen 10 16" (2025)
   {
@@ -2019,6 +2009,18 @@ export const seedPrices: readonly SwissPrice[] = [
     isUserAdded: false,
     priceType: "msrp",
     note: "Lenovo CH MSRP",
+  },
+
+  // IdeaPad Pro 5i Gen 10 14" sale (2025)
+  {
+    id: "sp-206",
+    laptopId: "ideapad-pro-5i-14-gen10",
+    retailer: "Lenovo CH",
+    price: 866,
+    dateAdded: "2026-02-20",
+    isUserAdded: false,
+    priceType: "sale",
+    note: "Web Price -9% (Core Ultra 7 255H config)",
   },
 
   // Legion 7i 16" Gen 10 (2025)

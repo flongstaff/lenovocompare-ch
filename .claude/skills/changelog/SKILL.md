@@ -2,6 +2,7 @@
 name: changelog
 description: Generate a changelog from recent commits since last tag or date
 disable-model-invocation: true
+model: haiku
 ---
 
 # Generate Changelog

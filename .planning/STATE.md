@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: "Completed 01-02-PLAN.md (both tasks complete)"
-last_updated: "2026-03-13T13:45:00.000Z"
-last_activity: 2026-03-13 — Roadmap created, all 53 v1 requirements mapped to 6 phases
+status: executing
+stopped_at: "Phase 01-foundation complete — all 4 plans executed"
+last_updated: "2026-03-13T14:40:00.000Z"
+last_activity: 2026-03-13 — Phase 01 complete (4/4 plans, Workers deployed, smoke tests passing)
 progress:
   total_phases: 6
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 4
-  completed_plans: 2
-  percent: 0
+  completed_plans: 4
+  percent: 17
 ---
 
 # Project State
@@ -25,20 +25,20 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation)
-Plan: 3 of 4
-Status: In progress
-Last activity: 2026-03-13 — Completed 01-02: physical size comparison component, 20 models with PSREF dimensions
+Phase: 1 of 6 (Foundation) — COMPLETE
+Plan: 4 of 4 — ALL DONE
+Status: Phase 01 complete, ready for Phase 02 planning
+Last activity: 2026-03-13 — Workers deployed, useRemotePrices integrated, smoke tests passing
 
-Progress: [░░░░░░░░░░] 10%
+Progress: [██░░░░░░░░] 17%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 2
-- Average duration: 45 min
-- Total execution time: ~90 min
+- Total plans completed: 4
+- Average duration: ~20 min
+- Total execution time: ~80 min
 
 **By Phase:**
 
@@ -53,7 +53,9 @@ Progress: [░░░░░░░░░░] 10%
 
 _Updated after each plan completion_
 | Phase 01-foundation P01 | 45 min | 2 tasks | 5 files |
-| Phase 01-foundation P03 | 6 | 2 tasks | 6 files |
+| Phase 01-foundation P02 | 20 min | 2 tasks | 4 files |
+| Phase 01-foundation P03 | 6 min | 3 tasks | 6 files |
+| Phase 01-foundation P04 | 8 min | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -73,6 +75,11 @@ Recent decisions affecting current work:
 - [01-01]: Added workers/ to tsconfig.json exclude to prevent D1Database type pollution from root compilation
 - [01-02]: dimensions field is optional on Laptop — graceful fallback for missing data prevents empty boxes
 - [01-02]: Non-dynamic import for PhysicalSizeComparison (pure CSS, no recharts) — no SSR boundary needed
+- [01-03]: D1 database created in EEUR region, 301 seed prices loaded via Cloudflare MCP
+- [01-03]: Workers deployed at https://lenovocompare-prices.franco-longstaff.workers.dev
+- [01-04]: useRemotePrices fetches from Workers API with NEXT_PUBLIC_WORKERS_URL env var + hardcoded fallback
+- [01-04]: serve without -s flag for Playwright smoke tests — Next.js static export has per-route HTML files
+- [01-04]: deploy-workers job runs in parallel with deploy job for faster CI
 
 ### Pending Todos
 
@@ -85,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T13:45:00Z
-Stopped at: Completed 01-02-PLAN.md (both tasks complete)
+Last session: 2026-03-13T14:40:00Z
+Stopped at: Phase 01-foundation complete — all 4 plans executed, Workers live, smoke tests green
 Resume file: None

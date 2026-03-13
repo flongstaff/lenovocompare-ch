@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # PSREF Config Comparator
 
 Compare a laptop model's processor configurations against its live PSREF page.

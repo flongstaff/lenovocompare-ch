@@ -1,6 +1,7 @@
 ---
 name: add-linux-compat
 description: Add Linux compatibility data for a laptop model
+model: sonnet
 ---
 
 # Add Linux Compatibility Entry

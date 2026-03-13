@@ -6,14 +6,9 @@
  */
 import type { Laptop, FilterState, SwissPrice, SortOption } from "./types";
 import { cpuBenchmarks } from "@/data/cpu-benchmarks";
+import { getLowestPrice } from "./scoring";
 
-const getLowestPrice = (id: string, prices: readonly SwissPrice[]): number | null => {
-  const matching = prices.filter((p) => p.laptopId === id);
-  if (matching.length === 0) return null;
-  return Math.min(...matching.map((p) => p.price));
-};
-
-export const filterThinkPads = (
+export const filterLaptops = (
   models: readonly Laptop[],
   filters: FilterState,
   prices: readonly SwissPrice[],
@@ -68,10 +63,10 @@ export const filterThinkPads = (
     });
   }
 
-  return sortThinkPads(result, filters.sort, prices);
+  return sortLaptops(result, filters.sort, prices);
 };
 
-export const sortThinkPads = (models: Laptop[], sort: SortOption, prices: readonly SwissPrice[]): Laptop[] => {
+export const sortLaptops = (models: Laptop[], sort: SortOption, prices: readonly SwissPrice[]): Laptop[] => {
   const sorted = [...models];
   switch (sort) {
     case "name-asc":

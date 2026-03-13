@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Dependency Auditor
 
 Audit npm dependencies for security vulnerabilities, unused packages, and supply chain risks.

@@ -1,6 +1,7 @@
 ---
 name: cross-file-audit
 description: Verify every laptop model has complete entries across all 9 data files — flags gaps and orphans
+model: haiku
 ---
 
 # Cross-File Audit

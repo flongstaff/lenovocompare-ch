@@ -2,6 +2,7 @@
 name: add-model-year
 description: Add a batch of new Lenovo laptop models for a given year across all lineups
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Add Model Year

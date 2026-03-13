@@ -1,6 +1,7 @@
 ---
 name: generate-data-schema
 description: Auto-generate data schema documentation from lib/types.ts Laptop interface
+model: sonnet
 ---
 
 ## Steps

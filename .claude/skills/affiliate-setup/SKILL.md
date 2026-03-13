@@ -2,6 +2,7 @@
 name: affiliate-setup
 description: One-time setup guide for free retailer affiliate and publisher programs
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Affiliate & Publisher Program Setup

@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Bundle Analyzer & Guardian
 
 Analyze Next.js build output to identify bundle size regressions. Fail if thresholds are exceeded.

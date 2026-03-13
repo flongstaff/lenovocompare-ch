@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Visual Regression Tester
 
 Capture screenshots of key pages/components and detect visual regressions using Playwright.

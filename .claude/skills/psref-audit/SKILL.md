@@ -2,6 +2,7 @@
 name: psref-audit
 description: Audit all PSREF URLs for resolution, processor config completeness, and URL/name consistency
 disable-model-invocation: true
+model: haiku
 ---
 
 # PSREF Audit

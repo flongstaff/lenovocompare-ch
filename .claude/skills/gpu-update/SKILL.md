@@ -2,6 +2,7 @@
 name: gpu-update
 description: Add or update GPU entries across benchmarks, hardware guide, and model gpuOptions
 disable-model-invocation: true
+model: sonnet
 ---
 
 # GPU Update

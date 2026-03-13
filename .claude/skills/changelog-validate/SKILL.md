@@ -1,6 +1,7 @@
 ---
 name: changelog-validate
 description: Cross-reference CHANGELOG.md entries against git log since last tag — flag undocumented commits
+model: haiku
 ---
 
 ## Steps

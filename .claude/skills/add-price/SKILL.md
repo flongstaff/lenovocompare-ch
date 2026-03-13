@@ -2,6 +2,7 @@
 name: add-price
 description: Add a Swiss retail price for a laptop model
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Add Swiss Price

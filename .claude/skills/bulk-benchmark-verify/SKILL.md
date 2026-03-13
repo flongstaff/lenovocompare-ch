@@ -2,6 +2,7 @@
 name: bulk-benchmark-verify
 description: Batch verify community-estimated benchmark entries against NotebookCheck reviews and upgrade to verified data
 disable-model-invocation: true
+model: haiku
 ---
 
 # Bulk Benchmark Verify

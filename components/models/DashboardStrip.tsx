@@ -6,6 +6,7 @@ import type { Laptop, SwissPrice, PriceBaseline } from "@/lib/types";
 import type { getModelScores } from "@/lib/scoring";
 import { getScorePercentile, getLineupMaxScore } from "@/lib/scoring";
 import { formatCHF, formatDate } from "@/lib/formatters";
+import { PriceAgeBadge } from "@/components/ui/PriceAgeBadge";
 import { ScoreBar } from "@/components/ui/ScoreBar";
 import dynamic from "next/dynamic";
 
@@ -134,71 +135,57 @@ export const DashboardStrip = ({
         </h2>
         {modelPrices.length > 0 ? (
           <div className="space-y-2">
-            {(() => {
-              const now = Date.now();
-              return modelPrices.map((p) => (
-                <div
-                  key={p.id}
-                  className="flex items-center justify-between py-1.5"
-                  style={{ borderBottom: "1px solid var(--border-subtle)" }}
-                >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-medium" style={{ color: "var(--foreground)" }}>
-                        {p.retailer}
-                      </span>
-                      {p.priceType && (
-                        <span
-                          className={`px-1 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
-                            p.priceType === "sale"
-                              ? "carbon-verdict-excellent"
-                              : p.priceType === "msrp"
-                                ? "carbon-verdict-good"
-                                : p.priceType === "used"
-                                  ? "carbon-verdict-fair"
-                                  : "border-carbon-600 bg-carbon-700/30 text-carbon-300"
-                          }`}
-                        >
-                          {p.priceType}
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-xs" style={{ color: "var(--muted)" }}>
+            {modelPrices.map((p) => (
+              <div
+                key={p.id}
+                className="flex items-center justify-between py-1.5"
+                style={{ borderBottom: "1px solid var(--border-subtle)" }}
+              >
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm font-medium" style={{ color: "var(--foreground)" }}>
+                      {p.retailer}
+                    </span>
+                    {p.priceType && (
                       <span
-                        className="font-medium"
-                        style={{
-                          color:
-                            now - new Date(p.dateAdded).getTime() < 7 * 86400000
-                              ? "#42be65"
-                              : now - new Date(p.dateAdded).getTime() < 30 * 86400000
-                                ? "#f1c21b"
-                                : "var(--muted)",
-                        }}
+                        className={`px-1 py-0.5 font-mono text-[9px] uppercase tracking-wider ${
+                          p.priceType === "sale"
+                            ? "carbon-verdict-excellent"
+                            : p.priceType === "msrp"
+                              ? "carbon-verdict-good"
+                              : p.priceType === "used"
+                                ? "carbon-verdict-fair"
+                                : "border-carbon-600 bg-carbon-700/30 text-carbon-300"
+                        }`}
                       >
-                        {formatDate(p.dateAdded)}
+                        {p.priceType}
                       </span>
-                      {p.note && <span className="ml-1.5">· {p.note}</span>}
-                    </span>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    <span className="font-semibold" style={{ color: "var(--foreground)" }}>
-                      {formatCHF(p.price)}
-                    </span>
-                    {p.url && (
-                      <a
-                        href={p.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="View price source"
-                        style={{ color: "var(--accent-light)" }}
-                      >
-                        <ExternalLink size={12} />
-                      </a>
                     )}
                   </div>
+                  <span className="flex items-center gap-1.5 text-xs" style={{ color: "var(--muted)" }}>
+                    <span className="font-medium">{formatDate(p.dateAdded)}</span>
+                    <PriceAgeBadge dateAdded={p.dateAdded} />
+                    {p.note && <span>· {p.note}</span>}
+                  </span>
                 </div>
-              ));
-            })()}
+                <div className="flex shrink-0 items-center gap-2">
+                  <span className="font-semibold" style={{ color: "var(--foreground)" }}>
+                    {formatCHF(p.price)}
+                  </span>
+                  {p.url && (
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="View price source"
+                      style={{ color: "var(--accent-light)" }}
+                    >
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--muted)" }}>

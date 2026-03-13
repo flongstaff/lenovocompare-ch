@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Accessibility Reviewer
 
 Review LenovoCompare CH components for WCAG 2.1 AA compliance, focusing on the IBM Carbon dark theme context.

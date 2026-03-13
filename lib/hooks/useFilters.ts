@@ -6,7 +6,7 @@
  */
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { FilterState, Laptop, SwissPrice, Lineup, Series, SortOption } from "@/lib/types";
-import { filterThinkPads } from "@/lib/filters";
+import { filterLaptops } from "@/lib/filters";
 
 const VALID_LINEUPS = ["ThinkPad", "IdeaPad Pro", "Legion", "Yoga"] as const satisfies readonly Lineup[];
 const VALID_SERIES = [
@@ -144,7 +144,7 @@ export const useFilters = (models: readonly Laptop[], prices: readonly SwissPric
     syncFiltersToUrl(filters);
   }, [filters]);
 
-  const filtered = useMemo(() => filterThinkPads(models, filters, prices), [models, filters, prices]);
+  const filtered = useMemo(() => filterLaptops(models, filters, prices), [models, filters, prices]);
 
   const setSearch = useCallback((search: string) => setFilters((f) => ({ ...f, search })), []);
   const setSort = useCallback((sort: SortOption) => setFilters((f) => ({ ...f, sort })), []);
