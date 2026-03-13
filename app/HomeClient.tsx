@@ -25,6 +25,7 @@ import LaptopCard from "@/components/models/LaptopCard";
 import { CompareFloatingBar } from "@/components/compare/CompareFloatingBar";
 import { SkeletonGrid } from "@/components/ui/Skeleton";
 import dynamic from "next/dynamic";
+import ChartErrorBoundary from "@/components/ui/ChartErrorBoundary";
 
 const PricePerformanceScatter = dynamic(
   () => import("@/components/charts/PricePerformanceScatter").then((m) => ({ default: m.PricePerformanceScatter })),
@@ -35,8 +36,11 @@ const PricePerformanceScatter = dynamic(
 const useCounter = (target: number) => {
   const [value, setValue] = useState(0);
   const targetRef = useRef(target);
-  targetRef.current = target;
   const hasRun = useRef(false);
+
+  useEffect(() => {
+    targetRef.current = target;
+  }, [target]);
 
   useEffect(() => {
     if (hasRun.current || target === 0) return;
@@ -174,10 +178,12 @@ const HomeClient = () => {
 
   const filterKey = useMemo(() => JSON.stringify(filters), [filters]);
 
-  // Reset visible count when filters change
-  useEffect(() => {
+  // Reset visible count when filters change (state-during-render pattern)
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
     setVisibleCount(PAGE_SIZE);
-  }, [filterKey]);
+  }
 
   const visible = filtered.slice(0, visibleCount);
   const remaining = filtered.length - visibleCount;
@@ -296,7 +302,9 @@ const HomeClient = () => {
           <h2 className="mb-3 font-mono text-sm font-semibold uppercase tracking-wider text-carbon-400">
             Price vs Performance
           </h2>
-          <PricePerformanceScatter models={scatterData} />
+          <ChartErrorBoundary chartName="Price vs Performance">
+            <PricePerformanceScatter models={scatterData} />
+          </ChartErrorBoundary>
         </div>
       )}
 

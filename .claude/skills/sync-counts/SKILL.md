@@ -1,6 +1,7 @@
 ---
 name: sync-counts
 description: Update model, CPU, and GPU counts across all documentation files
+model: haiku
 ---
 
 # Sync Documentation Counts

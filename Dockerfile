@@ -20,16 +20,14 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# Production
-FROM base AS runner
-ENV NODE_ENV=production
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-USER nextjs
+# Production — serve static export with nginx
+FROM nginx:alpine AS runner
+
+# Copy security-hardened nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copy static export output
+COPY --from=builder /app/out /usr/share/nginx/html
+
 EXPOSE 3000
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]

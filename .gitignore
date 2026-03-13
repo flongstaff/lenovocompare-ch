@@ -70,3 +70,6 @@ rpi/
 
 #Ignore cursor AI rules
 .cursor/rules/codacy.mdc
+.opencode/
+.goose/
+.pi/

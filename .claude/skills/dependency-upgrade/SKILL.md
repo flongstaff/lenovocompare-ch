@@ -2,6 +2,7 @@
 name: dependency-upgrade
 description: Evaluate and apply safe dependency upgrades with changelog review and test verification
 disable-model-invocation: true
+model: haiku
 ---
 
 # Dependency Upgrade

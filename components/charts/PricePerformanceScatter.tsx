@@ -56,6 +56,7 @@ const LINEUP_COLORS: Record<string, string> = {
   ThinkPad: "#0f62fe",
   "IdeaPad Pro": "#be95ff",
   Legion: "#42be65",
+  Yoga: "#8a3ffc",
 } as const;
 
 const DIMENSION_ENTRIES = [

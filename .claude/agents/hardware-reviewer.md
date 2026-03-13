@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Hardware Reviewer
 
 Cross-reference all GPU and CPU hardware data files for missing entries, inconsistencies, and factual accuracy. Combines GPU data integrity checks with hardware guide content review.

@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Price Freshness Checker
 
 Audits seed price data for staleness and coverage gaps. Outputs a prioritized refresh queue.

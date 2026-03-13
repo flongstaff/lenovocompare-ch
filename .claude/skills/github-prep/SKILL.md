@@ -2,6 +2,7 @@
 name: github-prep
 description: Full pre-publication audit — security, docs freshness, code readability, data completeness, build verification, and stale references
 disable-model-invocation: true
+model: haiku
 ---
 
 # GitHub Release Preparation

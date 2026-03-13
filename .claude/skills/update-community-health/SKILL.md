@@ -2,6 +2,7 @@
 name: update-community-health
 description: Keep community health files (CHANGELOG, SECURITY, SUPPORT) in sync with project state
 disable-model-invocation: true
+model: haiku
 ---
 
 # Update Community Health Files

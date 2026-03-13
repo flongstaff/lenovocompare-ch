@@ -2,6 +2,7 @@
 name: data-verify
 description: Data validation — cross-reference sync, CLI validation, and regression snapshots
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Data Verify

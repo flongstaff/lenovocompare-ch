@@ -2,6 +2,7 @@
 name: release
 description: Bump version, generate changelog from git history, and create a git tag
 disable-model-invocation: true
+model: haiku
 ---
 
 # Release

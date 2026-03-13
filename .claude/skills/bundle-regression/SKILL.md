@@ -2,6 +2,7 @@
 name: bundle-regression
 description: Compare current build sizes against stored baselines, flag regressions >5%
 disable-model-invocation: true
+model: haiku
 ---
 
 # Bundle Regression Check

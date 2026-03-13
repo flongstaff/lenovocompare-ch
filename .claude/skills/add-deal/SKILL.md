@@ -2,6 +2,7 @@
 name: add-deal
 description: Add a curated deal highlight or update market insights data
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Add Deal / Update Market Insights

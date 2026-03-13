@@ -2,6 +2,7 @@
 name: update-psref
 description: Run the full PSREF scrape → fix URLs → merge pipeline for all or specific models
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Update PSREF

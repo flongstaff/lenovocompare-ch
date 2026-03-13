@@ -311,3 +311,36 @@ body {
   background-color: #525252;
   border-radius: 3px;
 }
+
+/* Glass bar (compare floating bar) */
+.glass-bar {
+  background: rgba(38, 38, 38, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(57, 57, 57, 0.6);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Focus visibility for keyboard navigation */
+.carbon-btn:focus-visible,
+.carbon-btn-ghost:focus-visible,
+.carbon-input:focus-visible,
+.carbon-select:focus-visible,
+.carbon-card:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduced motion for vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

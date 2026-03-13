@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Data Completeness Checker
 
 Verify every laptop model has complete data coverage across all 9 data files in the LenovoCompare CH registry.

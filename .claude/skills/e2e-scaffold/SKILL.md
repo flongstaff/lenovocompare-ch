@@ -1,6 +1,7 @@
 ---
 name: e2e-scaffold
 description: Generate Playwright E2E test stubs for key user flows (grid, model detail, compare, pricing)
+model: sonnet
 ---
 
 # E2E Scaffold Skill

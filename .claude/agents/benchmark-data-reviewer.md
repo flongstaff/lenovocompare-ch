@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Benchmark Data Reviewer
 
 Cross-reference `data/model-benchmarks.ts` against `data/laptops.ts` to find coverage gaps and validate data plausibility.

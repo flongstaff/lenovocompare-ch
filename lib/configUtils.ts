@@ -28,8 +28,8 @@ export const formatRam = (r: Ram) => `${r.size}GB ${r.type}-${r.speed}${r.solder
 export const formatStorageOption = (s: Storage) =>
   `${s.size >= 1024 ? `${s.size / 1024}TB` : `${s.size}GB`} ${s.type} (${s.slots} slot${s.slots > 1 ? "s" : ""})`;
 
-export const buildConfiguredModel = (model: Laptop, config: ConfigState): Laptop =>
-  ({
+export const buildConfiguredModel = (model: Laptop, config: ConfigState): Laptop => {
+  const configured: Laptop = {
     ...model,
     processor:
       config.processor !== null && model.processorOptions?.[config.processor]
@@ -45,7 +45,9 @@ export const buildConfiguredModel = (model: Laptop, config: ConfigState): Laptop
       config.storage !== null && model.storageOptions?.[config.storage]
         ? model.storageOptions[config.storage]
         : model.storage,
-  }) as Laptop;
+  };
+  return configured;
+};
 
 export const hasConfigOptions = (model: Laptop): boolean =>
   (model.processorOptions?.length ?? 0) > 0 ||

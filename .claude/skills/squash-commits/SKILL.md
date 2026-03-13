@@ -2,6 +2,7 @@
 name: squash-commits
 description: Consolidate messy branch history into clean conventional commits before PR
 disable-model-invocation: true
+model: haiku
 ---
 
 # Squash Commits

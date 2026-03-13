@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Chart Reviewer
 
 Review all chart components for consistency, correctness, visual quality, and cross-lineup score handling.

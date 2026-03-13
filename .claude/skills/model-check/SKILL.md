@@ -1,6 +1,7 @@
 ---
 name: model-check
 description: Full health check for a single model — data completeness, page rendering, chart verification, price sanity
+model: haiku
 ---
 
 # Model Check

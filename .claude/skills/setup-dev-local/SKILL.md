@@ -2,6 +2,7 @@
 name: setup-dev-local
 description: Bootstrap a local dev environment (Node + Python + Playwright) without Docker
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Local Developer Environment Setup

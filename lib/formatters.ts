@@ -26,12 +26,33 @@ export const formatDate = (iso: string): string => {
 
 export const formatStorage = (gb: number): string => (gb >= 1024 ? `${(gb / 1024).toFixed(0)} TB` : `${gb} GB`);
 
-/** Strip lineup prefix for compact chart labels (works for all three lineups) */
-export const shortName = (name: string) => name.replace(/^(ThinkPad|IdeaPad Pro|Legion) /, "");
+/** Strip lineup prefix for compact chart labels */
+export const shortName = (name: string) => name.replace(/^(ThinkPad|IdeaPad Pro|Legion|Yoga) /, "");
 
 /** Calculate percentage discount off MSRP (rounded integer) */
 export const getPriceDiscount = (price: number, msrp: number): number =>
   msrp === 0 ? 0 : Math.round(((msrp - price) / msrp) * 100);
+
+/** Price age freshness badge based on days since dateAdded */
+export const getPriceAgeBadge = (dateAdded: string): { label: string; color: string } => {
+  const added = new Date(dateAdded);
+  if (isNaN(added.getTime())) return { label: "?", color: "#6f6f6f" };
+
+  const now = new Date();
+  const diffMs = now.getTime() - added.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 30) {
+    return { label: "Fresh", color: "#42be65" };
+  }
+
+  const months = Math.floor(diffDays / 30);
+  if (diffDays <= 90) {
+    return { label: `${months}mo`, color: "#f1c21b" };
+  }
+
+  return { label: `${months}mo+`, color: "#da1e28" };
+};
 
 /** Color for a price discount percentage: green (>=25%), yellow (>=10%), red (<10%) */
 export const getPriceDiscountColor = (discountPct: number): string => {

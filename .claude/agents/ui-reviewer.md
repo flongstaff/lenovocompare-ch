@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # UI Consistency Reviewer
 
 Review components for adherence to the IBM Carbon dark theme design system used in LenovoCompare CH.

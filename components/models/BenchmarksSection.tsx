@@ -7,6 +7,7 @@ import { BENCHMARK_CAT_COLORS } from "@/lib/constants";
 import { ThermalProfileBar } from "@/components/models/ThermalProfileBar";
 import { StatBox, MiniBar, SubSection, Divider, InsightRow, NoiseScale } from "@/components/models/BenchmarkWidgets";
 import dynamic from "next/dynamic";
+import ChartErrorBoundary from "@/components/ui/ChartErrorBoundary";
 
 const ThermalGauge = dynamic(() => import("@/components/charts/ThermalGauge"), { ssr: false });
 const BatteryCompareBar = dynamic(() => import("@/components/charts/BatteryCompareBar"), { ssr: false });
@@ -43,10 +44,30 @@ const SOURCE_DISPLAY: Record<string, string> = {
   community: "Community",
 };
 
+/**
+ * Renders a benchmark score value. When `sourceUrls` has entries, the value
+ * is a subtle clickable link to the primary review source (dotted underline on hover).
+ * When no source is available, adds a muted "(unverified)" label.
+ */
+const SourceLinkedValue = ({ value, sourceUrls }: { value: string | number; sourceUrls?: readonly string[] }) => {
+  const primaryUrl = sourceUrls && sourceUrls.length > 0 ? sourceUrls[0] : null;
+  if (primaryUrl) {
+    return (
+      <a href={primaryUrl} target="_blank" rel="noopener noreferrer" className="decoration-dotted hover:underline">
+        {value}
+      </a>
+    );
+  }
+  return (
+    <>
+      {value}
+      <span className="ml-1 text-xs opacity-50">(unverified)</span>
+    </>
+  );
+};
+
 const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in JSX conditionals below
   const thermalT = getThermalThresholds(model);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in JSX conditionals below
   const noiseT = getNoiseThresholds(model);
   const chassisBench = getModelBenchmarks(model.id);
   const cpuRaw = getCpuRawBenchmarks(model.processor.name);
@@ -251,10 +272,12 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
               {chassisBench?.thermals && (
                 <div className="space-y-2">
                   <ThermalProfileBar keyboardMaxC={chassisBench.thermals.keyboardMaxC} />
-                  <ThermalGauge
-                    keyboardMaxC={chassisBench.thermals.keyboardMaxC}
-                    undersideMaxC={chassisBench.thermals.undersideMaxC}
-                  />
+                  <ChartErrorBoundary chartName="Thermal Gauge">
+                    <ThermalGauge
+                      keyboardMaxC={chassisBench.thermals.keyboardMaxC}
+                      undersideMaxC={chassisBench.thermals.undersideMaxC}
+                    />
+                  </ChartErrorBoundary>
                   <span
                     className="inline-block px-1.5 py-0.5 text-xs"
                     style={{
@@ -283,6 +306,9 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                       </span>
                     )}
                   </span>
+                  <div className="mt-1 text-[11px]" style={{ color: "var(--muted)" }}>
+                    Measured: <SourceLinkedValue value="review source" sourceUrls={chassisBench.sourceUrls} />
+                  </div>
                 </div>
               )}
             </SubSection>
@@ -350,15 +376,20 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                   <StatBox label="Office / Web" value={chassisBench.battery.officeHours} unit="hrs" color="#42be65" />
                   <StatBox label="Video Playback" value={chassisBench.battery.videoHours} unit="hrs" color="#08bdba" />
                 </div>
+                <div className="mt-1 text-[11px]" style={{ color: "var(--muted)" }}>
+                  Measured: <SourceLinkedValue value="review source" sourceUrls={chassisBench.sourceUrls} />
+                </div>
               </SubSection>
             )}
 
             {chassisBench?.batteryPerformance && (
               <SubSection title="Battery Performance" accent={CAT_COLORS.battPerf}>
-                <BatteryCompareBar
-                  pluggedIn={chassisBench.batteryPerformance.pluggedIn}
-                  onBattery={chassisBench.batteryPerformance.onBattery}
-                />
+                <ChartErrorBoundary chartName="Battery Compare">
+                  <BatteryCompareBar
+                    pluggedIn={chassisBench.batteryPerformance.pluggedIn}
+                    onBattery={chassisBench.batteryPerformance.onBattery}
+                  />
+                </ChartErrorBoundary>
               </SubSection>
             )}
 
@@ -417,6 +448,9 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                         : "#f1c21b"
                   }
                 />
+                <div className="mt-1 text-[11px]" style={{ color: "var(--muted)" }}>
+                  Measured: <SourceLinkedValue value="review source" sourceUrls={chassisBench.sourceUrls} />
+                </div>
               </SubSection>
             )}
 
@@ -498,6 +532,9 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                               : "Dim — best in controlled lighting environments"
                       }
                     />
+                    <div className="mt-1 text-[11px]" style={{ color: "var(--muted)" }}>
+                      Measured: <SourceLinkedValue value="review source" sourceUrls={chassisBench.sourceUrls} />
+                    </div>
                   </SubSection>
                 );
               })()}
@@ -527,6 +564,9 @@ const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
                       : "#be95ff"
                   }
                 />
+                <div className="mt-1 text-[11px]" style={{ color: "var(--muted)" }}>
+                  Measured: <SourceLinkedValue value="review source" sourceUrls={chassisBench.sourceUrls} />
+                </div>
               </SubSection>
             ) : chassisBench?.displayBrightness ? (
               <SubSection title="Display Quality" accent="#6f6f6f">

@@ -1,3 +1,7 @@
+---
+model: sonnet
+---
+
 # Test Writer
 
 Generate unit tests for LenovoCompare CH utility functions and data integrity.

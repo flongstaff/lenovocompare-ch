@@ -6,7 +6,7 @@
  */
 import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import type { FilterState, Laptop, SwissPrice, Lineup, Series, SortOption } from "@/lib/types";
-import { filterThinkPads } from "@/lib/filters";
+import { filterLaptops } from "@/lib/filters";
 
 const VALID_LINEUPS = ["ThinkPad", "IdeaPad Pro", "Legion", "Yoga"] as const satisfies readonly Lineup[];
 const VALID_SERIES = [
@@ -121,18 +121,11 @@ const syncFiltersToUrl = (filters: FilterState) => {
 };
 
 export const useFilters = (models: readonly Laptop[], prices: readonly SwissPrice[]) => {
-  const initialized = useRef(false);
-  const [filters, setFilters] = useState<FilterState>(defaultFilters);
-
-  // Read URL params on mount
-  useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
+  const [filters, setFilters] = useState<FilterState>(() => {
+    if (typeof window === "undefined") return defaultFilters;
     const fromUrl = parseFiltersFromUrl();
-    if (Object.keys(fromUrl).length > 0) {
-      setFilters((f) => ({ ...f, ...fromUrl }));
-    }
-  }, []);
+    return Object.keys(fromUrl).length > 0 ? { ...defaultFilters, ...fromUrl } : defaultFilters;
+  });
 
   // Sync to URL on change (skip initial)
   const isFirstRender = useRef(true);
@@ -144,7 +137,7 @@ export const useFilters = (models: readonly Laptop[], prices: readonly SwissPric
     syncFiltersToUrl(filters);
   }, [filters]);
 
-  const filtered = useMemo(() => filterThinkPads(models, filters, prices), [models, filters, prices]);
+  const filtered = useMemo(() => filterLaptops(models, filters, prices), [models, filters, prices]);
 
   const setSearch = useCallback((search: string) => setFilters((f) => ({ ...f, search })), []);
   const setSort = useCallback((sort: SortOption) => setFilters((f) => ({ ...f, sort })), []);

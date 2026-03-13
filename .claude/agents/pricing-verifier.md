@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Swiss Pricing Verifier
 
 Verify that all laptop models (ThinkPad, IdeaPad Pro, and Legion) in `data/laptops.ts` have complete pricing data in `data/seed-prices.ts` and `data/price-baselines.ts`.

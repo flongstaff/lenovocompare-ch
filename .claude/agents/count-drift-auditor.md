@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Count Drift Auditor
 
 Detect stale numeric claims (model counts, lineup counts, CPU/GPU counts) across all text-bearing files by cross-referencing against actual data.

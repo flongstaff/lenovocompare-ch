@@ -2,6 +2,7 @@
 name: commit
 description: Create a well-structured git commit with conventional format
 disable-model-invocation: true
+model: haiku
 ---
 
 # Commit Changes

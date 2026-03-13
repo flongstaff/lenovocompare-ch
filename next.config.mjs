@@ -12,6 +12,9 @@ const nextConfig = {
   output: "export",
   reactStrictMode: true,
   poweredByHeader: false,
+  turbopack: {
+    root: import.meta.dirname,
+  },
   ...(isGitHubPages && {
     basePath: "/lenovocompare-ch",
     assetPrefix: "/lenovocompare-ch",

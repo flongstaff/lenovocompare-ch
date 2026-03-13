@@ -4,6 +4,7 @@ description: Generate a responsive Recharts component with mobile-first patterns
 argument-hint: "<chart-type> <name> <data>"
 user-invocable: true
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Chart Component Generator

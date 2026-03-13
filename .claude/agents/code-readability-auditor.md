@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Code Readability Auditor
 
 Audit all source files for JSDoc coverage, inline comment quality, and documentation of non-obvious logic.

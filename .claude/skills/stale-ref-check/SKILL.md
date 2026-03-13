@@ -2,6 +2,7 @@
 name: stale-ref-check
 description: Audit .claude/ skill and agent files for stale file paths and deprecated names
 disable-model-invocation: true
+model: haiku
 ---
 
 # Stale Reference Check

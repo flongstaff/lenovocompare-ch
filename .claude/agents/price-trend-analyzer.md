@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Price Trend Analyzer
 
 Analyze seed price data and baselines to identify pricing trends, value opportunities, and anomalies across all lineups.

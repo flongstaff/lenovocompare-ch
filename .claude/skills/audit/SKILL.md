@@ -2,6 +2,7 @@
 name: audit
 description: Run targeted audits — performance/bundle, pricing, retailers, or PSREF URLs
 disable-model-invocation: true
+model: haiku
 ---
 
 # Audit

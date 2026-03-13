@@ -2,6 +2,7 @@
 name: price-import-test
 description: Generate test payloads and verify the pricing import/export flow
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Price Import Test

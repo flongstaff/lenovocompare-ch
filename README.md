@@ -2,7 +2,7 @@
 
 A local-first Swiss-market Lenovo laptop comparison tool covering **124 models** across four lineups: **ThinkPad**, **IdeaPad Pro**, **Legion**, and **Yoga** (2018–2025).
 
-Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are hardcoded from public [PSREF](https://psref.lenovo.com) data — no scraping, no external APIs, no tracking.
+Built with Next.js 16 and a dark IBM Carbon-inspired aesthetic. All specs are hardcoded from public [PSREF](https://psref.lenovo.com) data — no scraping, no external APIs, no tracking.
 
 ![Home grid](public/screenshots/home.png)
 ![Model detail](public/screenshots/detail.png)
@@ -25,11 +25,11 @@ Built with Next.js 14 and a dark IBM Carbon-inspired aesthetic. All specs are ha
 
 | Layer      | Technology                                                      |
 | ---------- | --------------------------------------------------------------- |
-| Framework  | Next.js 14 (App Router)                                         |
+| Framework  | Next.js 16 (App Router)                                         |
 | Language   | TypeScript 5                                                    |
 | Styling    | Tailwind CSS 3 + IBM Carbon dark theme                          |
 | Charts     | recharts                                                        |
-| Animations | framer-motion                                                   |
+| Animations | CSS animations                                                  |
 | Icons      | lucide-react                                                    |
 | Testing    | Vitest                                                          |
 | CI/CD      | GitHub Actions (lint, test, build, CodeQL, GitHub Pages deploy) |
@@ -86,7 +86,7 @@ components/
   ui/                   # Shared UI (ScoreBar, Toast, ErrorBoundary)
   layout/               # Header, Footer
 data/
-  laptops.ts            # 100 models with full PSREF specs
+  laptops.ts            # 124 models with full PSREF specs
   cpu-benchmarks.ts     # 80+ CPUs with single/multi/composite scores
   gpu-benchmarks.ts     # 28+ GPUs with gaming tiers and FPS estimates
   model-benchmarks.ts   # Per-model chassis benchmarks (thermals, battery, SSD)

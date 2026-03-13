@@ -2,6 +2,7 @@
 name: hook-health
 description: Dry-run diagnostic for all hooks — test execution, timing, and exit codes
 disable-model-invocation: true
+model: haiku
 ---
 
 # Hook Health Check

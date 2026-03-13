@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Validation Reviewer
 
 Review `lib/validate-data.ts` for completeness and correctness of the validation engine itself.

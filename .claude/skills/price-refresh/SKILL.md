@@ -2,6 +2,7 @@
 name: price-refresh
 description: Guided workflow to refresh Swiss retail prices for a laptop model using free, legal methods
 args: "[model-id or model name]"
+model: sonnet
 ---
 
 # Price Refresh Workflow

@@ -2,6 +2,7 @@
 name: perf-budget
 description: Check bundle size against baseline and flag regressions
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Performance Budget Check

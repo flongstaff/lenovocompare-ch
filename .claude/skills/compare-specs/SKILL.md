@@ -2,6 +2,7 @@
 name: compare-specs
 description: Side-by-side spec and score comparison of 2-4 laptop models in the terminal
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Compare Specs

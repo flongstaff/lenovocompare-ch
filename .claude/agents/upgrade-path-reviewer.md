@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Upgrade Path Reviewer
 
 Validate UpgradeSimulator upgrade paths against PSREF specs for all laptop models (ThinkPad, IdeaPad Pro, and Legion).

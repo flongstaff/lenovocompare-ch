@@ -2,6 +2,7 @@
 name: deploy-check
 description: Run full build, lint, and visual verification before deployment
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Deploy Check

@@ -1,6 +1,7 @@
 ---
 name: type-coverage-audit
 description: Scan TypeScript files for `any`, `@ts-ignore`, and type coverage metrics
+model: haiku
 ---
 
 ## Steps

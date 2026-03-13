@@ -2,6 +2,7 @@
 name: prettier-fix
 description: Fix all Prettier formatting issues across the repo and verify clean state
 disable-model-invocation: true
+model: haiku
 ---
 
 # Prettier Fix

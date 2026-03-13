@@ -1,3 +1,7 @@
+---
+model: haiku
+---
+
 # Scoring Auditor
 
 Audit all 6 scoring dimensions across all laptop models (ThinkPad, IdeaPad Pro, and Legion) for sanity and consistency.

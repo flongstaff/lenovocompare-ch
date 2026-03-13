@@ -730,13 +730,13 @@ export const modelEditorial: Record<string, EditorialOverlay> = {
 
   "ideapad-pro-5-14-gen8-amd": {
     editorialNotes:
-      "The 2023 Gen 8 AMD was the model that put the IdeaPad Pro on the map for value-conscious creators. The Ryzen 7 7745HX with Zen 4 and a 2.8K 120 Hz OLED display delivered near-workstation performance in a slim consumer chassis. A landmark generation for the series.",
+      "The 2023 Gen 8 AMD was the model that put the IdeaPad Pro on the map for value-conscious creators. The Ryzen 7 7840HS with Zen 4 and a 2.8K OLED display delivered strong performance in a slim consumer chassis. A landmark generation for the series.",
     knownIssues:
-      "The 7745HX is a 55W HX-class chip — thermal management in the slim chassis means fans are audible under sustained loads. Ensure adequate ventilation for prolonged creative workloads.",
+      "The 7840HS is a 45W HS-class chip — thermal management in the slim chassis means fans are audible under sustained loads. Ensure adequate ventilation for prolonged creative workloads.",
     swissMarketNotes:
       "Now available at clearance pricing at Digitec and Brack as Gen 9 stock arrives. Excellent value for CHF 900–1200 for remaining units. Still a highly capable machine.",
     linuxNotes:
-      "Community-supported. Zen 4 with RDNA 3 has strong Linux support. The HX-class chip runs hot — confirm thermal management under Linux before sustained workloads.",
+      "Community-supported. Zen 4 with RDNA 3 has strong Linux support. Confirm thermal management under Linux before sustained workloads.",
   },
 
   "ideapad-pro-5-16-gen8-amd": {

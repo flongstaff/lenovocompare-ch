@@ -2,6 +2,7 @@
 name: benchmark-update
 description: Batch update CPU/GPU benchmark scores from public aggregate data
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Batch Benchmark Update

@@ -2,6 +2,7 @@
 name: ingest-review
 description: Ingest a laptop review (NotebookCheck, JustJoshTech, etc.) and extract benchmark data into model-benchmarks.ts
 disable-model-invocation: true
+model: sonnet
 ---
 
 # Ingest Review Skill

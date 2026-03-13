@@ -21,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) to verify the dev server is 
 
 ### Verification
 
-The project uses **Vitest** for unit tests (7 test files in `tests/`):
+The project uses **Vitest** for unit tests:
 
 ```bash
 npm test          # Run all tests once
@@ -46,7 +46,7 @@ Always run `npm test` and `npm run build` before submitting a PR.
 - Functional components only (no class components except ErrorBoundary)
 - Default exports for most components (LaptopCard, Header, CompareTable)
 - Named exports where noted (Footer: `export const Footer`)
-- Components using recharts, framer-motion, or browser APIs must have `"use client"` directive
+- Components using recharts or browser APIs must have `"use client"` directive
 - `useSearchParams()` requires a `<Suspense>` boundary wrapping the component
 
 ### Styling
@@ -61,7 +61,7 @@ Always run `npm test` and `npm run build` before submitting a PR.
 - All data arrays use `as const` assertions
 - Seed price IDs are sequential strings (check last entry in `data/seed-prices.ts` for the current max)
 - Data files are keyed by `laptopId` or hardware name (CPU/GPU string)
-- New fields on the `Laptop` interface must be optional (`?`) unless you update all 100 models
+- New fields on the `Laptop` interface must be optional (`?`) unless you update all 124 models
 
 ## Adding Data
 
@@ -79,7 +79,7 @@ This touches up to 8 files. Always follow this order:
    - Include `score`, `gamingTier`, and `fpsEstimates` for common titles
 
 3. **`data/laptops.ts`** — Add the model entry
-   - Use the correct `lineup` (`"ThinkPad" | "IdeaPad Pro" | "Legion"`)
+   - Use the correct `lineup` (`"ThinkPad" | "IdeaPad Pro" | "Legion" | "Yoga"`)
    - Assign the correct `series` for the lineup
    - `laptopId` format: `{model}-gen{N}-{platform}` (e.g. `t14-gen6-intel`). Omit platform suffix for single-platform models
    - `psrefUrl` is required — follow the pattern: `https://psref.lenovo.com/Product/{Lineup}/Lenovo_{Lineup}_{Model}_{MachineType}`
@@ -98,7 +98,10 @@ This touches up to 8 files. Always follow this order:
 7. **`data/price-baselines.ts`** — Add price baselines
    - MSRP, typical retail, and historical low if known
 
-8. **`data/hardware-guide.ts`** — Add hardware guide entries for new CPUs/GPUs
+8. **`data/model-benchmarks.ts`** — Add per-model chassis benchmarks
+   - Thermals, fan noise, battery life, SSD speed, display brightness from reviews
+
+9. **`data/hardware-guide.ts`** — Add hardware guide entries for new CPUs/GPUs
    - Summary, strengths, weaknesses, bestFor, thermalNotes, alternatives
 
 **Verify**: Run `npm run build` after all additions.
@@ -179,7 +182,7 @@ These are collected from real development experience:
 - **ScoreBar colors**: Must be raw hex values (`"#0f62fe"`), not CSS variables. `var(--accent)90` creates invalid CSS when the hex opacity suffix is appended
 - **`npm start` CSS**: Standalone mode doesn't serve CSS properly. Use `npm run dev` for visual testing
 - **`as const` arrays**: `data/laptops.ts` ends with `] as const;` — insert new models before the closing bracket
-- **Optional fields**: New fields on `Laptop` must be optional (`?`) unless you update all 100 models
+- **Optional fields**: New fields on `Laptop` must be optional (`?`) unless you update all 124 models
 - **Icon `size` prop**: lucide-react `size` is `string | number`, not just `number`
 - **Export styles**: Footer uses named export, Header uses default export — check existing patterns
 

@@ -1,3 +1,7 @@
+---
+model: sonnet
+---
+
 # Component Test Writer
 
 Generate React component tests using @testing-library/react + Vitest for components in `components/`.

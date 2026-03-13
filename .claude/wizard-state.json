@@ -1,0 +1,32 @@
+{
+  "scenario": "none",
+  "detected_at": "2026-03-13T10:43:47Z",
+  "next_command": "/wizard",
+  "project_type": "web",
+  "complexity_signal": {
+    "has_prd": false,
+    "has_architecture": false,
+    "has_multi_reqs": false,
+    "has_long_readme": true,
+    "code_file_count": 167,
+    "has_dependency_manager": true
+  },
+  "recommended_path": "bmad-gsd",
+  "bridge_eligible": false,
+  "bmad": {
+    "present": false,
+    "prd": false,
+    "architecture": false,
+    "stories_total": 0,
+    "stories_approved": 0,
+    "stories_done": 0
+  },
+  "gsd": {
+    "present": false,
+    "roadmap": false,
+    "state": false,
+    "current_phase": null,
+    "total_phases": null,
+    "phase_status": null
+  }
+}

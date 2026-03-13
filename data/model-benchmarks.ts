@@ -28,6 +28,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     weightWithChargerGrams: 1680,
     memoryBandwidthGBs: 72.8,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-Gen-13-Review.html"],
   },
 
   // === ThinkPad X1 Carbon Gen 12 (2024, Core Ultra 7 155U) ===
@@ -41,6 +42,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     weightWithChargerGrams: 1690,
     memoryBandwidthGBs: 68.4,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-Gen-12-Review.html"],
   },
 
   // === ThinkPad X1 Carbon Gen 11 (2023, i7-1365U) ===
@@ -52,6 +54,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1500,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-Gen-11-Review.html"],
   },
 
   // === ThinkPad X1 Carbon Gen 10 (2022, i7-1270P) ===
@@ -63,6 +66,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 411,
     weightWithChargerGrams: 1490,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-Gen-10-Review.html"],
   },
 
   // === ThinkPad X1 2-in-1 Gen 10 (2025, Core Ultra 7 256V) ===
@@ -74,6 +78,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 520,
     weightWithChargerGrams: 1572,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-2-in-1-Gen-10-Review.html"],
   },
 
   // === ThinkPad X1 2-in-1 Gen 9 (2025, Core Ultra 7 258V) ===
@@ -85,6 +90,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 420,
     weightWithChargerGrams: 1679,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-2-in-1-Gen-9-Review.html"],
   },
 
   // === ThinkPad X1 Yoga Gen 9 (2024, Core Ultra 7 155U) ===
@@ -96,6 +102,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 445,
     weightWithChargerGrams: 1810,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Yoga-Gen-9-Review.html"],
   },
 
   // === ThinkPad X1 Yoga Gen 8 (2023, i7-1365U) ===
@@ -107,6 +114,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 420,
     weightWithChargerGrams: 1680,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Yoga-Gen-8-Review.html"],
   },
 
   // === ThinkPad X1 Yoga Gen 7 (2022, i7-1270P) ===
@@ -118,6 +126,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 430,
     weightWithChargerGrams: 1780,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Yoga-Gen-7-Review.html"],
   },
 
   // === ThinkPad X1 Yoga Gen 6 (2021, i7-1165G7) ===
@@ -129,6 +138,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 531,
     weightWithChargerGrams: 1697,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Yoga-Gen-6-Review.html"],
   },
 
   // === ThinkPad X1 Yoga Gen 5 (2020, i7-10610U) ===
@@ -140,6 +150,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 420,
     weightWithChargerGrams: 1657,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Yoga-5th-Gen-Review.html"],
   },
 
   // === ThinkPad X1 Yoga 4th Gen (2019, i7-8665U) ===
@@ -151,6 +162,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1702,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Yoga-4th-Gen-Review.html"],
   },
 
   // === ThinkPad X1 Yoga 3rd Gen (2018, i7-8550U) ===
@@ -162,6 +174,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 477,
     weightWithChargerGrams: 1779,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Yoga-3rd-Gen-Review.html"],
   },
 
   // === ThinkPad X1 Titanium Yoga (2021, i5-1135G7) ===
@@ -173,6 +186,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 467,
     weightWithChargerGrams: 1512,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Titanium-Yoga-Review.html"],
   },
 
   // === ThinkPad X1 Nano Gen 3 (2023, i7-1360P) ===
@@ -184,6 +198,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 460,
     weightWithChargerGrams: 1265,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Nano-Gen-3-Review.html"],
   },
 
   // === ThinkPad X1 Nano Gen 2 (2022, i7-1270P) ===
@@ -195,6 +210,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 450,
     weightWithChargerGrams: 1258,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X1-Nano-Gen-2-Review.html"],
   },
 
   // ============================================================
@@ -210,6 +226,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 500,
     weightWithChargerGrams: 1540,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-6-Intel-Review.html"],
   },
 
   // === ThinkPad T14s Gen 6 AMD (2025, Ryzen 7 PRO 8840HS) ===
@@ -221,6 +238,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 420,
     weightWithChargerGrams: 1550,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-6-AMD-Review.html"],
   },
 
   // === ThinkPad T14s Gen 5 Intel (2024, Core Ultra 7 155U) ===
@@ -234,6 +252,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     weightWithChargerGrams: 1580,
     memoryBandwidthGBs: 52.6,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-5-Intel-Review.html"],
   },
 
   // === ThinkPad T14s Gen 5 AMD (2024, Ryzen 7 PRO 8840U) ===
@@ -247,6 +266,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     weightWithChargerGrams: 1560,
     memoryBandwidthGBs: 56.8,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-5-AMD-Review.html"],
   },
 
   // === ThinkPad T14s Gen 4 Intel (2023, i7-1365U) ===
@@ -258,6 +278,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 350,
     weightWithChargerGrams: 1540,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-4-Intel-Review.html"],
   },
 
   // === ThinkPad T14s Gen 4 AMD (2023, Ryzen 7 PRO 7840U) ===
@@ -269,6 +290,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1540,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-4-AMD-Review.html"],
   },
 
   // === ThinkPad T14s Gen 3 Intel (2022, i7-1270P) ===
@@ -280,6 +302,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 400,
     weightWithChargerGrams: 1540,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-3-Intel-Review.html"],
   },
 
   // === ThinkPad T14s Gen 3 AMD (2022, Ryzen 7 PRO 6850U) ===
@@ -291,6 +314,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 400,
     weightWithChargerGrams: 1540,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14s-Gen-3-AMD-Review.html"],
   },
 
   // ============================================================
@@ -306,6 +330,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 320,
     weightWithChargerGrams: 1720,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14-Gen-6-Intel-Review.html"],
   },
 
   // === ThinkPad T14 Gen 6 AMD (2025, Ryzen 7 PRO 8840U) ===
@@ -328,6 +353,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 328,
     weightWithChargerGrams: 1820,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14-Gen-5-Intel-Review.html"],
   },
 
   // === ThinkPad T14 Gen 5 AMD (2024, Ryzen 5 PRO 8540U) ===
@@ -339,6 +365,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 1720,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14-Gen-5-AMD-Review.html"],
   },
 
   // === ThinkPad T14 Gen 4 Intel (2023, i7-1360P) ===
@@ -350,6 +377,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1720,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14-Gen-4-Intel-Review.html"],
   },
 
   // === ThinkPad T14 Gen 4 AMD (2023, Ryzen 7 PRO 7840U) ===
@@ -361,6 +389,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1720,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14-Gen-4-AMD-Review.html"],
   },
 
   // === ThinkPad T14 Gen 3 Intel (2022, i7-1270P) ===
@@ -372,6 +401,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 1730,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14-Gen-3-Intel-Review.html"],
   },
 
   // === ThinkPad T14 Gen 3 AMD (2022, Ryzen 7 PRO 6850U) ===
@@ -383,6 +413,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 400,
     weightWithChargerGrams: 1720,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T14-Gen-3-AMD-Review.html"],
   },
 
   // ============================================================
@@ -397,6 +428,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     ssdSpeed: { seqReadMBs: 6500, seqWriteMBs: 4600 },
     displayBrightness: 348,
     weightWithChargerGrams: 2320,
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T16-Gen-3-Intel-Review.html"],
     sources: ["notebookcheck"],
   },
 
@@ -409,6 +441,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1990,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T16-Gen-2-Intel-Review.html"],
   },
 
   // === ThinkPad T16 Gen 1 Intel (2022, i7-1270P) ===
@@ -420,6 +453,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 413,
     weightWithChargerGrams: 1990,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T16-Gen-1-Intel-Review.html"],
   },
 
   // ============================================================
@@ -435,6 +469,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 270,
     weightWithChargerGrams: 2100,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T480-Review.html"],
   },
 
   // === ThinkPad T480s (2018, i7-8550U) ===
@@ -446,6 +481,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 302,
     weightWithChargerGrams: 1650,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-T480s-Review.html"],
   },
 
   // ============================================================
@@ -472,6 +508,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1510,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X13-Gen-4-Intel-Review.html"],
   },
 
   // === ThinkPad X13 Yoga Gen 4 (2023, i7-1355U) ===
@@ -483,6 +520,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 431,
     weightWithChargerGrams: 1570,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X13-Yoga-Gen-4-Review.html"],
   },
 
   // === ThinkPad X13 Yoga Gen 3 (2022, i7-1255U) ===
@@ -494,6 +532,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 410,
     weightWithChargerGrams: 1570,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X13-Yoga-Gen-3-Review.html"],
   },
 
   // === ThinkPad X13 Yoga Gen 2 (2021, i7-1165G7) ===
@@ -505,6 +544,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 423,
     weightWithChargerGrams: 1600,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X13-Yoga-Gen-2-Review.html"],
   },
 
   // === ThinkPad X13 Yoga Gen 1 (2020, i7-10510U) ===
@@ -516,6 +556,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 302,
     weightWithChargerGrams: 1610,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-X13-Yoga-Gen-1-Review.html"],
   },
 
   // ============================================================
@@ -535,6 +576,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     pugetPremiere: 980,
     pugetDavinci: 820,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-P1-Gen-7-Review.html"],
   },
 
   // === ThinkPad P16 Gen 2 (2023, i9-13980HX) ===
@@ -546,6 +588,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 500,
     weightWithChargerGrams: 3600,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-P16-Gen-2-Review.html"],
   },
 
   // === ThinkPad P16s Gen 3 Intel (2024, Core Ultra 7 155H) ===
@@ -579,6 +622,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 420,
     weightWithChargerGrams: 1790,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-P14s-Gen-5-Intel-Review.html"],
   },
 
   // === ThinkPad P14s Gen 4 (2023, i7-1360P) ===
@@ -590,6 +634,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 350,
     weightWithChargerGrams: 1770,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-P14s-Gen-4-Review.html"],
   },
 
   // ============================================================
@@ -605,6 +650,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 2120,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-L14-Gen-5-Intel-Review.html"],
   },
 
   // === ThinkPad L14 Gen 5 AMD (2024, Ryzen 5 PRO 7535U) ===
@@ -616,6 +662,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 1750,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-L14-Gen-5-AMD-Review.html"],
   },
 
   // === ThinkPad L14 Gen 4 Intel (2023, i5-1345U) ===
@@ -627,6 +674,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 1750,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-L14-Gen-4-Intel-Review.html"],
   },
 
   // === ThinkPad L14 Gen 3 Intel (2022, i5-1245U) ===
@@ -697,6 +745,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 320,
     weightWithChargerGrams: 1691,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-L13-Yoga-Gen-4-AMD-Review.html"],
   },
 
   // === ThinkPad L13 Yoga Gen 4 Intel (2023, i7-1355U) ===
@@ -741,6 +790,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 1760,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-L13-Yoga-Gen-2-Intel-Review.html"],
   },
 
   // === ThinkPad L13 Yoga Gen 2 AMD (2021, Ryzen 7 PRO 5850U) ===
@@ -752,6 +802,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 1760,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-L13-Yoga-Gen-2-AMD-Review.html"],
   },
 
   // === ThinkPad L13 Yoga Gen 1 (2019, i7-10510U) ===
@@ -763,6 +814,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 318,
     weightWithChargerGrams: 1784,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-L13-Yoga-Gen-1-Review.html"],
   },
 
   // ============================================================
@@ -778,6 +830,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 315,
     weightWithChargerGrams: 1910,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-E14-Gen-6-Intel-Review.html"],
   },
 
   // === ThinkPad E14 Gen 5 AMD (2023, Ryzen 5 7530U) ===
@@ -789,6 +842,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 350,
     weightWithChargerGrams: 1910,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-E14-Gen-5-Review.html"],
   },
 
   // === ThinkPad E14 Gen 4 Intel (2022, i5-1240P) ===
@@ -811,6 +865,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 310,
     weightWithChargerGrams: 2090,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-ThinkPad-E16-Gen-2-AMD-Review.html"],
   },
 
   // ============================================================
@@ -826,6 +881,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 420,
     weightWithChargerGrams: 1770,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-IdeaPad-Pro-5-14AKP10-Review.html"],
   },
 
   // === IdeaPad Pro 5 16AKP10 (2025, Ryzen AI 7 350) ===
@@ -871,6 +927,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 405,
     weightWithChargerGrams: 1810,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-IdeaPad-Pro-5-14ARP9-Review.html"],
   },
 
   // === IdeaPad Pro 5 16ARP9 (2024, Ryzen 7 8845HS) ===
@@ -904,6 +961,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 380,
     weightWithChargerGrams: 2180,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-IdeaPad-Pro-5i-16IMH9-Review.html"],
   },
 
   // === IdeaPad Pro 7 14ASP9 (2024, Core Ultra 9 185H) ===
@@ -1018,6 +1076,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 520,
     weightWithChargerGrams: 3850,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-Legion-Pro-7i-Gen-10-Review.html"],
   },
 
   // === Legion 5i 16 Gen 10 (2025, Core Ultra 7 275HX) ===
@@ -1055,6 +1114,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     pugetPremiere: 1180,
     pugetDavinci: 980,
     sources: ["notebookcheck", "jarrodtech"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-Legion-7i-Gen-9-Review.html"],
   },
 
   // === Legion 5i 16 Gen 9 (2024, i7-14700HX + RTX 4060) ===
@@ -1068,6 +1128,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     weightWithChargerGrams: 3420,
     memoryBandwidthGBs: 74.2,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-Legion-5i-Gen-9-Review.html"],
   },
 
   // === Legion 5 16 Gen 9 AMD (2024, Ryzen 7 8845HS + RTX 4060) ===
@@ -1090,6 +1151,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 375,
     weightWithChargerGrams: 3640,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-Legion-Pro-5i-Gen-9-Review.html"],
   },
 
   // === Legion Pro 5 16 Gen 9 AMD (2024, Ryzen 9 8945HS + RTX 4070) ===
@@ -1134,6 +1196,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 406,
     weightWithChargerGrams: 3720,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-Legion-Pro-5i-16-Gen-8-Review.html"],
   },
 
   // === Legion 5i 16 Gen 8 (2023, i7-13700H + RTX 4060) ===
@@ -1167,6 +1230,7 @@ export const modelBenchmarks: Record<string, ModelBenchmarks> = {
     displayBrightness: 390,
     weightWithChargerGrams: 3400,
     sources: ["notebookcheck"],
+    sourceUrls: ["https://www.notebookcheck.net/Lenovo-Legion-5i-Gen-7-Review.html"],
   },
 
   // === Legion 5 15 Gen 7 AMD (2022, Ryzen 7 6800H + RTX 3060) ===
