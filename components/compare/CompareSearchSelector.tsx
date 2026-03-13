@@ -83,10 +83,12 @@ export const CompareSearchSelector = ({ models, excludeIds, onSelect }: CompareS
     [open, results, activeIndex, handleSelect],
   );
 
-  // Reset active index when results change
-  useEffect(() => {
+  // Reset active index when query changes (state-during-render pattern)
+  const [prevQuery, setPrevQuery] = useState(query);
+  if (query !== prevQuery) {
+    setPrevQuery(query);
     setActiveIndex(-1);
-  }, [query]);
+  }
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

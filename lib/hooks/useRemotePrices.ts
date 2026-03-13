@@ -61,12 +61,7 @@ export const useRemotePrices = (): RemotePricesState => {
   const didFetch = useRef(false);
 
   useEffect(() => {
-    if (didFetch.current || moduleCache) {
-      if (moduleCache && state.loading) {
-        setState({ prices: moduleCache, loading: false, error: null });
-      }
-      return;
-    }
+    if (didFetch.current || moduleCache) return;
     didFetch.current = true;
 
     fetchPrices().then(
@@ -78,7 +73,7 @@ export const useRemotePrices = (): RemotePricesState => {
           error: err instanceof Error ? err.message : "Unknown error",
         }),
     );
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return state;
 };

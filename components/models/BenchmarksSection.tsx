@@ -67,9 +67,7 @@ const SourceLinkedValue = ({ value, sourceUrls }: { value: string | number; sour
 };
 
 const BenchmarksSection = ({ model }: BenchmarksSectionProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in JSX conditionals below
   const thermalT = getThermalThresholds(model);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used in JSX conditionals below
   const noiseT = getNoiseThresholds(model);
   const chassisBench = getModelBenchmarks(model.id);
   const cpuRaw = getCpuRawBenchmarks(model.processor.name);

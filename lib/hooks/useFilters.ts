@@ -121,18 +121,11 @@ const syncFiltersToUrl = (filters: FilterState) => {
 };
 
 export const useFilters = (models: readonly Laptop[], prices: readonly SwissPrice[]) => {
-  const initialized = useRef(false);
-  const [filters, setFilters] = useState<FilterState>(defaultFilters);
-
-  // Read URL params on mount
-  useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
+  const [filters, setFilters] = useState<FilterState>(() => {
+    if (typeof window === "undefined") return defaultFilters;
     const fromUrl = parseFiltersFromUrl();
-    if (Object.keys(fromUrl).length > 0) {
-      setFilters((f) => ({ ...f, ...fromUrl }));
-    }
-  }, []);
+    return Object.keys(fromUrl).length > 0 ? { ...defaultFilters, ...fromUrl } : defaultFilters;
+  });
 
   // Sync to URL on change (skip initial)
   const isFirstRender = useRef(true);

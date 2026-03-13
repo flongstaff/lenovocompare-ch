@@ -29,7 +29,7 @@
     "fetch-ope-prices": "tsx scripts/fetch-ope-prices.ts",
     "build": "tsx scripts/validate-data.ts && tsx scripts/generate-prices-json.ts && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "scrape-psref": "tsx scripts/scrape-psref.ts",
     "merge-psref": "tsx scripts/merge-psref.ts",
     "verify-deals": "tsx scripts/verify-deals.ts",

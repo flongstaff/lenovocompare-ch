@@ -36,8 +36,11 @@ const PricePerformanceScatter = dynamic(
 const useCounter = (target: number) => {
   const [value, setValue] = useState(0);
   const targetRef = useRef(target);
-  targetRef.current = target;
   const hasRun = useRef(false);
+
+  useEffect(() => {
+    targetRef.current = target;
+  }, [target]);
 
   useEffect(() => {
     if (hasRun.current || target === 0) return;
@@ -175,10 +178,12 @@ const HomeClient = () => {
 
   const filterKey = useMemo(() => JSON.stringify(filters), [filters]);
 
-  // Reset visible count when filters change
-  useEffect(() => {
+  // Reset visible count when filters change (state-during-render pattern)
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
     setVisibleCount(PAGE_SIZE);
-  }, [filterKey]);
+  }
 
   const visible = filtered.slice(0, visibleCount);
   const remaining = filtered.length - visibleCount;

@@ -3,7 +3,7 @@
  * Generic localStorage hook with JSON serialization, optional type validation,
  * and one-time migration from legacy "thinkcompare-*" keys to "lenovocompare-*".
  */
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback } from "react";
 
 /** One-time migration from thinkcompare-* to lenovocompare-* localStorage keys */
 const MIGRATION_KEY = "lenovocompare-migrated";
@@ -31,11 +31,8 @@ const migrateLocalStorage = () => {
 let migrated = false;
 
 export const useLocalStorage = <T>(key: string, initialValue: T, validator?: (value: unknown) => value is T) => {
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
-  const validatorRef = useRef(validator);
-  validatorRef.current = validator;
-
-  useEffect(() => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    if (typeof window === "undefined") return initialValue;
     if (!migrated) {
       migrateLocalStorage();
       migrated = true;
@@ -44,20 +41,18 @@ export const useLocalStorage = <T>(key: string, initialValue: T, validator?: (va
       const item = localStorage.getItem(key);
       if (item) {
         const parsed: unknown = JSON.parse(item);
-        if (validatorRef.current) {
-          if (validatorRef.current(parsed)) {
-            setStoredValue(parsed);
-          } else {
-            console.warn(`[useLocalStorage] Stored data for "${key}" failed validation — using default`);
-          }
+        if (validator) {
+          if (validator(parsed)) return parsed;
+          console.warn(`[useLocalStorage] Stored data for "${key}" failed validation — using default`);
         } else {
-          setStoredValue(parsed as T);
+          return parsed as T;
         }
       }
     } catch (error) {
       console.warn(`[useLocalStorage] Failed to read "${key}":`, error);
     }
-  }, [key]);
+    return initialValue;
+  });
 
   const setValue = useCallback(
     (value: T | ((prev: T) => T)) => {
