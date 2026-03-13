@@ -9,10 +9,10 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Comparison Enhancement
 
-- [ ] **COMP-01**: User can toggle "show differences only" in compare table to highlight specs that differ between selected models
+- [x] **COMP-01**: User can toggle "show differences only" in compare table to highlight specs that differ between selected models
 - [ ] **COMP-02**: User can see CSS-scaled physical size overlay showing relative width, depth, height, and weight of compared models
-- [ ] **COMP-03**: Every benchmark score in BenchmarksSection links to its source page (NotebookCheck, Geekbench, Cinebench)
-- [ ] **COMP-04**: Missing benchmark sources are flagged as "source needed" in the UI rather than shown without attribution
+- [x] **COMP-03**: Every benchmark score in BenchmarksSection links to its source page (NotebookCheck, Geekbench, Cinebench)
+- [x] **COMP-04**: Missing benchmark sources are flagged as "source needed" in the UI rather than shown without attribution
 
 ### Price Infrastructure
 
@@ -134,10 +134,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase   | Status   |
 | ----------- | ------- | -------- |
-| COMP-01     | Phase 1 | Pending  |
+| COMP-01     | Phase 1 | Complete |
 | COMP-02     | Phase 1 | Pending  |
-| COMP-03     | Phase 1 | Pending  |
-| COMP-04     | Phase 1 | Pending  |
+| COMP-03     | Phase 1 | Complete |
+| COMP-04     | Phase 1 | Complete |
 | PRIC-01     | Phase 1 | Complete |
 | PRIC-02     | Phase 1 | Complete |
 | PRIC-03     | Phase 1 | Complete |

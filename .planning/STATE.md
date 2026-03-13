@@ -26,19 +26,19 @@ See: .planning/PROJECT.md (updated 2026-03-13)
 ## Current Position
 
 Phase: 1 of 6 (Foundation)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-03-13 — Roadmap created, all 53 v1 requirements mapped to 6 phases
+Plan: 2 of 4
+Status: In progress
+Last activity: 2026-03-13 — Completed 01-01: diff toggle + benchmark source attribution
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [░░░░░░░░░░] 5%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: -
+- Total plans completed: 2
+- Average duration: 45 min
+- Total execution time: ~90 min
 
 **By Phase:**
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 _Updated after each plan completion_
+| Phase 01-foundation P01 | 45 min | 2 tasks | 5 files |
 | Phase 01-foundation P03 | 6 | 2 tasks | 6 files |
 
 ## Accumulated Context
@@ -67,6 +68,9 @@ Recent decisions affecting current work:
 - [Research]: Only Lenovo.com/ch JSON-LD is a confirmed legal automated price source — Toppreise deferred to v2
 - [Phase 01-foundation]: Workers standalone project in workers/ with its own package.json — no imports from Next.js root
 - [Phase 01-foundation]: D1 schema uses snake_case columns; API response transforms to camelCase SwissPrice interface shape
+- [01-01]: Diff toggle defaults to OFF — users opt into filtered view rather than starting with potentially empty compare
+- [01-01]: Source attribution as subsection footer line, not wrapping StatBox/MiniBar value props — avoids API changes to widget components
+- [01-01]: Added workers/ to tsconfig.json exclude to prevent D1Database type pollution from root compilation
 
 ### Pending Todos
 
@@ -79,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-13T12:32:16.475Z
-Stopped at: Completed 01-03-PLAN.md (Task 3 checkpoint: Cloudflare deployment requires human action)
+Last session: 2026-03-13T13:40:00Z
+Stopped at: Completed 01-01-PLAN.md (both tasks complete)
 Resume file: None
