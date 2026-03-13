@@ -16,10 +16,10 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Price Infrastructure
 
-- [ ] **PRIC-01**: Cloudflare Workers project scaffolded with Hono, D1 database, and wrangler config
-- [ ] **PRIC-02**: D1 schema stores price snapshots with model ID, source, CHF amount, and fetch timestamp
-- [ ] **PRIC-03**: GET /api/prices endpoint returns current prices for all models from D1
-- [ ] **PRIC-04**: Existing seed-prices.ts data seeded into D1 as initial dataset
+- [x] **PRIC-01**: Cloudflare Workers project scaffolded with Hono, D1 database, and wrangler config
+- [x] **PRIC-02**: D1 schema stores price snapshots with model ID, source, CHF amount, and fetch timestamp
+- [x] **PRIC-03**: GET /api/prices endpoint returns current prices for all models from D1
+- [x] **PRIC-04**: Existing seed-prices.ts data seeded into D1 as initial dataset
 - [ ] **PRIC-05**: Frontend useRemotePrices hook fetches from Workers API and merges with localStorage prices
 
 ### Price Automation
@@ -95,8 +95,8 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFR-01**: Cloudflare Pages deployment configured (replace GitHub Pages)
-- [ ] **INFR-02**: Workers + static site served from single Cloudflare domain (no CORS)
+- [x] **INFR-01**: Cloudflare Pages deployment configured (replace GitHub Pages)
+- [x] **INFR-02**: Workers + static site served from single Cloudflare domain (no CORS)
 - [ ] **INFR-03**: GitHub Actions CI updated for wrangler deploy
 - [ ] **INFR-04**: Playwright smoke test validates static export before deploy
 
@@ -132,62 +132,62 @@ Deferred to future release. Tracked but not in current roadmap.
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase   | Status  |
-| ----------- | ------- | ------- |
-| COMP-01     | Phase 1 | Pending |
-| COMP-02     | Phase 1 | Pending |
-| COMP-03     | Phase 1 | Pending |
-| COMP-04     | Phase 1 | Pending |
-| PRIC-01     | Phase 1 | Pending |
-| PRIC-02     | Phase 1 | Pending |
-| PRIC-03     | Phase 1 | Pending |
-| PRIC-04     | Phase 1 | Pending |
-| PRIC-05     | Phase 1 | Pending |
-| AUTO-01     | Phase 2 | Pending |
-| AUTO-02     | Phase 2 | Pending |
-| AUTO-03     | Phase 2 | Pending |
-| AUTO-04     | Phase 2 | Pending |
-| AUTO-05     | Phase 2 | Pending |
-| COMM-01     | Phase 2 | Pending |
-| COMM-02     | Phase 2 | Pending |
-| COMM-03     | Phase 2 | Pending |
-| HIST-01     | Phase 5 | Pending |
-| HIST-02     | Phase 5 | Pending |
-| HIST-03     | Phase 5 | Pending |
-| HIST-04     | Phase 5 | Pending |
-| REPR-01     | Phase 3 | Pending |
-| REPR-02     | Phase 3 | Pending |
-| REPR-03     | Phase 3 | Pending |
-| REPR-04     | Phase 3 | Pending |
-| TCO-01      | Phase 3 | Pending |
-| TCO-02      | Phase 3 | Pending |
-| TCO-03      | Phase 3 | Pending |
-| TCO-04      | Phase 3 | Pending |
-| SCEN-01     | Phase 3 | Pending |
-| SCEN-02     | Phase 3 | Pending |
-| SCEN-03     | Phase 3 | Pending |
-| SCEN-04     | Phase 3 | Pending |
-| DISP-01     | Phase 4 | Pending |
-| DISP-02     | Phase 4 | Pending |
-| DISP-03     | Phase 4 | Pending |
-| DISP-04     | Phase 4 | Pending |
-| PERF-01     | Phase 4 | Pending |
-| PERF-02     | Phase 4 | Pending |
-| PERF-03     | Phase 4 | Pending |
-| PERF-04     | Phase 4 | Pending |
-| UX-01       | Phase 6 | Pending |
-| UX-02       | Phase 6 | Pending |
-| UX-03       | Phase 6 | Pending |
-| UX-04       | Phase 6 | Pending |
-| UX-05       | Phase 6 | Pending |
-| MOB-01      | Phase 6 | Pending |
-| MOB-02      | Phase 6 | Pending |
-| MOB-03      | Phase 6 | Pending |
-| MOB-04      | Phase 6 | Pending |
-| INFR-01     | Phase 1 | Pending |
-| INFR-02     | Phase 1 | Pending |
-| INFR-03     | Phase 1 | Pending |
-| INFR-04     | Phase 1 | Pending |
+| Requirement | Phase   | Status   |
+| ----------- | ------- | -------- |
+| COMP-01     | Phase 1 | Pending  |
+| COMP-02     | Phase 1 | Pending  |
+| COMP-03     | Phase 1 | Pending  |
+| COMP-04     | Phase 1 | Pending  |
+| PRIC-01     | Phase 1 | Complete |
+| PRIC-02     | Phase 1 | Complete |
+| PRIC-03     | Phase 1 | Complete |
+| PRIC-04     | Phase 1 | Complete |
+| PRIC-05     | Phase 1 | Pending  |
+| AUTO-01     | Phase 2 | Pending  |
+| AUTO-02     | Phase 2 | Pending  |
+| AUTO-03     | Phase 2 | Pending  |
+| AUTO-04     | Phase 2 | Pending  |
+| AUTO-05     | Phase 2 | Pending  |
+| COMM-01     | Phase 2 | Pending  |
+| COMM-02     | Phase 2 | Pending  |
+| COMM-03     | Phase 2 | Pending  |
+| HIST-01     | Phase 5 | Pending  |
+| HIST-02     | Phase 5 | Pending  |
+| HIST-03     | Phase 5 | Pending  |
+| HIST-04     | Phase 5 | Pending  |
+| REPR-01     | Phase 3 | Pending  |
+| REPR-02     | Phase 3 | Pending  |
+| REPR-03     | Phase 3 | Pending  |
+| REPR-04     | Phase 3 | Pending  |
+| TCO-01      | Phase 3 | Pending  |
+| TCO-02      | Phase 3 | Pending  |
+| TCO-03      | Phase 3 | Pending  |
+| TCO-04      | Phase 3 | Pending  |
+| SCEN-01     | Phase 3 | Pending  |
+| SCEN-02     | Phase 3 | Pending  |
+| SCEN-03     | Phase 3 | Pending  |
+| SCEN-04     | Phase 3 | Pending  |
+| DISP-01     | Phase 4 | Pending  |
+| DISP-02     | Phase 4 | Pending  |
+| DISP-03     | Phase 4 | Pending  |
+| DISP-04     | Phase 4 | Pending  |
+| PERF-01     | Phase 4 | Pending  |
+| PERF-02     | Phase 4 | Pending  |
+| PERF-03     | Phase 4 | Pending  |
+| PERF-04     | Phase 4 | Pending  |
+| UX-01       | Phase 6 | Pending  |
+| UX-02       | Phase 6 | Pending  |
+| UX-03       | Phase 6 | Pending  |
+| UX-04       | Phase 6 | Pending  |
+| UX-05       | Phase 6 | Pending  |
+| MOB-01      | Phase 6 | Pending  |
+| MOB-02      | Phase 6 | Pending  |
+| MOB-03      | Phase 6 | Pending  |
+| MOB-04      | Phase 6 | Pending  |
+| INFR-01     | Phase 1 | Complete |
+| INFR-02     | Phase 1 | Complete |
+| INFR-03     | Phase 1 | Pending  |
+| INFR-04     | Phase 1 | Pending  |
 
 **Coverage:**
 

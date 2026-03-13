@@ -33,7 +33,7 @@ LenovoCompare CH v2 evolves a stable v1 product into a full static + serverless 
 4. GET /api/prices returns CHF prices from D1 for all models, seeded from existing seed-prices.ts data
 5. Cloudflare Pages deployment is live at the configured domain with Workers and static site served from a single origin (no CORS)
 
-**Plans:** 4 plans
+**Plans:** 1/4 plans executed
 
 Plans:
 
@@ -115,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase               | Plans Complete | Status      | Completed |
 | ------------------- | -------------- | ----------- | --------- |
-| 1. Foundation       | 0/4            | Planning    | -         |
+| 1. Foundation       | 1/4            | In Progress |           |
 | 2. Price Automation | 0/TBD          | Not started | -         |
 | 3. Differentiators  | 0/TBD          | Not started | -         |
 | 4. Deep Data        | 0/TBD          | Not started | -         |
