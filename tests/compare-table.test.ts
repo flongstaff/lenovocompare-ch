@@ -58,17 +58,17 @@ const makeModel = (overrides: Partial<Laptop>): Laptop =>
 const modelA = makeModel({
   id: "model-a",
   name: "Model A",
-  processor: { name: "Intel Core i7", cores: 8, threads: 16, tdp: 15 },
+  processor: { name: "Intel Core i7", cores: 8, threads: 16, baseClock: 1.8, boostClock: 4.8, tdp: 15 },
 });
 const modelB = makeModel({
   id: "model-b",
   name: "Model B",
-  processor: { name: "AMD Ryzen 7", cores: 8, threads: 16, tdp: 15 },
+  processor: { name: "AMD Ryzen 7", cores: 8, threads: 16, baseClock: 3.3, boostClock: 5.0, tdp: 15 },
 });
 const modelC = makeModel({
   id: "model-c",
   name: "Model C",
-  processor: { name: "Intel Core i7", cores: 8, threads: 16, tdp: 15 },
+  processor: { name: "Intel Core i7", cores: 8, threads: 16, baseClock: 1.8, boostClock: 4.8, tdp: 15 },
 });
 
 // ---------------------------------------------------------------

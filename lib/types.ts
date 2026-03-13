@@ -2,7 +2,7 @@
  * Core type definitions for the LenovoCompare CH data model.
  *
  * Central type is `Laptop` — represents a single laptop model with full PSREF specs.
- * Models span three lineups (ThinkPad, IdeaPad Pro, Legion) with lineup-specific series.
+ * Models span four lineups (ThinkPad, IdeaPad Pro, Legion, Yoga) with lineup-specific series.
  * Supporting types cover pricing, filters, scoring dimensions, and analysis output.
  */
 
@@ -102,6 +102,11 @@ export interface Laptop {
     readonly removable: boolean;
   };
   readonly weight: number;
+  readonly dimensions?: {
+    readonly widthMm: number;
+    readonly depthMm: number;
+    readonly heightMm: number;
+  };
   readonly ports: readonly string[];
   readonly wireless: readonly string[];
   readonly os: string;
