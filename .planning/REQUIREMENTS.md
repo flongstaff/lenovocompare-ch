@@ -132,70 +132,70 @@ Deferred to future release. Tracked but not in current roadmap.
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase | Status  |
-| ----------- | ----- | ------- |
-| COMP-01     | TBD   | Pending |
-| COMP-02     | TBD   | Pending |
-| COMP-03     | TBD   | Pending |
-| COMP-04     | TBD   | Pending |
-| PRIC-01     | TBD   | Pending |
-| PRIC-02     | TBD   | Pending |
-| PRIC-03     | TBD   | Pending |
-| PRIC-04     | TBD   | Pending |
-| PRIC-05     | TBD   | Pending |
-| AUTO-01     | TBD   | Pending |
-| AUTO-02     | TBD   | Pending |
-| AUTO-03     | TBD   | Pending |
-| AUTO-04     | TBD   | Pending |
-| AUTO-05     | TBD   | Pending |
-| COMM-01     | TBD   | Pending |
-| COMM-02     | TBD   | Pending |
-| COMM-03     | TBD   | Pending |
-| HIST-01     | TBD   | Pending |
-| HIST-02     | TBD   | Pending |
-| HIST-03     | TBD   | Pending |
-| HIST-04     | TBD   | Pending |
-| REPR-01     | TBD   | Pending |
-| REPR-02     | TBD   | Pending |
-| REPR-03     | TBD   | Pending |
-| REPR-04     | TBD   | Pending |
-| TCO-01      | TBD   | Pending |
-| TCO-02      | TBD   | Pending |
-| TCO-03      | TBD   | Pending |
-| TCO-04      | TBD   | Pending |
-| SCEN-01     | TBD   | Pending |
-| SCEN-02     | TBD   | Pending |
-| SCEN-03     | TBD   | Pending |
-| SCEN-04     | TBD   | Pending |
-| DISP-01     | TBD   | Pending |
-| DISP-02     | TBD   | Pending |
-| DISP-03     | TBD   | Pending |
-| DISP-04     | TBD   | Pending |
-| PERF-01     | TBD   | Pending |
-| PERF-02     | TBD   | Pending |
-| PERF-03     | TBD   | Pending |
-| PERF-04     | TBD   | Pending |
-| UX-01       | TBD   | Pending |
-| UX-02       | TBD   | Pending |
-| UX-03       | TBD   | Pending |
-| UX-04       | TBD   | Pending |
-| UX-05       | TBD   | Pending |
-| MOB-01      | TBD   | Pending |
-| MOB-02      | TBD   | Pending |
-| MOB-03      | TBD   | Pending |
-| MOB-04      | TBD   | Pending |
-| INFR-01     | TBD   | Pending |
-| INFR-02     | TBD   | Pending |
-| INFR-03     | TBD   | Pending |
-| INFR-04     | TBD   | Pending |
+| Requirement | Phase   | Status  |
+| ----------- | ------- | ------- |
+| COMP-01     | Phase 1 | Pending |
+| COMP-02     | Phase 1 | Pending |
+| COMP-03     | Phase 1 | Pending |
+| COMP-04     | Phase 1 | Pending |
+| PRIC-01     | Phase 1 | Pending |
+| PRIC-02     | Phase 1 | Pending |
+| PRIC-03     | Phase 1 | Pending |
+| PRIC-04     | Phase 1 | Pending |
+| PRIC-05     | Phase 1 | Pending |
+| AUTO-01     | Phase 2 | Pending |
+| AUTO-02     | Phase 2 | Pending |
+| AUTO-03     | Phase 2 | Pending |
+| AUTO-04     | Phase 2 | Pending |
+| AUTO-05     | Phase 2 | Pending |
+| COMM-01     | Phase 2 | Pending |
+| COMM-02     | Phase 2 | Pending |
+| COMM-03     | Phase 2 | Pending |
+| HIST-01     | Phase 5 | Pending |
+| HIST-02     | Phase 5 | Pending |
+| HIST-03     | Phase 5 | Pending |
+| HIST-04     | Phase 5 | Pending |
+| REPR-01     | Phase 3 | Pending |
+| REPR-02     | Phase 3 | Pending |
+| REPR-03     | Phase 3 | Pending |
+| REPR-04     | Phase 3 | Pending |
+| TCO-01      | Phase 3 | Pending |
+| TCO-02      | Phase 3 | Pending |
+| TCO-03      | Phase 3 | Pending |
+| TCO-04      | Phase 3 | Pending |
+| SCEN-01     | Phase 3 | Pending |
+| SCEN-02     | Phase 3 | Pending |
+| SCEN-03     | Phase 3 | Pending |
+| SCEN-04     | Phase 3 | Pending |
+| DISP-01     | Phase 4 | Pending |
+| DISP-02     | Phase 4 | Pending |
+| DISP-03     | Phase 4 | Pending |
+| DISP-04     | Phase 4 | Pending |
+| PERF-01     | Phase 4 | Pending |
+| PERF-02     | Phase 4 | Pending |
+| PERF-03     | Phase 4 | Pending |
+| PERF-04     | Phase 4 | Pending |
+| UX-01       | Phase 6 | Pending |
+| UX-02       | Phase 6 | Pending |
+| UX-03       | Phase 6 | Pending |
+| UX-04       | Phase 6 | Pending |
+| UX-05       | Phase 6 | Pending |
+| MOB-01      | Phase 6 | Pending |
+| MOB-02      | Phase 6 | Pending |
+| MOB-03      | Phase 6 | Pending |
+| MOB-04      | Phase 6 | Pending |
+| INFR-01     | Phase 1 | Pending |
+| INFR-02     | Phase 1 | Pending |
+| INFR-03     | Phase 1 | Pending |
+| INFR-04     | Phase 1 | Pending |
 
 **Coverage:**
 
 - v1 requirements: 53 total
-- Mapped to phases: 0
-- Unmapped: 53
+- Mapped to phases: 53
+- Unmapped: 0
 
 ---
 
 _Requirements defined: 2026-03-13_
-_Last updated: 2026-03-13 after initial definition_
+_Last updated: 2026-03-13 after roadmap creation — all 53 requirements mapped_
