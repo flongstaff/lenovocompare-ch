@@ -1,0 +1,71 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)", "Arial", "Helvetica", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+      },
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        accent: {
+          DEFAULT: "#0f62fe",
+          light: "#4589ff",
+        },
+        trackpoint: "#da1e28",
+        carbon: {
+          50: "var(--carbon-50)",
+          100: "var(--carbon-100)",
+          200: "var(--carbon-200)",
+          300: "var(--carbon-300)",
+          400: "var(--carbon-400)",
+          500: "var(--carbon-500)",
+          600: "var(--carbon-600)",
+          700: "var(--carbon-700)",
+          800: "var(--carbon-800)",
+          900: "var(--carbon-900)",
+        },
+        status: {
+          success: "var(--status-success)",
+          warning: "var(--status-warning)",
+          low: "var(--status-low)",
+          info: "var(--status-info)",
+        },
+        lineup: {
+          thinkpad: "var(--lineup-thinkpad)",
+          ideapad: "var(--lineup-ideapad)",
+          legion: "var(--lineup-legion)",
+          yoga: "var(--lineup-yoga)",
+        },
+      },
+      keyframes: {
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "slide-up": {
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "card-in": {
+          from: { opacity: "0", transform: "translateY(16px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.3s ease-out",
+        "slide-up": "slide-up 0.3s ease-out",
+        "card-in": "card-in 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both",
+      },
+    },
+  },
+  plugins: [],
+};
+export default config;

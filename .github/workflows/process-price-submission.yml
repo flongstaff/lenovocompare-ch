@@ -1,0 +1,152 @@
+name: Process price submission
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  process:
+    if: contains(github.event.issue.labels.*.name, 'price-approved')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Parse issue body
+        id: parse
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const body = context.payload.issue.body || '';
+            const get = (label) => {
+              const re = new RegExp(`### ${label}\\s*\\n\\s*(.+)`, 'i');
+              const m = body.match(re);
+              return m ? m[1].trim() : '';
+            };
+
+            const laptopId = get('Laptop Model ID');
+            const retailer = get('Retailer');
+            const price = parseFloat(get('Price \\(CHF\\)'));
+            const priceType = get('Price Type');
+            const url = get('Product URL');
+            const dateAdded = get('Date Observed');
+            const notes = get('Notes');
+
+            if (!laptopId || !retailer || isNaN(price) || !dateAdded) {
+              core.setFailed('Missing required fields in issue body');
+              return;
+            }
+
+            // Validate laptopId format: only lowercase alphanumeric, hyphens, dots
+            if (!/^[a-z0-9][a-z0-9.\-]*$/.test(laptopId)) {
+              core.setFailed(`Invalid laptopId format: ${laptopId}`);
+              return;
+            }
+
+            // Validate retailer against known Swiss retailers
+            const validRetailers = ['digitec', 'brack', 'toppreise', 'ricardo', 'tutti', 'lenovo', 'microspot', 'fust', 'interdiscount', 'other'];
+            if (!validRetailers.includes(retailer.toLowerCase())) {
+              core.warning(`Unknown retailer: ${retailer} — proceeding anyway`);
+            }
+
+            // Validate price range (CHF sanity check)
+            if (price <= 0 || price > 20000) {
+              core.setFailed(`Price out of range: ${price} CHF`);
+              return;
+            }
+
+            // Validate dateAdded format (YYYY-MM-DD)
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(dateAdded)) {
+              core.setFailed(`Invalid date format: ${dateAdded} (expected YYYY-MM-DD)`);
+              return;
+            }
+
+            const entry = {
+              id: `cp-issue-${context.payload.issue.number}`,
+              laptopId,
+              retailer,
+              price,
+              dateAdded,
+              isUserAdded: false,
+              priceType: priceType || 'retail',
+            };
+            if (url) entry.url = url;
+            if (notes) entry.note = notes;
+
+            core.setOutput('entry', JSON.stringify(entry));
+            core.setOutput('laptopId', laptopId);
+
+      - name: Validate laptopId exists
+        run: |
+          node -e "
+            const fs = require('fs');
+            const src = fs.readFileSync('data/laptops.ts', 'utf-8');
+            const ids = [...src.matchAll(/^\s+id:\s*['\"]([^'\"]+)['\"]/gm)].map(m => m[1]);
+            const laptopId = process.env.LAPTOP_ID;
+            if (!ids.includes(laptopId)) {
+              console.error('Unknown laptopId:', laptopId);
+              console.error('Available IDs:', ids.join(', '));
+              process.exit(1);
+            }
+            console.log('Validated laptopId:', laptopId);
+          "
+        env:
+          LAPTOP_ID: ${{ steps.parse.outputs.laptopId }}
+
+      - name: Append to community-prices.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = 'data/community-prices.json';
+            const prices = JSON.parse(fs.readFileSync(path, 'utf-8'));
+            const entry = JSON.parse(process.env.ENTRY);
+            // Skip if duplicate issue number
+            if (!prices.some(p => p.id === entry.id)) {
+              prices.push(entry);
+              fs.writeFileSync(path, JSON.stringify(prices, null, 2) + '\n');
+              console.log('Added:', entry.id);
+            } else {
+              console.log('Skipped duplicate:', entry.id);
+            }
+          "
+        env:
+          ENTRY: ${{ steps.parse.outputs.entry }}
+
+      - name: Create PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          LAPTOP_ID: ${{ steps.parse.outputs.laptopId }}
+        run: |
+          BRANCH="price/issue-${ISSUE_NUMBER}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add data/community-prices.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "feat: add community price from #${ISSUE_NUMBER}"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "Add community price from #${ISSUE_NUMBER}" \
+            --body "Adds community-submitted price for **${LAPTOP_ID}** from issue #${ISSUE_NUMBER}." \
+            --label "community-price"
+
+      - name: Comment on issue
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: `Price submission has been created as a pull request. It will appear on the site after review and merge. Thanks for contributing!`
+            });
