@@ -155,7 +155,7 @@ const LaptopCard = ({
 
         {/* Scores */}
         {scores.perf > 0 && (
-          <div className="mt-4 space-y-1.5 border-t border-carbon-600/40 pt-3">
+          <div className="border-carbon-600/40 mt-4 space-y-1.5 border-t pt-3">
             <div className="mb-2 flex justify-center">
               <MiniRadar
                 scores={{
@@ -185,7 +185,7 @@ const LaptopCard = ({
         )}
 
         {/* Price + Action */}
-        <div className="mt-4 flex items-end justify-between border-t border-carbon-600/40 pt-3">
+        <div className="border-carbon-600/40 mt-4 flex items-end justify-between border-t pt-3">
           <div>
             {scores.lowestPrice !== null ? (
               <>

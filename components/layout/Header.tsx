@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, LayoutGrid, GitCompareArrows, Cpu, Tag, Flame } from "lucide-react";
+import { Menu, X, LayoutGrid, GitCompareArrows, Cpu, Tag, Flame, Sun, Moon } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "@/lib/hooks/useTheme";
 
 const navLinks = [
   { href: "/", label: "Models", icon: LayoutGrid },
@@ -16,9 +17,10 @@ const navLinks = [
 const Header = () => {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-carbon-600 bg-carbon-700/80 backdrop-blur-sm">
+    <header className="bg-carbon-700/80 sticky top-0 z-50 border-b border-carbon-600 backdrop-blur-sm">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:px-6">
         <div className="flex-shrink-0 transition-transform duration-200 hover:scale-105">
           <Link
@@ -45,7 +47,7 @@ const Header = () => {
               className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-colors ${
                 pathname === link.href
                   ? "bg-carbon-600/50 text-accent-light"
-                  : "text-carbon-300 hover:bg-carbon-600/30 hover:text-carbon-100"
+                  : "hover:bg-carbon-600/30 text-carbon-300 hover:text-carbon-100"
               }`}
             >
               <link.icon size={13} />
@@ -61,6 +63,14 @@ const Header = () => {
               <rect x="1" y="4" width="10" height="4" fill="white" />
             </svg>
           </div>
+
+          <button
+            className="text-carbon-300 transition-colors hover:text-carbon-100"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          >
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
 
           <button
             className="text-carbon-300 hover:text-carbon-100 md:hidden"

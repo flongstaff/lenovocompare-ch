@@ -2,6 +2,7 @@
 import { ExternalLink, Trash2, Tag } from "lucide-react";
 import type { SwissPrice, Laptop } from "@/lib/types";
 import { formatCHF, formatDate } from "@/lib/formatters";
+import { PriceAgeBadge } from "@/components/ui/PriceAgeBadge";
 
 const PRICE_TYPE_STYLES: Record<string, string> = {
   msrp: "carbon-chip",
@@ -32,6 +33,7 @@ export const PriceDisplay = ({ price, model, onRemove }: PriceDisplayProps) => (
         <span>{price.retailer}</span>
         <span>·</span>
         <span>{formatDate(price.dateAdded)}</span>
+        <PriceAgeBadge dateAdded={price.dateAdded} />
         {price.priceType && (
           <span
             className={`px-1 py-0.5 font-mono text-[10px] uppercase tracking-wider ${PRICE_TYPE_STYLES[price.priceType] ?? PRICE_TYPE_STYLES.retail}`}

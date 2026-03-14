@@ -25,6 +25,7 @@ import LaptopCard from "@/components/models/LaptopCard";
 import { CompareFloatingBar } from "@/components/compare/CompareFloatingBar";
 import { SkeletonGrid } from "@/components/ui/Skeleton";
 import dynamic from "next/dynamic";
+import ChartErrorBoundary from "@/components/ui/ChartErrorBoundary";
 
 const PricePerformanceScatter = dynamic(
   () => import("@/components/charts/PricePerformanceScatter").then((m) => ({ default: m.PricePerformanceScatter })),
@@ -35,8 +36,11 @@ const PricePerformanceScatter = dynamic(
 const useCounter = (target: number) => {
   const [value, setValue] = useState(0);
   const targetRef = useRef(target);
-  targetRef.current = target;
   const hasRun = useRef(false);
+
+  useEffect(() => {
+    targetRef.current = target;
+  }, [target]);
 
   useEffect(() => {
     if (hasRun.current || target === 0) return;
@@ -174,10 +178,12 @@ const HomeClient = () => {
 
   const filterKey = useMemo(() => JSON.stringify(filters), [filters]);
 
-  // Reset visible count when filters change
-  useEffect(() => {
+  // Reset visible count when filters change (state-during-render pattern)
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
     setVisibleCount(PAGE_SIZE);
-  }, [filterKey]);
+  }
 
   const visible = filtered.slice(0, visibleCount);
   const remaining = filtered.length - visibleCount;
@@ -261,7 +267,7 @@ const HomeClient = () => {
                 resetFilters();
                 pick.apply(updateFilter, toggleLineup, resetFilters);
               }}
-              className="carbon-card group flex min-w-[140px] shrink-0 snap-start items-start gap-3 p-3 transition-all hover:bg-carbon-700/50"
+              className="carbon-card hover:bg-carbon-700/50 group flex min-w-[140px] shrink-0 snap-start items-start gap-3 p-3 transition-all"
               style={{ borderLeft: `2px solid ${pick.color}` }}
             >
               <Icon size={16} style={{ color: pick.color }} className="mt-0.5 shrink-0" />
@@ -296,7 +302,9 @@ const HomeClient = () => {
           <h2 className="mb-3 font-mono text-sm font-semibold uppercase tracking-wider text-carbon-400">
             Price vs Performance
           </h2>
-          <PricePerformanceScatter models={scatterData} />
+          <ChartErrorBoundary chartName="Price vs Performance">
+            <PricePerformanceScatter models={scatterData} />
+          </ChartErrorBoundary>
         </div>
       )}
 
@@ -350,7 +358,13 @@ const HomeClient = () => {
         </div>
       )}
 
-      {selectedIds.length > 0 && <CompareFloatingBar count={selectedIds.length} onClear={clearCompare} />}
+      {selectedIds.length > 0 && (
+        <CompareFloatingBar
+          count={selectedIds.length}
+          modelNames={selectedIds.map((id) => models.find((m) => m.id === id)?.name ?? id)}
+          onClear={clearCompare}
+        />
+      )}
     </div>
   );
 };

@@ -36,7 +36,10 @@ export const ScoreBar = ({
   const scoreLabel = showLabel ? getScoreLabel(score) : null;
 
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className="flex items-center gap-2"
+      title={`${label ?? "Score"}: ${Math.round(score)}/${max} — ${getScoreLabel(score).text}`}
+    >
       {label && (
         <span
           className={`${isMd ? "w-20 text-[11px]" : "w-16 text-[10px]"} shrink-0 font-mono uppercase tracking-wider text-carbon-500`}

@@ -6,10 +6,9 @@ import Link from "next/link";
 import type { Laptop } from "@/lib/types";
 import { laptops } from "@/data/laptops";
 import { usePrices } from "@/lib/hooks/usePrices";
+import { useCompare } from "@/lib/hooks/useCompare";
 import { getModelScores, getPricesForModel } from "@/lib/scoring";
 import { generateAnalysis } from "@/lib/analysis";
-import { modelEditorial } from "@/data/model-editorial";
-import { linuxCompat } from "@/data/linux-compat";
 import dynamic from "next/dynamic";
 
 const ChartSkeleton = () => <div className="carbon-card animate-pulse" style={{ height: 200 }} />;
@@ -55,6 +54,7 @@ import { DashboardStrip } from "@/components/models/DashboardStrip";
 const ModelDetailClient = () => {
   const params = useParams();
   const { allPrices, getBaseline, getPriceHistory } = usePrices();
+  const { selectedIds, toggleCompare } = useCompare();
   const model = laptops.find((m) => m.id === params.id);
   const [configuredModel, setConfiguredModel] = useState<Laptop | null>(model ?? null);
   const handleConfigChange = useCallback((configured: Laptop) => setConfiguredModel(configured), []);
@@ -82,16 +82,19 @@ const ModelDetailClient = () => {
     );
   }
 
-  // Values tied to base model (prices, value, editorial, linux)
+  // Values tied to base model (prices, value)
   const modelPrices = getPricesForModel(model.id, allPrices);
-  const editorial = modelEditorial[model.id];
-  const linux = linuxCompat[model.id];
   const baseline = getBaseline(model.id);
   const priceHistory = getPriceHistory(model.id);
 
   return (
     <div className="animate-fade-in space-y-6">
-      <ModelHeader model={model} sc={sc} />
+      <ModelHeader
+        model={model}
+        sc={sc}
+        isInCompare={selectedIds.includes(model.id)}
+        onToggleCompare={() => toggleCompare(model.id)}
+      />
 
       <ConfigSelector model={model} onConfigChange={handleConfigChange} />
 
@@ -115,7 +118,7 @@ const ModelDetailClient = () => {
           <a
             key={s.id}
             href={`#${s.id}`}
-            className="shrink-0 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-carbon-400 transition-all hover:bg-carbon-700/50 hover:text-accent-light"
+            className="hover:bg-carbon-700/50 shrink-0 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-carbon-400 transition-all hover:text-accent-light"
           >
             {s.label}
           </a>
@@ -175,32 +178,26 @@ const ModelDetailClient = () => {
         </SectionErrorBoundary>
 
         {/* Use Case + Linux — side by side on desktop */}
-        {((analysis.scenarios?.length ?? 0) > 0 || linux) && (
-          <div id="use-cases" className="grid scroll-mt-14 grid-cols-1 gap-4 lg:grid-cols-2">
-            {analysis.scenarios && analysis.scenarios.length > 0 && (
-              <div className="carbon-card p-4">
-                <UseCaseScenarios scenarios={analysis.scenarios} />
-              </div>
-            )}
-            {linux && (
-              <div className="carbon-card p-4">
-                <LinuxSection compat={linux} />
-              </div>
-            )}
+        <div id="use-cases" className="grid scroll-mt-14 grid-cols-1 gap-4 lg:grid-cols-2">
+          {analysis.scenarios && analysis.scenarios.length > 0 && (
+            <div className="carbon-card p-4">
+              <UseCaseScenarios scenarios={analysis.scenarios} />
+            </div>
+          )}
+          <div className="carbon-card p-4">
+            <LinuxSection modelId={model.id} />
           </div>
-        )}
+        </div>
 
         <SectionErrorBoundary section="Analysis">
           <ModelAnalysisCard analysis={analysis} />
         </SectionErrorBoundary>
 
-        {editorial && (
-          <SectionErrorBoundary section="Editorial">
-            <div id="editorial" className="carbon-card-editorial scroll-mt-14 p-4">
-              <EditorialCard editorial={editorial} linuxStatus={model.linuxStatus} />
-            </div>
-          </SectionErrorBoundary>
-        )}
+        <SectionErrorBoundary section="Editorial">
+          <div id="editorial" className="carbon-card-editorial scroll-mt-14 p-4">
+            <EditorialCard modelId={model.id} linuxStatus={model.linuxStatus} />
+          </div>
+        </SectionErrorBoundary>
 
         {/* Deep Dive + Price Check — compact row */}
         <SectionErrorBoundary section="Research">

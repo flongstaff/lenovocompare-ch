@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink, GitCompareArrows } from "lucide-react";
 import type { Laptop } from "@/lib/types";
 import type { getModelScores } from "@/lib/scoring";
 import { SeriesBadge } from "@/components/models/SeriesBadge";
@@ -11,9 +11,13 @@ import { getPsrefSearchUrl } from "@/lib/retailers";
 export const ModelHeader = ({
   model,
   sc,
+  isInCompare,
+  onToggleCompare,
 }: {
   readonly model: Laptop;
   readonly sc: ReturnType<typeof getModelScores>;
+  readonly isInCompare?: boolean;
+  readonly onToggleCompare?: () => void;
 }) => (
   <>
     <Link
@@ -37,27 +41,39 @@ export const ModelHeader = ({
           {model.year} · {model.os}
         </p>
       </div>
-      {model.psrefUrl && (
-        <div className="flex flex-col items-end gap-1 self-start">
-          <a
-            href={model.psrefUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="carbon-btn-ghost !px-3 !py-1.5 text-sm"
+      <div className="flex flex-col items-end gap-1 self-start">
+        {onToggleCompare && (
+          <button
+            onClick={onToggleCompare}
+            className={`carbon-btn-ghost !px-3 !py-1.5 text-sm ${isInCompare ? "!text-accent-light" : ""}`}
+            aria-label={isInCompare ? `Remove ${model.name} from comparison` : `Add ${model.name} to comparison`}
           >
-            PSREF <ExternalLink size={12} />
-          </a>
-          <a
-            href={getPsrefSearchUrl(model)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs hover:underline"
-            style={{ color: "var(--muted)" }}
-          >
-            Search PSREF
-          </a>
-        </div>
-      )}
+            <GitCompareArrows size={14} />
+            {isInCompare ? "In Compare" : "Compare"}
+          </button>
+        )}
+        {model.psrefUrl && (
+          <>
+            <a
+              href={model.psrefUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="carbon-btn-ghost !px-3 !py-1.5 text-sm"
+            >
+              PSREF <ExternalLink size={12} />
+            </a>
+            <a
+              href={getPsrefSearchUrl(model)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs hover:underline"
+              style={{ color: "var(--muted)" }}
+            >
+              Search PSREF
+            </a>
+          </>
+        )}
+      </div>
     </div>
 
     {/* Quick score strip */}

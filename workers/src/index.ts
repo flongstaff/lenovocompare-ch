@@ -35,24 +35,32 @@ app.use(
 // Health check
 app.get("/", (c) => c.json({ status: "ok", service: "lenovocompare-prices" }));
 
-// GET /api/prices -- return all current prices
+const MAX_LIMIT = 500;
+const DEFAULT_LIMIT = 200;
+
+const transformRow = (row: PriceRow) => ({
+  id: row.id,
+  laptopId: row.laptop_id,
+  retailer: row.retailer,
+  price: row.price_chf,
+  url: row.url,
+  dateAdded: row.date_added,
+  isUserAdded: row.is_user_added === 1,
+  priceType: row.price_type,
+  note: row.note,
+});
+
+// GET /api/prices -- return paginated prices
 app.get("/api/prices", async (c) => {
   try {
-    const { results } = await c.env.DB.prepare("SELECT * FROM prices ORDER BY date_added DESC").all<PriceRow>();
+    const limit = Math.min(Number(c.req.query("limit")) || DEFAULT_LIMIT, MAX_LIMIT);
+    const offset = Math.max(Number(c.req.query("offset")) || 0, 0);
 
-    // Transform snake_case DB rows to camelCase matching SwissPrice interface
-    const prices = (results ?? []).map((row) => ({
-      id: row.id,
-      laptopId: row.laptop_id,
-      retailer: row.retailer,
-      price: row.price_chf,
-      url: row.url,
-      dateAdded: row.date_added,
-      isUserAdded: row.is_user_added === 1,
-      priceType: row.price_type,
-      note: row.note,
-    }));
+    const { results } = await c.env.DB.prepare("SELECT * FROM prices ORDER BY date_added DESC LIMIT ? OFFSET ?")
+      .bind(limit, offset)
+      .all<PriceRow>();
 
+    const prices = (results ?? []).map(transformRow);
     return c.json(prices);
   } catch (err) {
     console.error("[GET /api/prices] Error:", err);
@@ -68,17 +76,7 @@ app.get("/api/prices/:laptopId", async (c) => {
       .bind(laptopId)
       .all<PriceRow>();
 
-    const prices = (results ?? []).map((row) => ({
-      id: row.id,
-      laptopId: row.laptop_id,
-      retailer: row.retailer,
-      price: row.price_chf,
-      url: row.url,
-      dateAdded: row.date_added,
-      isUserAdded: row.is_user_added === 1,
-      priceType: row.price_type,
-      note: row.note,
-    }));
+    const prices = (results ?? []).map(transformRow);
 
     return c.json(prices);
   } catch (err) {

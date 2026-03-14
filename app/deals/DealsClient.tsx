@@ -188,7 +188,7 @@ const DealsClient = () => {
               <div key={signalType} className="carbon-card overflow-hidden">
                 <button
                   onClick={() => toggleGroup(signalType)}
-                  className="flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors hover:bg-carbon-700/30"
+                  className="hover:bg-carbon-700/30 flex w-full items-center justify-between px-4 py-2.5 text-left transition-colors"
                   aria-expanded={!isCollapsed}
                 >
                   <div className="flex items-center gap-2.5">

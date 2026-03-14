@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 
 export const Footer = () => (
-  <footer className="mt-auto border-t border-carbon-600 bg-carbon-700/50">
+  <footer className="bg-carbon-700/50 mt-auto border-t border-carbon-600">
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
         {/* Navigate */}
@@ -83,7 +83,7 @@ export const Footer = () => (
         </div>
       </div>
 
-      <div className="mt-6 space-y-2 border-t border-carbon-600/50 pt-4">
+      <div className="border-carbon-600/50 mt-6 space-y-2 border-t pt-4">
         <p className="max-w-2xl text-xs leading-relaxed text-carbon-500">
           Prices are user-input or externally linked. Always verify the final CHF price including VAT and vRG on the
           retailer&apos;s site. Not affiliated with Lenovo.

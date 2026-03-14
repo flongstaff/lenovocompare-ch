@@ -141,10 +141,10 @@ const PricingClient = () => {
     if (result.error) {
       addToast(result.error, "error");
     } else {
-      addToast(
-        `Imported ${result.imported} price${result.imported !== 1 ? "s" : ""}${result.skipped > 0 ? `, ${result.skipped} skipped` : ""}`,
-        "success",
-      );
+      const parts = [`Imported ${result.imported} price${result.imported !== 1 ? "s" : ""}`];
+      if (result.skipped > 0) parts.push(`${result.skipped} skipped (invalid fields)`);
+      if (result.rejected > 0) parts.push(`${result.rejected} rejected (out of range)`);
+      addToast(parts.join(", "), "success");
     }
     setImportText("");
     setShowImport(false);

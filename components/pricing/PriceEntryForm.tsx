@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, AlertTriangle } from "lucide-react";
 import type { Laptop, PriceType } from "@/lib/types";
 import { RETAILERS } from "@/lib/constants";
+import { validatePrice, MIN_PRICE_CHF, MAX_PRICE_CHF } from "@/lib/validators";
 
 interface PriceEntryFormProps {
   readonly models: readonly Laptop[];
@@ -41,6 +42,22 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
   const [note, setNote] = useState("");
   const [url, setUrl] = useState("");
   const [error, setError] = useState("");
+  const [priceWarning, setPriceWarning] = useState("");
+
+  const handlePriceChange = (value: string) => {
+    setPrice(value);
+    if (!value) {
+      setPriceWarning("");
+      return;
+    }
+    const num = Number(value);
+    if (Number.isFinite(num) && num > 0) {
+      const result = validatePrice(num);
+      setPriceWarning(result.warning ?? "");
+    } else {
+      setPriceWarning("");
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,8 +73,10 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
       setError("Price must be greater than 0.");
       return;
     }
-    if (numPrice > 99999) {
-      setError("Price seems too high. Max CHF 99\u2019999.");
+
+    const validation = validatePrice(numPrice);
+    if (!validation.valid) {
+      setError(validation.warning ?? "Invalid price.");
       return;
     }
 
@@ -77,6 +96,7 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
 
     setLaptopId("");
     setPrice("");
+    setPriceWarning("");
     setNote("");
     setUrl("");
     onToast?.("Price added successfully", "success");
@@ -149,16 +169,28 @@ export const PriceEntryForm = ({ models, onAdd, onToast }: PriceEntryFormProps) 
           <input
             id="price-amount"
             type="number"
-            min="1"
-            max="99999"
+            min={MIN_PRICE_CHF}
+            max={MAX_PRICE_CHF}
             step="1"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => handlePriceChange(e.target.value)}
             placeholder="1499"
             className="carbon-input"
             required
             aria-required="true"
+            aria-describedby={priceWarning ? "price-range-warning" : undefined}
           />
+          {priceWarning && (
+            <p
+              id="price-range-warning"
+              className="mt-1 flex items-center gap-1 text-xs"
+              style={{ color: "#f1c21b" }}
+              role="status"
+            >
+              <AlertTriangle size={12} />
+              {priceWarning}
+            </p>
+          )}
         </div>
 
         <div>

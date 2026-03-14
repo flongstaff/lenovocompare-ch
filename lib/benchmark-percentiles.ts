@@ -1,5 +1,6 @@
 import { laptops } from "@/data/laptops";
-import { getCpuSingleCore, getCpuMultiCore, getGpuScore } from "./scoring";
+import { getCpuSingleCore, getCpuMultiCore } from "./scoring/cpu";
+import { getGpuScore } from "./scoring/gpu";
 
 const percentile = (value: number, allValues: number[]): number => {
   const below = allValues.filter((v) => v < value).length;

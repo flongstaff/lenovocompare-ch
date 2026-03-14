@@ -10,6 +10,7 @@
 /coverage
 /playwright-report/
 /test-results/
+/lighthouse-results/
 
 # next.js
 /.next/
@@ -34,15 +35,24 @@ yarn-error.log*
 # keys
 *.key
 
-# Claude Code
+# Claude Code (keep CLAUDE.md public; everything else is internal tooling)
 .claude/settings.json
 .claude/settings.local.json
 .claude/.DS_Store
 .claude/plans/
 .claude/memory/
+.claude/agents/
+.claude/skills/
+.claude/rules/
+.claude/wizard-state.json
 
-# Plan docs (session artifacts, not project code)
+# Internal planning (GSD artifacts, session plans, audit docs)
+.planning/
 docs/plans/
+
+# Internal working docs
+AGENTS.md
+ux.md
 
 # MCP config (machine-specific)
 .mcp.json
@@ -68,5 +78,14 @@ next-env.d.ts
 rpi/
 
 
-#Ignore cursor AI rules
-.cursor/rules/codacy.mdc
+# IDE/AI tool configs (machine-specific)
+.cursor/
+.opencode/
+.goose/
+.pi/
+
+# Wrangler local dev state
+workers/.wrangler/
+
+# Docker MCP configs (machine-specific)
+docker/mcp/

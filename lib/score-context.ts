@@ -1,13 +1,11 @@
 import type { Laptop } from "./types";
 import { laptops } from "@/data/laptops";
-import {
-  getPerformanceScore,
-  getGpuScore,
-  getDisplayScore,
-  getMemoryScore,
-  getConnectivityScore,
-  getPortabilityScore,
-} from "./scoring";
+import { getPerformanceScore } from "./scoring/cpu";
+import { getGpuScore } from "./scoring/gpu";
+import { getDisplayScore } from "./scoring/display";
+import { getMemoryScore } from "./scoring/memory";
+import { getConnectivityScore } from "./scoring/connectivity";
+import { getPortabilityScore } from "./scoring/portability";
 
 export type Dimension = "cpu" | "gpu" | "memory" | "display" | "connectivity" | "portability";
 
@@ -35,8 +33,19 @@ const getDimensionScore = (dim: Dimension, model: Laptop): number => {
   }
 };
 
+// Module-level cache: dimension → sorted scores for all models (computed once)
+const allScoresCache = new Map<Dimension, number[]>();
+const getAllScores = (dim: Dimension): number[] => {
+  let cached = allScoresCache.get(dim);
+  if (!cached) {
+    cached = laptops.map((m) => getDimensionScore(dim, m));
+    allScoresCache.set(dim, cached);
+  }
+  return cached;
+};
+
 export const getScoreContext = (dim: Dimension, model: Laptop): ScoreContext => {
-  const allScores = laptops.map((m) => getDimensionScore(dim, m));
+  const allScores = getAllScores(dim);
   const modelScore = getDimensionScore(dim, model);
 
   // Series group — fall back to lineup if series has < 3 models

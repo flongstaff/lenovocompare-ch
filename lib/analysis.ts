@@ -6,7 +6,10 @@
  * lineup-aware context for each model's positioning.
  */
 import type { Laptop, ModelAnalysis, UseCase, UseCaseScenario, ScenarioVerdict } from "./types";
-import { getPerformanceScore, getGpuScore, getGamingTier, getMemoryScore, getDisplayScore } from "./scoring";
+import { getPerformanceScore } from "./scoring/cpu";
+import { getGpuScore, getGamingTier } from "./scoring/gpu";
+import { getDisplayScore } from "./scoring/display";
+import { getMemoryScore } from "./scoring/memory";
 
 const SERIES_DESCRIPTIONS: Record<string, string> = {
   // ThinkPad
@@ -261,9 +264,11 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
 
   const scenarios: UseCaseScenario[] = [];
 
+  const clamp = (v: number) => Math.max(0, Math.min(100, Math.round(v)));
+
   // Weighted scores per scenario. Base offsets set the floor (e.g. +40 for office = most laptops pass).
   // Office: 30% CPU + 30% memory + 40 base
-  const officeScore = perfScore * 0.3 + memScore * 0.3 + 40;
+  const officeScore = clamp(perfScore * 0.3 + memScore * 0.3 + 40);
   const officeVerdict = verdictFor(officeScore, [40, 52, 65, 85]);
   scenarios.push({
     scenario: "Office / Productivity",
@@ -282,7 +287,7 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
 
   // Dev: 35% CPU + 35% memory + display quality bonus (10% of display score + size bonus)
   const displayScore = getDisplayScore(model);
-  const devScore = perfScore * 0.35 + memScore * 0.35 + displayScore * 0.1 + (model.display.size >= 15 ? 5 : 0);
+  const devScore = clamp(perfScore * 0.35 + memScore * 0.35 + displayScore * 0.1 + (model.display.size >= 15 ? 5 : 0));
   const devVerdict = verdictFor(devScore, [25, 40, 55, 75]);
   scenarios.push({
     scenario: "Software Development",
@@ -301,7 +306,7 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
 
   // Gaming: GPU tier base + CPU/memory modifier for bottleneck awareness
   const gamingTierBase = gamingTier === "Heavy" ? 75 : gamingTier === "Medium" ? 50 : gamingTier === "Light" ? 25 : 0;
-  const gamingScore = gamingTierBase + perfScore * 0.15 + memScore * 0.1;
+  const gamingScore = clamp(gamingTierBase + perfScore * 0.15 + memScore * 0.1);
   const gamingVerdict = verdictFor(gamingScore, [15, 30, 50, 75]);
   scenarios.push({
     scenario: "Gaming",
@@ -319,7 +324,9 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
   });
 
   // Video Editing
-  const videoScore = perfScore * 0.3 + gpuScore * 0.3 + memScore * 0.2 + (model.display.panel === "OLED" ? 15 : 5);
+  const videoScore = clamp(
+    perfScore * 0.3 + gpuScore * 0.3 + memScore * 0.2 + (model.display.panel === "OLED" ? 15 : 5),
+  );
   const videoVerdict = verdictFor(videoScore, [20, 35, 50, 70]);
   scenarios.push({
     scenario: "Video Editing",
@@ -338,7 +345,9 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
 
   // Data Science / ML — VRAM bonus for dedicated GPUs with >= 8GB
   const vramBonus = model.gpu.vram && model.gpu.vram >= 8 ? 8 : 0;
-  const mlScore = perfScore * 0.25 + gpuScore * 0.35 + memScore * 0.25 + (model.ram.size >= 32 ? 10 : 0) + vramBonus;
+  const mlScore = clamp(
+    perfScore * 0.25 + gpuScore * 0.35 + memScore * 0.25 + (model.ram.size >= 32 ? 10 : 0) + vramBonus,
+  );
   const mlVerdict = verdictFor(mlScore, [20, 35, 50, 70]);
   scenarios.push({
     scenario: "Data Science / ML",
@@ -356,7 +365,7 @@ const generateUseCaseScenarios = (model: Laptop): UseCaseScenario[] => {
   });
 
   // Virtualization
-  const virtScore = perfScore * 0.35 + memScore * 0.45 + (model.ram.maxSize >= 64 ? 10 : 0);
+  const virtScore = clamp(perfScore * 0.35 + memScore * 0.45 + (model.ram.maxSize >= 64 ? 10 : 0));
   const virtVerdict = verdictFor(virtScore, [25, 40, 55, 75]);
   scenarios.push({
     scenario: "Virtualization",

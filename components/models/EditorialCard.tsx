@@ -1,14 +1,18 @@
 "use client";
 
 import { AlertTriangle, Globe, Terminal } from "lucide-react";
-import { EditorialOverlay, LinuxStatus } from "@/lib/types";
+import type { EditorialOverlay, LinuxStatus } from "@/lib/types";
+import { modelEditorial } from "@/data/model-editorial";
 
 interface EditorialCardProps {
-  readonly editorial: EditorialOverlay;
+  readonly modelId: string;
   readonly linuxStatus?: LinuxStatus;
 }
 
-const EditorialCard = ({ editorial, linuxStatus }: EditorialCardProps) => {
+const EditorialCard = ({ modelId, linuxStatus }: EditorialCardProps) => {
+  const editorial: EditorialOverlay | undefined = modelEditorial[modelId];
+  if (!editorial) return null;
+
   return (
     <div className="carbon-card space-y-4 p-4">
       <h2 className="text-lg font-semibold" style={{ color: "var(--foreground)" }}>

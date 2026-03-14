@@ -3480,6 +3480,312 @@ export const cpuGuide: Record<string, HardwareGuideEntry> = {
     alternatives: [{ name: "Intel Core i7-12700H", comparison: "Higher tier — 6 P-cores, ~15% faster" }],
     architecture: "Alder Lake H",
   },
+  "AMD Ryzen 5 5625U": {
+    summary:
+      "6-core Zen 3 at 15W TDP. Consumer variant of Barcelo (refreshed Cezanne). Solid budget processor for entry-level IdeaPad and Yoga models with proven efficiency.",
+    strengths: [
+      "6 cores / 12 threads at 15W — efficient multi-threading",
+      "Zen 3 IPC still competitive for everyday tasks",
+      "15W TDP delivers strong battery life",
+      "Mature driver ecosystem on Linux and Windows",
+    ],
+    weaknesses: [
+      "Zen 3 architecture — two generations behind current",
+      "Vega integrated GPU is dated",
+      "DDR4 only in most implementations",
+      "No NPU for AI features",
+    ],
+    bestFor: [
+      "Budget IdeaPad and Yoga configurations",
+      "Students needing all-day battery",
+      "Light office productivity and web browsing",
+      "Linux users wanting proven open-source drivers",
+    ],
+    avoidIf: [
+      "Modern performance expectations exist",
+      "Integrated GPU gaming matters — Vega is weak",
+      "Thunderbolt connectivity is required",
+      "Budget allows for Ryzen 7000 series or newer",
+    ],
+    thermalNotes: "15W TDP runs cool in any chassis. Silent operation typical even under sustained load.",
+    generationContext:
+      "Barcelo (Zen 3, 2022). Consumer counterpart to Ryzen 5 PRO 5650U. Found in IdeaPad and Yoga budget configurations. Now two generations old.",
+    alternatives: [
+      { name: "AMD Ryzen 5 PRO 5650U", comparison: "PRO variant — same performance with enterprise security features" },
+      { name: "AMD Ryzen 5 7530U", comparison: "Newer refresh — minor clock gains, same Zen 3 core" },
+    ],
+    architecture: "Zen 3 (Barcelo)",
+  },
+  "AMD Ryzen 5 PRO 4650U": {
+    summary:
+      "6-core Zen 2 at 15W TDP. AMD's 2020 entry-level enterprise processor. First-gen Ryzen PRO U-series that brought AMD back into the enterprise ThinkPad space.",
+    strengths: [
+      "6 cores / 12 threads at 15W — strong for its era",
+      "AMD PRO security and manageability features",
+      "Proven Zen 2 reliability",
+      "Very low power consumption",
+    ],
+    weaknesses: [
+      "Zen 2 architecture — three generations behind current",
+      "Weak Vega integrated GPU",
+      "DDR4 only",
+      "No Thunderbolt, no NPU",
+    ],
+    bestFor: [
+      "Legacy ThinkPad users on a tight budget",
+      "Light office productivity and web browsing",
+      "Enterprise fleets with long refresh cycles",
+      "Users where power efficiency is paramount",
+    ],
+    avoidIf: [
+      "Modern performance expectations exist — Zen 5 is 60%+ faster",
+      "Any GPU-intensive work is anticipated",
+      "Thunderbolt docking is required",
+      "Longevity of the purchase matters — aging hardware",
+    ],
+    thermalNotes: "15W TDP runs extremely cool. No thermal concerns in any chassis design.",
+    generationContext:
+      "Renoir (Zen 2, 2020). AMD's first competitive enterprise mobile chip. Found in ThinkPad T14 Gen 1 AMD. Replaced by Zen 3 PRO 5000 series.",
+    alternatives: [
+      { name: "AMD Ryzen 7 PRO 4750U", comparison: "8 cores — ~30% better multi-core" },
+      { name: "AMD Ryzen 5 PRO 5650U", comparison: "Next gen Zen 3 — ~15% faster with better IPC" },
+    ],
+    architecture: "Zen 2 (Renoir)",
+  },
+  "AMD Ryzen 7 PRO 4750U": {
+    summary:
+      "8-core Zen 2 at 15W TDP. AMD's 2020 flagship enterprise U-series. Impressive multi-core for its era with PRO security features.",
+    strengths: [
+      "8 cores / 16 threads at 15W — excellent multi-core for 2020",
+      "AMD PRO security and manageability",
+      "Proven Zen 2 platform reliability",
+      "Good open-source Linux driver support",
+    ],
+    weaknesses: [
+      "Zen 2 — three generations behind current",
+      "Weak Vega integrated GPU",
+      "DDR4 only",
+      "No Thunderbolt, no NPU",
+    ],
+    bestFor: [
+      "Legacy ThinkPad users needing multi-core on a budget",
+      "Enterprise fleets where hardware still functions adequately",
+      "Linux users with open-source driver preference",
+      "Multi-tasking office workloads on older hardware",
+    ],
+    avoidIf: [
+      "Modern performance expectations exist",
+      "GPU-accelerated workflows are needed",
+      "Thunderbolt docking is required",
+      "Longevity of the purchase matters — hardware is aging",
+    ],
+    thermalNotes: "15W TDP with 8 Zen 2 cores stays remarkably cool. No thermal issues in any ThinkPad chassis.",
+    generationContext:
+      "Renoir (Zen 2, 2020). Top-tier AMD enterprise U-series for its generation. Found in ThinkPad T14 Gen 1 AMD. Replaced by Ryzen 7 PRO 5850U.",
+    alternatives: [
+      { name: "AMD Ryzen 5 PRO 4650U", comparison: "6 cores — cooler and cheaper, adequate for lighter workloads" },
+      { name: "AMD Ryzen 7 PRO 5850U", comparison: "Next gen Zen 3 — ~15% faster IPC, same core count" },
+    ],
+    architecture: "Zen 2 (Renoir)",
+  },
+  "AMD Ryzen 7 7840U": {
+    summary:
+      "8-core Zen 4 at 15-28W TDP. Consumer variant of Phoenix with RDNA 3 integrated graphics (Radeon 780M). Excellent all-rounder for thin-and-light laptops with the strongest iGPU in its generation.",
+    strengths: [
+      "8 cores / 16 threads with Zen 4 IPC",
+      "Radeon 780M iGPU — best-in-class integrated graphics for 2023",
+      "Flexible 15-28W TDP range for different chassis",
+      "AI engine for on-device inference",
+    ],
+    weaknesses: [
+      "Consumer variant — lacks PRO enterprise security features",
+      "28W boost draws more power than U-class competitors",
+      "Superseded by Ryzen AI 300 series in 2025",
+      "No Thunderbolt — relies on USB4 compatibility",
+    ],
+    bestFor: [
+      "Yoga and IdeaPad users wanting strong iGPU gaming",
+      "Content creators needing GPU acceleration without discrete graphics",
+      "Users who want one laptop for work and casual gaming",
+      "Thin-and-light configurations prioritising versatility",
+    ],
+    avoidIf: [
+      "Enterprise management features are needed — choose PRO 7840U or PRO 8840U",
+      "Maximum battery life is the priority — 15W U-class chips are more efficient",
+      "Serious gaming is planned — a discrete GPU is still necessary",
+      "Budget is tight — this is a premium consumer chip",
+    ],
+    thermalNotes:
+      "Flexible TDP means thermals depend on chassis implementation. At 15W it runs cool; at 28W sustained, expect moderate fan noise in thin-and-light designs.",
+    generationContext:
+      "Phoenix (Zen 4, 2023). Consumer counterpart to Ryzen 7 PRO 7840U. Found in Yoga and IdeaPad Pro models. Strong 780M iGPU made it popular for iGPU gaming.",
+    alternatives: [
+      { name: "AMD Ryzen 7 PRO 7840U", comparison: "PRO variant — same silicon with enterprise security features" },
+      { name: "AMD Ryzen 7 8840HS", comparison: "Hawk Point refresh — slightly higher clocks, same architecture" },
+    ],
+    architecture: "Zen 4 (Phoenix)",
+  },
+  "AMD Ryzen 7 8840HS": {
+    summary:
+      "8-core Zen 4 at 28W TDP. Hawk Point refresh of the 7840HS with minor clock improvements. Strong all-round processor for IdeaPad Pro and Yoga premium configurations.",
+    strengths: [
+      "8 cores / 16 threads with Zen 4 IPC",
+      "Radeon 780M iGPU — excellent integrated graphics",
+      "28W TDP with boost headroom for demanding tasks",
+      "Ryzen AI engine for on-device AI acceleration",
+    ],
+    weaknesses: [
+      "Consumer variant — no PRO enterprise security",
+      "Marginal uplift over 7840HS — essentially a rebrand",
+      "28W base draws more than U-class alternatives",
+      "Superseded by Zen 5 / Ryzen AI 300 in 2025",
+    ],
+    bestFor: [
+      "IdeaPad Pro and Yoga premium configurations",
+      "Creators wanting strong iGPU without discrete graphics",
+      "Users who benefit from the Radeon 780M for casual gaming",
+      "All-round productivity with occasional heavier workloads",
+    ],
+    avoidIf: [
+      "Enterprise management features are required — choose PRO 8840HS",
+      "Maximum battery life is essential — U-class is more efficient",
+      "You already have a 7840HS device — the upgrade is negligible",
+      "Budget allows for Ryzen AI 7 350 (Zen 5)",
+    ],
+    thermalNotes:
+      "28W TDP is manageable in IdeaPad Pro and Yoga chassis. Moderate fan noise under sustained load. Adequate cooling in most 14-inch form factors.",
+    generationContext:
+      "Hawk Point (Zen 4 refresh, 2024). Minor clock bump over 7840HS. Found in IdeaPad Pro 5 and Yoga configurations. Superseded by Strix Point (Zen 5) in 2025.",
+    alternatives: [
+      { name: "AMD Ryzen 7 PRO 8840HS", comparison: "PRO variant — same silicon with enterprise features" },
+      { name: "AMD Ryzen 7 8845HS", comparison: "Higher binned variant — slightly faster clocks" },
+    ],
+    architecture: "Zen 4 (Hawk Point)",
+  },
+  "Intel Core i7-1260P": {
+    summary:
+      "12-core Alder Lake P at 28W TDP. Intel's 2022 mainstream P-series with 4 P-cores + 8 E-cores. Strong hybrid architecture that brought significant multi-threaded gains over 11th Gen.",
+    strengths: [
+      "12 cores (4P+8E) — big leap from 4-core Tiger Lake",
+      "28W TDP balances performance and battery life",
+      "Proven Alder Lake platform with wide compatibility",
+      "Iris Xe integrated graphics — capable for its era",
+    ],
+    weaknesses: [
+      "2022 architecture — superseded by Meteor Lake and Arrow Lake",
+      "4 P-cores limits peak single-thread performance",
+      "E-cores less efficient than later Raptor Lake refinements",
+      "Thread scheduling less mature than later hybrid designs",
+    ],
+    bestFor: [
+      "Yoga and ThinkPad mid-range configurations from 2022",
+      "Users upgrading from 10th/11th Gen Intel",
+      "Mixed productivity workloads benefiting from hybrid cores",
+      "Budget-conscious buyers on the used market",
+    ],
+    avoidIf: [
+      "Current-gen performance is expected — Core Ultra is significantly better",
+      "Strong single-thread matters — newer chips are faster per core",
+      "Advanced features like NPU or AI acceleration are needed",
+      "Budget allows for Meteor Lake or Arrow Lake platforms",
+    ],
+    thermalNotes:
+      "28W TDP is manageable in most 14-inch chassis. P-series boost can cause brief thermal spikes in slim designs. Fans activate under sustained load.",
+    generationContext:
+      "12th Gen Alder Lake P (2022). Intel's first hybrid mobile architecture. The P-series slot between H and U for balanced performance. Found in Yoga 9i Gen 7 and similar.",
+    alternatives: [
+      { name: "Intel Core i7-1280P", comparison: "Higher tier — 6 P-cores for better multi-thread" },
+      { name: "Intel Core i7-1270P", comparison: "Similar tier — slightly lower clocks but same architecture" },
+    ],
+    architecture: "Alder Lake P",
+  },
+  "Qualcomm Snapdragon 8cx Gen 3": {
+    summary:
+      "ARM-based SoC at ~8W TDP. Qualcomm's third-generation Windows on ARM processor. Designed for always-connected, ultra-long battery life laptops with integrated 5G modem support.",
+    strengths: [
+      "Exceptional battery life — 8W TDP is far below any x86 competitor",
+      "Always-on, always-connected with integrated modem support",
+      "Fanless operation in most chassis designs",
+      "Instant wake and long standby — smartphone-like experience",
+    ],
+    weaknesses: [
+      "Weak x86 emulation — many Windows apps run slowly or not at all",
+      "ARM app ecosystem still limited on Windows",
+      "Performance far below comparable Intel/AMD processors",
+      "No gaming capability beyond casual mobile-style games",
+    ],
+    bestFor: [
+      "Ultra-mobile professionals who prioritise battery above all else",
+      "Always-connected field workers needing 5G/LTE",
+      "Users whose workflow is entirely web-based or ARM-native",
+      "ThinkPad X13s users who value silence and all-day battery",
+    ],
+    avoidIf: [
+      "You rely on x86 Windows applications — compatibility is limited",
+      "Any level of performance-intensive work is needed",
+      "Gaming of any kind is expected",
+      "Linux support matters — ARM on Windows is poorly supported",
+    ],
+    thermalNotes:
+      "8W TDP enables completely fanless designs. Runs cool to the touch under all workloads. No thermal throttling concerns.",
+    generationContext:
+      "Snapdragon 8cx Gen 3 (2022). Qualcomm's last Arm Cortex design before the Oryon-based Snapdragon X Elite. Found in ThinkPad X13s. Replaced by Snapdragon X series with dramatically better performance.",
+    alternatives: [
+      {
+        name: "Qualcomm Snapdragon X Elite X1E-78-100",
+        comparison: "Next gen — dramatically faster with native ARM performance and better emulation",
+      },
+      {
+        name: "Intel Core Ultra 5 125U",
+        comparison: "x86 alternative — much faster but significantly higher power draw",
+      },
+    ],
+    architecture: "Arm Cortex (Qualcomm)",
+  },
+  "Qualcomm Snapdragon X Elite X1E-78-100": {
+    summary:
+      "ARM-based SoC with custom Oryon cores at ~23W TDP. Qualcomm's breakthrough Windows on ARM processor with genuine x86-competitive performance. Dramatically faster than previous Snapdragon chips.",
+    strengths: [
+      "Custom Oryon cores deliver x86-competitive single and multi-thread",
+      "Strong NPU (45 TOPS) for on-device AI workloads",
+      "Excellent battery life despite high performance — 23W TDP",
+      "Good Adreno X1-85 integrated GPU for casual gaming and media",
+    ],
+    weaknesses: [
+      "ARM architecture still has x86 app compatibility gaps",
+      "Emulation overhead reduces performance in some legacy apps",
+      "Limited Linux support compared to x86 alternatives",
+      "First-generation Oryon — driver and firmware maturity is evolving",
+    ],
+    bestFor: [
+      "Users wanting exceptional battery life with strong performance",
+      "AI-focused workflows leveraging the powerful NPU",
+      "ARM-native web and productivity workloads",
+      "Professionals who value silence and portability with real performance",
+    ],
+    avoidIf: [
+      "You rely heavily on specific x86-only Windows applications",
+      "Linux is your primary OS — ARM support is limited",
+      "Proven platform stability is essential — first-gen Oryon is still maturing",
+      "Discrete GPU performance is needed — no dGPU option available",
+    ],
+    thermalNotes:
+      "23W TDP is efficient for its performance level. Most chassis run quietly with minimal fan activity. Fanless designs possible at lower sustained loads.",
+    generationContext:
+      "Snapdragon X Elite (Oryon, 2024). Qualcomm's first custom ARM core for Windows. Major leap from 8cx Gen 3. Found in Yoga Slim 7x and similar. Competes with Intel Core Ultra in performance.",
+    alternatives: [
+      {
+        name: "Qualcomm Snapdragon 8cx Gen 3",
+        comparison: "Previous gen — dramatically slower, only for extreme battery needs",
+      },
+      {
+        name: "Intel Core Ultra 7 258V",
+        comparison:
+          "x86 alternative (Lunar Lake) — similar efficiency, full x86 compatibility, slightly lower multi-core",
+      },
+    ],
+    architecture: "Oryon (Qualcomm)",
+  },
 };
 
 /**
@@ -4887,5 +5193,150 @@ export const gpuGuide: Record<string, HardwareGuideEntry> = {
       },
     ],
     architecture: "Blackwell",
+  },
+  "Intel UHD Graphics": {
+    summary:
+      "Basic integrated GPU found in Intel 10th-12th Gen U-series processors. Entry-level graphics for desktop compositing, basic video playback, and office use. A step below Iris Xe.",
+    strengths: [
+      "Zero additional power draw — shares CPU TDP",
+      "Sufficient for basic 2D desktop and office applications",
+      "Wide driver support across Windows and Linux",
+      "Supports dual external displays in most chassis",
+    ],
+    weaknesses: [
+      "Significantly weaker than Iris Xe and Arc Graphics",
+      "Struggles with 4K video playback of modern codecs",
+      "No gaming capability beyond the most casual titles",
+      "Limited hardware acceleration for creative workflows",
+    ],
+    bestFor: [
+      "Budget ThinkPad E-series for office use only",
+      "Terminal and text-editor workflows",
+      "Older hardware that still meets basic needs",
+      "Users who never interact with GPU-accelerated applications",
+    ],
+    avoidIf: [
+      "Any GPU-accelerated application is part of your workflow",
+      "You connect to 4K external monitors regularly",
+      "Even casual gaming is expected",
+      "Modern video playback performance matters",
+    ],
+    thermalNotes: "Negligible heat output. Designed for 15W TDP processors. No thermal impact on any chassis.",
+    generationContext:
+      "Intel UHD Graphics (Gen 9.5 / Gen 12). Found in Comet Lake and some Alder Lake U-series processors. Superseded by Iris Xe and Intel Arc Graphics in newer chips.",
+    alternatives: [
+      { name: "Intel Iris Xe", comparison: "Major upgrade — 2-3x faster for GPU-accelerated tasks" },
+      { name: "Intel UHD 620", comparison: "Even older variant — similar class, marginally different performance" },
+    ],
+    architecture: "Intel Gen 9.5/12",
+  },
+  "AMD Radeon RX Vega 6": {
+    summary:
+      "Vega-based integrated GPU with 6 compute units. Found in Zen 2 Ryzen PRO 4000 series processors. Basic iGPU for desktop compositing and light multimedia.",
+    strengths: [
+      "Zero additional power draw — shares CPU TDP",
+      "Functional for basic display output and desktop compositing",
+      "Open-source amdgpu driver on Linux — mature and well-supported",
+      "Supports hardware video decode for common formats",
+    ],
+    weaknesses: [
+      "Vega architecture — two generations behind RDNA 3",
+      "Only 6 compute units — limited GPU throughput",
+      "No hardware ray tracing or modern GPU features",
+      "Cannot handle even light gaming at acceptable frame rates",
+    ],
+    bestFor: [
+      "Budget ThinkPad AMD configurations for office use",
+      "Linux users wanting reliable open-source GPU drivers",
+      "Basic display output and video conferencing",
+      "Legacy hardware that still meets basic needs",
+    ],
+    avoidIf: [
+      "Any gaming beyond very casual web games is expected",
+      "GPU-accelerated creative workflows are needed",
+      "Modern integrated GPU performance matters — RDNA 3 is far better",
+      "4K display output at high refresh rates is required",
+    ],
+    thermalNotes: "Negligible thermal output. Shares the 15W CPU thermal envelope. No impact on chassis thermals.",
+    generationContext:
+      "Vega (GCN 5) iGPU in Renoir (Zen 2). Found in Ryzen PRO 4650U. Replaced by RDNA 2 in Rembrandt and RDNA 3 in Phoenix. Now three GPU architecture generations old.",
+    alternatives: [
+      { name: "AMD Radeon Graphics", comparison: "Slightly newer Vega variant — marginal improvement" },
+      { name: "AMD Radeon 660M", comparison: "RDNA 2 upgrade — significantly faster in Zen 3+ chips" },
+    ],
+    architecture: "Vega (GCN 5)",
+  },
+  "Qualcomm Adreno 690": {
+    summary:
+      "Integrated GPU in the Snapdragon 8cx Gen 3 ARM SoC. Basic graphics for desktop compositing and video playback. Designed for ultra-low-power always-connected laptops.",
+    strengths: [
+      "Extremely low power draw — part of an 8W SoC",
+      "Sufficient for desktop compositing and video playback",
+      "Supports HDR display output",
+      "Hardware video decode for common formats including AV1",
+    ],
+    weaknesses: [
+      "One of the weakest laptop GPUs available — limited 3D capability",
+      "ARM GPU drivers lag behind Intel/AMD on Windows",
+      "No gaming capability beyond the simplest casual titles",
+      "Limited GPU compute for any accelerated workloads",
+    ],
+    bestFor: [
+      "ThinkPad X13s users whose workflow is entirely web-based",
+      "Always-connected professionals prioritising battery over GPU",
+      "Basic video conferencing and document viewing",
+      "Users who never touch GPU-intensive applications",
+    ],
+    avoidIf: [
+      "Any GPU performance matters at all",
+      "Gaming of any kind is planned",
+      "GPU-accelerated applications are part of your workflow",
+      "Multi-monitor setups with demanding display output are needed",
+    ],
+    thermalNotes: "Part of an 8W SoC. Completely fanless operation. Zero thermal concerns in any chassis design.",
+    generationContext:
+      "Adreno 690 in Snapdragon 8cx Gen 3 (2022). Qualcomm's last pre-Oryon laptop GPU. Found in ThinkPad X13s. Replaced by Adreno X1-85 in Snapdragon X Elite with dramatically better performance.",
+    alternatives: [
+      { name: "Qualcomm Adreno X1-85", comparison: "Next gen — dramatically faster GPU in Snapdragon X Elite" },
+      { name: "Intel UHD 620", comparison: "x86 equivalent class — similar basic capability" },
+    ],
+    architecture: "Adreno (Qualcomm)",
+  },
+  "Qualcomm Adreno X1-85": {
+    summary:
+      "Integrated GPU in the Snapdragon X Elite ARM SoC. Qualcomm's breakthrough laptop GPU with genuine light gaming capability. Major generational leap from Adreno 690.",
+    strengths: [
+      "Capable of light 1080p gaming at low-medium settings",
+      "Excellent video playback and display output performance",
+      "Low power draw relative to its performance level",
+      "Supports DirectX 12 and Vulkan for broader app compatibility",
+    ],
+    weaknesses: [
+      "ARM GPU drivers on Windows still less mature than Intel/AMD",
+      "Some games and GPU applications do not support ARM GPUs",
+      "No dedicated VRAM — shares system memory",
+      "First-generation Adreno X — driver optimisation is ongoing",
+    ],
+    bestFor: [
+      "Yoga Slim 7x users wanting casual gaming alongside productivity",
+      "ARM laptop users who benefit from GPU-accelerated media workflows",
+      "Professionals wanting light gaming without discrete GPU weight/cost",
+      "Users in the Snapdragon X ecosystem who need capable integrated graphics",
+    ],
+    avoidIf: [
+      "You rely on specific GPU-accelerated Windows applications — ARM compatibility varies",
+      "Serious gaming is planned — x86 platforms with dGPU are far more capable",
+      "Linux GPU support is required — ARM GPU drivers are limited",
+      "Maximum GPU compute performance is needed",
+    ],
+    thermalNotes:
+      "Part of a 23W SoC. Runs cool in most chassis designs. Minimal fan activity during typical use. GPU-heavy loads may trigger light fan engagement.",
+    generationContext:
+      "Adreno X1-85 in Snapdragon X Elite (Oryon, 2024). Major generational leap from Adreno 690. Competes with Intel Arc Graphics and AMD Radeon 760M class integrated GPUs.",
+    alternatives: [
+      { name: "Qualcomm Adreno 690", comparison: "Previous gen — dramatically slower, only for basic display output" },
+      { name: "Intel Arc 140V", comparison: "Intel equivalent class — similar performance, full x86 compatibility" },
+    ],
+    architecture: "Adreno X1 (Qualcomm)",
   },
 };

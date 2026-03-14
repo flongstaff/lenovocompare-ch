@@ -10,10 +10,12 @@ import { priceBaselines } from "@/data/price-baselines";
 import { useLocalStorage } from "./useLocalStorage";
 import { useRemotePrices } from "./useRemotePrices";
 import { STORAGE_KEYS } from "@/lib/constants";
+import { validatePrice } from "@/lib/validators";
 
 interface ImportResult {
   imported: number;
   skipped: number;
+  rejected: number;
   error?: string;
 }
 
@@ -82,35 +84,45 @@ export const usePrices = () => {
       try {
         parsed = JSON.parse(json);
       } catch {
-        return { imported: 0, skipped: 0, error: "Invalid JSON format" };
+        return { imported: 0, skipped: 0, rejected: 0, error: "Invalid JSON format" };
       }
 
       if (!Array.isArray(parsed)) {
-        return { imported: 0, skipped: 0, error: "Expected a JSON array" };
+        return { imported: 0, skipped: 0, rejected: 0, error: "Expected a JSON array" };
       }
 
       let imported = 0;
       let skipped = 0;
+      let rejected = 0;
       const valid: SwissPrice[] = [];
 
       for (const item of parsed) {
-        if (isValidPrice(item)) {
-          valid.push({
-            ...item,
-            id: item.id ?? `import-${Date.now()}-${imported}`,
-            isUserAdded: true,
-          });
-          imported++;
-        } else {
+        if (!isValidPrice(item)) {
           skipped++;
+          continue;
         }
+        const priceCheck = validatePrice(item.price);
+        if (!priceCheck.valid) {
+          rejected++;
+          continue;
+        }
+        valid.push({
+          ...item,
+          id: item.id ?? `import-${Date.now()}-${imported}`,
+          isUserAdded: true,
+        });
+        imported++;
       }
 
-      if (imported === 0 && skipped > 0) {
+      if (imported === 0 && (skipped > 0 || rejected > 0)) {
+        const parts: string[] = [];
+        if (skipped > 0) parts.push(`${skipped} had missing/invalid fields`);
+        if (rejected > 0) parts.push(`${rejected} had out-of-range prices`);
         return {
           imported: 0,
           skipped,
-          error: `All ${skipped} entries had missing/invalid fields (need: laptopId, retailer, price, dateAdded)`,
+          rejected,
+          error: `No prices imported: ${parts.join(", ")} (need: laptopId, retailer, price CHF 200\u2013${(15_000).toLocaleString("de-CH")}, dateAdded)`,
         };
       }
 
@@ -118,7 +130,7 @@ export const usePrices = () => {
         setUserPrices((prev) => [...prev, ...valid]);
       }
 
-      return { imported, skipped };
+      return { imported, skipped, rejected };
     },
     [setUserPrices],
   );

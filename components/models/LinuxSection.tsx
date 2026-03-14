@@ -2,9 +2,10 @@
 
 import { CheckCircle, AlertTriangle, XCircle, HelpCircle } from "lucide-react";
 import type { LinuxCompatEntry, DriverStatus } from "@/lib/types";
+import { linuxCompat } from "@/data/linux-compat";
 
 interface LinuxSectionProps {
-  readonly compat: LinuxCompatEntry;
+  readonly modelId: string;
 }
 
 const STATUS_ICON: Record<DriverStatus, { Icon: typeof CheckCircle; color: string }> = {
@@ -14,65 +15,70 @@ const STATUS_ICON: Record<DriverStatus, { Icon: typeof CheckCircle; color: strin
   unknown: { Icon: HelpCircle, color: "#a8a8a8" },
 };
 
-const LinuxSection = ({ compat }: LinuxSectionProps) => (
-  <div className="space-y-2">
-    <div className="flex items-center justify-between">
-      <h2 className="font-mono text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
-        Linux Compatibility
-      </h2>
-      <code className="bg-carbon-700 px-1.5 py-0.5 text-xs text-carbon-200">Kernel {compat.recommendedKernel}+</code>
-    </div>
+const LinuxSection = ({ modelId }: LinuxSectionProps) => {
+  const compat: LinuxCompatEntry | undefined = linuxCompat[modelId];
+  if (!compat) return null;
 
-    {compat.certifiedDistros.length > 0 && (
-      <div className="flex flex-wrap gap-1.5">
-        {compat.certifiedDistros.map((d) => (
-          <span key={d} className="carbon-chip-success text-xs">
-            {d}
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <h2 className="font-mono text-sm font-semibold uppercase tracking-wider" style={{ color: "var(--muted)" }}>
+          Linux Compatibility
+        </h2>
+        <code className="bg-carbon-700 px-1.5 py-0.5 text-xs text-carbon-200">Kernel {compat.recommendedKernel}+</code>
+      </div>
+
+      {compat.certifiedDistros.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {compat.certifiedDistros.map((d) => (
+            <span key={d} className="carbon-chip-success text-xs">
+              {d}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {compat.driverNotes.length > 0 && (
+        <div className="grid grid-cols-1 gap-x-4 gap-y-0.5 sm:grid-cols-2">
+          {compat.driverNotes.map((note) => {
+            const { Icon, color } = STATUS_ICON[note.status];
+            return (
+              <div
+                key={note.component}
+                className="flex items-center gap-2 py-1"
+                style={{ borderBottom: "1px solid var(--border-subtle)" }}
+              >
+                <Icon size={12} style={{ color }} className="shrink-0" />
+                <span className="text-xs font-medium" style={{ color: "var(--foreground)" }}>
+                  {note.component}
+                </span>
+                <span className="truncate text-xs" style={{ color: "var(--muted)" }}>
+                  {note.notes}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {compat.fedoraNotes && (
+        <div className="p-2" style={{ background: "var(--surface-inset)", border: "1px solid var(--border-subtle)" }}>
+          <span className="text-xs font-semibold" style={{ color: "#78aeed" }}>
+            Fedora:{" "}
           </span>
-        ))}
-      </div>
-    )}
+          <span className="text-xs" style={{ color: "#a8c8f0" }}>
+            {compat.fedoraNotes}
+          </span>
+        </div>
+      )}
 
-    {compat.driverNotes.length > 0 && (
-      <div className="grid grid-cols-1 gap-x-4 gap-y-0.5 sm:grid-cols-2">
-        {compat.driverNotes.map((note) => {
-          const { Icon, color } = STATUS_ICON[note.status];
-          return (
-            <div
-              key={note.component}
-              className="flex items-center gap-2 py-1"
-              style={{ borderBottom: "1px solid var(--border-subtle)" }}
-            >
-              <Icon size={12} style={{ color }} className="shrink-0" />
-              <span className="text-xs font-medium" style={{ color: "var(--foreground)" }}>
-                {note.component}
-              </span>
-              <span className="truncate text-xs" style={{ color: "var(--muted)" }}>
-                {note.notes}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    )}
-
-    {compat.fedoraNotes && (
-      <div className="p-2" style={{ background: "var(--surface-inset)", border: "1px solid var(--border-subtle)" }}>
-        <span className="text-xs font-semibold" style={{ color: "#78aeed" }}>
-          Fedora:{" "}
-        </span>
-        <span className="text-xs" style={{ color: "#a8c8f0" }}>
-          {compat.fedoraNotes}
-        </span>
-      </div>
-    )}
-
-    {compat.generalNotes && (
-      <p className="text-xs" style={{ color: "var(--muted)" }}>
-        {compat.generalNotes}
-      </p>
-    )}
-  </div>
-);
+      {compat.generalNotes && (
+        <p className="text-xs" style={{ color: "var(--muted)" }}>
+          {compat.generalNotes}
+        </p>
+      )}
+    </div>
+  );
+};
 
 export default LinuxSection;

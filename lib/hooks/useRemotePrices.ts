@@ -1,6 +1,6 @@
 "use client";
 /**
- * Fetches merged prices from /data/prices.json (generated at build time).
+ * Fetches prices from the Cloudflare Workers API (D1-backed).
  * Falls back to empty array on fetch failure — seed prices are always available
  * via the static import in usePrices, so no data is lost.
  *
@@ -15,29 +15,22 @@ interface RemotePricesState {
   readonly error: string | null;
 }
 
-let moduleCache: readonly SwissPrice[] | null = null;
-let moduleFetchPromise: Promise<readonly SwissPrice[]> | null = null;
+const WORKERS_API_URL =
+  process.env.NEXT_PUBLIC_WORKERS_URL ?? "https://lenovocompare-prices.franco-longstaff.workers.dev";
 
-const getBasePath = (): string => {
-  if (typeof window === "undefined") return "";
-  // Next.js injects __NEXT_DATA__ with basePath when configured
-  try {
-    const nextData = (window as unknown as Record<string, unknown>).__NEXT_DATA__ as { basePath?: string } | undefined;
-    return nextData?.basePath ?? "";
-  } catch {
-    return "";
-  }
-};
+let moduleCache: readonly SwissPrice[] | null = null;
+let moduleCacheTimestamp = 0;
+let moduleFetchPromise: Promise<readonly SwissPrice[]> | null = null;
+const CACHE_TTL_MS = 15 * 60 * 1000; // 15-minute cache TTL
 
 const fetchPrices = async (): Promise<readonly SwissPrice[]> => {
-  if (moduleCache) return moduleCache;
+  if (moduleCache && Date.now() - moduleCacheTimestamp < CACHE_TTL_MS) return moduleCache;
 
   if (moduleFetchPromise) return moduleFetchPromise;
 
   moduleFetchPromise = (async () => {
     try {
-      const basePath = getBasePath();
-      const res = await fetch(`${basePath}/data/prices.json`);
+      const res = await fetch(`${WORKERS_API_URL}/api/prices`);
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
       }
@@ -45,7 +38,18 @@ const fetchPrices = async (): Promise<readonly SwissPrice[]> => {
       if (!Array.isArray(data)) {
         throw new Error("Expected array");
       }
-      moduleCache = data as readonly SwissPrice[];
+      const validated = (data as Record<string, unknown>[]).filter(
+        (item): item is SwissPrice & Record<string, unknown> =>
+          typeof item === "object" &&
+          item !== null &&
+          typeof item.id === "string" &&
+          typeof item.laptopId === "string" &&
+          typeof item.retailer === "string" &&
+          typeof item.price === "number" &&
+          item.price > 0,
+      ) as unknown as SwissPrice[];
+      moduleCache = validated;
+      moduleCacheTimestamp = Date.now();
       return moduleCache;
     } catch (err) {
       console.warn("[useRemotePrices] Fetch failed, falling back to seed prices:", err);
@@ -67,12 +71,7 @@ export const useRemotePrices = (): RemotePricesState => {
   const didFetch = useRef(false);
 
   useEffect(() => {
-    if (didFetch.current || moduleCache) {
-      if (moduleCache && state.loading) {
-        setState({ prices: moduleCache, loading: false, error: null });
-      }
-      return;
-    }
+    if (didFetch.current || moduleCache) return;
     didFetch.current = true;
 
     fetchPrices().then(
@@ -84,7 +83,7 @@ export const useRemotePrices = (): RemotePricesState => {
           error: err instanceof Error ? err.message : "Unknown error",
         }),
     );
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return state;
 };
@@ -92,5 +91,6 @@ export const useRemotePrices = (): RemotePricesState => {
 /** Reset module cache — for testing only */
 export const _resetCache = () => {
   moduleCache = null;
+  moduleCacheTimestamp = 0;
   moduleFetchPromise = null;
 };

@@ -64,7 +64,7 @@ const BuyWaitSignal = ({ model, baseline, bestPrice, signal }: BuyWaitSignalProp
             <span className="w-14 text-right font-mono text-[10px] text-status-success">
               {formatCHF(baseline.historicalLow)}
             </span>
-            <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-carbon-600/60">
+            <div className="bg-carbon-600/60 relative h-1.5 flex-1 overflow-hidden rounded-full">
               <div
                 className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
                 style={{
@@ -74,7 +74,7 @@ const BuyWaitSignal = ({ model, baseline, bestPrice, signal }: BuyWaitSignalProp
               />
               {range > 0 && (
                 <div
-                  className="absolute top-0 h-full w-px bg-carbon-300/40"
+                  className="bg-carbon-300/40 absolute top-0 h-full w-px"
                   style={{
                     left: `${Math.max(0, Math.min(100, ((baseline.msrp - baseline.typicalRetail) / range) * 100))}%`,
                   }}

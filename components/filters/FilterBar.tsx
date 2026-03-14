@@ -33,16 +33,18 @@ export const FilterBar = ({
   onUpdateFilter,
 }: FilterBarProps) => {
   const [expanded, setExpanded] = useState(false);
-  const hasActiveFilters =
-    filters.search ||
-    filters.lineup.length > 0 ||
-    filters.series.length > 0 ||
-    filters.minPrice !== null ||
-    filters.maxPrice !== null ||
-    filters.maxWeight !== null ||
-    filters.ramMin !== null ||
-    filters.year !== null ||
-    filters.minScreenSize !== null;
+  const activeFilterCount = [
+    filters.search,
+    filters.lineup.length > 0,
+    filters.series.length > 0,
+    filters.minPrice !== null,
+    filters.maxPrice !== null,
+    filters.maxWeight !== null,
+    filters.ramMin !== null,
+    filters.year !== null,
+    filters.minScreenSize !== null,
+  ].filter(Boolean).length;
+  const hasActiveFilters = activeFilterCount > 0;
 
   return (
     <div className="space-y-3">
@@ -59,6 +61,11 @@ export const FilterBar = ({
             aria-controls="filter-panel"
           >
             Filters
+            {activeFilterCount > 0 && (
+              <span className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-white">
+                {activeFilterCount}
+              </span>
+            )}
             {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
           </button>
           {hasActiveFilters && (
@@ -73,7 +80,7 @@ export const FilterBar = ({
         <LineupFilter selected={filters.lineup} onToggle={onToggleLineup} />
         <div className="flex items-center justify-between">
           <SeriesFilter selected={filters.series} selectedLineups={filters.lineup} onToggle={onToggleSeries} />
-          <span className="text-sm" style={{ color: "var(--muted)" }}>
+          <span className="text-sm" style={{ color: "var(--muted)" }} role="status" aria-live="polite">
             {resultCount} model{resultCount !== 1 ? "s" : ""}
           </span>
         </div>

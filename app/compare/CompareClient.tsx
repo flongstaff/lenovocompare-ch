@@ -236,7 +236,20 @@ const ComparePageContent = () => {
 };
 
 const CompareClient = () => (
-  <Suspense fallback={<div className="py-16 text-center text-carbon-400">Loading...</div>}>
+  <Suspense
+    fallback={
+      <div className="animate-fade-in space-y-6">
+        <div>
+          <h1 className="mt-2 text-2xl font-bold" style={{ color: "var(--foreground)" }}>
+            Compare Models
+          </h1>
+          <p className="mt-1 text-sm" style={{ color: "var(--muted)" }}>
+            Loading comparison&hellip;
+          </p>
+        </div>
+      </div>
+    }
+  >
     <ComparePageContent />
   </Suspense>
 );

@@ -5,17 +5,23 @@ import { MAX_COMPARE } from "@/lib/constants";
 
 interface CompareFloatingBarProps {
   readonly count: number;
+  readonly modelNames: readonly string[];
   readonly onClear: () => void;
 }
 
-export const CompareFloatingBar = ({ count, onClear }: CompareFloatingBarProps) => (
+export const CompareFloatingBar = ({ count, modelNames, onClear }: CompareFloatingBarProps) => (
   <div className="animate-floating-bar-in glass-bar fixed bottom-5 left-1/2 z-40 flex items-center gap-3 px-5 py-3">
     <GitCompareArrows size={18} className="text-accent-light" />
     <span className="text-sm font-medium text-carbon-100">
       <span className="font-mono text-accent-light">{count}</span>
       <span className="mx-1 text-carbon-400">/</span>
       <span className="font-mono text-carbon-400">{MAX_COMPARE}</span>
-      <span className="ml-1.5 text-carbon-400">selected</span>
+      {modelNames.length > 0 && (
+        <span className="ml-1.5 hidden text-carbon-400 sm:inline" title={modelNames.join(", ")}>
+          {modelNames.slice(0, 2).join(", ")}
+          {modelNames.length > 2 && ` +${modelNames.length - 2}`}
+        </span>
+      )}
     </span>
     <Link href="/compare" className="carbon-btn !px-4 !py-1.5 text-sm" aria-label="Go to comparison page">
       Compare
