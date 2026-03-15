@@ -66,6 +66,9 @@ scripts/psref-data.json
 # Generated price data (built from seed + community)
 public/data/prices.json
 
+# Deal scanner snapshots (local-only monitor data)
+data/price-snapshots/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

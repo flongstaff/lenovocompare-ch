@@ -9,7 +9,7 @@
  *   Reviews: NotebookCheck, LaptopMedia
  *   Specs: PSREF (with search fallback)
  *
- * No scraping — outbound search links only.
+ * No automated data collection — outbound search links only.
  */
 import type { Laptop } from "./types";
 
@@ -49,7 +49,7 @@ export const getRefurbishedLinks = (model: Laptop): readonly RetailerLink[] => [
   },
 ];
 
-/** Marketplaces — user-to-user listings, not crawlable. Search links only. */
+/** Marketplaces — user-to-user listings, outbound search links only. Tutti ToS prohibits automated access. */
 export const getMarketplaceLinks = (model: Laptop): readonly RetailerLink[] => [
   { name: "Ricardo", url: `https://www.ricardo.ch/de/s/${enc(model.name)}`, category: "marketplace" },
   { name: "Tutti", url: `https://www.tutti.ch/de/q/${enc(model.name)}`, category: "marketplace" },

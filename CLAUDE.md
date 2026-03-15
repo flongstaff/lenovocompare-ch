@@ -14,6 +14,8 @@ npm run build    # Production build — run after major logic changes
 npm run lint     # ESLint
 npm test         # Vitest unit tests (formatters, scoring, data integrity)
 npm run validate # Data integrity validation (all 9 data files)
+npm run scan-deals:demo  # Deal scanner with demo data (no network)
+npm run scan-deals       # Deal scanner (Ricardo.ch, robots.txt-compliant)
 npx prettier --check .  # Check formatting (auto-runs via hook on edits)
 docker compose up  # Dev server via Docker on :3000
 ```
@@ -122,10 +124,12 @@ Exa is a paid API. **Always try free alternatives first**, only escalate to Exa 
 
 ## Legal
 
-- No web scraping of retailers
+- No automated data collection from retailers (Digitec, Galaxus, Brack, Interdiscount, Toppreise, Lenovo — all block automated access in robots.txt)
+- Deal scanner (`scan-deals`) uses Ricardo.ch only — robots.txt allows plain search paths; polite delays, honest User-Agent, no query params
+- Tutti.ch excluded from scanner — ToS §3 explicitly prohibits automated data collection
 - PSREF specs are public product reference data
 - CPU benchmarks from publicly available aggregate data
-- All pricing is user-contributed
+- All pricing is user-contributed (localStorage + seed prices)
 - Review links are outbound only
 - Full data source attribution in README.md Data Sources section and Footer.tsx trademark notice
 - Project follows [Contributor Covenant v2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) — see CODE_OF_CONDUCT.md

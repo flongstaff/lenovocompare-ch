@@ -33,6 +33,9 @@
     "scrape-psref": "tsx scripts/scrape-psref.ts",
     "merge-psref": "tsx scripts/merge-psref.ts",
     "verify-deals": "tsx scripts/verify-deals.ts",
+    "scan-deals": "tsx scripts/scan-deals.ts",
+    "scan-deals:demo": "tsx scripts/scan-deals.ts --demo",
+    "scan-deals:monitor": "tsx scripts/scan-deals.ts --monitor",
     "test": "vitest run",
     "test:watch": "vitest",
     "analyze": "ANALYZE=true npm run build"
@@ -52,6 +55,8 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cheerio": "^1.2.0",
+    "commander": "^13.1.0",
     "eslint": "^9",
     "eslint-config-next": "^16.1.6",
     "jsdom": "^28.1.0",

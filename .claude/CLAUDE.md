@@ -19,6 +19,8 @@ npm run validate         # Data validation
 npm run scrape-psref     # Scrape PSREF data
 npm run generate-prices  # Generate price data
 npm run fetch-ope-prices # Fetch OPE prices
+npm run scan-deals:demo  # Deal scanner (demo data, no network)
+npm run scan-deals       # Deal scanner (Ricardo.ch live)
 ```
 
 ## Architecture
