@@ -48,7 +48,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^16.1.6",
+    "@next/bundle-analyzer": "^16.2.1",
     "@playwright/test": "^1.58.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -58,7 +58,7 @@
     "cheerio": "^1.2.0",
     "commander": "^13.1.0",
     "eslint": "^9",
-    "eslint-config-next": "^16.1.6",
+    "eslint-config-next": "^16.2.1",
     "jsdom": "^28.1.0",
     "playwright": "^1.58.2",
     "postcss": "^8",
