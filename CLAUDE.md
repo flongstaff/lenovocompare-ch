@@ -17,7 +17,6 @@ npm run validate # Data integrity validation (all 9 data files)
 npm run scan-deals:demo  # Deal scanner with demo data (no network)
 npm run scan-deals       # Deal scanner (Ricardo.ch, robots.txt-compliant)
 npx prettier --check .  # Check formatting (auto-runs via hook on edits)
-docker compose up  # Dev server via Docker on :3000
 ```
 
 Vitest is configured for unit tests. Run `npm test` for formatters, scoring, and data integrity checks. Use `npm run build` as the full verification step.

@@ -52,14 +52,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-### Docker
-
-```bash
-docker compose up
-```
-
-Dev server runs on port 3000.
-
 ### Commands
 
 ```bash
